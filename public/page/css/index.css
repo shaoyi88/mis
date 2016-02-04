@@ -1,0 +1,10 @@
+@CHARSET "UTF-8";
+.navbar {
+	padding:10px;
+}
+.navbar-brand{
+	font-size:18px;
+}
+.page{
+	margin-top:100px;
+}
