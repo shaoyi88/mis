@@ -2,5 +2,6 @@
 .buildpath
 .project
 .settings/*
-app_application/views/templates_c/*
+mis_application/views/templates_c/*
 logs/*
+upload/*

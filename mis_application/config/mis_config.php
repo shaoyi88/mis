@@ -8,6 +8,14 @@ $config['menus'] = array(
 			array('系统用户管理', formatUrl('admin/index'), 'admin_list'),
 		),
 		'right' => 'sys'
+	),
+	array(
+		'module' => '信息管理',
+		'menu' => array(
+			array('资讯类别管理', formatUrl('article/type'), 'article_type'),
+			array('资讯管理', formatUrl('article/index'), 'article_list'),
+		),
+		'right' => 'information'
 	)
 );
 
@@ -25,5 +33,19 @@ $config['rights'] = array(
 			array('系统用户删除', 'admin_del'),
 		),
 		'right' => 'sys'
+	),
+	array(
+		'module' => '信息管理',
+		'roles' => array(
+			array('资讯类别列表', 'article_type_list'),
+			array('资讯类别增加', 'article_type_add'),
+			array('资讯类别编辑', 'article_type_edit'),
+			array('资讯类别删除', 'article_type_del', TRUE),
+			array('资讯列表', 'article_list'),
+			array('资讯增加', 'article_add'),
+			array('资讯编辑', 'article_edit'),
+			array('资讯删除', 'article_del'),
+		),
+		'right' => 'information'
 	)
 );
