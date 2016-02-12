@@ -7,7 +7,7 @@
 <div class="pd-20">
 	<form class="Huiform" action="{formatUrl('admin/index')}" method="get">
 		<div class="text-c"> 
-			<input type="text" value="{$keyword}" class="input-text" style="width:250px" placeholder="输入管理员名称" id="" name="keyword">
+			<input type="text" value="{$keyword}" class="input-text" style="width:250px" placeholder="输入管理员名称/管理员账户" id="" name="keyword">
 			<button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜管理员</button>
 		</div>
 	</form>
