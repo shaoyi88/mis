@@ -4,23 +4,74 @@
  */
 $config['menus'] = array(
 	array(
-		'module' => '系统管理',
+		'module' => '工作台',
+		'menu' => array(
+			array('活动审批', formatUrl('home/welcome'), ''),
+			array('企业审批', formatUrl('home/welcome'), ''),
+			array('物业服务', formatUrl('home/welcome'), ''),
+			array('企业服务', formatUrl('home/welcome'), ''),
+		),
+		'right' => 'workbench'
+	),
+	array(
+		'module' => '招商管理',
+		'menu' => array(
+			array('潜在客户管理', formatUrl('home/welcome'), ''),
+			array('入驻企业管理', formatUrl('home/welcome'), ''),
+		),
+		'right' => 'investment'
+	),
+	array(
+		'module' => '用户管理',
 		'menu' => array(
 			array('系统分组管理', formatUrl('role/index'), 'role_list'),
 			array('系统用户管理', formatUrl('admin/index'), 'admin_list'),
 			array('园区用户管理', formatUrl('user/index'), 'user_list'),
-			array('投诉建议管理', formatUrl('feedback/index'), 'feedback_list'),
 		),
-		'right' => 'sys'
+		'right' => 'user'
+	),
+	array(
+		'module' => '楼宇管理',
+		'menu' => array(
+			array('楼宇类型管理', formatUrl('home/welcome'), ''),
+			array('楼宇信息管理', formatUrl('home/welcome'), ''),
+		),
+		'right' => 'building'
+	),
+	array(
+		'module' => '企业服务',
+		'menu' => array(
+			array('公共资源管理', formatUrl('home/welcome'), ''),
+			array('项目需求管理', formatUrl('home/welcome'), ''),
+		),
+		'right' => 'business'
+	),
+	array(
+		'module' => '物业服务',
+		'menu' => array(
+			array('物业信息管理', formatUrl('home/welcome'), ''),
+			array('物业办理', formatUrl('home/welcome'), ''),
+		),
+		'right' => 'property'
 	),
 	array(
 		'module' => '信息管理',
 		'menu' => array(
 			array('资讯类别管理', formatUrl('article/type'), 'article_type'),
 			array('资讯管理', formatUrl('article/index'), 'article_list'),
+			array('园区活动管理', formatUrl('activity/index'), 'activity_list'),
+			array('文档管理', formatUrl('netdisk/index'), 'dir_list'),
 		),
 		'right' => 'information'
-	)
+	),
+	array(
+		'module' => '系统管理',
+		'menu' => array(
+			array('系统配置', formatUrl('home/welcome'), ''),
+			array('投诉建议管理', formatUrl('feedback/index'), 'feedback_list'),
+		),
+		'right' => 'sys'
+	),
 );
 
 /*
@@ -28,7 +79,19 @@ $config['menus'] = array(
  */
 $config['rights'] = array(
 	array(
-		'module' => '系统管理',
+		'module' => '工作台',
+		'roles' => array(
+		),
+		'right' => 'workbench'
+	),
+	array(
+		'module' => '招商管理',
+		'roles' => array(
+		),
+		'right' => 'investment'
+	),
+	array(
+		'module' => '用户管理',
 		'roles' => array(
 			array('系统分组列表', 'role_list'),
 			array('系统分组增加', 'role_add'),
@@ -41,11 +104,27 @@ $config['rights'] = array(
 			array('园区用户列表', 'user_list'),
 			array('园区用户增加', 'user_add'),
 			array('园区用户编辑', 'user_edit'),
-			array('园区用户删除', 'user_del', TRUE),
-			array('投诉建议列表', 'feedback_list'),
-			array('投诉建议回复', 'feedback_reply')
+			array('园区用户删除', 'user_del', TRUE)
 		),
-		'right' => 'sys'
+		'right' => 'user'
+	),
+	array(
+		'module' => '楼宇管理',
+		'roles' => array(
+		),
+		'right' => 'building'
+	),
+	array(
+		'module' => '企业服务',
+		'roles' => array(
+		),
+		'right' => 'business'
+	),
+	array(
+		'module' => '物业服务',
+		'roles' => array(
+		),
+		'right' => 'property'
 	),
 	array(
 		'module' => '信息管理',
@@ -57,9 +136,20 @@ $config['rights'] = array(
 			array('资讯列表', 'article_list'),
 			array('资讯增加', 'article_add'),
 			array('资讯编辑', 'article_edit'),
-			array('资讯删除', 'article_del'),
+			array('资讯删除', 'article_del', TRUE),
+			array('园区活动列表', 'activity_list'),
+			array('文档列表', 'dir_list')
 		),
 		'right' => 'information'
+	),
+	array(
+		'module' => '系统管理',
+		'roles' => array(
+			
+			array('投诉建议列表', 'feedback_list'),
+			array('投诉建议回复', 'feedback_reply')
+		),
+		'right' => 'sys'
 	)
 );
 

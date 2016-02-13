@@ -1,4 +1,4 @@
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i>  系统管理 <span class="c-gray en">&gt;</span> <a href="{formatUrl('admin/index')}">系统用户管理</a> <span class="c-gray en">&gt;</span> {$typeMsg}</nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i>  用户管理 <span class="c-gray en">&gt;</span> <a href="{formatUrl('admin/index')}">系统用户管理</a> <span class="c-gray en">&gt;</span> {$typeMsg}</nav>
 <div class="pd-20">
 	<form class="Huiform" id="form-role-add" action="{formatUrl('admin/doAdd')}" method="post">
 		{if isset($info)}
