@@ -15,7 +15,7 @@
 <link href="/public/mis/css/admin.css" rel="stylesheet" type="text/css" />
 <link href="/public/common/css/lib-iconfont/iconfont.css" rel="stylesheet" type="text/css" />
 <link href="/public/skin/default/skin.css" rel="stylesheet" type="text/css" />
-<title>管理主页</title>
+<title>{$website_title}管理系统</title>
 </head>
 <body>
 <script type="text/javascript" src="/public/common/js/jquery.min.js"></script>

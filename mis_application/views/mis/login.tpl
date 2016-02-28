@@ -14,7 +14,7 @@
 <link href="/public/common/css/lib.css" rel="stylesheet" type="text/css" />
 <link href="/public/mis/css/login.css" rel="stylesheet" type="text/css" />
 <link href="/public/common/css/lib-iconfont/iconfont.css" rel="stylesheet" type="text/css" />
-<title>系统登录</title>
+<title>{$website_title}登录</title>
 </head>
 <body>
 {if isset($msg)}
@@ -45,7 +45,7 @@
     </form>
   </div>
 </div>
-<div class="footer">Copyright © 管理系统</div>
+<div class="footer">Copyright © {$website_copyright} {$website_record_no}</div>
 <script type="text/javascript" src="/public/common/js/jquery.min.js"></script> 
 <script type="text/javascript" src="/public/common/js/lib.js"></script> 
 <script type="text/javascript" src="/public/common/js/Validform_v5.3.2.js"></script>

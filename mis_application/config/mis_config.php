@@ -67,7 +67,7 @@ $config['menus'] = array(
 	array(
 		'module' => '系统管理',
 		'menu' => array(
-			array('系统配置', formatUrl('home/welcome'), ''),
+			array('系统配置', formatUrl('sys/index'), 'sys_config'),
 			array('投诉建议管理', formatUrl('feedback/index'), 'feedback_list'),
 		),
 		'right' => 'sys'
@@ -150,7 +150,7 @@ $config['rights'] = array(
 	array(
 		'module' => '系统管理',
 		'roles' => array(
-			
+			array('系统配置', 'sys_config'),
 			array('投诉建议列表', 'feedback_list'),
 			array('投诉建议回复', 'feedback_reply')
 		),
@@ -199,4 +199,16 @@ $config['activity_audit_type'] = array(
 	'0' => '待审核',
 	'1' => '审核通过',
 	'2' => '审核拒绝'
+);
+
+/**
+ * 
+ * 系统默认设置
+ */
+$config['default_sys_config'] = array(
+	'website_title' => '中兴－松山湖融易园区信息平台',
+	'website_keyword' => '关键词',
+	'website_desc' => '描述',
+	'website_copyright' => '2016 xxx.com. All rights reserved',
+	'website_record_no' => '京ICP备XXX'
 );

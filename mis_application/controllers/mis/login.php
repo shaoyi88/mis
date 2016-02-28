@@ -19,6 +19,12 @@ class Login extends MIS_Controller
 			$data['msg'] =  $this->input->get('msg');
 		}
 		$data['layout'] = FALSE; //不使用layout文件
+		$this->load->model('MIS_Sys');
+		$info = $this->MIS_Sys->getInfo();
+		$defaultConfig = $this->config->item('default_sys_config');
+		$data['website_title'] = isset($info['website_title']) && $info['website_title'] ? $info['website_title'] : $defaultConfig['website_title'];
+		$data['website_copyright'] = isset($info['website_copyright']) && $info['website_copyright'] ? $info['website_copyright'] : $defaultConfig['website_copyright'];
+		$data['website_record_no'] = isset($info['website_record_no']) && $info['website_record_no'] ? $info['website_record_no'] : $defaultConfig['website_record_no'];
 		$this->showView('login', $data);
 	}
 
