@@ -110,7 +110,7 @@ function checkRight($key)
  * @param unknown_type $offset
  * @param unknown_type $pageUrl
  */
-function page($baseUrl, $totalNum, $perNum, &$offset, &$pageUrl)
+function page($baseUrl, $totalNum, $perNum, &$offset, &$pageUrl, $query_string_segment=NULL)
 {
 	$ci =& get_instance();
 	$ci->load->library('pagination');
@@ -126,9 +126,12 @@ function page($baseUrl, $totalNum, $perNum, &$offset, &$pageUrl)
 	$config['next_link'] = '下一页&gt;';
 	$config['first_link'] = '首页';
 	$config['last_link'] = '末页';
+	if($query_string_segment !== NULL){
+		$config['query_string_segment'] = $query_string_segment;
+	}
 	$ci->pagination->initialize($config);
 	$pageUrl = $ci->pagination->create_links();
-
+	
 	$curPage = 1;
 	if($ci->input->get('per_page')){
 		$curPage = $ci->input->get('per_page');

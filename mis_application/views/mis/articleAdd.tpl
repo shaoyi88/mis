@@ -25,7 +25,7 @@
           			 	<input nullmsg="资讯标题不能为空！" datatype="*"  name="article_title" type="text" class="input-text" id="article_title" value="{if isset($info)}{$info['article_title']}{/if}" >
           			 </td>
         		</tr>
-        			<tr>
+        		<tr>
           		     <th class="text-r" width="90">资讯内容<span class="c-red">*</span></th>
           			 <td>
           			 	<textarea style="width:1000px;height:240px;" name="article_content" cols="" rows="" class="textarea" id="article_content" nullmsg="资讯内容不能为空！" datatype="*">{if isset($info)}{$info['article_content']}{/if}</textarea>

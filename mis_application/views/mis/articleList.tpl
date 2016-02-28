@@ -56,6 +56,7 @@
       		</tbody>
       	</table>
 	 {/if}
+	 {if isset($pageUrl)}{$pageUrl}{/if}
 </div>
 <script type="text/javascript" src="/public/mis/js/article.js""></script>
 <input type="hidden" id="delUrl" value="{formatUrl('article/doDel')}"></input>

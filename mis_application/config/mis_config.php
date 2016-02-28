@@ -138,6 +138,11 @@ $config['rights'] = array(
 			array('资讯编辑', 'article_edit'),
 			array('资讯删除', 'article_del', TRUE),
 			array('园区活动列表', 'activity_list'),
+			array('园区活动添加', 'activity_add'),
+			array('园区活动删除', 'activity_del'),
+			array('园区活动审核', 'activity_audit'),
+			array('园区活动报名删除', 'activity_register_del'),
+			array('园区活动评论删除', 'activity_comment_del', TRUE),
 			array('文档列表', 'dir_list')
 		),
 		'right' => 'information'
@@ -185,4 +190,13 @@ $config['user_audit_type'] = array(
 	'1' => '待审核',
 	'2' => '审核通过',
 	'3' => '审核拒绝'
+);
+
+/**
+ * 活动审核状态
+ */
+$config['activity_audit_type'] = array(
+	'0' => '待审核',
+	'1' => '审核通过',
+	'2' => '审核拒绝'
 );

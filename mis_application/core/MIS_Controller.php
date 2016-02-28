@@ -22,7 +22,6 @@ class MIS_Controller extends CI_Controller
 	public function _remap($method, $params = array())
 	{
 		register_shutdown_function(array($this, 'handleFatalError'));
-		declare(encoding='UTF-8');
 		mb_internal_encoding("UTF-8");
 		
 		$rtr =& load_class('Router', 'core');
