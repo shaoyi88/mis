@@ -20,6 +20,9 @@ class Sys extends MIS_Controller
 		if(!empty($info)){
 			$data['info'] = $info;
 		}
+		if($this->input->get('msg')){
+			$data['msg'] = $this->input->get('msg');
+		}
 		$this->showView('sysConfig', $data);
 	}
 	
@@ -37,6 +40,6 @@ class Sys extends MIS_Controller
 		}else{
 			$this->MIS_Sys->add($data);
 		}
-		redirect(formatUrl('sys/index'));
+		redirect(formatUrl('sys/index?msg=').urlencode('保存成功'));
 	}
 }

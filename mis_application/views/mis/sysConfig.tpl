@@ -1,4 +1,9 @@
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 系统管理<span class="c-gray en">&gt;</span> 系统配置 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+{if isset($msg)}
+<div class="header">
+	<div class="Huialert Huialert-danger"><i class="icon-remove"></i>{$msg}</div>
+</div>
+{/if}
 <div class="pd-20">
 	<form class="Huiform" id="form-role-add" action="{formatUrl('sys/doConfig')}" method="post">
 		<table class="table table-bg">
