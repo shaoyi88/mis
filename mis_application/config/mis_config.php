@@ -6,18 +6,18 @@ $config['menus'] = array(
 	array(
 		'module' => '工作台',
 		'menu' => array(
-			array('活动审批', formatUrl('home/welcome'), ''),
-			array('企业审批', formatUrl('home/welcome'), ''),
-			array('物业服务', formatUrl('home/welcome'), ''),
-			array('企业服务', formatUrl('home/welcome'), ''),
+			array('活动审批', formatUrl('home/coding'), ''),
+			array('企业审批', formatUrl('home/coding'), ''),
+			array('物业服务', formatUrl('home/coding'), ''),
+			array('企业服务', formatUrl('home/coding'), ''),
 		),
 		'right' => 'workbench'
 	),
 	array(
 		'module' => '招商管理',
 		'menu' => array(
-			array('潜在客户管理', formatUrl('home/welcome'), ''),
-			array('入驻企业管理', formatUrl('home/welcome'), ''),
+			array('潜在客户管理', formatUrl('home/coding'), ''),
+			array('入驻企业管理', formatUrl('home/coding'), ''),
 		),
 		'right' => 'investment'
 	),
@@ -33,24 +33,24 @@ $config['menus'] = array(
 	array(
 		'module' => '楼宇管理',
 		'menu' => array(
-			array('楼宇类型管理', formatUrl('home/welcome'), ''),
-			array('楼宇信息管理', formatUrl('home/welcome'), ''),
+			array('楼宇类型管理', formatUrl('home/coding'), ''),
+			array('楼宇信息管理', formatUrl('home/coding'), ''),
 		),
 		'right' => 'building'
 	),
 	array(
 		'module' => '企业服务',
 		'menu' => array(
-			array('公共资源管理', formatUrl('home/welcome'), ''),
-			array('项目需求管理', formatUrl('home/welcome'), ''),
+			array('公共资源管理', formatUrl('home/coding'), ''),
+			array('项目需求管理', formatUrl('home/coding'), ''),
 		),
 		'right' => 'business'
 	),
 	array(
 		'module' => '物业服务',
 		'menu' => array(
-			array('物业信息管理', formatUrl('home/welcome'), ''),
-			array('物业办理', formatUrl('home/welcome'), ''),
+			array('物业信息管理', formatUrl('home/coding'), ''),
+			array('物业办理', formatUrl('home/coding'), ''),
 		),
 		'right' => 'property'
 	),
@@ -60,9 +60,18 @@ $config['menus'] = array(
 			array('资讯类别管理', formatUrl('article/type'), 'article_type'),
 			array('资讯管理', formatUrl('article/index'), 'article_list'),
 			array('园区活动管理', formatUrl('activity/index'), 'activity_list'),
-			array('文档管理', formatUrl('netdisk/index'), 'dir_list'),
+			array('文档管理', formatUrl('home/coding'), ''),
 		),
 		'right' => 'information'
+	),
+	array(
+		'module' => '俱乐部管理',
+		'menu' => array(
+			array('会员管理', formatUrl('home/coding'), ''),
+			array('活动管理', formatUrl('home/coding'), ''),
+			array('产品管理', formatUrl('home/coding'), ''),
+		),
+		'right' => 'club'
 	),
 	array(
 		'module' => '系统管理',

@@ -51,4 +51,13 @@ class Home extends MIS_Controller
 		$data['userName'] = $this->userName;
 		$this->showView('welcome', $data);
 	}
+	
+	/**
+	 * 开发中页面
+	 */
+	public function coding()
+	{
+		$data = array();
+		$this->showView('coding', $data);
+	}
 }
