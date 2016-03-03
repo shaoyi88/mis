@@ -215,9 +215,9 @@ $config['activity_audit_type'] = array(
  * 系统默认设置
  */
 $config['default_sys_config'] = array(
-	'website_title' => '中兴－松山湖融易园区信息平台',
+	'website_title' => '融易创新园区信息平台',
 	'website_keyword' => '关键词',
 	'website_desc' => '描述',
 	'website_copyright' => '2016 xxx.com. All rights reserved',
-	'website_record_no' => '京ICP备XXX'
+	'website_record_no' => '粤ICP备XXX'
 );

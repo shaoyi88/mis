@@ -64,6 +64,10 @@
 <body class="bg-steel">
     <div class="app-bar fixed-top darcula header-background" data-role="appbar">
         <span class="app-bar-element branding">用户控制台</span>
+        <span class="app-bar-divider" style="background:#87794E;"></span>
+        <ul class="app-bar-menu">
+        <li><a href="{formatUrl('home/')}">园区首页</a></li>
+        </ul>
 
         <div class="app-bar-element place-right">
             <span class="dropdown-toggle"><span class="mif-cog"></span>用户名</span>
@@ -72,7 +76,7 @@
                 <ul class="unstyled-list fg-dark">
                     <li><a href="" class="fg-white1 fg-hover-yellow">账户设置</a></li>
                     <li><a href="" class="fg-white2 fg-hover-yellow">密码设置</a></li>
-                    <li><a href="" class="fg-white3 fg-hover-yellow">退出</a></li>
+                    <li><a href="{formatUrl('home/logout')}" class="fg-white3 fg-hover-yellow">退出</a></li>
                 </ul>
             </div>
         </div>

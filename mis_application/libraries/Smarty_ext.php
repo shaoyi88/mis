@@ -86,6 +86,18 @@ class Smarty_ext extends Smarty
 				$this->assign($key, $val, TRUE);
 			}
 		}
+		$ci =& get_instance();
+		$userinfo = array();
+	    $userinfo['userId'] = $ci->userId = $ci->session->userdata('user_id'); 
+	    $userinfo['userName'] = $ci->userName = $ci->session->userdata('user_name');
+		$this->assign('userinfo', $userinfo, TRUE);
+		$ci->load->model('MIS_Sys');
+		$info = $ci->MIS_Sys->getInfo();
+		$defaultConfig = $ci->config->item('default_sys_config');
+		$web['website_title'] = isset($info['website_title']) && $info['website_title'] ? $info['website_title'] : $defaultConfig['website_title'];
+		$web['website_copyright'] = isset($info['website_copyright']) && $info['website_copyright'] ? $info['website_copyright'] : $defaultConfig['website_copyright'];
+		$web['website_record_no'] = isset($info['website_record_no']) && $info['website_record_no'] ? $info['website_record_no'] : $defaultConfig['website_record_no'];
+		$this->assign('web', $web, TRUE);
 		$this->_renderLayout($template, $dir, $data);
 	}
 	
