@@ -138,3 +138,20 @@ function page($baseUrl, $totalNum, $perNum, &$offset, &$pageUrl, $query_string_s
 	}
 	$offset = ($curPage-1)*$perNum;
 }
+
+//object转化为array
+function object_array($array)
+{
+	if(is_object($array))
+	{
+		$array = (array)$array;
+	}
+	if(is_array($array))
+	{
+		foreach($array as $key=>$value)
+		{
+			$array[$key] = object_array($value);
+		}
+	}
+	return $array;
+}

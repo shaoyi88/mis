@@ -132,4 +132,22 @@ class MIS_User extends CI_Model
 		}
 		return $info;
 	}
+	
+	/**
+	 *
+	 * 校验用户
+	 * @param unknown_type $userAccount
+	 * @param unknown_type $userPassword
+	 */
+	public function checkUser($userAccount, $userPassword)
+	{
+		$query = $this->db->get_where($this->_table, array('user_account' => $userAccount));
+		if($query){
+			$info = $query->row_array();
+			if(!empty($info) && md5($userPassword) == $info['user_password']){
+				return $info;
+			}
+		}
+		return FALSE;
+	}
 }
