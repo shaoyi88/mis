@@ -21,11 +21,16 @@
             <div class="container">
                 <div class="place-right">
                     <ul class="horizontal-menu compact navbar">
-                    <li><a href="#">注册</a></li>
+                    {if $userinfo['userId']}
+                    <li><a href="javascript:">欢迎您，</a></li>
+                    <li><a href="javascript:">{$userinfo['userName']}</a></li>
+                    {else}
+                    <li><a href="javascript:">注册</a></li>
                     <li><a href="{formatUrl('login/')}">登录</a></li>
-                    <li><a href="#">用户中心</a></li>
+                    {/if}
+                    <li><a href="{formatUrl('myhome/')}">用户中心</a></li>
                     <li>
-                        <a href="#" class="dropdown-toggle">网站导航</a>
+                        <a href="javascript:" class="dropdown-toggle">网站导航</a>
                         <ul class="d-menu" data-role="dropdown">
                         <li><a href="#">办事大厅</a></li>
                         <li><a href="#">企业风采</a></li>
@@ -41,7 +46,7 @@
                         </div>
                     </form>
                 </div>
-                <a class="place-left rylogo" href="#" title="">
+                <a class="place-left rylogo" href="{formatUrl('home/')}" title="">
                     <h1></h1>
                 </a>
             </div>
@@ -53,8 +58,8 @@
     <footer>
             <div class="bottom-menu-wrapper">
                 <ul class="horizontal-menu compact footer-text">
-                    <li><a href="#">&copy; 融易集团</a></li>
-                    <li class="place-right"><a href="#">备案号</a></li>
+                    <li><a href="http://www.ry168.cn/">©{$web['website_copyright']}</a></li>
+                    <li class="place-right"><a href="http://www.miitbeian.gov.cn/">{$web['website_record_no']}</a></li>
                     <li class="place-right"><a href="#">合作单位</a></li>
                     <li class="place-right"><a href="#">建议</a></li>
                     <li class="place-right"><a href="#">帮助</a></li>
