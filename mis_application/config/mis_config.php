@@ -67,9 +67,9 @@ $config['menus'] = array(
 	array(
 		'module' => '俱乐部管理',
 		'menu' => array(
-			array('会员管理', formatUrl('home/coding'), ''),
-			array('活动管理', formatUrl('home/coding'), ''),
-			array('产品管理', formatUrl('home/coding'), ''),
+			array('会员管理', formatUrl('club/userList'), 'club_userList'),
+			array('活动管理', formatUrl('club/activityList'), 'club_activityList'),
+			array('产品管理', formatUrl('club/productList'), 'club_productList'),
 		),
 		'right' => 'club'
 	),
@@ -155,6 +155,24 @@ $config['rights'] = array(
 			array('文档列表', 'dir_list')
 		),
 		'right' => 'information'
+	),
+	array(
+		'module' => '俱乐部管理',
+		'roles' => array(
+			array('俱乐部用户列表', 'club_userList'),
+			array('俱乐部用户增加', 'club_userAdd'),
+			array('俱乐部用户编辑', 'club_userEdit'),
+			array('俱乐部用户删除', 'club_userDel', TRUE),
+			array('俱乐部活动列表', 'club_activityList'),
+			array('俱乐部活动增加', 'club_activityAdd'),
+			array('俱乐部活动编辑', 'club_activityEdit'),
+			array('俱乐部活动删除', 'club_activityDel', TRUE),
+			array('俱乐部产品列表', 'club_productList'),
+			array('俱乐部产品增加', 'club_productAdd'),
+			array('俱乐部产品编辑', 'club_productEdit'),
+			array('俱乐部产品删除', 'club_productDel', TRUE)
+		),
+		'right' => 'club'
 	),
 	array(
 		'module' => '系统管理',
