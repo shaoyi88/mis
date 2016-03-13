@@ -33,7 +33,7 @@ class User extends MIS_Controller
 		$data['dataList'] = $dataList;
 		$data['keyword'] = $keyword;
 		$data['user_type'] = $this->config->item('user_type');
-		$data['user_audit_type'] = $this->config->item('user_audit_type');
+		$data['user_second_type'] = $this->config->item('user_second_type');		
 		$this->showView('userList', $data);
 	}
 	
@@ -45,6 +45,7 @@ class User extends MIS_Controller
 	{
 		$data = array();
 		$data['user_type'] = $this->config->item('user_type');
+		$data['user_second_type'] = $this->config->item('user_second_type');		
 		if($this->input->get('id')){
 			if(checkRight('user_edit') === FALSE){
 				$this->showView('denied', $data);

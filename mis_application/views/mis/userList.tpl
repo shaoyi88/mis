@@ -16,16 +16,16 @@
       			{/foreach}
     		</select>
     		&nbsp;&nbsp;&nbsp;&nbsp;
-    		<select class="select" id="user_audit_type" name="user_audit_type" style="width:200px">
-      			<option value="">请选择用户审核状态</option>
-      			{foreach $user_audit_type as $key=>$item}
-      				<option value="{$key}" {if isset($keyword['user_audit_type']) && $keyword['user_audit_type'] != '' && $keyword['user_audit_type'] == $key}selected{/if}>
+    		<select class="select" id="user_second_type" name="user_second_type" {if isset($keyword['user_type']) && $keyword['user_type'] === '0'}style="width:200px;"{else}style="width:200px;display:none"{/if}>
+      			<option value="">请选择用户二级类别</option>
+      			{foreach $user_second_type as $key=>$item}
+      				<option value="{$key}" {if isset($keyword['user_second_type']) && $keyword['user_second_type'] != '' && $keyword['user_second_type'] == $key}selected{/if}>
       				{$item}
       				</option>
       			{/foreach}
     		</select>
     		&nbsp;&nbsp;&nbsp;&nbsp;
-			<input type="text" value="{if isset($keyword['keyword'])}{$keyword['keyword']}{/if}" class="input-text" style="width:250px" placeholder="输入用户昵称/用户账户/用户手机" id="" name="keyword">
+			<input type="text" value="{if isset($keyword['keyword'])}{$keyword['keyword']}{/if}" class="input-text" style="width:250px" placeholder="输入用户昵称/用户账户" id="" name="keyword">
 			<button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜用户</button>
 		</div>
 	</form>
@@ -42,22 +42,18 @@
 	 	<table class="table table-border table-bg table-bordered table-hover">
 			<thead>
         		<tr class="text-c">
-          			<th>用户名</th>
+          			<th>用户昵称</th>
           			<th>账户</th>
-          			<th>手机</th>
           			<th>用户类型</th>
-          			<th>用户审核状态</th>
           			<th>操作</th>
         		</tr>
       		</thead>
       		<tbody>
 			{foreach $dataList as $item}
 				<tr class="text-c">
-        			<td>{$item['user_name']}</td>
+        			<td>{$item['user_nickname']}</td>
         			<td>{$item['user_account']}</td>
-        			<td>{$item['user_phone']}</td>
-        			<td>{$user_type[$item['user_type']]}</td>
-        			<td>{$user_audit_type[$item['user_audit_type']]}</td>
+        			<td>{$user_type[$item['user_type']]}{if $item['user_second_type']}-{$user_second_type[$item['user_second_type']]}{/if}</td>
           			<td>
           				{if checkRight('user_edit')}<a class="btn btn-primary radius edit" title="编辑" href="{formatUrl('user/add?id=')}{$item['user_id']}" style="text-decoration:none">编辑</a>{/if}
           				{if checkRight('user_del')}<a class="btn btn-primary radius ml-5 del" did="{$item['user_id']}" title="删除" href="javascript:;" style="text-decoration:none">删除</a>{/if}

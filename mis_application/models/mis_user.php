@@ -81,13 +81,12 @@ class MIS_User extends CI_Model
 		if(isset($keyword['user_type']) && $keyword['user_type'] != ''){
 			$this->db->where('user_type', $keyword['user_type']);
 		}
-		if(isset($keyword['user_audit_type']) && $keyword['user_audit_type'] != ''){
-			$this->db->where('user_audit_type', $keyword['user_audit_type']);
+		if(isset($keyword['user_second_type'])){
+			$this->db->where('user_second_type', $keyword['user_second_type']);
 		}
 		if(isset($keyword['keyword']) && $keyword['keyword'] != ''){
-			$this->db->where('user_name', $keyword['keyword']);
+			$this->db->where('user_nickname', $keyword['keyword']);
 			$this->db->or_where('user_account', $keyword['keyword']);
-			$this->db->or_where('user_phone', $keyword['keyword']);
 		}
 		$query = $this->db->get($this->_table, $limit, $offset);
 		if($query){
@@ -103,15 +102,14 @@ class MIS_User extends CI_Model
 	public function getCount($keyword)
 	{
 		if(isset($keyword['keyword'])){
-			$this->db->where('user_name', $keyword['keyword']);
+			$this->db->where('user_nickname', $keyword['keyword']);
 			$this->db->or_where('user_account', $keyword['keyword']);
-			$this->db->or_where('user_phone', $keyword['keyword']);
 		}
 		if(isset($keyword['user_type'])){
 			$this->db->where('user_type', $keyword['user_type']);
 		}
-		if(isset($keyword['user_audit_type'])){
-			$this->db->where('user_audit_type', $keyword['user_audit_type']);
+		if(isset($keyword['user_second_type'])){
+			$this->db->where('user_second_type', $keyword['user_second_type']);
 		}
 		return $this->db->count_all_results($this->_table);
 	}
