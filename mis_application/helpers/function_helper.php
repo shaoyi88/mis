@@ -50,6 +50,7 @@ function checkMisLogin()
 	$ci->userId = $ci->session->userdata('admin_id');
 	$ci->userName = $ci->session->userdata('admin_name');
 	$ci->userRights = $ci->session->userdata('admin_rights');
+	$ci->userRole = $ci->session->userdata('admin_role');
 	if($ci->userId == ''){
 		if(strtolower($ci->rtrClass) !== 'login'){
 			redirect(formatUrl('login/index'));
@@ -59,6 +60,31 @@ function checkMisLogin()
 			redirect(formatUrl('home/index'));
 		}
 	}
+}
+
+/**
+ * Format size in special unit
+ *
+ * @param int $size
+ * @param int $unit
+ * @param boolean $onlyNum
+ * @param int $precision
+ * @return mixed
+ */
+function format_size_str($size, $unit = 0, $onlyNum = FALSE, $precision = 2)
+{
+	$sizeDef = array(1=>'B', 2=>'K', 3=>'M', 4=>'G', 5=>'T');
+	if($size <= 0)
+		return $onlyNum ? 0 : (isset($sizeDef[$unit]) ? '0'.$sizeDef[$unit] : '0B');
+	if(isset($sizeDef[$unit])){
+		$key = $unit;
+	}else{
+		$key = floor(log($size, 1024)) + 1;
+	}
+
+	$key = max(1, min($key, count($sizeDef)));
+
+	return round($size/pow(1024, $key-1), $precision).(!$onlyNum ? $sizeDef[$key] : '');
 }
 
 /**

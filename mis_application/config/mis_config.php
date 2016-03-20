@@ -60,7 +60,7 @@ $config['menus'] = array(
 			array('资讯类别管理', formatUrl('article/type'), 'article_type'),
 			array('资讯管理', formatUrl('article/index'), 'article_list'),
 			array('园区活动管理', formatUrl('activity/index'), 'activity_list'),
-			array('文档管理', formatUrl('home/coding'), ''),
+			array('文档管理', formatUrl('netdisk/dirList'), 'dir_list'),
 		),
 		'right' => 'information'
 	),
@@ -152,7 +152,10 @@ $config['rights'] = array(
 			array('园区活动审核', 'activity_audit'),
 			array('园区活动报名删除', 'activity_register_del'),
 			array('园区活动评论删除', 'activity_comment_del', TRUE),
-			array('文档列表', 'dir_list')
+			array('目录列表', 'dir_list'),
+			array('目录添加', 'dir_add'),
+			array('目录编辑', 'dir_edit'),
+			array('目录删除', 'dir_del')
 		),
 		'right' => 'information'
 	),
