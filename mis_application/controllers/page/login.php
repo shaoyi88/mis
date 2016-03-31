@@ -10,7 +10,7 @@ class login extends MIS_Controller
 	
 	/**
 	 * 
-	 * 主页
+	 * 登录页
 	 */
 	public function index()
 	{
@@ -38,7 +38,7 @@ class login extends MIS_Controller
 		}
 		$info = array(
 				'user_id' => $userInfo['user_id'],
-				'user_name' => $userInfo['user_name']
+				'user_name' => $userInfo['user_nickname']
 		);
 		$this->session->set_userdata($info);
 		redirect(formatUrl('myhome/index'));

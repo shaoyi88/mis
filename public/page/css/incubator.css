@@ -1,0 +1,189 @@
+@charset "utf-8";
+#header-wrap {
+	position: relative;
+	background: #fff url(wrap-bg.jpg) no-repeat;
+	margin: 0 auto;
+	width: 940px;
+	height: 335px;
+	text-align: left;	
+}
+#header-photo {
+	position: absolute;
+	top: 5px; left: 24px;	
+	padding: 0;		
+	height:290px; 
+	width: 890px;
+	clear: both;
+	/* border: 1px solid #F0F0F0; */
+}
+#header-photo img {
+	border: none;
+	margin: 0; padding: 0;
+} 
+#header-wrap h1#logo-text a {
+	position: absolute;
+	margin: 0; padding: 0;
+	font: normal 32px Georgia, 'Times New Roman', Times, serif;
+	letter-spacing: -1.5px;
+	color: #070000;
+	text-decoration: none;
+		
+	/* change the values of top and left to adjust the position of the logo*/
+	top: 65px; left: 48px;	
+}
+#header-wrap h1#logo-text a:hover {
+	background: none;	border: none;
+}
+#header-wrap p#intro {
+	position: absolute;
+	margin: 0; padding: 0;
+	font-family: Georgia, 'Times New Roman', Times, serif;
+	font-weight: normal;
+	font-size: 18px;
+	line-height: 1.6em;
+	font-style: italic;
+	text-transform: none;
+	color: #663333;
+	width: 400px;
+	
+	/* change the values of top and left to adjust the position */
+	top: 115px; left: 60px;		
+}
+#content-outer {
+	background: #fff;
+	width: 100%;
+}
+#content-wrapper {
+	width: 940px;
+	margin: 0 auto;	
+	text-align: left;
+}
+#content {
+	float: left;
+	width: 100%;
+	background: #fff url(content-bg.jpg) no-repeat;		
+}
+
+.col-one {
+	margin-right: 480px;
+	padding-left: 25px;
+}
+.col-two {
+	float: left;
+	width: 210px;
+	margin-left: -455px;
+	margin-top: 12px;
+}
+.col-three {
+	float: left;
+	width: 210px;
+	margin-left: -235px;
+	margin-top: 12px;
+}
+.col-one, .col-two, .col-three {
+	padding-bottom: 20px;
+}
+
+#content .col-one h2 {
+	padding-bottom: 3px;
+	font: normal 1.4em "Trebuchet MS", Tahoma, Arial, Sans-serif;
+	color: #000;
+    line-height: 1.1;
+	letter-spacing: -2px;	
+	text-transform: none;
+	border-bottom: 1px solid #ebebeb;	
+	margin-left: 5px;
+	padding-left: 5px;
+}
+#content .col-one h2 a {
+	color: #000;
+	text-decoration: none;	
+	background: none; 
+	border: none;
+}
+#content p{
+	padding:10px;
+	margin:0;
+}
+#content p img{
+	background: #fafafa;
+    border: 1px solid #dcdcdc;
+    padding: 8px;
+}
+#content .col-one ul li {
+	list-style-image: url(bullet.gif);
+}
+#content-wrapper .col-two h3, 
+#content-wrapper .col-three h3 {
+	color: #111;
+	font: normal 1.8em "Trebuchet MS", Tahoma, Arial, sans-serif;
+	text-transform: none;
+	letter-spacing: -0.5px;
+	padding: 0 10px;
+	margin: 0 0 5px 0;
+}
+/* sidebar menu */
+ul.sidemenu {
+	text-align: left;
+	margin: 7px 5px 8px 0px; padding: 0;
+	text-decoration: none;		
+	background: url(../images/incubator/dots.gif) repeat-x left top;
+}
+ul.sidemenu li {
+	list-style: none;
+	background: url(../images/incubator/dots.gif) repeat-x left bottom;
+	padding: 7px 10px;
+	margin: 0;		
+}
+ul.sidemenu li a {
+	text-decoration: none;	
+	background-image: none;	
+	background-color: transparent;
+	border: none;
+	color: #666666;		
+}
+ul.sidemenu li a span {
+	color: #989898;	
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-style: italic;
+	font-weight: normal;	
+	font-size: 1em;
+}
+ul.sidemenu li a:hover {	
+	color: #2086bf;	
+	background: none;
+	border: none;
+}
+ul.sidemenu ul { margin: 0 0 0 5px; padding: 0; }
+ul.sidemenu ul li { background: none; }
+img.float-left {
+	float:left;
+  	margin: 5px 10px 10px 0;
+}
+.postmeta {	
+	padding: 5px; margin: 20px 10px 15px 10px;	
+	font-size: 1em;	
+	color: #777;
+	border: 1px solid #EBEBEB;
+	background: #F5F5F5;
+}
+.postmeta a { background: transparent; }
+.postmeta .date{ margin: 0 10px 0 5px;	}
+.postmeta a.comments { margin: 0 10px 0 5px;	}
+.postmeta a.readmore { margin: 0 10px 0 5px;	}
+
+.post-info { font-size: .95em; padding-top: 3px; margin-left: 5px; color: #bababa; }
+.post-info a { color: #000; }
+
+blockquote {
+	margin: 15px 10px;
+ 	padding: 10px 10px 10px 35px;  
+    border: 1px solid #F0F0F0;
+	background: #F0F0F0 url(../images/incubator/quote.jpg) no-repeat 10px 10px;
+	font-weight: normal;
+	font-size: 17px;
+	line-height: 1.5em;
+	font-style: italic;
+	font-family: Georgia, "Times New Roman", Times, serif;	
+	color: #555;	
+}

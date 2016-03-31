@@ -39,7 +39,7 @@ class home extends MIS_Controller
 		$weatherinfo = $weather['HeWeather data service 3.0'];
 		if(isset($weatherinfo[0]['status'])&&$weatherinfo[0]['status']=='ok'){
 			$data['weatherNow'] = $weatherinfo[0]['now'];
-			$data['weatherAqi'] = $weatherinfo[0]['aqi'];
+			//$data['weatherAqi'] = $weatherinfo[0]['aqi'];
 		}
 		$data['week'] = array("日","一","二","三","四","五","六");
 		$this->showView('index', $data);

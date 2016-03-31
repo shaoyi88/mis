@@ -1,4 +1,4 @@
-        <div class="main-content clear-float">
+        <div class="main-content clear-float" style="width:960px;">
             <div class="tile-area no-padding">
                 <div class="tile-group no-margin no-padding" style="width: 100%">
                     <div class="ol-transparent" style="float: right;width:310px; ">
@@ -13,7 +13,6 @@
 						        <div style="float:left;">
 						        <p>{$weatherNow['cond']['txt']}</p>
 						        <p>当前温度{$weatherNow['tmp']}°，相对湿度{$weatherNow['hum']}%</p>
-                                <p>PM2.5：{$weatherAqi['city']['pm25']}</p>
 						        </div>
 						        <div class="clear-float"></div>
 						    </div>
@@ -79,19 +78,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tile bg-red fg-white" data-role="tile">
+                    <div class="tile bg-red fg-white" data-role="tile" onclick="window.open('http://www.ry168.cn');">
                         <div class="tile-content iconic">
                             <p style="text-align:center;">融易集团</p>
                             <span class="icon mif-home"></span>
                         </div>
                     </div>
-                    <div class="tile bg-darkOrange fg-white" data-role="tile">
+                    <div class="tile bg-darkOrange fg-white" data-role="tile" onclick="location.href='{formatUrl('incubator')}'">
                         <div class="tile-content iconic">
                             <p style="text-align:center;">孵化器</p>
                             <span class="icon mif-location-city"></span>
                         </div>
                     </div>
-                    <div class="tile bg-teal fg-white" data-role="tile">
+                    <div class="tile bg-teal fg-white" data-role="tile" onclick="location.href='{formatUrl('maker')}'">
                         <div class="tile-content iconic">
                             <p style="text-align:center;">易创客</p>
                             <span class="icon mif-library"></span>
@@ -104,7 +103,7 @@
                         </div>
                     </div>
 
-                    <div class="tile-big tile-wide-y bg-white" data-role="tile" style="height:350px; ">
+                    <div class="tile-big tile-wide-y bg-white" data-role="tile" style="height:320px; ">
                         <div class="tile-content">
                             <div class="panel" style="height: 100%">
                                 <div class="heading bg-darkRed fg-white"><span class="title text-light">园区新闻</span></div>
@@ -116,7 +115,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tile tile-wide-y bg-olive" data-role="tile" style="height:350px; ">
+                    
+                    <div class="tile tile-wide-y bg-olive" data-role="tile" style="height:320px; ">
                         <div class="tile-content">
                             <div class="panel">
                                 <div class="heading bg-taupe fg-white"><span class="title text-light">今日活动</span></div>
@@ -129,7 +129,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>                  
                 </div>              
                 <div class="clear-float"></div>
                 <h3 class="fg-darkRed text-light margin5"><span class="mif-quote mif-2x" style="vertical-align: top !important;"></span>企业风采</h3>

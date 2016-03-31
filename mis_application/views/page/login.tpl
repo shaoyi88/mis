@@ -32,6 +32,9 @@
             -webkit-transform: scale(.8);
             transform: scale(.8);
         }
+        .login-bg{
+            background:url('/public/common/images/loginbg.jpg');
+        }
     </style>
     <script>
         $(function(){
@@ -46,7 +49,7 @@
         });
     </script>
 </head>
-<body class="ribbed-taupe">
+<body class="login-bg">
     <div class="login-form padding20 block-shadow">
         <form action="{formatUrl('login/actionLogin')}" method="post" data-role="validator">
             <h1 class="text-light">用户登录</h1>

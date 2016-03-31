@@ -1,7 +1,7 @@
 @charset "utf-8";
 .wrap-width{width:100%;}
 .header-background{background:#932724;}
-.rylogo{background:url(../images/rylogo.png) no-repeat;width:300px;height:90px;margin-top:15px;}
+.rylogo{width:300px;height:90px;margin-top:15px;}
 .horizontal-menu.compact>li>a{color:#fff;font-size:.7rem;}
 .d-menu>li>a:hover{background-color:#555;}
 .halllabel{font-size:0.2rem;}

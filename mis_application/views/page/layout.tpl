@@ -8,22 +8,21 @@
 <link href="/public/metro/css/metro.css" rel="stylesheet">
 <link href="/public/metro/css/metro-icons.css" rel="stylesheet">
 <link href="/public/metro/css/metro-responsive.css" rel="stylesheet">
-<link href="/public/common/css/common.css?v=04" rel="stylesheet">
+<link href="/public/common/css/common.css?v=08" rel="stylesheet">
 <script src="/public/metro/js/jquery-2.1.3.min.js"></script>
 <script src="/public/metro/js/metro.js"></script>
 <!--[if lt IE 9]>
 <script src="/public/dist/lib/ieonly/html5shiv.js"></script>
 <![endif]-->
 </head>
-<body> 
+<body>
     <header class="margin5 no-margin-left no-margin-right">
             <div class="clear-float header-background wrap-width">
             <div class="container">
                 <div class="place-right">
                     <ul class="horizontal-menu compact navbar">
                     {if $userinfo['userId']}
-                    <li><a href="javascript:">欢迎您，</a></li>
-                    <li><a href="javascript:">{$userinfo['userName']}</a></li>
+                    <li><a href="javascript:">欢迎您，{$userinfo['userName']}</a></li>
                     {else}
                     <li><a href="javascript:">注册</a></li>
                     <li><a href="{formatUrl('login/')}">登录</a></li>
@@ -35,7 +34,7 @@
                         <li><a href="#">办事大厅</a></li>
                         <li><a href="#">企业风采</a></li>
                         <li><a href="#">松山湖</a></li>
-                        <li><a href="#">政策咨询</a></li>
+                        <li><a href="#">政策资讯</a></li>
                         </ul>
                     </li>                
                    </ul>                   
@@ -46,7 +45,7 @@
                         </div>
                     </form>
                 </div>
-                <a class="place-left rylogo" href="{formatUrl('home/')}" title="">
+                <a class="place-left rylogo" style="background:url(/public/common/images/rylogo.png) no-repeat;" href="{formatUrl('home/')}" title="">
                     <h1></h1>
                 </a>
             </div>
@@ -56,7 +55,7 @@
         {$LAYOUT_CONTENT}           
     </div>
     <footer>
-            <div class="bottom-menu-wrapper">
+            <div class="bottom-menu-wrapper bg-grayLight">
                 <ul class="horizontal-menu compact footer-text">
                     <li><a href="http://www.ry168.cn/">©{$web['website_copyright']}</a></li>
                     <li class="place-right"><a href="http://www.miitbeian.gov.cn/">{$web['website_record_no']}</a></li>
