@@ -33,8 +33,7 @@ $config['menus'] = array(
 	array(
 		'module' => '楼宇管理',
 		'menu' => array(
-			array('楼宇类型管理', formatUrl('home/coding'), ''),
-			array('楼宇信息管理', formatUrl('home/coding'), ''),
+			array('楼宇信息管理', formatUrl('building/index'), 'building_list')
 		),
 		'right' => 'building'
 	),
@@ -120,6 +119,10 @@ $config['rights'] = array(
 	array(
 		'module' => '楼宇管理',
 		'roles' => array(
+			array('楼宇信息列表', 'building_list'),
+			array('楼宇信息增加', 'building_add'),
+			array('楼宇信息编辑', 'building_edit'),
+			array('楼宇信息删除', 'building_del')
 		),
 		'right' => 'building'
 	),
@@ -252,4 +255,15 @@ $config['default_sys_config'] = array(
 	'website_desc' => '描述',
 	'website_copyright' => '2016 xxx.com. All rights reserved',
 	'website_record_no' => '粤ICP备XXX'
+);
+
+/**
+ * 
+ * 楼宇类型
+ */
+$config['building_type'] = array(
+	'0' => '空置',
+	'1' => '报备',
+	'2' => '已租',
+	'3' => '已售'
 );
