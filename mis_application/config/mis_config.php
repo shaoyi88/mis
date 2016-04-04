@@ -41,7 +41,7 @@ $config['menus'] = array(
 		'module' => '企业服务',
 		'menu' => array(
 			array('公共资源管理', formatUrl('home/coding'), ''),
-			array('项目需求管理', formatUrl('home/coding'), ''),
+			array('项目需求管理', formatUrl('project/index'), 'project_list')
 		),
 		'right' => 'business'
 	),
@@ -134,6 +134,11 @@ $config['rights'] = array(
 	array(
 		'module' => '企业服务',
 		'roles' => array(
+			array('项目需求列表', 'project_list'),
+			array('项目需求查看', 'project_detail'),
+			array('项目需求增加', 'project_add'),
+			array('项目需求编辑', 'project_edit'),
+			array('项目需求删除', 'project_del', TRUE)
 		),
 		'right' => 'business'
 	),
