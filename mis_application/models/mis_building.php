@@ -24,6 +24,18 @@ class MIS_Building extends CI_Model
 	 */
 	public function getCount($keyword)
 	{
+		if(isset($keyword['building_type']) && $keyword['building_type'] != ''){
+			$this->db->where('building_type', $keyword['building_type']);
+		}
+		if(isset($keyword['building_name']) && $keyword['building_name'] != ''){
+			$this->db->where('building_name', $keyword['building_name']);
+		}
+		if(isset($keyword['building_floor']) && $keyword['building_floor'] != ''){
+			$this->db->where('building_floor', $keyword['building_floor']);
+		}
+		if(isset($keyword['building_room']) && $keyword['building_room'] != ''){
+			$this->db->where('building_room', $keyword['building_room']);
+		}
 		return $this->db->count_all_results($this->_table);
 	}
 	
@@ -34,6 +46,18 @@ class MIS_Building extends CI_Model
 	public function getList($keyword, $offset, $limit)
 	{
 		$info = array();
+		if(isset($keyword['building_type']) && $keyword['building_type'] != ''){
+			$this->db->where('building_type', $keyword['building_type']);
+		}
+		if(isset($keyword['building_name']) && $keyword['building_name'] != ''){
+			$this->db->where('building_name', $keyword['building_name']);
+		}
+		if(isset($keyword['building_floor']) && $keyword['building_floor'] != ''){
+			$this->db->where('building_floor', $keyword['building_floor']);
+		}
+		if(isset($keyword['building_room']) && $keyword['building_room'] != ''){
+			$this->db->where('building_room', $keyword['building_room']);
+		}
 		$query = $this->db->get($this->_table, $limit, $offset);
 		if($query){
 			$info = $query->result_array();

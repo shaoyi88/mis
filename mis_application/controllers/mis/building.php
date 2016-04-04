@@ -21,12 +21,10 @@ class Building extends MIS_Controller
 		}
 		if($this->input->get('msg')){
 			$data['msg'] = $this->input->get('msg');
+			unset($_GET['msg']);
 		}
 		$this->load->model('MIS_Building');
-		$keyword = '';
-		if($this->input->get('keyword')){
-			$keyword = $this->input->get('keyword');
-		}
+		$keyword = $this->input->get();
 		$offset = 0;
 		$pageUrl = '';
 		page(formatUrl('building/index').'?', $this->MIS_Building->getCount($keyword), PER_COUNT, $offset, $pageUrl);

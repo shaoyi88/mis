@@ -9,6 +9,7 @@
 class MIS_User extends CI_Model
 {
 	private $_table = 'mis_user';
+	private $_enterpriseTable = 'mis_enterprise_userinfo';
 	
 	/**
 	 * 初始化
@@ -147,5 +148,24 @@ class MIS_User extends CI_Model
 			}
 		}
 		return FALSE;
+	}
+	
+	/**
+	 * 
+	 * 获取企业用户列表
+	 */
+	public function getEnterpriseUserList()
+	{
+		$info = array();
+		$this->db->select('*');
+		$this->db->from("$this->_table as a");
+		$this->db->join("$this->_enterpriseTable as b", 'a.user_id = b.user_id');
+		$this->db->order_by('a.reg_time','DESC');
+		$this->db->where('user_audit_type', 2);
+		$query = $this->db->get();
+		if($query){
+			$info = $query->result_array();
+		}
+		return $info;
 	}
 }

@@ -48,8 +48,13 @@ $config['menus'] = array(
 	array(
 		'module' => '物业服务',
 		'menu' => array(
-			array('物业信息管理', formatUrl('home/coding'), ''),
-			array('物业办理', formatUrl('home/coding'), ''),
+			array('入驻流程配置', formatUrl('home/coding'), ''),
+			array('入驻申请管理', formatUrl('home/coding'), ''),
+			array('物业报修管理', formatUrl('property/repair'), 'repair_list'),
+			array('物业投诉管理', formatUrl('property/complain'), 'complain_list'),
+			array('水费管理', formatUrl('property/feeList?t=0'), 'fee_list'),
+			array('电费管理', formatUrl('property/feeList?t=1'), 'fee_list'),
+			array('物业费管理', formatUrl('property/feeList?t=2'), 'fee_list')
 		),
 		'right' => 'property'
 	),
@@ -135,6 +140,14 @@ $config['rights'] = array(
 	array(
 		'module' => '物业服务',
 		'roles' => array(
+			array('物业报修列表', 'repair_list'),
+			array('物业报修确认', 'repair_confirm', TRUE),
+			array('物业投诉列表', 'complain_list'),
+			array('物业投诉回复', 'complain_reply', TRUE),
+			array('费用管理列表', 'fee_list'),
+			array('费用增加', 'fee_add'),
+			array('费用编辑', 'fee_edit'),
+			array('费用删除', 'fee_del')
 		),
 		'right' => 'property'
 	),
@@ -266,4 +279,47 @@ $config['building_type'] = array(
 	'1' => '报备',
 	'2' => '已租',
 	'3' => '已售'
+);
+
+/**
+ * 物业报修类型
+ */
+$config['repair_type'] = array(
+	'0' => '灯具维修',
+	'1' => '空调维修',
+	'2' => '门窗维修',
+	'3' => '水龙头维修',
+	'4' => '下水道疏通',
+	'5' => '开关插座维修',
+	'6' => '线路维修',
+	'7' => '土建维修（墙面涂料、墙砖、地砖）',
+	'8' => '其他'
+);
+
+/**
+ * 物业报修状态
+ */
+$config['repair_status'] = array(
+	'0' => '已提交',
+	'1' => '已确认',
+	'2' => '已完成'
+);
+
+/**
+ * 物业投诉状态
+ */
+$config['complain_status'] = array(
+	'0' => '已提交',
+	'1' => '已回复'
+);
+
+/**
+ * 
+ * 费用类型
+ * @var unknown_type
+ */
+$config['fee_type'] = array(
+	'0' => '水费管理',
+	'1' => '电费管理',
+	'2' => '物业费管理'
 );

@@ -5,6 +5,26 @@
 </div>
 {/if}
 <div class="pd-20">
+	<form class="Huiform" action="{formatUrl('building/index')}" method="get">
+		<div class="text-c"> 
+			<select class="select" id="building_type" name="building_type" style="width:100px">
+      			<option value="">请选择类型</option>
+      			{foreach $building_type as $key=>$item}
+      				<option value="{$key}" {if isset($keyword['building_type']) && $keyword['building_type'] != '' && $keyword['building_type'] == $key}selected{/if}>
+      				{$item}
+      				</option>
+      			{/foreach}
+    		</select>
+    		&nbsp;&nbsp;&nbsp;&nbsp;
+    		<input type="text" value="{if isset($keyword['building_name'])}{$keyword['building_name']}{/if}" class="input-text" style="width:150px" placeholder="输入楼宇名" id="" name="building_name">
+    		&nbsp;&nbsp;&nbsp;&nbsp;
+    		<input type="text" value="{if isset($keyword['building_floor'])}{$keyword['building_floor']}{/if}" class="input-text" style="width:150px" placeholder="输入楼层" id="" name="building_floor">
+    		&nbsp;&nbsp;&nbsp;&nbsp;
+    		<input type="text" value="{if isset($keyword['building_room'])}{$keyword['building_room']}{/if}" class="input-text" style="width:150px" placeholder="输入房间号" id="" name="building_room">
+    		&nbsp;&nbsp;&nbsp;&nbsp;
+    		<button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜楼宇信息</button>
+    	</div>
+	</form>
 	{if checkRight('building_add')}
 	<div class="cl pd-5 bg-1 bk-gray mt-20"> 
 		<span class="l">
