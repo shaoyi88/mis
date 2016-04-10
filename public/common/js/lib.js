@@ -505,9 +505,7 @@ $(function(){
 	$(':button[type="submit"]').click(function(event){
 		$(event.currentTarget).addClass('disabled');
 		setTimeout(function(){
-			if($('.Validform_wrong').length > 0){
-				$(event.currentTarget).removeClass('disabled');
-			}
+			$(event.currentTarget).removeClass('disabled');
 		}, 1000);
 	});
 });

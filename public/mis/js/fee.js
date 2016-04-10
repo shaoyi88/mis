@@ -2,7 +2,14 @@ var fee = function(){
 	var init = function(){
 		$(".Huiform").Validform({
 			tiptype : 4,
-			tipSweep : true
+			tipSweep : true,
+			datatype:{
+				"num":function(gets,obj,curform,regxp){
+					var reg=/^(\d*\.)?\d+$/;
+					if(reg.test(gets)){return true;}					
+					return false;
+				}	
+			}
 		});
 		
 		$('#fee_date').focus(function(){
@@ -17,6 +24,17 @@ var fee = function(){
 		
 		$('.del').click(del);
 		$('#user_id').change(userChange);
+		
+		$('#fee_unit_price').blur(fee_amount);
+		$('#amount').blur(fee_amount);
+	};
+	
+	var fee_amount = function(){
+		if($('#fee_unit_price').val() != '' && $('#amount').val() != ''){
+			var fee_unit_price = parseFloat($('#fee_unit_price').val());
+			var amount = parseFloat($('#amount').val());
+			$('#fee_amount').val((fee_unit_price*amount).toFixed(2));
+		}
 	};
 	
 	var userChange = function(event){

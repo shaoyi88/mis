@@ -36,7 +36,11 @@
         		<tr class="text-c">
           			<th>企业</th>
           			<th>日期</th>
-          			<th>费用</th>
+          			{if $keyword['t'] == 2}
+          			<th>单位金额</th>
+          			<th>面积</th>
+          			{/if}
+          			<th>费用金额</th>
           			<th>支付状态</th>
           			<th>操作</th>
         		</tr>
@@ -46,7 +50,11 @@
       				<tr class="text-c">
           				<td>{$item['enterprise_name']}</td>
           				<td>{date('Y-m',$item['fee_date'])}</td>
-          				<td>{$item['fee_amount']}</td>
+          				{if $keyword['t'] == 2}
+          					<td>{$item['fee_unit_price']}元/平方</td>
+          					<td>{$item['amount']}平方</td>
+          				{/if}
+          				<td>{$item['fee_amount']}元</td>
           				<td>{if $item['pay_status'] == 0}未支付{else}已支付{/if}</td>
           				<td>
           					{if checkRight('fee_edit')}<a class="btn btn-primary radius" title="编辑" href="{formatUrl('property/addFee?did=')}{$item['fee_id']}&t={$keyword['t']}" style="text-decoration:none">编辑</a>{/if}

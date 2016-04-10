@@ -25,10 +25,19 @@
           			 	<input id="fee_date_str" name="fee_date" type="hidden" value="{if isset($info)}{$info['fee_date']}{/if}">
           			 </td>
         		</tr>
-        		
+        		{if $t == 2}
+        		<tr>
+          		     <th class="text-r" width="180">单位金额<span class="c-red">*</span>：</th>
+          			 <td><input nullmsg="请输入单位金额！" errormsg="请输入正确的数字格式" datatype="num" class="input-text" style="width:250px" name="fee_unit_price" id="fee_unit_price" type="text" value="{if isset($info)}{$info['fee_unit_price']}{/if}" placeholder="输入单位金额">元/平方</td>
+        		</tr>
+        		<tr>
+          		     <th class="text-r" width="180">面积<span class="c-red">*</span>：</th>
+          			 <td><input nullmsg="请输入费用金额！" errormsg="请输入正确的数字格式" datatype="num" class="input-text" style="width:250px" name="amount" id="amount" type="text" value="{if isset($info)}{$info['amount']}{/if}" placeholder="输入面积">平方</td>
+        		</tr>
+        		{/if}
         		<tr>
           		     <th class="text-r" width="180">费用金额<span class="c-red">*</span>：</th>
-          			 <td><input nullmsg="费用金额！" datatype="s" class="input-text" style="width:250px" name="fee_amount" type="text" value="{if isset($info)}{$info['fee_amount']}{/if}" placeholder="输入费用金额"></td>
+          			 <td><input {if $t == 2}readonly{/if} nullmsg="请输入费用金额！" errormsg="请输入正确的数字格式" datatype="num" class="input-text" style="width:250px" name="fee_amount" id="fee_amount" type="text" value="{if isset($info)}{$info['fee_amount']}{/if}" placeholder="输入费用金额">元</td>
         		</tr>
         		<tr>
           		     <th class="text-r" width="180">支付状态<span class="c-red">*</span>：</th>

@@ -40,7 +40,9 @@ $config['menus'] = array(
 	array(
 		'module' => '企业服务',
 		'menu' => array(
-			array('公共资源管理', formatUrl('home/coding'), ''),
+			array('会议室管理', formatUrl('home/coding'), ''),
+			array('路演厅管理', formatUrl('home/coding'), ''),
+			array('商务包房管理', formatUrl('home/coding'), ''),
 			array('项目需求管理', formatUrl('project/index'), 'project_list')
 		),
 		'right' => 'business'
@@ -48,8 +50,8 @@ $config['menus'] = array(
 	array(
 		'module' => '物业服务',
 		'menu' => array(
-			array('入驻流程配置', formatUrl('home/coding'), ''),
-			array('入驻申请管理', formatUrl('home/coding'), ''),
+			array('入驻流程配置', formatUrl('property/flow'), 'flow_list'),
+			array('入驻申请管理', formatUrl('property/apply'), 'apply_list'),
 			array('物业报修管理', formatUrl('property/repair'), 'repair_list'),
 			array('物业投诉管理', formatUrl('property/complain'), 'complain_list'),
 			array('水费管理', formatUrl('property/feeList?t=0'), 'fee_list'),
@@ -145,6 +147,12 @@ $config['rights'] = array(
 	array(
 		'module' => '物业服务',
 		'roles' => array(
+			array('入驻流程列表', 'flow_list'),
+			array('入驻流程添加', 'flow_add'),
+			array('入驻流程编辑', 'flow_edit'),
+			array('入驻流程删除', 'flow_del', TRUE),
+			array('入驻申请列表', 'apply_list'),
+			array('入驻申请确认', 'apply_confirm', TRUE),
 			array('物业报修列表', 'repair_list'),
 			array('物业报修确认', 'repair_confirm', TRUE),
 			array('物业投诉列表', 'complain_list'),
@@ -306,8 +314,8 @@ $config['repair_type'] = array(
  */
 $config['repair_status'] = array(
 	'0' => '已提交',
-	'1' => '已确认',
-	'2' => '已完成'
+	'1' => '已跟进',
+	'2' => '已处理'
 );
 
 /**
@@ -315,7 +323,7 @@ $config['repair_status'] = array(
  */
 $config['complain_status'] = array(
 	'0' => '已提交',
-	'1' => '已回复'
+	'1' => '已跟进'
 );
 
 /**
@@ -327,4 +335,22 @@ $config['fee_type'] = array(
 	'0' => '水费管理',
 	'1' => '电费管理',
 	'2' => '物业费管理'
+);
+
+/**
+ * 物业申请类型
+ */
+$config['apply_type'] = array(
+	'0' => 'a类型',
+	'1' => 'b类型',
+	'2' => 'c类型'
+);
+
+/**
+ * 物业申请状态
+ */
+$config['apply_status'] = array(
+	'0' => '已提交',
+	'1' => '已跟进',
+	'2' => '已处理'
 );
