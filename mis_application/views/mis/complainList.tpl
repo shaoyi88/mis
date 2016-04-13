@@ -44,4 +44,5 @@
       		</tbody>
       	</table>
 	 {/if}
+	  {if isset($pageUrl)}{$pageUrl}{/if}
 </div>

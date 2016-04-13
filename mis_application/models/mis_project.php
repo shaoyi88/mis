@@ -133,4 +133,42 @@ class MIS_Project extends CI_Model
 		}
 		return $info;
 	}
+	
+	/**
+	 * 
+	 * 更新申请
+	 * @param unknown_type $data
+	 */
+	public function updateApply($data)
+	{
+        $this->db->where('apply_id', $data['apply_id']);
+		$this->db->update($this->_applyTable, $data); 
+	}
+	
+	/**
+	 * 
+	 * 获取总数
+	 */
+	public function getConfirmApplyCount()
+	{
+		$this->db->where('status', 0);
+		return $this->db->count_all_results($this->_applyTable);
+	}
+	
+	/**
+	 * 获取列表
+	 * Enter description here ...
+	 */
+	public function getConfirmApplyList($offset, $limit)
+	{
+		$info = array();
+		$this->db->select('*');
+		$this->db->where('status', 0);
+		$this->db->join($this->_table, "$this->_table.project_id = $this->_applyTable.project_id", 'left');
+		$query = $this->db->get($this->_applyTable, $limit, $offset);
+		if($query){
+			$info = $query->result_array();
+		}
+		return $info;
+	}
 }

@@ -41,8 +41,8 @@
         		</tr>
         		{if $info['status'] == 0 && checkRight('complain_reply')}
         		<tr>
-          		     <th class="text-r" width="180"><span class="c-red">*</span>回复：</th>
-          			 <td><textarea style="width:500px;height:140px;" name="feedback" cols="" rows="" class="textarea" id="feedback" nullmsg="回复不能为空！" datatype="s"></textarea></td>
+          		     <th class="text-r" width="180"><span class="c-red">*</span>确认信息：</th>
+          			 <td><textarea style="width:500px;height:140px;" name="feedback" cols="" rows="" class="textarea" id="feedback" nullmsg="确认信息不能为空！" datatype="s"></textarea></td>
         		</tr>
         		<tr>
           			<th></th>

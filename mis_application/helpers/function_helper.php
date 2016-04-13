@@ -120,8 +120,15 @@ function checkRight($key)
 		return TRUE;
 	}else{
 		$rightsArr = explode(',', $ci->userRights);
-		if(in_array($key, $rightsArr)){
+		if(is_string($key) && in_array($key, $rightsArr)){
 			return TRUE;
+		}
+		if(is_array($key)){
+			foreach($key as $item){
+				if(in_array($item, $rightsArr)){
+					return TRUE;
+				}
+			}
 		}
 	}
 	return FALSE;

@@ -134,6 +134,28 @@ class Project extends MIS_Controller
 		$dataList = $this->MIS_Project->getApplyList($id, $offset, PER_COUNT);
 		$data['pageUrl'] = $pageUrl;
 		$data['dataList'] = $dataList;
+		$data['project_apply_status'] = $this->config->item('project_apply_status');
 		$this->showView('projectDetail', $data);
+	}
+	
+	/**
+	 * 
+	 * 确认申请
+	 */
+	public function doConfirmApply()
+	{
+		$data = array();
+		if(checkRight('project_apply_confirm') === FALSE){
+			$this->showView('denied', $data);
+			exit;
+		}
+		$data = $this->input->post();
+		$project_id = $data['project_id'];
+		unset($data['project_id']);
+		$data['status'] = 1;
+		$this->load->model('MIS_Project');
+		$msg = '';
+		$this->MIS_Project->updateApply($data);
+		redirect(formatUrl('project/detail?did='.$project_id.'&type=1'));
 	}
 }

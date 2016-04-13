@@ -51,6 +51,32 @@ class MIS_Activity extends CI_Model
 	}
 	
 	/**
+	 * 
+	 * 获取待审核列表
+	 */
+	public function getAuditList($offset, $limit)
+	{
+		$info = array();
+		$this->db->order_by('add_time','DESC');
+		$this->db->where('activity_status', 0);
+		$query = $this->db->get($this->_table, $limit, $offset);
+		if($query){
+			$info = $query->result_array();
+		}
+		return $info;
+	}
+	
+	/**
+	 * 
+	 * 获取总数
+	 */
+	public function getAuditCount()
+	{
+		$this->db->where('activity_status', 0);
+		return $this->db->count_all_results($this->_table);
+	}
+	
+	/**
 	 * 获取信息
 	 * Enter description here ...
 	 * @param unknown_type $id

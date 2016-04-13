@@ -6,10 +6,10 @@ $config['menus'] = array(
 	array(
 		'module' => '工作台',
 		'menu' => array(
-			array('活动审批', formatUrl('home/coding'), ''),
+			array('活动审批', formatUrl('workbench/activity'), 'activity_audit'),
 			array('企业审批', formatUrl('home/coding'), ''),
-			array('物业服务', formatUrl('home/coding'), ''),
-			array('企业服务', formatUrl('home/coding'), ''),
+			array('物业服务', formatUrl('workbench/property'), array('repair_confirm', 'complain_reply')),
+			array('企业服务', formatUrl('workbench/business'), array('project_apply_confirm')),
 		),
 		'right' => 'workbench'
 	),
@@ -140,7 +140,8 @@ $config['rights'] = array(
 			array('项目需求查看', 'project_detail'),
 			array('项目需求增加', 'project_add'),
 			array('项目需求编辑', 'project_edit'),
-			array('项目需求删除', 'project_del', TRUE)
+			array('项目需求删除', 'project_del'),
+			array('项目申请确认', 'project_apply_confirm'),
 		),
 		'right' => 'business'
 	),
@@ -353,4 +354,12 @@ $config['apply_status'] = array(
 	'0' => '已提交',
 	'1' => '已跟进',
 	'2' => '已处理'
+);
+
+/**
+ * 项目申请状态
+ */
+$config['project_apply_status'] = array(
+	'0' => '已提交',
+	'1' => '已跟进'
 );

@@ -49,6 +49,31 @@ class MIS_Complain extends CI_Model
 	
 	/**
 	 * 
+	 * 获取总数
+	 */
+	public function getConfirmCount()
+	{
+		$this->db->where('status', 0);
+		return $this->db->count_all_results($this->_table);
+	}
+	
+	/**
+	 * 获取列表
+	 * Enter description here ...
+	 */
+	public function getConfirmList($offset, $limit)
+	{
+		$info = array();
+		$this->db->where('status', 0);
+		$query = $this->db->get($this->_table, $limit, $offset);
+		if($query){
+			$info = $query->result_array();
+		}
+		return $info;
+	}
+	
+	/**
+	 * 
 	 * 获取信息
 	 * @param unknown_type $id
 	 */
