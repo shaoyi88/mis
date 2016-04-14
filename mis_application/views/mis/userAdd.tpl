@@ -43,6 +43,14 @@
           			 <td><input name="user_account" type="text" {if isset($info)}disabled{/if} class="input-text" id="user_account" value="{if isset($info)}{$info['user_account']}{/if}" nullmsg="账户不能为空！" datatype="s"></td>
         		</tr>
         		<tr>
+          		     <th class="text-r" width="180">姓名：</th>
+          			 <td><input name="user_account" type="text" class="input-text" id="user_account" value="{if isset($info)}{$info['user_name']}{/if}"></td>
+        		</tr>
+        		<tr>
+          		     <th class="text-r" width="180">手机：</th>
+          			 <td><input name="user_account" type="text" class="input-text" id="user_account" value="{if isset($info)}{$info['user_mobile']}{/if}"></td>
+        		</tr>
+        		<tr>
           		     <th class="text-r" width="180">{if !isset($info)}<span class="c-red">*</span>{/if}密码{if isset($info)}(留空则不修改){/if}：</th>
           			 <td><input name="user_password" type="password" class="input-text" id="user_password" value="" {if !isset($info)}nullmsg="密码不能为空！" datatype="s"{/if}></td>
         		</tr>
