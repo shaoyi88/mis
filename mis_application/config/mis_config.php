@@ -363,3 +363,26 @@ $config['project_apply_status'] = array(
 	'0' => '已提交',
 	'1' => '已跟进'
 );
+
+/**
+ * 用户菜单,key对应用户类型
+ */
+$config['user_home_menu'] = array(
+		'0' => array(
+		    array('入驻申请','application','enter'),
+			array('我的物业','property','wrench'),
+			array('公共资源','resource','palette'),
+			array('投资申请','invest','coins'),
+			array('项目需求','project','filter'),
+			array('企业风采','corporate','cog'),
+			array('我的活动','activity','calendar'),
+		),
+		'1' => array(
+		    array('我的活动','activity','calendar'),
+			array('我的项目','myproj','shareable'),
+		),
+		'2' => array(
+		    array('我的基金','myfund','strikethrough'),
+			array('交易记录','mydeal','list-numbered'),
+		),
+);

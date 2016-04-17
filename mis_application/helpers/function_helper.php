@@ -188,3 +188,22 @@ function object_array($array)
 	}
 	return $array;
 }
+
+/*
+ * 前台获取提示信息msg
+ * 类型：成功-success；失败-alert；提醒-warning；默认-info
+ * 
+ */
+function getMsg($msg){
+	$data = $msgarr = array();
+	$data['msg'] = $msg;
+	$data['msg'] = urldecode($data['msg']);	
+	$msgarr = explode('|',$data['msg']);
+    $msgType = array(
+    		'成功'=>'success',
+    		'失败'=>'alert',
+    		'提醒'=>'warning',
+    );
+	$data['msgType'] = isset($msgType[$msgarr[1]])?$msgType[$msgarr[1]]:'info';
+	return $data;
+}
