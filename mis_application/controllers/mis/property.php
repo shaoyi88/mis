@@ -140,7 +140,7 @@ class Property extends MIS_Controller
 	public function feeList()
 	{
 		$data = array();
-		if(checkRight('waterFee_list') === FALSE){
+		if(checkRight('fee_list') === FALSE){
 			$this->showView('denied', $data);
 			exit;
 		}
@@ -148,7 +148,7 @@ class Property extends MIS_Controller
 		$keyword = $this->input->get();
 		$offset = 0;
 		$pageUrl = '';
-		page(formatUrl('property/waterFee').'?', $this->MIS_Fee->getCount($keyword), PER_COUNT, $offset, $pageUrl);
+		page(formatUrl('property/feeList').'?t='.$keyword['t'], $this->MIS_Fee->getCount($keyword), PER_COUNT, $offset, $pageUrl);
 		$dataList = $this->MIS_Fee->getList($keyword, $offset, PER_COUNT);
 		$data['pageUrl'] = $pageUrl;
 		$data['dataList'] = $dataList;

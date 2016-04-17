@@ -21,7 +21,7 @@
     		<button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜费用信息</button>
     	</div>
 	</form>
-	{if checkRight('waterFee_add')}
+	{if checkRight('fee_add')}
 	<div class="cl pd-5 bg-1 bk-gray mt-20"> 
 		<span class="l">
 			<a href="{formatUrl('property/addFee?t=')}{$keyword['t']}" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加费用信息</a>

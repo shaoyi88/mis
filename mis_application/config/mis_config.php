@@ -40,9 +40,9 @@ $config['menus'] = array(
 	array(
 		'module' => '企业服务',
 		'menu' => array(
-			array('会议室管理', formatUrl('home/coding'), ''),
-			array('路演厅管理', formatUrl('home/coding'), ''),
-			array('商务包房管理', formatUrl('home/coding'), ''),
+			array('会议室管理', formatUrl('room/roomList?t=0'), 'room_list'),
+			array('路演厅管理', formatUrl('room/roomList?t=1'), 'room_list'),
+			array('商务包房管理', formatUrl('room/roomList?t=2'), 'room_list'),
 			array('项目需求管理', formatUrl('project/index'), 'project_list')
 		),
 		'right' => 'business'
@@ -136,6 +136,11 @@ $config['rights'] = array(
 	array(
 		'module' => '企业服务',
 		'roles' => array(
+			array('房间管理列表', 'room_list'),
+			array('房间增加', 'room_add'),
+			array('房间编辑', 'room_edit'),
+			array('房间删除', 'room_del'),
+			array('房间预订确认', 'room_booking_confirm', TRUE),
 			array('项目需求列表', 'project_list'),
 			array('项目需求查看', 'project_detail'),
 			array('项目需求增加', 'project_add'),
@@ -362,4 +367,23 @@ $config['apply_status'] = array(
 $config['project_apply_status'] = array(
 	'0' => '已提交',
 	'1' => '已跟进'
+);
+
+/**
+ * 房间类型
+ */
+$config['room_type'] = array(
+	'0' => '会议室',
+	'1' => '路演厅',
+	'2' => '商务包房'
+);
+
+/**
+ * 
+ * 会议预订状态
+ */
+$config['room_booking_status'] = array(
+	'0' => '已提交',
+	'1' => '确认通过',
+	'2' => '确认不通过'
 );
