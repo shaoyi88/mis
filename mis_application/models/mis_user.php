@@ -42,7 +42,7 @@ class MIS_User extends CI_Model
 	public function update($data)
 	{
         $this->db->where('user_id', $data['user_id']);
-		$this->db->update($this->_table, $data); 
+		$this->db->update($this->_table, $data);
 	}
 	
 	/**

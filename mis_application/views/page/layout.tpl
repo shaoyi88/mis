@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>融易创新园区</title>
-<link href="/public/metro/css/metro.css" rel="stylesheet">
+<link href="/public/metro/css/metro.css?v=01" rel="stylesheet">
 <link href="/public/metro/css/metro-icons.css" rel="stylesheet">
 <link href="/public/metro/css/metro-responsive.css" rel="stylesheet">
 <link href="/public/common/css/common.css?v=08" rel="stylesheet">

@@ -15,11 +15,12 @@
 <![endif]-->
 </head>
 <body>
-    <div class="wrap-width header-background zheader">
-        <div class="zwrap">
-	        <div class="zplace-right">
-	            <ul class="znav">
-	                {if $userinfo['userId']}
+    <header class="margin5-z no-margin-left-z no-margin-right-z">
+            <div class="clear-float-z header-background wrap-width">
+            <div class="container-z">
+                <div class="place-right-z">
+                    <ul class="horizontal-menu-z compact-z navbar-z">
+                    {if $userinfo['userId']}
                     <li><a href="javascript:">欢迎您，{$userinfo['userName']}</a></li>
                     {else}
                     <li><a href="javascript:">注册</a></li>
@@ -27,37 +28,40 @@
                     {/if}
                     <li><a href="{formatUrl('myhome/')}">用户中心</a></li>
                     <li>
-					    <a class="dropdown-toggle" data-toggle="dropdown" href="your/nice/url">网站导航 <span class="caret"></span></a>
-					    <ul class="dropdown-menu">
-					      <li><a href="#">办事大厅</a></li>
-					      <li><a href="#">企业风采</a></li>
-					      <li><a href="#">松山湖</a></li>
-					      <li><a href="#">政策资讯</a></li>
-					    </ul>
-                    </li>   
-	            </ul>
-				<form class="navbar-form navbar-left" role="search">
-			      <div class="form-group">
-			        <input type="text" class="form-control" placeholder="搜索">
-			      </div>
-			      <button type="submit" class="btn btn-default"><i class="icon icon-search"></i></button>
-			    </form>
-	        </div>
-	        <a class="zplace-left rylogo" style="background:url(/public/common/images/rylogo.png) no-repeat;" href="{formatUrl('home/')}" title="">&nbsp;</a>
-        </div>
-    </div>
+                        <a href="javascript:" class="dropdown-toggle" data-toggle="dropdown">网站导航</a>
+                        <ul class="dropdown-menu d-menu">
+                        <li><a href="#">办事大厅</a></li>
+                        <li><a href="#">企业风采</a></li>
+                        <li><a href="#">松山湖</a></li>
+                        <li><a href="#">政策资讯</a></li>
+                        </ul>
+                    </li>                
+                   </ul>                   
+                    <form>
+                        <div class="input-control-z margin20-z" style="width: 300px">
+                            <input type="text" name="q" placeholder="搜索...">
+                            <button class="button-z"><i class="icon icon-search"></i></button>
+                        </div>
+                    </form>
+                </div>
+                <a class="place-left-z rylogo" style="background:url(/public/common/images/rylogo.png) no-repeat;" href="{formatUrl('home/')}" title="">
+                    <h1></h1>
+                </a>
+            </div>
+            </div>
+    </header>
     <div class="container">
         {$LAYOUT_CONTENT}           
     </div>
     <footer>
-            <div class="bottom-menu-wrapper bg-grayLight">
-                <ul class="horizontal-menu compact footer-text">
+            <div class="bg-grayLight-z">
+                <ul class="horizontal-menu-z compact-z footer-text-z">
                     <li><a href="http://www.ry168.cn/">©{$web['website_copyright']}</a></li>
-                    <li class="place-right"><a href="http://www.miitbeian.gov.cn/">{$web['website_record_no']}</a></li>
-                    <li class="place-right"><a href="#">合作单位</a></li>
-                    <li class="place-right"><a href="#">建议</a></li>
-                    <li class="place-right"><a href="#">帮助</a></li>
-                    <li class="place-right"><a href="#">联系我们</a></li>
+                    <li class="place-right-z"><a href="http://www.miitbeian.gov.cn/">{$web['website_record_no']}</a></li>
+                    <li class="place-right-z"><a href="#">合作单位</a></li>
+                    <li class="place-right-z"><a href="#">建议</a></li>
+                    <li class="place-right-z"><a href="#">帮助</a></li>
+                    <li class="place-right-z"><a href="#">联系我们</a></li>
                 </ul>
             </div>
      </footer>     
