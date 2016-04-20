@@ -1,4 +1,4 @@
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i>  物业服务 <span class="c-gray en">&gt;</span> <a href="{formatUrl('property/feeList?t=')}{$t}"> {$fee_type[$t]}</a> <span class="c-gray en">&gt;</span> {$typeMsg}</nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i>  物业服务 <span class="c-gray en">&gt;</span> <a href="{formatUrl('property/feeList')}"> 费用管理</a> <span class="c-gray en">&gt;</span> {$typeMsg}</nav>
 <div class="pd-20">
 	<form class="Huiform" id="form-role-add" action="{formatUrl('property/doAddFee')}" method="post">
 		{if isset($info)}
@@ -25,19 +25,25 @@
           			 	<input id="fee_date_str" name="fee_date" type="hidden" value="{if isset($info)}{$info['fee_date']}{/if}">
           			 </td>
         		</tr>
-        		{if $t == 2}
         		<tr>
-          		     <th class="text-r" width="180">单位金额<span class="c-red">*</span>：</th>
-          			 <td><input nullmsg="请输入单位金额！" errormsg="请输入正确的数字格式" datatype="num" class="input-text" style="width:250px" name="fee_unit_price" id="fee_unit_price" type="text" value="{if isset($info)}{$info['fee_unit_price']}{/if}" placeholder="输入单位金额">元/平方</td>
+          		     <th class="text-r" width="180">物业单位费用<span class="c-red">*</span>：</th>
+          			 <td><input nullmsg="请输入>物业单位费用！" errormsg="请输入正确的数字格式" datatype="num" class="input-text" style="width:250px" name="property_fee_unit_price" id="property_fee_unit_price" type="text" value="{if isset($info)}{$info['property_fee_unit_price']}{/if}" placeholder="输入物业单位费用">元/平方</td>
         		</tr>
         		<tr>
-          		     <th class="text-r" width="180">面积<span class="c-red">*</span>：</th>
-          			 <td><input nullmsg="请输入费用金额！" errormsg="请输入正确的数字格式" datatype="num" class="input-text" style="width:250px" name="amount" id="amount" type="text" value="{if isset($info)}{$info['amount']}{/if}" placeholder="输入面积">平方</td>
+          		     <th class="text-r" width="180">物业面积<span class="c-red">*</span>：</th>
+          			 <td><input nullmsg="请输入物业面积！" errormsg="请输入正确的数字格式" datatype="num" class="input-text" style="width:250px" name="property_fee_num" id="property_fee_num" type="text" value="{if isset($info)}{$info['property_fee_num']}{/if}" placeholder="输入物业面积">平方</td>
         		</tr>
-        		{/if}
         		<tr>
-          		     <th class="text-r" width="180">费用金额<span class="c-red">*</span>：</th>
-          			 <td><input {if $t == 2}readonly{/if} nullmsg="请输入费用金额！" errormsg="请输入正确的数字格式" datatype="num" class="input-text" style="width:250px" name="fee_amount" id="fee_amount" type="text" value="{if isset($info)}{$info['fee_amount']}{/if}" placeholder="输入费用金额">元</td>
+          		     <th class="text-r" width="180">物业费<span class="c-red">*</span>：</th>
+          			 <td><input readonly nullmsg="请输入物业费！" errormsg="请输入正确的数字格式" datatype="num" class="input-text" style="width:250px" name="property_fee_amount" id="property_fee_amount" type="text" value="{if isset($info)}{$info['property_fee_amount']}{/if}" placeholder="输入物业费">元</td>
+        		</tr>
+        		<tr>
+          		     <th class="text-r" width="180">水费<span class="c-red">*</span>：</th>
+          			 <td><input nullmsg="请输入水费！" errormsg="请输入正确的数字格式" datatype="num" class="input-text" style="width:250px" name="water_fee_amount" id="water_fee_amount" type="text" value="{if isset($info)}{$info['water_fee_amount']}{/if}" placeholder="输入水费">元</td>
+        		</tr>
+        		<tr>
+          		     <th class="text-r" width="180">电费<span class="c-red">*</span>：</th>
+          			 <td><input nullmsg="请输入电费！" errormsg="请输入正确的数字格式" datatype="num" class="input-text" style="width:250px" name="elec_fee_amount" id="elec_fee_amount" type="text" value="{if isset($info)}{$info['elec_fee_amount']}{/if}" placeholder="输入电费">元</td>
         		</tr>
         		<tr>
           		     <th class="text-r" width="180">支付状态<span class="c-red">*</span>：</th>
@@ -56,7 +62,6 @@
         		<tr>
           			<th></th>
           			<td>         				
-          				<input name="fee_type" type="hidden" value="{$t}">
             			<button type="submit" class="btn btn-success radius"><i class="icon-ok"></i> {$typeMsg}</button>
           			</td>
         		</tr>

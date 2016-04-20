@@ -25,15 +25,15 @@ var fee = function(){
 		$('.del').click(del);
 		$('#user_id').change(userChange);
 		
-		$('#fee_unit_price').blur(fee_amount);
-		$('#amount').blur(fee_amount);
+		$('#property_fee_unit_price').blur(fee_amount);
+		$('#property_fee_num').blur(fee_amount);
 	};
 	
 	var fee_amount = function(){
-		if($('#fee_unit_price').val() != '' && $('#amount').val() != ''){
-			var fee_unit_price = parseFloat($('#fee_unit_price').val());
-			var amount = parseFloat($('#amount').val());
-			$('#fee_amount').val((fee_unit_price*amount).toFixed(2));
+		if($('#property_fee_unit_price').val() != '' && $('#property_fee_num').val() != ''){
+			var fee_unit_price = parseFloat($('#property_fee_unit_price').val());
+			var amount = parseFloat($('#property_fee_num').val());
+			$('#property_fee_amount').val((fee_unit_price*amount).toFixed(2));
 		}
 	};
 	
@@ -48,7 +48,7 @@ var fee = function(){
 	var del = function(event){
 		var id = $(event.currentTarget).attr('did');
 		layer.confirm('确定删除吗？',function(index){
-		    window.location.href = $('#delUrl').val()+'&id='+id;
+		    window.location.href = $('#delUrl').val()+'?id='+id;
 		});
 	};
 	

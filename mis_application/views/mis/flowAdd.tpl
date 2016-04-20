@@ -1,6 +1,6 @@
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i>  物业服务 <span class="c-gray en">&gt;</span> <a href="{formatUrl('property/flow')}">入驻流程配置</a> <span class="c-gray en">&gt;</span> {$typeMsg}</nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i>  招商管理<span class="c-gray en">&gt;</span> <a href="{formatUrl('investment/flow')}">入驻流程配置</a> <span class="c-gray en">&gt;</span> {$typeMsg}</nav>
 <div class="pd-20">
-	<form class="Huiform" id="form-flow-add" action="{formatUrl('property/doAddFlow')}" method="post">
+	<form class="Huiform" id="form-flow-add" action="{formatUrl('investment/doAddFlow')}" method="post">
 		{if isset($info)}
 		<input name="flow_id" type="hidden" value="{$info['flow_id']}">
 		{/if}

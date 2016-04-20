@@ -1,6 +1,6 @@
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 物业服务<span class="c-gray en">&gt;</span> 入驻申请管理 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 招商管理<span class="c-gray en">&gt;</span> 入驻申请管理 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="pd-20">
-	<form class="Huiform" action="{formatUrl('property/apply')}" method="get">
+	<form class="Huiform" action="{formatUrl('investment/apply')}" method="get">
 		<div class="text-c"> 
 			<select class="select" id="apply_type" name="apply_type" style="width:200px">
       			<option value="">请选择类型</option>
@@ -13,7 +13,7 @@
     		&nbsp;&nbsp;&nbsp;&nbsp;
 			<select class="select" id="status" name="status" style="width:200px">
       			<option value="">请选择状态</option>
-      			{foreach $repair_status as $key=>$item}
+      			{foreach $apply_status as $key=>$item}
       				<option value="{$key}" {if isset($keyword['status']) && $keyword['status'] != '' && $keyword['status'] == $key}selected{/if}>
       				{$item}
       				</option>
@@ -58,5 +58,5 @@
 	 {/if}
 	 {if isset($pageUrl)}{$pageUrl}{/if}
 </div>
-<input type="hidden" id="confirmUrl" value="{formatUrl('property/applyConfirm')}"></input>
+<input type="hidden" id="confirmUrl" value="{formatUrl('investment/applyConfirm')}"></input>
 <script type="text/javascript" src="/public/mis/js/apply.js""></script>

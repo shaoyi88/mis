@@ -24,9 +24,6 @@ class MIS_Fee extends CI_Model
 	 */
 	public function getCount($keyword)
 	{
-		if(isset($keyword['t']) && $keyword['t'] != ''){
-			$this->db->where('fee_type', $keyword['t']);
-		}
 		if(isset($keyword['pay_status']) && $keyword['pay_status'] != ''){
 			$this->db->where('pay_status', $keyword['pay_status']);
 		}
@@ -40,9 +37,6 @@ class MIS_Fee extends CI_Model
 	public function getList($keyword, $offset, $limit)
 	{
 		$info = array();
-		if(isset($keyword['t']) && $keyword['t'] != ''){
-			$this->db->where('fee_type', $keyword['t']);
-		}
 		if(isset($keyword['pay_status']) && $keyword['pay_status'] != ''){
 			$this->db->where('pay_status', $keyword['pay_status']);
 		}

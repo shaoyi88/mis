@@ -1,4 +1,4 @@
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i>  物业服务<span class="c-gray en">&gt;</span> <a href="{formatUrl('property/flow')}">入驻流程配置</a> <span class="c-gray en">&gt;</span> 查看</nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i>  招商管理<span class="c-gray en">&gt;</span> <a href="{formatUrl('investment/flow')}">入驻流程配置</a> <span class="c-gray en">&gt;</span> 查看</nav>
 <div class="pd-20">
 	<table class="table table-border table-bordered table-bg">
 		<tbody>

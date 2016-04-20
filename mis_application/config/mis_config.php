@@ -16,6 +16,8 @@ $config['menus'] = array(
 	array(
 		'module' => '招商管理',
 		'menu' => array(
+			array('入驻流程配置', formatUrl('investment/flow'), 'flow_list'),
+			array('入驻申请管理', formatUrl('investment/apply'), 'apply_list'),
 			array('潜在客户管理', formatUrl('home/coding'), ''),
 			array('入驻企业管理', formatUrl('home/coding'), ''),
 		),
@@ -50,13 +52,10 @@ $config['menus'] = array(
 	array(
 		'module' => '物业服务',
 		'menu' => array(
-			array('入驻流程配置', formatUrl('property/flow'), 'flow_list'),
-			array('入驻申请管理', formatUrl('property/apply'), 'apply_list'),
+			array('企业需求管理', formatUrl('property/need'), 'need_list'),
 			array('物业报修管理', formatUrl('property/repair'), 'repair_list'),
 			array('物业投诉管理', formatUrl('property/complain'), 'complain_list'),
-			array('水费管理', formatUrl('property/feeList?t=0'), 'fee_list'),
-			array('电费管理', formatUrl('property/feeList?t=1'), 'fee_list'),
-			array('物业费管理', formatUrl('property/feeList?t=2'), 'fee_list')
+			array('费用管理', formatUrl('property/feeList'), 'fee_list'),
 		),
 		'right' => 'property'
 	),
@@ -102,6 +101,12 @@ $config['rights'] = array(
 	array(
 		'module' => '招商管理',
 		'roles' => array(
+			array('入驻流程列表', 'flow_list'),
+			array('入驻流程添加', 'flow_add'),
+			array('入驻流程编辑', 'flow_edit'),
+			array('入驻流程删除', 'flow_del', TRUE),
+			array('入驻申请列表', 'apply_list'),
+			array('入驻申请确认', 'apply_confirm', TRUE)
 		),
 		'right' => 'investment'
 	),
@@ -153,12 +158,8 @@ $config['rights'] = array(
 	array(
 		'module' => '物业服务',
 		'roles' => array(
-			array('入驻流程列表', 'flow_list'),
-			array('入驻流程添加', 'flow_add'),
-			array('入驻流程编辑', 'flow_edit'),
-			array('入驻流程删除', 'flow_del', TRUE),
-			array('入驻申请列表', 'apply_list'),
-			array('入驻申请确认', 'apply_confirm', TRUE),
+			array('企业需求列表', 'need_list'),
+			array('企业需求确认', 'need_confirm', TRUE),
 			array('物业报修列表', 'repair_list'),
 			array('物业报修确认', 'repair_confirm', TRUE),
 			array('物业投诉列表', 'complain_list'),
@@ -409,4 +410,21 @@ $config['user_home_menu'] = array(
 		    array('我的基金','myfund','strikethrough'),
 			array('交易记录','mydeal','list-numbered'),
 		),
+);
+
+/**
+ * 企业需求类型
+ */
+$config['need_type'] = array(
+	'0' => 'a类型',
+	'1' => 'b类型',
+	'2' => 'c类型'
+);
+
+/**
+ * 企业需求状态
+ */
+$config['need_status'] = array(
+	'0' => '已提交',
+	'1' => '已跟进'
 );
