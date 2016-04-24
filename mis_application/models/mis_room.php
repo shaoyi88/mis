@@ -152,4 +152,33 @@ class MIS_Room extends CI_Model
         $this->db->where('booking_id', $data['booking_id']);
 		$this->db->update($this->_bookingTable, $data); 
 	}
+	
+	/**
+	 * 
+	 * 获取待确认的申请单数目
+	 */
+	public function getConfirmBookingCount()
+	{
+		$this->db->where('status', 0);
+		return $this->db->count_all_results($this->_bookingTable);
+	}
+	
+	/**
+	 * 
+	 * 获取待确认的申请单
+	 * @param unknown_type $keyword
+	 * @param unknown_type $offset
+	 * @param unknown_type $limit
+	 */
+	public function getConfirmBookingList($offset, $limit)
+	{
+		$info = array();
+		$sql = "select * from `$this->_bookingTable` as a left join `$this->_table` as b on a.room_id = b.room_id where a.status = 0 order by a.add_time 
+				limit $offset,$limit";
+		$query = $this->db->query($sql);
+		if($query){
+			$info = $query->result_array();
+		}
+		return $info;
+	}
 }

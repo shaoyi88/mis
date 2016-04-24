@@ -53,7 +53,7 @@
 				<tr class="text-c">
         			<td>{$item['user_nickname']}</td>
         			<td>{$item['user_account']}</td>
-        			<td>{$user_type[$item['user_type']]}{if $item['user_second_type']}-{$user_second_type[$item['user_second_type']]}{/if}</td>
+        			<td>{$user_type[$item['user_type']]}{if $item['user_second_type']}-{$user_second_type[$item['user_second_type']]}{/if}{if $item['enterprise_name']}({$item['enterprise_name']}){/if}</td>
           			<td>
           				{if checkRight('user_edit')}<a class="btn btn-primary radius edit" title="编辑" href="{formatUrl('user/add?id=')}{$item['user_id']}" style="text-decoration:none">编辑</a>{/if}
           				{if checkRight('user_del')}<a class="btn btn-primary radius ml-5 del" did="{$item['user_id']}" title="删除" href="javascript:;" style="text-decoration:none">删除</a>{/if}

@@ -155,6 +155,19 @@ class Workbench extends MIS_Controller
 			$dataList = $this->MIS_Project->getConfirmApplyList($offset, PER_COUNT);
 			$data['pageUrl'] = $pageUrl;
 			$data['dataList'] = $dataList;
+		}else{
+			if(checkRight('room_booking_confirm') === FALSE){
+				$this->showView('denied', $data);
+				exit;
+			}
+			$this->load->model('MIS_Room');
+			$offset = 0;
+			$pageUrl = '';
+			page(formatUrl('workbench/business').'?type=1', $this->MIS_Room->getConfirmBookingCount(), PER_COUNT, $offset, $pageUrl);
+			$dataList = $this->MIS_Room->getConfirmBookingList($offset, PER_COUNT);
+			$data['pageUrl'] = $pageUrl;
+			$data['dataList'] = $dataList;
+			$data['room_type'] = $this->config->item('room_type');
 		}
 		$this->showView('businessList', $data);
 	}
@@ -176,5 +189,51 @@ class Workbench extends MIS_Controller
 		$msg = '';
 		$this->MIS_Project->updateApply($data);
 		redirect(formatUrl('workbench/business?type=0'));
+	}
+	
+	/**
+	 * 
+	 * 企业审批
+	 */
+	public function enterprise()
+	{
+		$data = array();
+		if(checkRight('enterprise_user_approve') === FALSE){
+			$this->showView('denied', $data);
+			exit;
+		}
+		$this->load->model('MIS_User');
+		$offset = 0;
+		$pageUrl = '';
+		page(formatUrl('workbench/enterprise').'?', $this->MIS_User->getApproveEnterpriseUserCount(), PER_COUNT, $offset, $pageUrl);
+		$dataList = $this->MIS_User->getApproveEnterpriseUserList($offset, PER_COUNT);
+		$data['pageUrl'] = $pageUrl;
+		$data['dataList'] = $dataList;
+		$this->showView('approveEnterpriseUserList', $data);
+	}
+	
+	/**
+	 * 
+	 * 企业审批逻辑
+	 */
+	public function doApproveEnterpriseUser()
+	{
+		$data = array();
+		if(checkRight('enterprise_user_approve') === FALSE){
+			$this->showView('denied', $data);
+			exit;
+		}
+		$data = $this->input->post();
+		$this->load->model('MIS_User');
+		$updataApply = array();
+		$updataApply['apply_id'] = $data['apply_id'];
+		$updataApply['status'] = $data['status'];
+		$updataApply['msg'] = $data['msg'];
+		$this->MIS_User->updateRelateEnterpriseApply($updataApply);
+		$updataUser = array();
+		$updataUser['user_id'] = $data['user_id'];
+		$updataUser['enterprise_id'] = $data['enterprise_id'];
+		$this->MIS_User->update($updataUser);
+		redirect(formatUrl('workbench/enterprise'));
 	}
 }

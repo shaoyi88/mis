@@ -23,7 +23,6 @@ var fee = function(){
 		});
 		
 		$('.del').click(del);
-		$('#user_id').change(userChange);
 		
 		$('#property_fee_unit_price').blur(fee_amount);
 		$('#property_fee_num').blur(fee_amount);
@@ -36,14 +35,6 @@ var fee = function(){
 			$('#property_fee_amount').val((fee_unit_price*amount).toFixed(2));
 		}
 	};
-	
-	var userChange = function(event){
-		if($('#user_id option:selected').val() == ''){
-			$('#enterprise_name').val('');
-		}else{
-			$('#enterprise_name').val($('#user_id option:selected').text());
-		}
-	}
 	
 	var del = function(event){
 		var id = $(event.currentTarget).attr('did');

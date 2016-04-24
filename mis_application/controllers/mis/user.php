@@ -45,7 +45,9 @@ class User extends MIS_Controller
 	{
 		$data = array();
 		$data['user_type'] = $this->config->item('user_type');
-		$data['user_second_type'] = $this->config->item('user_second_type');		
+		$data['user_second_type'] = $this->config->item('user_second_type');	
+		$this->load->model('MIS_Enterprise');
+		$data['enterpriseList'] = $this->MIS_Enterprise->getAllList();	
 		if($this->input->get('id')){
 			if(checkRight('user_edit') === FALSE){
 				$this->showView('denied', $data);
@@ -94,7 +96,6 @@ class User extends MIS_Controller
 			$data = $this->input->post();
 			$data['user_password'] = md5($data['user_password']);
 			$data['reg_time'] = time();
-			$data['user_audit_type'] = 0;
 			$this->load->model('MIS_User');
 			$msg = '';
 			$userInfo = $this->MIS_User->queryUserByAccountPhone($data['user_account'], $data['user_phone']);

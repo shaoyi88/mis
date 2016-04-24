@@ -144,6 +144,9 @@ class Property extends MIS_Controller
 			$this->showView('denied', $data);
 			exit;
 		}
+		if($this->input->get('msg')){
+			$data['msg'] = $this->input->get('msg');
+		}
 		$this->load->model('MIS_Fee');
 		$keyword = $this->input->get();
 		$offset = 0;
@@ -163,8 +166,8 @@ class Property extends MIS_Controller
 	public function addFee()
 	{
 		$data = array();
-		$this->load->model('MIS_User');
-		$data['userList'] = $this->MIS_User->getEnterpriseUserList();
+		$this->load->model('MIS_Enterprise');
+		$data['enterpriseList'] = $this->MIS_Enterprise->getAllList();
 		if($this->input->get('did')){
 			if(checkRight('fee_edit') === FALSE){
 				$this->showView('denied', $data);
@@ -182,6 +185,90 @@ class Property extends MIS_Controller
 			$data['typeMsg'] = '新增';
 		}
 		$this->showView('feeAdd', $data);
+	}
+	
+	/**
+	 * 
+	 * 支付费用
+	 */
+	public function payFee()
+	{
+		$data = array();
+		if(checkRight('fee_pay') === FALSE){
+			$this->showView('denied', $data);
+			exit;
+		}
+		$id = $this->input->get('did');
+		$this->load->model('MIS_Fee');
+		$info = $this->MIS_Fee->getInfo($id);
+		$data['info'] = $info;
+		$data['total'] = $info['property_fee_amount']+$info['water_fee_amount']+$info['elec_fee_amount'];
+		$this->showView('feePay', $data);
+	}
+	
+	/**
+	 * 
+	 * 支付费用逻辑
+	 */
+	public function doPayFee()
+	{
+		$data = array();
+		if(checkRight('fee_pay') === FALSE){
+			$this->showView('denied', $data);
+			exit;
+		}
+		$data = $this->input->post();
+		$this->load->model('MIS_Enterprise');
+		$enterpriseInfo = $this->MIS_Enterprise->getInfo($data['enterprise_id']);
+		if($data['pay_amount'] > $data['total']){ // 支付大于预付,多余金额转入企业账户
+			// 增加账户记录
+			$record = array();
+			$record['enterprise_id'] = $data['enterprise_id'];
+			$record['record_type'] = 1;
+			$record['amount'] = $data['pay_amount']-$data['total'];
+			$balance = $enterpriseInfo['enterprise_account']+$record['amount'];
+			$record['balance'] = $balance;
+			$record['add_time'] = time();
+			$record['desc'] = '费用支付存入';
+			$record['admin_id'] = $this->userId;
+			$record['admin_name'] = $this->userName;
+			$this->MIS_Enterprise->addRecord($record);
+			// 更新企业账户
+			$update = array();
+			$update['enterprise_id'] = $data['enterprise_id'];
+			$update['enterprise_account'] = $balance;
+			$this->MIS_Enterprise->update($update);
+		}else if($data['pay_amount'] < $data['total']){ // 支付小于预付，使用账户金额支付
+			if($data['pay_amount']+$enterpriseInfo['enterprise_account'] < $data['total']){ // 账户金额不足
+				$msg = '?msg='.urlencode('账户金额不足支付');
+				redirect(formatUrl('property/feeList'.$msg));
+				exit;
+			}else{
+				// 增加账户记录
+				$record = array();
+				$record['enterprise_id'] = $data['enterprise_id'];
+				$record['record_type'] = 0;
+				$record['amount'] = $data['total'] - $data['pay_amount'];
+				$balance = $enterpriseInfo['enterprise_account']-$record['amount'];
+				$record['balance'] = $balance;
+				$record['add_time'] = time();
+				$record['desc'] = '费用支付支出';
+				$record['admin_id'] = $this->userId;
+				$record['admin_name'] = $this->userName;
+				$this->MIS_Enterprise->addRecord($record);
+				// 更新企业账户
+				$update = array();
+				$update['enterprise_id'] = $data['enterprise_id'];
+				$update['enterprise_account'] = $balance;
+				$this->MIS_Enterprise->update($update);
+			}
+		}
+		$data['pay_status'] = 1;
+		$data['pay_time'] = time();
+		unset($data['total']);
+		$this->load->model('MIS_Fee');
+		$this->MIS_Fee->update($data);
+		redirect(formatUrl('property/feeList'));
 	}
 	
 	/**

@@ -12,7 +12,7 @@
         		</tr>
         		<tr>
           		     <th class="text-r" width="180">时间段：</th>
-          			 <td>{date('H:i:s', $info['start_time'])}~{date('H:i:s', $info['end_time'])}</td>
+          			 <td>{date('Y-m-d H:i:s', $info['start_time'])}~{date('Y-m-d H:i:s', $info['end_time'])}</td>
         		</tr>
         		<tr>
           		     <th class="text-r" width="180">联系人：</th>

@@ -9,6 +9,7 @@
 class MIS_Fee extends CI_Model
 {
 	private $_table = 'mis_fee';
+	private $_enterpriseTable = 'mis_enterprise';
 	
 	/**
 	 * 初始化
@@ -37,10 +38,13 @@ class MIS_Fee extends CI_Model
 	public function getList($keyword, $offset, $limit)
 	{
 		$info = array();
+		$sql = "select * from `$this->_table` as a left join `$this->_enterpriseTable` as b on 
+				a.enterprise_id = b.enterprise_id where 1=1 ";
 		if(isset($keyword['pay_status']) && $keyword['pay_status'] != ''){
-			$this->db->where('pay_status', $keyword['pay_status']);
+			$sql .= ' and a.pay_status ='.$keyword['pay_status'];
 		}
-		$query = $this->db->get($this->_table, $limit, $offset);
+		$sql .= " limit $offset, $limit";
+		$query = $this->db->query($sql);
 		if($query){
 			$info = $query->result_array();
 		}
@@ -54,8 +58,10 @@ class MIS_Fee extends CI_Model
 	 */
 	public function getInfo($id)
 	{
-		$query = $this->db->get_where($this->_table, array('fee_id' => $id));
 		$info = array();
+		$sql = "select * from `$this->_table` as a left join `$this->_enterpriseTable` as b on 
+				a.enterprise_id = b.enterprise_id where fee_id=$id ";
+		$query = $this->db->query($sql);
 		if($query){
 			$info = $query->row_array();
 		}

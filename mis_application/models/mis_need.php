@@ -9,7 +9,7 @@
 class MIS_Need extends CI_Model
 {
 	private $_table = 'mis_need';
-	private $_enterpriseTable = 'mis_enterprise_userinfo';
+	private $_enterpriseTable = 'mis_enterprise';
 	
 	/**
 	 * 初始化
@@ -42,7 +42,7 @@ class MIS_Need extends CI_Model
 	{
 		$info = array();
 		$sql = "select * from `$this->_table` as a left join `$this->_enterpriseTable` as b on 
-				a.user_id = b.user_id where 1=1 ";
+				a.enterprise_id = b.enterprise_id where 1=1 ";
 		if(isset($keyword['need_type']) && $keyword['need_type'] != ''){
 			$sql .= ' and a.need_type ='.$keyword['need_type'];
 		}
@@ -65,7 +65,7 @@ class MIS_Need extends CI_Model
 	public function getInfo($id)
 	{
 		$sql = "select * from `$this->_table` as a left join `$this->_enterpriseTable` as b on 
-				a.user_id = b.user_id where a.need_id=$id";
+				a.enterprise_id = b.enterprise_id where a.need_id=$id";
 		$query = $this->db->query($sql);
 		$info = array();
 		if($query){

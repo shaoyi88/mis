@@ -15,6 +15,42 @@ var workbench = function(){
 		$('.repairConfirm').click(repairConfirm);
 		$('.complainConfirm').click(complainConfirm);
 		$('.projectApplyConfirm').click(projectApplyConfirm);
+		$('.roomBookingConfirm').click(roomBookingConfirm);
+		$('.enterpriseUserApprove').click(enterpriseUserApprove);
+	};
+	
+	var enterpriseUserApprove = function(event){
+		form.resetForm();
+		$('.Validform_checktip').html('');
+		$('#apply_id').val($(event.currentTarget).attr('aid'));
+		$('#user_id').val($(event.currentTarget).attr('uid'));
+		$('#enterprise_id').val($(event.currentTarget).attr('eid'));
+		layer.open({
+		    type: 1,
+		    area: '500px',
+		    title: [
+		        '企业用户审核',
+		        'border:none; background:#61BA7A; color:#fff;' 
+		    ],
+		    bgcolor: '#eee', //设置层背景色
+		    content: $('#enterpriseUserApproveWindow')
+		});
+	};
+	
+	var roomBookingConfirm = function(event){
+		var id = $(event.currentTarget).attr('did');
+		layer.open({
+  			type: 2,
+  			title: '确认',
+  			shadeClose: true,
+  			shade: 0.8,
+  			area: ['600px', '90%'],
+  			content: $('#roomBookingConfirmUrl').val()+'?id='+id,
+			end : function(index, layero){
+    			layer.close(index); 
+				window.location.reload();
+  			}
+		}); 
 	};
 	
 	var auditActivity = function(event){

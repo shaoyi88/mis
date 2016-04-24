@@ -9,7 +9,8 @@
 class MIS_User extends CI_Model
 {
 	private $_table = 'mis_user';
-	private $_enterpriseTable = 'mis_enterprise_userinfo';
+	private $_enterpriseTable = 'mis_enterprise';
+	private $_relateEnterpriseApply = 'mis_relate_enterprise_apply';
 	
 	/**
 	 * 初始化
@@ -63,7 +64,8 @@ class MIS_User extends CI_Model
 	 */
 	public function getInfo($id)
 	{
-		$query = $this->db->get_where($this->_table, array('user_id' => $id));
+		$sql = "select * from $this->_table as a left join $this->_enterpriseTable as b on a.enterprise_id = b. enterprise_id where user_id = $id";
+		$query = $this->db->query($sql);
 		$info = array();
 		if($query){
 			$info = $query->row_array();
@@ -78,18 +80,19 @@ class MIS_User extends CI_Model
 	public function getList($keyword, $offset, $limit)
 	{
 		$info = array();
-		$this->db->order_by('reg_time','DESC');
+		$sql = "select * from $this->_table as a left join $this->_enterpriseTable as b on a.enterprise_id = b. enterprise_id where 1=1";
+
 		if(isset($keyword['user_type']) && $keyword['user_type'] != ''){
-			$this->db->where('user_type', $keyword['user_type']);
+			$sql .= " and a.user_type = ".$keyword['user_type'];
 		}
 		if(isset($keyword['user_second_type'])){
-			$this->db->where('user_second_type', $keyword['user_second_type']);
+			$sql .= " and a.user_second_type = ".$keyword['user_second_type'];
 		}
 		if(isset($keyword['keyword']) && $keyword['keyword'] != ''){
-			$this->db->where('user_nickname', $keyword['keyword']);
-			$this->db->or_where('user_account', $keyword['keyword']);
+			$sql .= " and (a.user_nickname = ".$keyword['keyword']." or a.user_account = ".$keyword['keyword'].")";
 		}
-		$query = $this->db->get($this->_table, $limit, $offset);
+		$sql .= " order by reg_time desc limit $offset,$limit";
+		$query = $this->db->query($sql);
 		if($query){
 			$info = $query->result_array();
 		}
@@ -152,20 +155,39 @@ class MIS_User extends CI_Model
 	
 	/**
 	 * 
-	 * 获取企业用户列表
+	 * 获取待审核企业用户总数
 	 */
-	public function getEnterpriseUserList()
+	public function getApproveEnterpriseUserCount()
+	{
+		$this->db->where('apply_type', 1);
+		$this->db->where('status', 0);
+		return $this->db->count_all_results($this->_relateEnterpriseApply);
+	}
+	
+	/**
+	 * 
+	 * 获取待审核企业用户列表
+	 */
+	public function getApproveEnterpriseUserList($offset, $limit)
 	{
 		$info = array();
-		$this->db->select('*');
-		$this->db->from("$this->_table as a");
-		$this->db->join("$this->_enterpriseTable as b", 'a.user_id = b.user_id');
-		$this->db->order_by('a.reg_time','DESC');
-		$this->db->where('user_audit_type', 2);
-		$query = $this->db->get();
+		$sql = "select * from $this->_relateEnterpriseApply as a left join $this->_enterpriseTable as b on a.enterprise_id = b. enterprise_id where 
+				a.apply_type = 1 and a.status = 0 order by a.add_time desc limit $offset,$limit";
+		$query = $this->db->query($sql);
 		if($query){
 			$info = $query->result_array();
 		}
 		return $info;
+	}
+	
+	/**
+	 * 
+	 * 更新审核申请
+	 * @param unknown_type $data
+	 */
+	public function updateRelateEnterpriseApply($data)
+	{
+		$this->db->where('apply_id', $data['apply_id']);
+		$this->db->update($this->_relateEnterpriseApply, $data);
 	}
 }

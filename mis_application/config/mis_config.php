@@ -7,7 +7,7 @@ $config['menus'] = array(
 		'module' => '工作台',
 		'menu' => array(
 			array('活动审批', formatUrl('workbench/activity'), 'activity_audit'),
-			array('企业审批', formatUrl('home/coding'), ''),
+			array('企业审批', formatUrl('workbench/enterprise'), 'enterprise_user_approve'),
 			array('物业服务', formatUrl('workbench/property'), array('repair_confirm', 'complain_reply')),
 			array('企业服务', formatUrl('workbench/business'), array('project_apply_confirm')),
 		),
@@ -124,7 +124,8 @@ $config['rights'] = array(
 			array('园区用户列表', 'user_list'),
 			array('园区用户增加', 'user_add'),
 			array('园区用户编辑', 'user_edit'),
-			array('园区用户删除', 'user_del', TRUE)
+			array('园区用户删除', 'user_del', TRUE),
+			array('企业用户审批', 'enterprise_user_approve')
 		),
 		'right' => 'user'
 	),
@@ -167,7 +168,8 @@ $config['rights'] = array(
 			array('费用管理列表', 'fee_list'),
 			array('费用增加', 'fee_add'),
 			array('费用编辑', 'fee_edit'),
-			array('费用删除', 'fee_del')
+			array('费用删除', 'fee_del'),
+			array('费用支付', 'fee_pay'),
 		),
 		'right' => 'property'
 	),
@@ -263,10 +265,9 @@ $config['user_second_type'] = array(
  * 用户审核状态
  */
 $config['user_audit_type'] = array(
-	'0' => '未审核',
-	'1' => '待审核',
-	'2' => '审核通过',
-	'3' => '审核拒绝'
+	'0' => '待审核',
+	'1' => '审核通过',
+	'2' => '审核拒绝'
 );
 
 /**

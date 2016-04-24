@@ -39,7 +39,8 @@
           			<th>物业面积</th>
           			<th>物业费</th>
           			<th>水费</th>
-          			<th>电费费</th>
+          			<th>电费</th>
+          			<th>总费用</th>
           			<th>支付状态</th>
           			<th>操作</th>
         		</tr>
@@ -54,9 +55,11 @@
 						<td>{$item['property_fee_amount']}元</td>
 						<td>{$item['water_fee_amount']}元</td>
           				<td>{$item['elec_fee_amount']}元</td>
-          				<td>{if $item['pay_status'] == 0}未支付{else}已支付{/if}</td>
+          				<td>{$item['property_fee_amount']+$item['water_fee_amount']+$item['elec_fee_amount']}元</td>
+          				<td>{if $item['pay_status'] == 0}未支付{else}已支付{$item['pay_amount']}元{/if}</td>
           				<td>
-          					{if checkRight('fee_edit')}<a class="btn btn-primary radius" title="编辑" href="{formatUrl('property/addFee?did=')}{$item['fee_id']}" style="text-decoration:none">编辑</a>{/if}
+          					{if checkRight('fee_pay') && $item['pay_status'] == 0}<a class="ml-5 btn btn-primary radius" title="支付" href="{formatUrl('property/payFee?did=')}{$item['fee_id']}" style="text-decoration:none">支付</a>{/if}
+          					{if checkRight('fee_edit') && $item['pay_status'] == 0}<a class="ml-5 btn btn-primary radius" title="编辑" href="{formatUrl('property/addFee?did=')}{$item['fee_id']}" style="text-decoration:none">编辑</a>{/if}
           					{if checkRight('fee_del')}<a title="删除" href="javascript:;" class="ml-5 del btn btn-primary radius" did="{$item['fee_id']}" style="text-decoration:none">删除</a>{/if}
           				</td>
         		</tr>

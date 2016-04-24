@@ -7,15 +7,14 @@
 		<table class="table table-border table-bordered table-bg">
 			<tbody>
 				<tr>
-          		     <th class="text-r" width="180">企业用户<span class="c-red">*</span>：</th>
+          		     <th class="text-r" width="180">企业<span class="c-red">*</span>：</th>
           			 <td>
-          			 	<select class="select" id="user_id" name="user_id" nullmsg="企业用户不能为空！" datatype="*">
-      						<option value="">请选择企业用户</option>
-      						{foreach $userList as $user}
-      							<option value="{$user['user_id']}" {if isset($info) && $info['user_id'] == $user['user_id']}selected{/if}>{$user['enterprise_name']}</option>
+          			 	<select class="select" id="enterprise_id" name="enterprise_id" nullmsg="企业不能为空！" datatype="*">
+      						<option value="">请选择企业</option>
+      						{foreach $enterpriseList as $enterprise}
+      							<option value="{$enterprise['enterprise_id']}" {if isset($info) && $info['enterprise_id'] == $enterprise['enterprise_id']}selected{/if}>{$enterprise['enterprise_name']}</option>
       						{/foreach}
     					</select>
-    					<input id="enterprise_name" name="enterprise_name" type="hidden" value="{if isset($info)}{$info['enterprise_name']}{/if}">
           			 </td>
         		</tr>
         		<tr>
@@ -44,20 +43,6 @@
         		<tr>
           		     <th class="text-r" width="180">电费<span class="c-red">*</span>：</th>
           			 <td><input nullmsg="请输入电费！" errormsg="请输入正确的数字格式" datatype="num" class="input-text" style="width:250px" name="elec_fee_amount" id="elec_fee_amount" type="text" value="{if isset($info)}{$info['elec_fee_amount']}{/if}" placeholder="输入电费">元</td>
-        		</tr>
-        		<tr>
-          		     <th class="text-r" width="180">支付状态<span class="c-red">*</span>：</th>
-          			 <td>
-          			 	<select class="select" id="pay_status" name="pay_status" nullmsg="支付状态不能为空！" datatype="*">
-      						<option value="">请选择支付状态</option>
-      						<option value="0" {if isset($info) && $info['pay_status'] == 0}selected{/if}>
-      							未支付
-      						</option>
-      						<option value="1" {if isset($info) && $info['pay_status'] == 1}selected{/if}>
-      							已支付
-      						</option>
-    					</select>
-          			 </td>
         		</tr>
         		<tr>
           			<th></th>

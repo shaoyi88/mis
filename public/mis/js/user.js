@@ -6,15 +6,27 @@ var user = function(){
 		});
 		$('.del').click(del);
 		$('#user_type').change(user_type_change);
+		$('#user_second_type').change(user_second_type);
 	};
 	
 	var user_type_change = function(event){
 		if($(event.currentTarget).val() === '0'){
-			$('#user_second_type').show();
-			$('#td_user_second_type').show().find('input').attr('ignore', '');
+			$('#td_user_second_type').show().find('select').attr('ignore', '');
 		}else{
-			$('#user_second_type').hide().val('');
-			$('#td_user_second_type').hide().find('input,select').attr('ignore', 'ignore').val('');
+			$('#td_user_second_type').hide().find('select').attr('ignore', 'ignore').val('');
+			$('#td_enterprise').hide().find('select').attr('ignore', 'ignore').val('');
+		}
+	};
+	
+	var user_second_type = function(event){
+		if ($(event.currentTarget).val() === '1') {
+			$('#enterprise_require').hide();
+			$('#td_enterprise').show().find('select').attr('ignore', 'ignore').val('');
+		}else if($(event.currentTarget).val() === '2'){
+			$('#enterprise_require').show();
+			$('#td_enterprise').show().find('select').attr('ignore', '').val('');
+		}else{
+			$('#td_enterprise').hide().find('select').attr('ignore', 'ignore').val('');
 		}
 	};
 	

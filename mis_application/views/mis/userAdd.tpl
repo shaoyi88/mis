@@ -38,17 +38,34 @@
           			 </td>
         		</tr>
         		{/if}
+        		<tr style="display:none" id="td_enterprise">
+          		     <th class="text-r" width="180"><span class="c-red" id="enterprise_require">*</span>企业：</th>
+          			 <td>
+          			 	<select class="select" id="enterprise_id" name="enterprise_id" nullmsg="企业不能为空！" datatype="*" ignore="ignore">
+      						<option value="">请选择企业</option>
+      						{foreach $enterpriseList as $enterprise}
+      							<option value="{$enterprise['enterprise_id']}" {if isset($info) && $info['enterprise_id'] == $enterprise['enterprise_id']}selected{/if}>{$enterprise['enterprise_name']}</option>
+      						{/foreach}
+    					</select>
+          			 </td>
+        		</tr>
+        		{if isset($info) && $info['enterprise_name']}
+        			<tr>
+        				<th class="text-r" width="180">企业：</th>
+        				<td>{$info['enterprise_name']}</td>
+        			</tr>
+        		{/if}
 				<tr>
           		     <th class="text-r" width="180">{if !isset($info)}<span class="c-red">*</span>{/if}账户：</th>
           			 <td><input name="user_account" type="text" {if isset($info)}disabled{/if} class="input-text" id="user_account" value="{if isset($info)}{$info['user_account']}{/if}" nullmsg="账户不能为空！" datatype="s"></td>
         		</tr>
         		<tr>
           		     <th class="text-r" width="180">姓名：</th>
-          			 <td><input name="user_account" type="text" class="input-text" id="user_account" value="{if isset($info)}{$info['user_name']}{/if}"></td>
+          			 <td><input name="user_name" type="text" class="input-text" id="user_name" value="{if isset($info)}{$info['user_name']}{/if}"></td>
         		</tr>
         		<tr>
           		     <th class="text-r" width="180">手机：</th>
-          			 <td><input name="user_account" type="text" class="input-text" id="user_account" value="{if isset($info)}{$info['user_mobile']}{/if}"></td>
+          			 <td><input name="user_mobile" type="text" class="input-text" id="user_mobile" value="{if isset($info)}{$info['user_mobile']}{/if}"></td>
         		</tr>
         		<tr>
           		     <th class="text-r" width="180">{if !isset($info)}<span class="c-red">*</span>{/if}密码{if isset($info)}(留空则不修改){/if}：</th>
