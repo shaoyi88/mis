@@ -191,4 +191,47 @@ class Investment extends MIS_Controller
 		$data['stepInfo'] = $this->MIS_Flow->getStepInfo($did);
 		$this->showView('flowDetail', $data);
 	}
+	
+	/**
+	 *
+	 * 潜在客户列表
+	 */
+	public function potential()
+	{
+		$data = array();
+		if(checkRight('potential_list') === FALSE){
+			$this->showView('denied', $data);
+			exit;
+		}
+		$this->load->model('MIS_EnterprisePotential');
+		$keyword = $this->input->get();
+		$offset = 0;
+		$pageUrl = '';
+		page(formatUrl('investment/potential').'?', $this->MIS_EnterprisePotential->getCount($keyword), PER_COUNT, $offset, $pageUrl);
+		$dataList = $this->MIS_EnterprisePotential->getList($keyword, $offset, PER_COUNT);
+		$data['pageUrl'] = $pageUrl;
+		$data['dataList'] = $dataList;
+		$data['keyword'] = $keyword;
+		$this->showView('potentialList', $data);
+	}
+	/**
+	 *
+	 * 潜在客户详情
+	 */
+	public function potentialDetail()
+	{
+		$data = array();
+		if(checkRight('potential_list') === FALSE){
+			$this->showView('denied', $data);
+			exit;
+		}
+		$this->load->model('MIS_EnterprisePotential');
+		if(is_numeric($this->input->get('id'))){
+			$data['id'] = $this->input->get('id');			
+			$data['info'] = $this->MIS_EnterprisePotential->getInfo($data['id']);
+			$this->showView('potentialDetail', $data);
+		}else{
+			redirect(formatUrl('investment/potential'));
+		}
+	}
 }

@@ -97,6 +97,7 @@ function checkUserLogin()
 	$ci->userId = $ci->session->userdata('user_id');
 	$ci->userName = $ci->session->userdata('user_name');
 	$ci->userRights = $ci->session->userdata('user_rights');
+	$ci->userType = $ci->session->userdata('user_type');
 	if($ci->userId == ''){
 		if(strtolower($ci->rtrClass) !== 'login'){
 			redirect(formatUrl('login/index'));
