@@ -35,6 +35,21 @@ class MIS_Enterprise extends CI_Model
 	
 	/**
 	 * 
+	 * 增加
+	 * @param unknown_type $data
+	 */
+	public function add($data)
+	{
+		$this->db->insert($this->_table, $data); 
+		if($this->db->affected_rows() <= 0){
+			return FALSE;
+		}
+		$id = $this->db->insert_id();		
+		return $id;
+	}
+	
+	/**
+	 * 
 	 * 编辑
 	 * @param unknown_type $data
 	 */
@@ -73,4 +88,55 @@ class MIS_Enterprise extends CI_Model
 		$id = $this->db->insert_id();		
 		return $id;
 	}
+	
+	/**
+	 * 
+	 * 获取列表
+	 */
+	public function getList($offset, $limit)
+	{
+		$info = array();
+		$this->db->order_by('enterprise_enter_time','DESC');
+		$query = $this->db->get($this->_table, $limit, $offset);
+		if($query){
+			$info = $query->result_array();
+		}
+		return $info;
+	}
+	
+	/**
+	 * 通过企业名查询
+	 * Enter description here ...
+	 * @param unknown_type $account
+	 */
+	public function queryByName($name)
+	{
+		$this->db->where('enterprise_name', $name);
+		$info = array();
+		$query = $this->db->get($this->_table);
+		if($query){
+			$info = $query->result_array();
+		}
+		return $info;
+	}
+	
+	/**
+	 * 
+	 * 获取总数
+	 */
+	public function getCount()
+	{
+		return $this->db->count_all_results($this->_table);
+	}
+	
+	/**
+	 * 
+	 * 删除
+	 * @param unknown_type $ids
+	 */
+	public function del($id)
+	{
+		$this->db->where('enterprise_id', $id);
+		$this->db->delete($this->_table); 
+	} 
 }

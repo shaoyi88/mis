@@ -43,7 +43,7 @@ class MIS_Fee extends CI_Model
 		if(isset($keyword['pay_status']) && $keyword['pay_status'] != ''){
 			$sql .= ' and a.pay_status ='.$keyword['pay_status'];
 		}
-		$sql .= " limit $offset, $limit";
+		$sql .= " order by a.fee_id desc limit $offset, $limit";
 		$query = $this->db->query($sql);
 		if($query){
 			$info = $query->result_array();

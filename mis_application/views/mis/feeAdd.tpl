@@ -26,7 +26,7 @@
         		</tr>
         		<tr>
           		     <th class="text-r" width="180">物业单位费用<span class="c-red">*</span>：</th>
-          			 <td><input nullmsg="请输入>物业单位费用！" errormsg="请输入正确的数字格式" datatype="num" class="input-text" style="width:250px" name="property_fee_unit_price" id="property_fee_unit_price" type="text" value="{if isset($info)}{$info['property_fee_unit_price']}{/if}" placeholder="输入物业单位费用">元/平方</td>
+          			 <td><input nullmsg="请输入物业单位费用！" errormsg="请输入正确的数字格式" datatype="num" class="input-text" style="width:250px" name="property_fee_unit_price" id="property_fee_unit_price" type="text" value="{if isset($info)}{$info['property_fee_unit_price']}{/if}" placeholder="输入物业单位费用">元/平方</td>
         		</tr>
         		<tr>
           		     <th class="text-r" width="180">物业面积<span class="c-red">*</span>：</th>

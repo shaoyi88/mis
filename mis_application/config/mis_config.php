@@ -19,7 +19,7 @@ $config['menus'] = array(
 			array('入驻流程配置', formatUrl('investment/flow'), 'flow_list'),
 			array('入驻申请管理', formatUrl('investment/apply'), 'apply_list'),
 			array('潜在客户管理', formatUrl('home/coding'), ''),
-			array('入驻企业管理', formatUrl('home/coding'), ''),
+			array('入驻企业管理', formatUrl('enterprise/index'), 'enterprise_list'),
 		),
 		'right' => 'investment'
 	),
@@ -106,7 +106,11 @@ $config['rights'] = array(
 			array('入驻流程编辑', 'flow_edit'),
 			array('入驻流程删除', 'flow_del', TRUE),
 			array('入驻申请列表', 'apply_list'),
-			array('入驻申请确认', 'apply_confirm', TRUE)
+			array('入驻申请确认', 'apply_confirm', TRUE),
+			array('入驻企业列表', 'enterprise_list'),
+			array('入驻企业添加', 'enterprise_add'),
+			array('入驻企业编辑', 'enterprise_edit'),
+			array('入驻企业删除', 'enterprise_del')
 		),
 		'right' => 'investment'
 	),
