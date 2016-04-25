@@ -34,6 +34,7 @@ class home extends MIS_Controller
 			//$data['weatherAqi'] = $weatherinfo[0]['aqi'];
 		}
 		$data['week'] = array("日","一","二","三","四","五","六");
+		$data['hideNav'] = 1;
 		$this->showView('index', $data);
 	}
 	

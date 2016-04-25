@@ -22,10 +22,13 @@ class MIS_Complain extends CI_Model
 	 * 
 	 * 获取总数
 	 */
-	public function getCount($keyword)
+	public function getCount($keyword, $uid=0)
 	{
 		if(isset($keyword['status']) && $keyword['status'] != ''){
 			$this->db->where('status', $keyword['status']);
+		}
+		if($uid){
+			$this->db->where('user_id', $uid);
 		}
 		return $this->db->count_all_results($this->_table);
 	}
@@ -34,11 +37,14 @@ class MIS_Complain extends CI_Model
 	 * 获取列表
 	 * Enter description here ...
 	 */
-	public function getList($keyword, $offset, $limit)
+	public function getList($keyword, $offset, $limit, $uid=0)
 	{
 		$info = array();
 		if(isset($keyword['status']) && $keyword['status'] != ''){
 			$this->db->where('status', $keyword['status']);
+		}
+		if($uid){
+			$this->db->where('user_id', $uid);
 		}
 		$query = $this->db->get($this->_table, $limit, $offset);
 		if($query){

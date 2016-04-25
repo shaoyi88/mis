@@ -135,6 +135,21 @@ class MIS_Project extends CI_Model
 	}
 	
 	/**
+	 *
+	 * 增加申请
+	 * @param unknown_type $data
+	 */
+	public function addApply($data)
+	{
+		$this->db->insert($this->_applyTable, $data);
+		if($this->db->affected_rows() <= 0){
+			return FALSE;
+		}
+		$id = $this->db->insert_id();
+		return $id;
+	}
+	
+	/**
 	 * 
 	 * 更新申请
 	 * @param unknown_type $data
@@ -165,6 +180,31 @@ class MIS_Project extends CI_Model
 		$this->db->select('*');
 		$this->db->where('status', 0);
 		$this->db->join($this->_table, "$this->_table.project_id = $this->_applyTable.project_id", 'left');
+		$query = $this->db->get($this->_applyTable, $limit, $offset);
+		if($query){
+			$info = $query->result_array();
+		}
+		return $info;
+	}
+	
+	/**
+	 *
+	 * 获取uid的需求总数
+	 */
+	public function getUidApplyCount($keyword, $uid)
+	{		
+		$this->db->where('user_id', $uid);
+		return $this->db->count_all_results($this->_applyTable);
+	}
+	
+	/**
+	 * 获取列表
+	 * Enter description here ...
+	 */
+	public function getApplyListByUid($keyword, $offset, $limit, $uid)
+	{
+		$info = array();
+		$this->db->where('user_id', $uid);
 		$query = $this->db->get($this->_applyTable, $limit, $offset);
 		if($query){
 			$info = $query->result_array();

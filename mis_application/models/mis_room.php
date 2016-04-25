@@ -143,6 +143,21 @@ class MIS_Room extends CI_Model
 	}
 	
 	/**
+	 *
+	 * 添加预订信息
+	 * @param unknown_type $data
+	 */
+	public function addBooking($data)
+	{
+		$this->db->insert($this->_bookingTable, $data);
+		if($this->db->affected_rows() <= 0){
+			return FALSE;
+		}
+		$id = $this->db->insert_id();
+		return $id;
+	}
+	
+	/**
 	 * 
 	 * 编辑预订信息
 	 * @param unknown_type $data
@@ -180,5 +195,58 @@ class MIS_Room extends CI_Model
 			$info = $query->result_array();
 		}
 		return $info;
+	}
+	
+	/**
+	 * 搜索
+	 * Enter description here ...
+	 */
+	public function search($keyword)
+	{
+		$info = array();
+		if(isset($keyword['t']) && $keyword['t'] != ''){
+			$this->db->where('room_type', $keyword['t']);
+		}
+		$query = $this->db->get($this->_table);
+		if($query){
+			$info = $query->result_array();
+		}
+		return $info;
+	}
+	
+	/**
+	 *
+	 * 获取个人预订信息
+	 * @param unknown_type $date
+	 */
+	public function getBookingListByUid($keyword, $offset, $limit, $uid)
+	{
+		$info = array();
+		$this->db->select('a.*,b.room_address,b.room_name');
+		$this->db->from('mis_room_booking as a');
+		$this->db->join('mis_room as b', 'a.room_id = b.room_id');
+		if(isset($keyword['t']) && $keyword['t'] != ''){
+			$this->db->where('b.room_type', $keyword['t']);
+		}
+		$this->db->where('a.user_id', $uid);
+		$this->db->group_by('a.room_id');
+		$query = $this->db->get($this->_bookingTable, $limit, $offset);
+		if($query){
+			$info = $query->result_array();
+		}
+		return $info;
+	}
+	
+	/**
+	 *
+	 * 获取个人预订总数
+	 */
+	public function getUidBookingCount($keyword, $uid)
+	{
+		if(isset($keyword['t']) && $keyword['t'] != ''){
+			$this->db->where('room_type', $keyword['t']);
+		}
+		$this->db->where('user_id', $uid);
+		return $this->db->count_all_results($this->_bookingTable);
 	}
 }

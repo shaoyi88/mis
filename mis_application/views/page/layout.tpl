@@ -8,12 +8,13 @@
 <link href="/public/metro/css/metro.css?v=01" rel="stylesheet">
 <link href="/public/metro/css/metro-icons.css" rel="stylesheet">
 <link href="/public/metro/css/metro-responsive.css" rel="stylesheet">
-<link href="/public/common/css/common.css?v=08" rel="stylesheet">
+<link href="/public/common/css/common.css" rel="stylesheet">
 <script src="/public/metro/js/jquery-2.1.3.min.js"></script>
 <script src="/public/metro/js/metro.js"></script>
 <!--[if lt IE 9]>
 <script src="/public/dist/lib/ieonly/html5shiv.js"></script>
 <![endif]-->
+<script src="/public/common/js/common.js"></script>
 </head>
 <body>
     <header class="margin5 no-margin-left no-margin-right">
@@ -31,10 +32,10 @@
                     <li>
                         <a href="javascript:" class="dropdown-toggle">网站导航</a>
                         <ul class="d-menu" data-role="dropdown">
-                        <li><a href="#">办事大厅</a></li>
+                        <li><a href="{formatUrl('officehall/')}">办事大厅</a></li>
                         <li><a href="#">企业风采</a></li>
-                        <li><a href="#">松山湖</a></li>
-                        <li><a href="#">政策资讯</a></li>
+                        <li><a href="http://www.ssl.gov.cn/" target=_blank>松山湖</a></li>
+                        <li><a href="http://www.ssl.gov.cn/dgssl/s41082/list.htm" target=_blank>政策资讯</a></li>
                         </ul>
                     </li>                
                    </ul>                   
@@ -52,6 +53,14 @@
             </div>
     </header>
     <div class="container">
+        {if !isset($hideNav)}
+        <ul class="m-menu" >
+            <li><a href="/">首页</a></li>
+            <li><a href="{formatUrl('incubator/')}">孵化器</a></li>
+            <li><a href="{formatUrl('maker/')}">易创客</a></li>
+            <li><a href="#">投资人俱乐部</a></li>
+        </ul>
+        {/if}
         {$LAYOUT_CONTENT}           
     </div>
     <footer>

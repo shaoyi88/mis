@@ -1,7 +1,7 @@
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 工作台<span class="c-gray en">&gt;</span> 物业服务<a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="pd-20">
 	<div id="tab-system" class="HuiTab">
-	 <div class="tabBar cl">{if checkRight('repair_confirm')}<a href="{formatUrl('workbench/property?type=0')}"><span {if $type == 0}class="current"{/if}>物业报修申请</span></a>{/if}{if checkRight('complain_reply')}<a href="{formatUrl('workbench/property?type=1')}"><span {if $type == 1}class="current"{/if}>物业投诉申请</span></a>{/if}</div>
+	 <div class="tabBar cl">{if checkRight('repair_confirm')}<a href="{formatUrl('workbench/property?type=0')}"><span {if $type == 0}class="current"{/if}>物业报修申请</span></a>{/if}{if checkRight('complain_reply')}<a href="{formatUrl('workbench/property?type=1')}"><span {if $type == 1}class="current"{/if}>物业投诉</span></a>{/if}</div>
 	 {if $type == 0}
 	 {if empty($dataList)}
 	 	<div class="cl pd-5 bg-1 bk-gray"><h2 class="text-c">暂无物业报修申请</h2></div>
@@ -36,7 +36,7 @@
 	 {if isset($pageUrl)}{$pageUrl}{/if}
 	 {else}
 	 {if empty($dataList)}
-	 	<div class="cl pd-5 bg-1 bk-gray"><h2 class="text-c">暂无物业投诉申请</h2></div>
+	 	<div class="cl pd-5 bg-1 bk-gray"><h2 class="text-c">暂无物业投诉</h2></div>
 	 {else}
 	 	<table class="table table-border table-bg table-bordered table-hover">
 			<thead>
