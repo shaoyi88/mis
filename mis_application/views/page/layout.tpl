@@ -25,7 +25,7 @@
                     {if $userinfo['userId']}
                     <li><a href="javascript:">欢迎您，{$userinfo['userName']}</a></li>
                     {else}
-                    <li><a href="javascript:">注册</a></li>
+                    <li><a href="javascript:">&nbsp;</a></li>
                     <li><a href="{formatUrl('login/')}">登录</a></li>
                     {/if}
                     <li><a href="{formatUrl('myhome/')}">用户中心</a></li>
@@ -33,7 +33,7 @@
                         <a href="javascript:" class="dropdown-toggle">网站导航</a>
                         <ul class="d-menu" data-role="dropdown">
                         <li><a href="{formatUrl('officehall/')}">办事大厅</a></li>
-                        <li><a href="#">企业风采</a></li>
+                        <li><a href="{formatUrl('enterprise/')}">企业风采</a></li>
                         <li><a href="http://www.ssl.gov.cn/" target=_blank>松山湖</a></li>
                         <li><a href="http://www.ssl.gov.cn/dgssl/s41082/list.htm" target=_blank>政策资讯</a></li>
                         </ul>
@@ -58,7 +58,7 @@
             <li><a href="/">首页</a></li>
             <li><a href="{formatUrl('incubator/')}">孵化器</a></li>
             <li><a href="{formatUrl('maker/')}">易创客</a></li>
-            <li><a href="#">投资人俱乐部</a></li>
+            <li><a href="{formatUrl('club/')}">投资人俱乐部</a></li>
         </ul>
         {/if}
         {$LAYOUT_CONTENT}           

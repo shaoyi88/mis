@@ -57,6 +57,7 @@
             <br />
             <div class="input-control text full-size" data-role="input">
                 <label for="user_login">账户:</label>
+                <span class="mif-user prepend-icon"></span>
                 <input type="text" name="user_login" id="user_login" data-validate-func="required" data-validate-hint="请输入账户！">
                 <button class="button helper-button clear"><span class="mif-cross"></span></button>
             </div>
@@ -64,6 +65,7 @@
             <br />
             <div class="input-control password full-size" data-role="input">
                 <label for="user_password">密码:</label>
+                <span class="mif-lock prepend-icon"></span>
                 <input type="password" name="user_password" id="user_password" data-validate-func="required" data-validate-hint="请输入密码！">
                 <button class="button helper-button reveal"><span class="mif-looks"></span></button>
             </div>

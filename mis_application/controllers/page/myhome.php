@@ -359,4 +359,33 @@ class myhome extends MIS_Controller
 		}
 	}
 	
+	/**
+	 *
+	 * 我的活动
+	 */
+	public function activity()
+	{
+		$data = array();
+		if($this->input->get('msg')){
+			$data = getMsg($this->input->get('msg'));
+		}
+		$data['unav'] = 8;
+		$data['layoutName'] = "myhome";
+		$data['title'] = '我的活动';
+		$this->load->model('MIS_Activity');
+		$uid = $this->userId;
+		$this->load->model('MIS_User');
+		$userinfo = $this->MIS_User->getInfo($this->userId);
+		$data['enterprise_id'] = $userinfo['enterprise_id'];
+		$offset = 0;
+		$pageUrl = '';
+		$keyword = array();
+		page(formatUrl('myhome/activity').'?', $this->MIS_Activity->getCount($keyword,$uid), PER_COUNT, $offset, $pageUrl);
+		$dataList = $this->MIS_Activity->getList($keyword, $offset, PER_COUNT, $uid);
+		$data['pageUrl'] = $pageUrl;
+		$data['list'] = $dataList;
+		$data['activity_audit_type'] = $this->config->item('activity_audit_type');
+		$this->showView('/userHome/activity', $data);
+	}
+	
 }

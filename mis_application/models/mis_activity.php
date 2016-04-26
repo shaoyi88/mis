@@ -24,12 +24,15 @@ class MIS_Activity extends CI_Model
 	 * 
 	 * 获取列表
 	 */
-	public function getList($keyword, $offset, $limit)
+	public function getList($keyword, $offset, $limit, $uid=0)
 	{
 		$info = array();
 		$this->db->order_by('add_time','DESC');
 		if(isset($keyword['activity_status']) && $keyword['activity_status'] != ''){
 			$this->db->where('activity_status', $keyword['activity_status']);
+		}
+		if($uid){
+			$this->db->where('user_id', $uid);
 		}
 		$query = $this->db->get($this->_table, $limit, $offset);
 		if($query){
@@ -42,10 +45,13 @@ class MIS_Activity extends CI_Model
 	 * 
 	 * 获取总数
 	 */
-	public function getCount($keyword)
+	public function getCount($keyword, $uid=0)
 	{
 		if(isset($keyword['activity_status'])){
 			$this->db->where('activity_status', $keyword['activity_status']);
+		}
+		if($uid){
+			$this->db->where('user_id', $uid);
 		}
 		return $this->db->count_all_results($this->_table);
 	}

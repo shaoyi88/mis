@@ -96,7 +96,7 @@
                             <span class="icon mif-library"></span>
                         </div>
                     </div>
-                    <div class="tile bg-green fg-white" data-role="tile">
+                    <div class="tile bg-green fg-white" data-role="tile" onclick="location.href='{formatUrl('club')}'">
                         <div class="tile-content iconic">
                             <p style="text-align:center;">投资人俱乐部</p>
                             <span class="icon mif-organization"></span>
