@@ -11,12 +11,12 @@
 
 <aside class="Hui-aside">
   <input runat="server" id="divScrollValue" type="hidden" value="" />
-  {foreach $menus as $item}
+  {foreach $menus as $k=>$item}
   {if checkRight($item['right'])}
   <div class="menu_dropdown bk_2">
     <dl>
-      <dt>{$item['module']}<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-      <dd>
+      <dt {if $k==0}class="selected"{/if}>{$item['module']}<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+      <dd {if $k==0}style="display:block"{/if}>
         <ul>
           {foreach $item['menu'] as $sItem}
           {if checkRight($sItem[2])}

@@ -205,4 +205,54 @@ class MIS_User extends CI_Model
 		$this->db->where('apply_id', $data['apply_id']);
 		$this->db->update($this->_relateEnterpriseApply, $data);
 	}
+	
+/**
+	 * 
+	 * 获取需要第一次提醒的列表
+	 */
+	public function getRemindFirstNum()
+	{
+		$info = array();
+		$sql = "SELECT count(*) as num FROM $this->_relateEnterpriseApply WHERE status = 0 AND (UNIX_TIMESTAMP(NOW()) - add_time>172800) AND remind_times=0";
+		$query = $this->db->query($sql);
+		if($query){
+			$info = $query->row_array();
+		}
+		return $info['num'];
+	}
+	
+	/**
+	 * 
+	 * 获取需要第二次提醒的列表
+	 */
+	public function getRemindSecondNum()
+	{
+		$info = array();
+		$sql = "SELECT count(*) as num FROM $this->_relateEnterpriseApply WHERE status = 0 AND (UNIX_TIMESTAMP(NOW()) -last_remind_time>172800) AND remind_times=1";
+		$query = $this->db->query($sql);
+		if($query){
+			$info = $query->row_array();
+		}
+		return $info['num'];
+	}
+	
+	/**
+	 * 
+	 * 更新第一次提醒状态
+	 */
+	public function updataRemindFitst()
+	{
+		$sql = "update $this->_relateEnterpriseApply set last_remind_time=".time().",remind_times=1 where status = 0 AND (UNIX_TIMESTAMP(NOW()) - add_time>172800) AND remind_times=0";
+		$query = $this->db->query($sql);
+	}
+	
+	/**
+	 * 
+	 * 更新第二次提醒状态
+	 */
+	public function updataRemindSecond()
+	{
+		$sql = "update $this->_relateEnterpriseApply set last_remind_time=".time().",remind_times=2 where status = 0 AND (UNIX_TIMESTAMP(NOW()) - last_remind_time>172800) AND remind_times=1";
+		$query = $this->db->query($sql);
+	}
 }
