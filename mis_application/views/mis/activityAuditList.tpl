@@ -21,7 +21,11 @@
         			<td>{$activity_audit_type[$item['activity_status']]}</td>
         			<td>{if $item['user_name']}{$item['user_name']}{else}{$item['admin_name']}{/if}</td>
           			<td>
+          				{if $item['follow_by'] == 0}
+          				<a class="btn btn-primary radius auditFollow" href="javascript:;" title="指派跟进人" did="{$item['activity_id']}" style="text-decoration:none">指派跟进人</a>
+          				{else}
           				<a class="btn btn-primary radius auditActivity" href="javascript:;" title="审核" did="{$item['activity_id']}" style="text-decoration:none">审核</a>
+          				{/if}
           			</td>
           		</tr>
 			{/foreach}
@@ -48,6 +52,30 @@
           		     	<textarea style="width:300px;height:150px;" name="activity_audit_msg" nullmsg="审核意见不能为空！" datatype="*"></textarea>
           		     </td>
           		</tr> 
+          		<tr>
+        			<th></th>
+      				<td colspan="2">
+      					<button itype="submit" class="btn btn-success radius"><i class="icon-ok"></i>提交</button>
+      				</td>
+      			</tr>
+      	</table>
+	</form>
+</div>
+<div class="pd-20 text-c" style="display:none" id="followWindow">
+	<form class="Huiform" action="{formatUrl('workbench/doFollowActivity')}" method="post">
+		<input type="hidden" name="activity_id" id="f_activity_id" value="" />
+		<table class="table table-bg table-border table-bordered">
+			<tr>
+          		<th class="text-r" style="width:100px">跟进人<span class="c-red">*</span></th>
+          			<td>
+          		     	<select name="follow_by" nullmsg="请选择跟进人" datatype="*">
+          		     		<option value="">请选择跟进人</option>
+          		     		{foreach $adminList as $item}
+          		     			<option value="{$item['admin_id']}">{$item['admin_name']}</option>
+          		     		{/foreach}
+          		     	</select>
+          		     </td>
+        		</tr>
           		<tr>
         			<th></th>
       				<td colspan="2">

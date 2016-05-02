@@ -49,6 +49,22 @@ class Property extends MIS_Controller
 		$data['info'] = $this->MIS_Repair->getInfo($id);
 		$data['repair_status'] = $this->config->item('repair_status');
 		$data['repair_type'] = $this->config->item('repair_type');
+		$data['userId'] = $this->userId;
+		//获取可跟进用户
+		$this->load->model('MIS_Admin');
+		$adminList = array();
+		$list = $this->MIS_Admin->getAll();
+		foreach($list as $item){
+			if($item['admin_role'] == 0){
+				$adminList[] = $item;
+			}else{
+				$rightsArr = explode(',', $item['role_rights']);
+				if(in_array('repair_confirm', $rightsArr)){
+					$adminList[] = $item;
+				}
+			}
+		}
+		$data['adminList'] = $adminList;
 		$this->showView('repairDetail', $data);
 	}
 	
@@ -58,14 +74,19 @@ class Property extends MIS_Controller
 	 */
 	public function repairConfirm()
 	{
-		$data = array();
-		if(checkRight('repair_confirm') === FALSE){
+		$data = $this->input->post();
+		if(!$data['follow_by'] && checkRight('repair_confirm') === FALSE){
 			$this->showView('denied', $data);
 			exit;
 		}
-		$data = $this->input->post();
-		$data['status'] = 1;
-		$data['service_time'] = strtotime($data['service_time']);
+		if($data['follow_by'] && checkRight('repair_assign') === FALSE){
+			$this->showView('denied', $data);
+			exit;
+		}
+		if(!$data['follow_by']){
+			$data['status'] = 1;
+			$data['service_time'] = strtotime($data['service_time']);
+		}
 		$this->load->model('MIS_Repair');
 		$msg = '';
 		$this->MIS_Repair->update($data);
@@ -111,6 +132,22 @@ class Property extends MIS_Controller
 		$this->load->model('MIS_Complain');
 		$data['info'] = $this->MIS_Complain->getInfo($id);
 		$data['complain_status'] = $this->config->item('complain_status');
+		$data['userId'] = $this->userId;
+		//获取可跟进用户
+		$this->load->model('MIS_Admin');
+		$adminList = array();
+		$list = $this->MIS_Admin->getAll();
+		foreach($list as $item){
+			if($item['admin_role'] == 0){
+				$adminList[] = $item;
+			}else{
+				$rightsArr = explode(',', $item['role_rights']);
+				if(in_array('complain_reply', $rightsArr)){
+					$adminList[] = $item;
+				}
+			}
+		}
+		$data['adminList'] = $adminList;
 		$this->showView('complainDetail', $data);
 	}
 	
@@ -120,13 +157,18 @@ class Property extends MIS_Controller
 	 */
 	public function complainReply()
 	{
-		$data = array();
-		if(checkRight('complain_reply') === FALSE){
+		$data = $this->input->post();
+		if(!$data['follow_by'] && checkRight('complain_reply') === FALSE){
 			$this->showView('denied', $data);
 			exit;
 		}
-		$data = $this->input->post();
-		$data['status'] = 1;
+		if($data['follow_by'] && checkRight('complain_assign') === FALSE){
+			$this->showView('denied', $data);
+			exit;
+		}
+		if(!$data['follow_by']){
+			$data['status'] = 1;
+		}
 		$this->load->model('MIS_Complain');
 		$msg = '';
 		$this->MIS_Complain->update($data);

@@ -26,7 +26,11 @@
           				<td>{date('Y-m-d',$item['add_time'])}</td>
           				<td>{$repair_status[$item['status']]}</td>
           				<td>
+          					{if $item['follow_by'] == 0}
+          					<a class="btn btn-primary radius repairFollow" title="指派跟进人" href="javascript:;" did="{$item['repair_id']}" style="text-decoration:none">指派跟进人</a>
+          					{else}
           					<a class="btn btn-primary radius repairConfirm" title="确认" href="javascript:;" did="{$item['repair_id']}" style="text-decoration:none">确认</a>
+          					{/if}
           				</td>
         		</tr>
       			{/foreach}
@@ -56,7 +60,11 @@
           				<td>{date('Y-m-d',$item['add_time'])}</td>
           				<td>{$complain_status[$item['status']]}</td>
           				<td>
+          					{if $item['follow_by'] == 0}
+          					<a class="btn btn-primary radius complainFollow" title="指派跟进人" href="javascript:;" did="{$item['complain_id']}" style="text-decoration:none">指派跟进人</a>
+          					{else}
           					<a class="btn btn-primary radius complainConfirm" title="确认" href="javascript:;" did="{$item['complain_id']}" style="text-decoration:none">确认</a>
+          					{/if}
           				</td>
         		</tr>
       			{/foreach}
@@ -66,6 +74,30 @@
 	  {if isset($pageUrl)}{$pageUrl}{/if}
 	  {/if}
 	 </div>
+</div>
+<div class="pd-20 text-c" style="display:none" id="repairFollowWindow">
+	<form class="Huiform" action="{formatUrl('workbench/doRepairFollow')}" method="post">
+		<input type="hidden" name="repair_id" id="f_repair_id" value="" />
+		<table class="table table-bg table-border table-bordered">
+			<tr>
+          		<th class="text-r" style="width:100px">跟进人<span class="c-red">*</span></th>
+          			<td>
+          		     	<select name="follow_by" nullmsg="请选择跟进人" datatype="*">
+          		     		<option value="">请选择跟进人</option>
+          		     		{foreach $adminList as $item}
+          		     			<option value="{$item['admin_id']}">{$item['admin_name']}</option>
+          		     		{/foreach}
+          		     	</select>
+          		     </td>
+        		</tr>
+          		<tr>
+        			<th></th>
+      				<td colspan="2">
+      					<button itype="submit" class="btn btn-success radius"><i class="icon-ok"></i>提交</button>
+      				</td>
+      			</tr>
+      	</table>
+	</form>
 </div>
 <div class="pd-20 text-c" style="display:none" id="repairConfirmWindow">
 	<form class="Huiform" action="{formatUrl('workbench/doRepairConfirm')}" method="post">
@@ -108,6 +140,30 @@
             			<button type="submit" class="btn btn-success radius"><i class="icon-ok"></i> 提交</button>
           			</td>
         		</tr>
+      	</table>
+	</form>
+</div>
+<div class="pd-20 text-c" style="display:none" id="complainFollowWindow">
+	<form class="Huiform" action="{formatUrl('workbench/doComplainFollow')}" method="post">
+		<input type="hidden" name="complain_id" id="f_complain_id" value="" />
+		<table class="table table-bg table-border table-bordered">
+			<tr>
+          		<th class="text-r" style="width:100px">跟进人<span class="c-red">*</span></th>
+          			<td>
+          		     	<select name="follow_by" nullmsg="请选择跟进人" datatype="*">
+          		     		<option value="">请选择跟进人</option>
+          		     		{foreach $adminList as $item}
+          		     			<option value="{$item['admin_id']}">{$item['admin_name']}</option>
+          		     		{/foreach}
+          		     	</select>
+          		     </td>
+        		</tr>
+          		<tr>
+        			<th></th>
+      				<td colspan="2">
+      					<button itype="submit" class="btn btn-success radius"><i class="icon-ok"></i>提交</button>
+      				</td>
+      			</tr>
       	</table>
 	</form>
 </div>

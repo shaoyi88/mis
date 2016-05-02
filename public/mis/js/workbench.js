@@ -13,10 +13,49 @@ var workbench = function(){
 		
 		$('.auditActivity').click(auditActivity);
 		$('.repairConfirm').click(repairConfirm);
+		$('.repairFollow').click(repairFollow);
 		$('.complainConfirm').click(complainConfirm);
+		$('.complainFollow').click(complainFollow);
 		$('.projectApplyConfirm').click(projectApplyConfirm);
+		$('.projectApplyFollow').click(projectApplyFollow);
 		$('.roomBookingConfirm').click(roomBookingConfirm);
 		$('.enterpriseUserApprove').click(enterpriseUserApprove);
+		$('.auditFollow').click(auditFollow);
+		$('.enterpriseUserFollow').click(enterpriseUserFollow);
+		$('.potentialFollow').click(potentialFollow);
+		$('.potentialConfirm').click(potentialConfirm);
+	};
+	
+	var potentialFollow = function(event){
+		form.resetForm();
+		$('.Validform_checktip').html('');
+		$('#f_enterprise_id').val($(event.currentTarget).attr('did'));
+		layer.open({
+		    type: 1,
+		    area: '500px',
+		    title: [
+		        '指派跟进人',
+		        'border:none; background:#61BA7A; color:#fff;' 
+		    ],
+		    bgcolor: '#eee', //设置层背景色
+		    content: $('#potentialFollowWindow')
+		});
+	};
+	
+	var potentialConfirm = function(event){
+		form.resetForm();
+		$('.Validform_checktip').html('');
+		$('#enterprise_id').val($(event.currentTarget).attr('did'));
+		layer.open({
+		    type: 1,
+		    area: ['600px'],
+		    title: [
+		        '跟进',
+		        'border:none; background:#61BA7A; color:#fff;' 
+		    ],
+		    bgcolor: '#eee', //设置层背景色
+		    content: $('#potentialConfirmWindow')
+		});
 	};
 	
 	var enterpriseUserApprove = function(event){
@@ -37,6 +76,22 @@ var workbench = function(){
 		});
 	};
 	
+	var enterpriseUserFollow = function(event){
+		form.resetForm();
+		$('.Validform_checktip').html('');
+		$('#f_apply_id').val($(event.currentTarget).attr('aid'));
+		layer.open({
+		    type: 1,
+		    area: '500px',
+		    title: [
+		        '指派跟进人',
+		        'border:none; background:#61BA7A; color:#fff;' 
+		    ],
+		    bgcolor: '#eee', //设置层背景色
+		    content: $('#enterpriseUserFollowWindow')
+		});
+	};
+	
 	var roomBookingConfirm = function(event){
 		var id = $(event.currentTarget).attr('did');
 		layer.open({
@@ -44,7 +99,7 @@ var workbench = function(){
   			title: '确认',
   			shadeClose: true,
   			shade: 0.8,
-  			area: ['600px', '90%'],
+  			area: ['600px'],
   			content: $('#roomBookingConfirmUrl').val()+'?id='+id,
 			end : function(index, layero){
     			layer.close(index); 
@@ -69,6 +124,22 @@ var workbench = function(){
 		});
 	};
 	
+	var auditFollow = function(event){
+		form.resetForm();
+		$('.Validform_checktip').html('');
+		$('#f_activity_id').val($(event.currentTarget).attr('did'));
+		layer.open({
+		    type: 1,
+		    area: '500px',
+		    title: [
+		        '指派跟进人',
+		        'border:none; background:#61BA7A; color:#fff;' 
+		    ],
+		    bgcolor: '#eee', //设置层背景色
+		    content: $('#followWindow')
+		});
+	};
+	
 	var repairConfirm = function(event){
 		form.resetForm();
 		$('.Validform_checktip').html('');
@@ -82,6 +153,22 @@ var workbench = function(){
 		    ],
 		    bgcolor: '#eee', //设置层背景色
 		    content: $('#repairConfirmWindow')
+		});
+	};
+	
+	var repairFollow = function(event){
+		form.resetForm();
+		$('.Validform_checktip').html('');
+		$('#f_repair_id').val($(event.currentTarget).attr('did'));
+		layer.open({
+		    type: 1,
+		    area: '800px',
+		    title: [
+		        '指派跟进人',
+		        'border:none; background:#61BA7A; color:#fff;' 
+		    ],
+		    bgcolor: '#eee', //设置层背景色
+		    content: $('#repairFollowWindow')
 		});
 	};
 	
@@ -101,6 +188,22 @@ var workbench = function(){
 		});
 	};
 	
+	var complainFollow = function(event){
+		form.resetForm();
+		$('.Validform_checktip').html('');
+		$('#f_complain_id').val($(event.currentTarget).attr('did'));
+		layer.open({
+		    type: 1,
+		    area: '800px',
+		    title: [
+		        '指派跟进人',
+		        'border:none; background:#61BA7A; color:#fff;' 
+		    ],
+		    bgcolor: '#eee', //设置层背景色
+		    content: $('#complainFollowWindow')
+		});
+	};
+	
 	var projectApplyConfirm = function(event){
 		form.resetForm();
 		$('.Validform_checktip').html('');
@@ -114,6 +217,22 @@ var workbench = function(){
 		    ],
 		    bgcolor: '#eee', //设置层背景色
 		    content: $('#projectApplyConfirmWindow')
+		});
+	};
+	
+	var projectApplyFollow = function(event){
+		form.resetForm();
+		$('.Validform_checktip').html('');
+		$('#f_apply_id').val($(event.currentTarget).attr('did'));
+		layer.open({
+		    type: 1,
+		    area: '800px',
+		    title: [
+		        '指派跟进人',
+		        'border:none; background:#61BA7A; color:#fff;' 
+		    ],
+		    bgcolor: '#eee', //设置层背景色
+		    content: $('#projectApplyFollowWindow')
 		});
 	};
 

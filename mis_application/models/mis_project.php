@@ -10,6 +10,7 @@ class MIS_Project extends CI_Model
 {
 	private $_table = 'mis_project';
 	private $_applyTable = 'mis_project_apply';
+	private $_ci;
 	
 	/**
 	 * 初始化
@@ -17,6 +18,7 @@ class MIS_Project extends CI_Model
 	public function __construct()
 	{
 		parent::__construct();
+		$this->_ci = & get_instance();
 	}
 	
 	/**
@@ -166,8 +168,17 @@ class MIS_Project extends CI_Model
 	 */
 	public function getConfirmApplyCount()
 	{
-		$this->db->where('status', 0);
-		return $this->db->count_all_results($this->_applyTable);
+		$sql = "select count(*) as num from $this->_applyTable where status = 0";
+		if(checkRight('project_apply_assign')){
+			$sql .= " and (follow_by=0 or follow_by=".$this->_ci->userId.")";
+		}else{
+			$sql .= " and follow_by=".$this->_ci->userId;
+		}
+		$query = $this->db->query($sql);
+		if($query){
+			$info = $query->row_array();
+		}
+		return $info['num'];
 	}
 	
 	/**
@@ -177,10 +188,14 @@ class MIS_Project extends CI_Model
 	public function getConfirmApplyList($offset, $limit)
 	{
 		$info = array();
-		$this->db->select('*');
-		$this->db->where('status', 0);
-		$this->db->join($this->_table, "$this->_table.project_id = $this->_applyTable.project_id", 'left');
-		$query = $this->db->get($this->_applyTable, $limit, $offset);
+		$sql = "select * from $this->_applyTable as a left join $this->_table as b on a.project_id = b.project_id where a.status = 0";
+		if(checkRight('project_apply_assign')){
+			$sql .= " and (a.follow_by=0 or a.follow_by=".$this->_ci->userId.")";
+		}else{
+			$sql .= " and a.follow_by=".$this->_ci->userId;
+		}
+		$sql .= " limit $offset,$limit";
+		$query = $this->db->query($sql);
 		if($query){
 			$info = $query->result_array();
 		}

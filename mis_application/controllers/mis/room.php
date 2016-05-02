@@ -151,6 +151,22 @@ class Room extends MIS_Controller
 		$this->load->model('MIS_Room');
 		$data['info'] = $this->MIS_Room->getBookingInfo($id);
 		$data['room_booking_status'] = $this->config->item('room_booking_status');
+		$data['userId'] = $this->userId;
+		//获取可跟进用户
+		$this->load->model('MIS_Admin');
+		$adminList = array();
+		$list = $this->MIS_Admin->getAll();
+		foreach($list as $item){
+			if($item['admin_role'] == 0){
+				$adminList[] = $item;
+			}else{
+				$rightsArr = explode(',', $item['role_rights']);
+				if(in_array('room_booking_confirm', $rightsArr)){
+					$adminList[] = $item;
+				}
+			}
+		}
+		$data['adminList'] = $adminList;
 		$this->showView('roomBookingDetail', $data);
 	}
 	
@@ -160,12 +176,15 @@ class Room extends MIS_Controller
 	 */
 	public function doConfirmBooking()
 	{
-		$data = array();
-		if(checkRight('room_booking_confirm') === FALSE){
+		$data = $this->input->post();
+		if(!$data['follow_by'] && checkRight('room_booking_confirm') === FALSE){
 			$this->showView('denied', $data);
 			exit;
 		}
-		$data = $this->input->post();
+		if($data['follow_by'] && checkRight('room_booking_assign') === FALSE){
+			$this->showView('denied', $data);
+			exit;
+		}
 		$this->load->model('MIS_Room');
 		$this->MIS_Room->updateBooking($data);
 		redirect(formatUrl('room/viewBooking?id=').$data['booking_id']);

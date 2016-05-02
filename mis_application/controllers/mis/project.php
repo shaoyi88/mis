@@ -135,6 +135,22 @@ class Project extends MIS_Controller
 		$data['pageUrl'] = $pageUrl;
 		$data['dataList'] = $dataList;
 		$data['project_apply_status'] = $this->config->item('project_apply_status');
+		$data['userId'] = $this->userId;
+		//获取可跟进用户
+		$this->load->model('MIS_Admin');
+		$adminList = array();
+		$list = $this->MIS_Admin->getAll();
+		foreach($list as $item){
+			if($item['admin_role'] == 0){
+				$adminList[] = $item;
+			}else{
+				$rightsArr = explode(',', $item['role_rights']);
+				if(in_array('project_apply_confirm', $rightsArr)){
+					$adminList[] = $item;
+				}
+			}
+		}
+		$data['adminList'] = $adminList;
 		$this->showView('projectDetail', $data);
 	}
 	
@@ -144,15 +160,20 @@ class Project extends MIS_Controller
 	 */
 	public function doConfirmApply()
 	{
-		$data = array();
-		if(checkRight('project_apply_confirm') === FALSE){
+		$data = $this->input->post();
+		if(!$data['follow_by'] && checkRight('project_apply_confirm') === FALSE){
 			$this->showView('denied', $data);
 			exit;
 		}
-		$data = $this->input->post();
+		if($data['follow_by'] && checkRight('project_apply_assign') === FALSE){
+			$this->showView('denied', $data);
+			exit;
+		}
 		$project_id = $data['project_id'];
 		unset($data['project_id']);
-		$data['status'] = 1;
+		if(!$data['follow_by']){
+			$data['status'] = 1;
+		}
 		$this->load->model('MIS_Project');
 		$msg = '';
 		$this->MIS_Project->updateApply($data);

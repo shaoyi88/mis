@@ -11,6 +11,7 @@ class MIS_User extends CI_Model
 	private $_table = 'mis_user';
 	private $_enterpriseTable = 'mis_enterprise';
 	private $_relateEnterpriseApply = 'mis_relate_enterprise_apply';
+	private $_ci;
 	
 	/**
 	 * 初始化
@@ -18,6 +19,7 @@ class MIS_User extends CI_Model
 	public function __construct()
 	{
 		parent::__construct();
+		$this->_ci = & get_instance();
 	}
 
 	/**
@@ -159,9 +161,17 @@ class MIS_User extends CI_Model
 	 */
 	public function getApproveEnterpriseUserCount()
 	{
-		$this->db->where('apply_type', 1);
-		$this->db->where('status', 0);
-		return $this->db->count_all_results($this->_relateEnterpriseApply);
+		$sql = "select count(*) as num from $this->_relateEnterpriseApply where status = 0";
+		if(checkRight('enterprise_user_assign')){
+			$sql .= " and (follow_by=0 or follow_by=".$this->_ci->userId.")";
+		}else{
+			$sql .= " and follow_by=".$this->_ci->userId;
+		}
+		$query = $this->db->query($sql);
+		if($query){
+			$info = $query->row_array();
+		}
+		return $info['num'];
 	}
 	
 	/**
@@ -171,8 +181,13 @@ class MIS_User extends CI_Model
 	public function getApproveEnterpriseUserList($offset, $limit)
 	{
 		$info = array();
-		$sql = "select * from $this->_relateEnterpriseApply as a left join $this->_enterpriseTable as b on a.enterprise_id = b. enterprise_id where 
-				a.apply_type = 1 and a.status = 0 order by a.add_time desc limit $offset,$limit";
+		$sql = "select * from $this->_relateEnterpriseApply as a left join $this->_enterpriseTable as b on a.enterprise_id = b. enterprise_id where 1=1";
+		if(checkRight('enterprise_user_assign')){
+			$sql .= " and (a.follow_by = ".$this->_ci->userId." or a.follow_by = 0)";
+		}else{
+			$sql .= " and a.follow_by = ".$this->_ci->userId;
+		}
+		$sql .=	" and a.apply_type = 1 and a.status = 0 order by a.add_time desc limit $offset,$limit";
 		$query = $this->db->query($sql);
 		if($query){
 			$info = $query->result_array();

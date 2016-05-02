@@ -32,9 +32,7 @@
 				        <td>{$item['enterprise_contact_mobile']}</td> 
 				        <td>{date('Y-m-d H:i:s',$item['app_time'])}</td> 
           				<td>
-          					<a class="btn btn-primary radius" title="详情" href="{formatUrl('investment/potentialDetail?id=')}{$item['enterprise_id']}" style="text-decoration:none">查看详情</a>
-          					&nbsp;&nbsp;
-          					{if checkRight('potential_appoint')}<a class="btn btn-primary radius" id="appoint" title="指派" href="javascript:;" did="{$item['enterprise_id']}" style="text-decoration:none">指派跟进人</a>{/if}
+          					<a class="btn btn-primary radius" title="详情" href="{formatUrl('investment/potentialDetail?id=')}{$item['enterprise_id']}" style="text-decoration:none">查看</a>
           				</td>
         		</tr>
       			{/foreach}

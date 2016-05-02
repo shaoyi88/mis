@@ -9,6 +9,7 @@
 class MIS_Repair extends CI_Model
 {
 	private $_table = 'mis_repair';
+	private $_ci;
 	
 	/**
 	 * 初始化
@@ -16,6 +17,7 @@ class MIS_Repair extends CI_Model
 	public function __construct()
 	{
 		parent::__construct();
+		$this->_ci = & get_instance();
 	}
 	
 	/**
@@ -65,8 +67,17 @@ class MIS_Repair extends CI_Model
 	 */
 	public function getConfirmCount()
 	{
-		$this->db->where('status', 0);
-		return $this->db->count_all_results($this->_table);
+		$sql = "select count(*) as num from $this->_table where status = 0";
+		if(checkRight('repair_assign')){
+			$sql .= " and (follow_by=0 or follow_by=".$this->_ci->userId.")";
+		}else{
+			$sql .= " and follow_by=".$this->_ci->userId;
+		}
+		$query = $this->db->query($sql);
+		if($query){
+			$info = $query->row_array();
+		}
+		return $info['num'];
 	}
 	
 	/**
@@ -76,8 +87,14 @@ class MIS_Repair extends CI_Model
 	public function getConfirmList($offset, $limit)
 	{
 		$info = array();
-		$this->db->where('status', 0);
-		$query = $this->db->get($this->_table, $limit, $offset);
+		$sql = "select * from $this->_table where status = 0";
+		if(checkRight('repair_assign')){
+			$sql .= " and (follow_by=0 or follow_by=".$this->_ci->userId.")";
+		}else{
+			$sql .= " and follow_by=".$this->_ci->userId;
+		}
+		$sql .= " limit $offset,$limit";
+		$query = $this->db->query($sql);
 		if($query){
 			$info = $query->result_array();
 		}

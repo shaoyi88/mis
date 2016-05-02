@@ -93,12 +93,6 @@ $config['menus'] = array(
  */
 $config['rights'] = array(
 	array(
-		'module' => '工作台',
-		'roles' => array(
-		),
-		'right' => 'workbench'
-	),
-	array(
 		'module' => '招商管理',
 		'roles' => array(
 			array('入驻流程列表', 'flow_list'),
@@ -112,7 +106,8 @@ $config['rights'] = array(
 			array('入驻企业编辑', 'enterprise_edit'),
 			array('入驻企业删除', 'enterprise_del', TRUE),
 			array('潜在客户管理', 'potential_list'),
-			array('潜在客户指派跟进人', 'potential_appoint', TRUE),
+			array('潜在客户跟进指派', 'potential_assign'),
+			array('潜在客户跟进', 'potential_follow', TRUE),
 		),
 		'right' => 'investment'
 	),
@@ -131,7 +126,9 @@ $config['rights'] = array(
 			array('园区用户增加', 'user_add'),
 			array('园区用户编辑', 'user_edit'),
 			array('园区用户删除', 'user_del', TRUE),
-			array('企业用户审批', 'enterprise_user_approve')
+			array('企业用户审批', 'enterprise_user_approve'),
+			array('企业用户审批指派', 'enterprise_user_assign')
+			
 		),
 		'right' => 'user'
 	),
@@ -152,6 +149,7 @@ $config['rights'] = array(
 			array('房间增加', 'room_add'),
 			array('房间编辑', 'room_edit'),
 			array('房间删除', 'room_del'),
+			array('房间预订确认指派', 'room_booking_assign'),
 			array('房间预订确认', 'room_booking_confirm', TRUE),
 			array('项目需求列表', 'project_list'),
 			array('项目需求查看', 'project_detail'),
@@ -159,6 +157,7 @@ $config['rights'] = array(
 			array('项目需求编辑', 'project_edit'),
 			array('项目需求删除', 'project_del'),
 			array('项目申请确认', 'project_apply_confirm'),
+			array('项目申请确认指派', 'project_apply_assign')
 		),
 		'right' => 'business'
 	),
@@ -168,8 +167,10 @@ $config['rights'] = array(
 			array('企业需求列表', 'need_list'),
 			array('企业需求确认', 'need_confirm', TRUE),
 			array('物业报修列表', 'repair_list'),
+			array('物业报修确认指派', 'repair_assign'),
 			array('物业报修确认', 'repair_confirm', TRUE),
 			array('物业投诉列表', 'complain_list'),
+			array('物业投诉回复指派', 'complain_assign'),
 			array('物业投诉回复', 'complain_reply', TRUE),
 			array('费用管理列表', 'fee_list'),
 			array('费用增加', 'fee_add'),
@@ -194,6 +195,7 @@ $config['rights'] = array(
 			array('园区活动添加', 'activity_add'),
 			array('园区活动删除', 'activity_del'),
 			array('园区活动审核', 'activity_audit'),
+			array('园区活动审核指派', 'activity_assign'),
 			array('园区活动报名删除', 'activity_register_del'),
 			array('园区活动评论删除', 'activity_comment_del', TRUE),
 			array('目录列表', 'dir_list'),
@@ -329,7 +331,6 @@ $config['repair_type'] = array(
 $config['repair_status'] = array(
 	'0' => '已提交',
 	'1' => '已跟进',
-	'2' => '已处理'
 );
 
 /**

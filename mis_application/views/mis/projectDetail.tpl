@@ -45,7 +45,12 @@
         				<td>{date('Y-m-d',$item['add_time'])}</td>
         				<td>{$project_apply_status[$item['status']]}</td>
         				<td>
-          					{if checkRight('project_apply_confirm') && $item['status'] == 0}<a did="{$item['apply_id']}" class="btn btn-primary radius ml-5 applyConfirm" title="确认" href="javascript:;" style="text-decoration:none">确认</a>{/if}
+          					{if checkRight('project_apply_confirm') && $item['status'] == 0 && $item['follow_by'] == $userId}
+          						<a did="{$item['apply_id']}" class="btn btn-primary radius ml-5 applyConfirm" title="确认" href="javascript:;" style="text-decoration:none">确认</a>
+          					{/if}
+          					{if checkRight('project_apply_assign') && $item['status'] == 0 && $item['follow_by'] == 0}
+          						<a did="{$item['apply_id']}" class="btn btn-primary radius ml-5 applyFollow" title="指派跟进人" href="javascript:;" style="text-decoration:none">指派跟进人</a>
+          					{/if}
           				</td>
           			</tr>
       				{/foreach}
@@ -64,6 +69,30 @@
 			<tr>
           		     <th class="text-r" width="180"><span class="c-red">*</span>确认信息：</th>
           			 <td><textarea style="width:500px;height:140px;" name="feedback" cols="" rows="" class="textarea" id="feedback" nullmsg="确认信息不能为空！" datatype="s"></textarea></td>
+        		</tr>
+        		<tr>
+          			<th></th>
+          			<td>
+            			<button type="submit" class="btn btn-success radius"><i class="icon-ok"></i> 提交</button>
+          			</td>
+        		</tr>
+      	</table>
+	</form>
+</div>
+<div class="pd-20 text-c" style="display:none" id="followWindow">
+	<form class="Huiform" action="{formatUrl('project/doConfirmApply')}" method="post">
+		<input type="hidden" name="apply_id" id="f_apply_id" value="" />
+		<input type="hidden" name="project_id" value="{$info['project_id']}" />
+		<table class="table table-bg table-border table-bordered">
+			<th class="text-r" style="width:100px">跟进人<span class="c-red">*</span></th>
+          			<td>
+          		     	<select name="follow_by" nullmsg="请选择跟进人" datatype="*">
+          		     		<option value="">请选择跟进人</option>
+          		     		{foreach $adminList as $item}
+          		     			<option value="{$item['admin_id']}">{$item['admin_name']}</option>
+          		     		{/foreach}
+          		     	</select>
+          		     </td>
         		</tr>
         		<tr>
           			<th></th>

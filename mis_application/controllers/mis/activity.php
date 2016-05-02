@@ -147,6 +147,22 @@ class Activity extends MIS_Controller
 		$commentList = $this->MIS_Activity->getCommentList($commentOffset, PER_COUNT);
 		$data['commentPageUrl'] = $commentPageUrl;
 		$data['commentList'] = $commentList;
+		$data['userId'] = $this->userId;
+		//获取可跟进用户
+		$this->load->model('MIS_Admin');
+		$adminList = array();
+		$list = $this->MIS_Admin->getAll();
+		foreach($list as $item){
+			if($item['admin_role'] == 0){
+				$adminList[] = $item;
+			}else{
+				$rightsArr = explode(',', $item['role_rights']);
+				if(in_array('activity_audit', $rightsArr)){
+					$adminList[] = $item;
+				}
+			}
+		}
+		$data['adminList'] = $adminList;
 		$this->showView('activityDetail', $data);
 	}
 	

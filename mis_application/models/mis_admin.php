@@ -9,6 +9,7 @@
 class MIS_Admin extends CI_Model
 {
 	private $_table = 'mis_admin';
+	private $_roleTable = 'mis_role';
 	
 	/**
 	 * 初始化
@@ -146,6 +147,21 @@ class MIS_Admin extends CI_Model
 		$this->db->where('admin_account', $account);
 		$info = array();
 		$query = $this->db->get($this->_table);
+		if($query){
+			$info = $query->result_array();
+		}
+		return $info;
+	}
+	
+	/**
+	 * 
+	 * 获取全部
+	 */
+	public function getAll()
+	{
+		$info = array();
+		$sql = "select * from $this->_table as a left join $this->_roleTable as b on a.admin_role = b.id order by a.reg_time desc";
+		$query = $this->db->query($sql);
 		if($query){
 			$info = $query->result_array();
 		}

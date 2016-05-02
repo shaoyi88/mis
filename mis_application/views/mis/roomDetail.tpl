@@ -33,7 +33,7 @@
           				<td>{$item['contacts']}</td>
           				<td>{$room_booking_status[$item['status']]}</td>
           				<td>
-          					<a title="查看/确认" href="javascript:;" class="ml-5 btn btn-primary radius view" did="{$item['booking_id']}" style="text-decoration:none">查看/确认</a>
+          					<a title="查看" href="javascript:;" class="ml-5 btn btn-primary radius view" did="{$item['booking_id']}" style="text-decoration:none">查看</a>
           				</td>
         		</tr>
       			{/foreach}

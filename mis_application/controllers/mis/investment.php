@@ -229,9 +229,45 @@ class Investment extends MIS_Controller
 		if(is_numeric($this->input->get('id'))){
 			$data['id'] = $this->input->get('id');			
 			$data['info'] = $this->MIS_EnterprisePotential->getInfo($data['id']);
+			$data['userId'] = $this->userId;
+			//获取可跟进用户
+			$this->load->model('MIS_Admin');
+			$adminList = array();
+			$list = $this->MIS_Admin->getAll();
+			foreach($list as $item){
+				if($item['admin_role'] == 0){
+					$adminList[] = $item;
+				}else{
+					$rightsArr = explode(',', $item['role_rights']);
+					if(in_array('potential_follow', $rightsArr)){
+						$adminList[] = $item;
+					}
+				}
+			}
+			$data['adminList'] = $adminList;
 			$this->showView('potentialDetail', $data);
 		}else{
 			redirect(formatUrl('investment/potential'));
 		}
+	}
+	
+	public function doFollowPotential()
+	{
+		$data = $this->input->post();
+		if(!$data['follow_by'] && checkRight('potential_follow') === FALSE){
+			$this->showView('denied', $data);
+			exit;
+		}
+		if($data['follow_by'] && checkRight('potential_assign') === FALSE){
+			$this->showView('denied', $data);
+			exit;
+		}
+		if(!$data['follow_by']){
+			$data['deal_status'] = 1;
+		}
+		$this->load->model('MIS_EnterprisePotential');
+		$msg = '';
+		$this->MIS_EnterprisePotential->update($data);
+		redirect(formatUrl('investment/potentialDetail?id='.$data['enterprise_id']));
 	}
 }

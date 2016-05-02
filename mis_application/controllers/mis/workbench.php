@@ -26,6 +26,21 @@ class Workbench extends MIS_Controller
 		$data['pageUrl'] = $pageUrl;
 		$data['dataList'] = $dataList;
 		$data['activity_audit_type'] = $this->config->item('activity_audit_type');
+		//获取可跟进用户
+		$this->load->model('MIS_Admin');
+		$adminList = array();
+		$list = $this->MIS_Admin->getAll();
+		foreach($list as $item){
+			if($item['admin_role'] == 0){
+				$adminList[] = $item;
+			}else{
+				$rightsArr = explode(',', $item['role_rights']);
+				if(in_array('activity_audit', $rightsArr)){
+					$adminList[] = $item;
+				}
+			}
+		}
+		$data['adminList'] = $adminList;
 		$this->showView('activityAuditList', $data);
 	}
 	
@@ -36,6 +51,22 @@ class Workbench extends MIS_Controller
 	public function doAuditActivity()
 	{
 		if(checkRight('activity_audit') === FALSE){
+			$this->showView('denied', $data);
+			exit;
+		}
+		$data = $this->input->post();
+		$this->load->model('MIS_Activity');
+		$this->MIS_Activity->update($data);
+		redirect(formatUrl('workbench/activity'));
+	}
+	
+	/**
+	 * 
+	 * 指派跟进人
+	 */
+	public function doFollowActivity()
+	{
+		if(checkRight('activity_assign') === FALSE){
 			$this->showView('denied', $data);
 			exit;
 		}
@@ -74,6 +105,21 @@ class Workbench extends MIS_Controller
 			$data['dataList'] = $dataList;
 			$data['repair_status'] = $this->config->item('repair_status');
 			$data['repair_type'] = $this->config->item('repair_type');
+			//获取可跟进用户
+			$this->load->model('MIS_Admin');
+			$adminList = array();
+			$list = $this->MIS_Admin->getAll();
+			foreach($list as $item){
+				if($item['admin_role'] == 0){
+					$adminList[] = $item;
+				}else{
+					$rightsArr = explode(',', $item['role_rights']);
+					if(in_array('repair_confirm', $rightsArr)){
+						$adminList[] = $item;
+					}
+				}
+			}
+			$data['adminList'] = $adminList;
 		}else{
 			if(checkRight('complain_reply') === FALSE){
 				$this->showView('denied', $data);
@@ -87,6 +133,21 @@ class Workbench extends MIS_Controller
 			$data['pageUrl'] = $pageUrl;
 			$data['dataList'] = $dataList;
 			$data['complain_status'] = $this->config->item('complain_status');
+			//获取可跟进用户
+			$this->load->model('MIS_Admin');
+			$adminList = array();
+			$list = $this->MIS_Admin->getAll();
+			foreach($list as $item){
+				if($item['admin_role'] == 0){
+					$adminList[] = $item;
+				}else{
+					$rightsArr = explode(',', $item['role_rights']);
+					if(in_array('complain_reply', $rightsArr)){
+						$adminList[] = $item;
+					}
+				}
+			}
+			$data['adminList'] = $adminList;
 		}
 		$this->showView('propertyList', $data);
 	}
@@ -112,6 +173,22 @@ class Workbench extends MIS_Controller
 	
 	/**
 	 * 
+	 * 指派跟进人
+	 */
+	public function doRepairFollow()
+	{
+		if(checkRight('repair_assign') === FALSE){
+			$this->showView('denied', $data);
+			exit;
+		}
+		$data = $this->input->post();
+		$this->load->model('MIS_Repair');
+		$this->MIS_Repair->update($data);
+		redirect(formatUrl('workbench/property?type=0'));
+	}
+	
+	/**
+	 * 
 	 * 确认物业投诉
 	 */
 	public function doComplainConfirm()
@@ -130,16 +207,38 @@ class Workbench extends MIS_Controller
 	
 	/**
 	 * 
+	 * 指派跟进人
+	 */
+	public function doComplainFollow()
+	{
+		if(checkRight('complain_assign') === FALSE){
+			$this->showView('denied', $data);
+			exit;
+		}
+		$data = $this->input->post();
+		$this->load->model('MIS_Complain');
+		$this->MIS_Complain->update($data);
+		redirect(formatUrl('workbench/property?type=1'));
+	}
+	
+	/**
+	 * 
 	 * 企业服务
 	 */
 	public function business()
 	{
 		$data = array();
-		if(checkRight(array('project_apply_confirm')) === FALSE){
+		if(checkRight(array('project_apply_confirm','room_booking_confirm','potential_follow')) === FALSE){
 			$this->showView('denied', $data);
 			exit;
 		}
-		$data['type'] = checkRight('project_apply_confirm') ? 0 : 1;
+		if(checkRight('project_apply_confirm')){
+			$data['type'] = 0;
+		}else if(checkRight('room_booking_confirm')){
+			$data['type'] = 1;
+		}else{
+			$data['type'] = 2;
+		}
 		if($this->input->get('type')){
 			$data['type'] = $this->input->get('type');
 		}
@@ -155,7 +254,22 @@ class Workbench extends MIS_Controller
 			$dataList = $this->MIS_Project->getConfirmApplyList($offset, PER_COUNT);
 			$data['pageUrl'] = $pageUrl;
 			$data['dataList'] = $dataList;
-		}else{
+			//获取可跟进用户
+			$this->load->model('MIS_Admin');
+			$adminList = array();
+			$list = $this->MIS_Admin->getAll();
+			foreach($list as $item){
+				if($item['admin_role'] == 0){
+					$adminList[] = $item;
+				}else{
+					$rightsArr = explode(',', $item['role_rights']);
+					if(in_array('project_apply_confirm', $rightsArr)){
+						$adminList[] = $item;
+					}
+				}
+			}
+			$data['adminList'] = $adminList;
+		}else if($data['type'] == 1){
 			if(checkRight('room_booking_confirm') === FALSE){
 				$this->showView('denied', $data);
 				exit;
@@ -168,8 +282,55 @@ class Workbench extends MIS_Controller
 			$data['pageUrl'] = $pageUrl;
 			$data['dataList'] = $dataList;
 			$data['room_type'] = $this->config->item('room_type');
+		}else{
+			if(checkRight('potential_follow') === FALSE){
+				$this->showView('denied', $data);
+				exit;
+			}
+			$this->load->model('MIS_EnterprisePotential');
+			$offset = 0;
+			$pageUrl = '';
+			page(formatUrl('workbench/business').'?type=2', $this->MIS_EnterprisePotential->getFollowCount(), PER_COUNT, $offset, $pageUrl);
+			$dataList = $this->MIS_EnterprisePotential->getFollowList($offset, PER_COUNT);
+			$data['pageUrl'] = $pageUrl;
+			$data['dataList'] = $dataList;
+			//获取可跟进用户
+			$this->load->model('MIS_Admin');
+			$adminList = array();
+			$list = $this->MIS_Admin->getAll();
+			foreach($list as $item){
+				if($item['admin_role'] == 0){
+					$adminList[] = $item;
+				}else{
+					$rightsArr = explode(',', $item['role_rights']);
+					if(in_array('potential_follow', $rightsArr)){
+						$adminList[] = $item;
+					}
+				}
+			}
+			$data['adminList'] = $adminList;
 		}
 		$this->showView('businessList', $data);
+	}
+	
+	public function doFollowPotential()
+	{
+		$data = $this->input->post();
+		if(!$data['follow_by'] && checkRight('potential_follow') === FALSE){
+			$this->showView('denied', $data);
+			exit;
+		}
+		if($data['follow_by'] && checkRight('potential_assign') === FALSE){
+			$this->showView('denied', $data);
+			exit;
+		}
+		if(!$data['follow_by']){
+			$data['deal_status'] = 1;
+		}
+		$this->load->model('MIS_EnterprisePotential');
+		$msg = '';
+		$this->MIS_EnterprisePotential->update($data);
+		redirect(formatUrl('workbench/business?type=2'));
 	}
 	
 	/**
@@ -193,6 +354,22 @@ class Workbench extends MIS_Controller
 	
 	/**
 	 * 
+	 * 指派跟进人
+	 */
+	public function doFollowProjectApply()
+	{
+		if(checkRight('project_apply_assign') === FALSE){
+			$this->showView('denied', $data);
+			exit;
+		}
+		$data = $this->input->post();
+		$this->load->model('MIS_Project');
+		$this->MIS_Project->updateApply($data);
+		redirect(formatUrl('workbench/business?type=0'));
+	}
+	
+	/**
+	 * 
 	 * 企业审批
 	 */
 	public function enterprise()
@@ -209,6 +386,21 @@ class Workbench extends MIS_Controller
 		$dataList = $this->MIS_User->getApproveEnterpriseUserList($offset, PER_COUNT);
 		$data['pageUrl'] = $pageUrl;
 		$data['dataList'] = $dataList;
+		//获取可跟进用户
+		$this->load->model('MIS_Admin');
+		$adminList = array();
+		$list = $this->MIS_Admin->getAll();
+		foreach($list as $item){
+			if($item['admin_role'] == 0){
+				$adminList[] = $item;
+			}else{
+				$rightsArr = explode(',', $item['role_rights']);
+				if(in_array('enterprise_user_approve', $rightsArr)){
+					$adminList[] = $item;
+				}
+			}
+		}
+		$data['adminList'] = $adminList;
 		$this->showView('approveEnterpriseUserList', $data);
 	}
 	
@@ -234,6 +426,22 @@ class Workbench extends MIS_Controller
 		$updataUser['user_id'] = $data['user_id'];
 		$updataUser['enterprise_id'] = $data['enterprise_id'];
 		$this->MIS_User->update($updataUser);
+		redirect(formatUrl('workbench/enterprise'));
+	}
+	
+	/**
+	 * 
+	 * 指派跟进人
+	 */
+	public function doEnterpriseUserFollow()
+	{
+		if(checkRight('enterprise_user_assign') === FALSE){
+			$this->showView('denied', $data);
+			exit;
+		}
+		$data = $this->input->post();
+		$this->load->model('MIS_User');
+		$this->MIS_User->updateRelateEnterpriseApply($data);
 		redirect(formatUrl('workbench/enterprise'));
 	}
 }

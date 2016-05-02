@@ -61,7 +61,7 @@
           		     <th class="text-r" width="180">当前状态：</th>
           			 <td>{$repair_status[$info['status']]}</td>
         		</tr>
-        		{if $info['status'] == 0 && checkRight('repair_confirm')}
+        		{if $info['status'] == 0 && checkRight('repair_confirm') && $info['follow_by'] == $userId}
         		<tr>
           		     <th class="text-r" width="180">确认信息：</th>
           			 <td><textarea style="width:500px;height:140px;" name="admin_feedback" cols="" rows="" class="textarea" id="admin_feedback"></textarea></td>
@@ -84,6 +84,26 @@
           			</td>
         		</tr>
         		{/if}
+        		{if checkRight('repair_assign') && $info['status'] == 0 && $info['follow_by'] == 0}
+	        		<tr>
+	          		     <th class="text-r" style="width:100px">指派跟进人<span class="c-red">*</span></th>
+		          			<td>
+		          		     	<select name="follow_by" nullmsg="请选择跟进人" datatype="*">
+          		     				<option value="">请选择跟进人</option>
+          		     				{foreach $adminList as $item}
+          		     					<option value="{$item['admin_id']}">{$item['admin_name']}</option>
+          		     				{/foreach}
+          		     			</select>
+		          		     </td>
+		        		</tr>
+		          	<tr>
+		        			<th></th>
+		      				<td colspan="2">
+		      					<input name="repair_id" value="{$info['repair_id']}" type="hidden"></input>
+		      					<button itype="submit" class="btn btn-success radius"><i class="icon-ok"></i>提交</button>
+		      				</td>
+		      		</tr>
+		        {/if}
         	</tbody>
 		</table>
 	</form>
