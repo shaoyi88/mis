@@ -2,13 +2,13 @@
 
 /**
  * 
- * 俱乐部产品模型类
+ * 俱乐部活动模型类
  * @author Administrator
  *
  */
-class MIS_ClubProduct extends CI_Model
+class MIS_Clubactivity extends CI_Model
 {
-	private $_table = 'mis_club_product';
+	private $_table = 'mis_club_activity';
 	
 	/**
 	 * 初始化
@@ -49,7 +49,7 @@ class MIS_ClubProduct extends CI_Model
 	 */
 	public function getInfo($id)
 	{
-		$query = $this->db->get_where($this->_table, array('product_id' => $id));
+		$query = $this->db->get_where($this->_table, array('activity_id' => $id));
 		$info = array();
 		if($query){
 			$info = $query->row_array();
@@ -79,7 +79,7 @@ class MIS_ClubProduct extends CI_Model
 	 */
 	public function update($data)
 	{
-        $this->db->where('product_id', $data['product_id']);
+        $this->db->where('activity_id', $data['activity_id']);
 		$this->db->update($this->_table, $data); 
 	}
 	
@@ -90,7 +90,7 @@ class MIS_ClubProduct extends CI_Model
 	 */
 	public function del($id)
 	{
-		$this->db->where('product_id', $id);
+		$this->db->where('activity_id', $id);
 		$this->db->delete($this->_table); 
 	} 
 }

@@ -14,7 +14,7 @@
 <button class="button primary" onclick="pushMessage('提示信息|暂无可添加的应用','info')"><span class="mif-plus"></span> 添加应用</button>
 <button class="button success" onclick="pushMessage('提示信息|等待监控接口调试','success')"><span class="mif-play"></span> 监控</button>
 <button class="button warning" onclick="pushMessage('提示信息|等待门禁接口调试','warning')"><span class="mif-loop2"></span> 门禁</button>
-<button class="button alert" onclick="pushMessage('提示信息|等待店里系统接口调试','alert')">关闭公司电源</button>                       
+<button class="button alert" onclick="pushMessage('提示信息|等待电力系统接口调试','alert')">关闭公司电源</button>                       
 <hr class="thin bg-grayLighter">
 <h3>待处理事项</h3>
 <table class="dataTable border bordered" data-auto-width="false">

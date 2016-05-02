@@ -2,13 +2,13 @@
 
 /**
  * 
- * 企业风采模型类
+ * 俱乐部产品模型类
  * @author Administrator
  *
  */
-class MIS_EnterpriseStyle extends CI_Model
+class MIS_Clubproduct extends CI_Model
 {
-	private $_table = 'mis_enterprise_style';
+	private $_table = 'mis_club_product';
 	
 	/**
 	 * 初始化
@@ -20,20 +20,12 @@ class MIS_EnterpriseStyle extends CI_Model
 	
 	/**
 	 * 
-	 * 获取总数
-	 */
-	public function getCount($keyword)
-	{
-		return $this->db->count_all_results($this->_table);
-	}
-	
-	/**
 	 * 获取列表
-	 * Enter description here ...
 	 */
-	public function getList($keyword, $offset, $limit)
+	public function getList($offset, $limit)
 	{
 		$info = array();
+		$this->db->order_by('add_time','DESC');
 		$query = $this->db->get($this->_table, $limit, $offset);
 		if($query){
 			$info = $query->result_array();
@@ -43,12 +35,21 @@ class MIS_EnterpriseStyle extends CI_Model
 	
 	/**
 	 * 
+	 * 获取总数
+	 */
+	public function getCount()
+	{
+		return $this->db->count_all_results($this->_table);
+	}
+	
+	/**
 	 * 获取信息
+	 * Enter description here ...
 	 * @param unknown_type $id
 	 */
 	public function getInfo($id)
 	{
-		$query = $this->db->get_where($this->_table, array('style_id' => $id));
+		$query = $this->db->get_where($this->_table, array('product_id' => $id));
 		$info = array();
 		if($query){
 			$info = $query->row_array();
@@ -78,7 +79,7 @@ class MIS_EnterpriseStyle extends CI_Model
 	 */
 	public function update($data)
 	{
-        $this->db->where('style_id', $data['style_id']);
+        $this->db->where('product_id', $data['product_id']);
 		$this->db->update($this->_table, $data); 
 	}
 	
@@ -89,8 +90,7 @@ class MIS_EnterpriseStyle extends CI_Model
 	 */
 	public function del($id)
 	{
-		$this->db->where('style_id', $id);
+		$this->db->where('product_id', $id);
 		$this->db->delete($this->_table); 
 	} 
-	
 }

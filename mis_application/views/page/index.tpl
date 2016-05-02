@@ -23,37 +23,37 @@
 						        <span class="title">办事大厅</span>
 						    </div>
 						    <div class="content bg-white">
-								<div class="tile" style="width:143px;" onclick="location.href='{formatUrl('officeHall/enter')}'">
+								<div class="tile" style="width:143px;" onclick="location.href='{formatUrl('officehall/application')}'">
 								    <div class="tile-content iconic">
 								        <span class="tile-label">入驻申请</span>
 								        <span class="icon mif-enter"></span>
 								    </div>
 								</div>
-								<div class="tile" style="width:143px;" onclick="location.href='{formatUrl('officeHall/property')}'">
+								<div class="tile" style="width:143px;" onclick="location.href='{formatUrl('officehall/property')}'">
 								    <div class="tile-content iconic">
 								        <span class="tile-label">物业相关</span>
 								        <span class="icon mif-wrench"></span>
 								    </div>
 								</div>
-								<div class="tile" style="width:143px;" onclick="location.href='{formatUrl('officeHall/resource')}'">
+								<div class="tile" style="width:143px;" onclick="location.href='{formatUrl('officehall/resource')}'">
 								    <div class="tile-content iconic">
 								        <span class="tile-label">公共资源</span>
 								        <span class="icon mif-palette"></span>
 								    </div>
 								</div>
-								<div class="tile" style="width:143px;" onclick="location.href='{formatUrl('officeHall/invest')}'">
+								<div class="tile" style="width:143px;" onclick="location.href='{formatUrl('officehall/invest')}'">
 								    <div class="tile-content iconic">
 								        <span class="tile-label">投资申请</span>
 								        <span class="icon mif-coins"></span>
 								    </div>
 								</div>
-								<div class="tile" style="width:143px;" onclick="location.href='{formatUrl('officeHall/project')}'">
+								<div class="tile" style="width:143px;" onclick="location.href='{formatUrl('officehall/project')}'">
 								    <div class="tile-content iconic">
 								        <span class="tile-label">项目需求</span>
 								        <span class="icon mif-filter"></span>
 								    </div>
 								</div>
-								<div class="tile" style="width:143px;" onclick="location.href='{formatUrl('officeHall/')}'">
+								<div class="tile" style="width:143px;" onclick="location.href='{formatUrl('officehall/')}'">
 								    <div class="tile-content iconic">
 								        <span class="tile-label">更多</span>
 								        <span class="icon mif-more-horiz"></span>

@@ -10,33 +10,33 @@
 				</div>
                 </div>
                 <div class="ol-transparent" style="float: right; width:620px;">
-			    <div class="tile" style="width:196px;height:196px;" onclick="location.href='{formatUrl('officeHall/application')}'">
+			    <div class="tile" style="width:196px;height:196px;" onclick="location.href='{formatUrl('officehall/application')}'">
 				    <div class="tile-content iconic">
 				        <span class="tile-label">入驻申请</span>
 				        <span class="icon mif-enter"></span>
 				    </div>
 				</div>
 				{if $info['user_second_type']==2}
-				<div class="tile" style="width:196px;height:196px;" onclick="location.href='{formatUrl('officeHall/property')}'">
+				<div class="tile" style="width:196px;height:196px;" onclick="location.href='{formatUrl('officehall/property')}'">
 				    <div class="tile-content iconic">
 				        <span class="tile-label">物业相关</span>
 				        <span class="icon mif-wrench"></span>
 				    </div>
 				</div>
-				<div class="tile" style="width:196px;height:196px;" onclick="location.href='{formatUrl('officeHall/resource')}'">
+				<div class="tile" style="width:196px;height:196px;" onclick="location.href='{formatUrl('officehall/resource')}'">
 				    <div class="tile-content iconic">
 				        <span class="tile-label">公共资源</span>
 				        <span class="icon mif-palette"></span>
 				    </div>
 				</div>
-				<div class="tile" style="width:196px;height:196px;" onclick="location.href='{formatUrl('officeHall/invest')}'">
+				<div class="tile" style="width:196px;height:196px;" onclick="location.href='{formatUrl('officehall/invest')}'">
 				    <div class="tile-content iconic">
 				        <span class="tile-label">投资申请</span>
 				        <span class="icon mif-coins"></span>
 				    </div>
 				</div>	
 				{/if}					
-				<div class="tile" style="width:196px;height:196px;" onclick="location.href='{formatUrl('officeHall/project')}'">
+				<div class="tile" style="width:196px;height:196px;" onclick="location.href='{formatUrl('officehall/project')}'">
 				    <div class="tile-content iconic">
 				        <span class="tile-label">项目需求</span>
 				        <span class="icon mif-filter"></span>
