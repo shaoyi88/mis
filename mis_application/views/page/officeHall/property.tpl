@@ -9,7 +9,7 @@
 <p class="fg-red">错误：{$msg}</p>
 {/if}
 <form name="form1" action="{formatUrl('officehall/do_property')}" method="post" enctype="multipart/form-data" onsubmit="return checkform();">
-<input type="hidden" name="{$type}">
+<input type="hidden" name="type" value="{$type}">
 {if $type==1} 
 <h3>报修</h3>
 <table class="dataTable border bordered" data-auto-width="false">

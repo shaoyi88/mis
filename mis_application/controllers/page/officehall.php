@@ -41,25 +41,20 @@ class officehall extends MIS_Controller
 		$this->load->model('MIS_EnterprisePotential');
 		$data['app_by'] = $this->userId;
 		$data['app_time'] = time();
-		if($data['enterprise_bussiness']){
-			//上传头像
-			$config['upload_path'] =   './upload/enterprise/license/'; //存放路径
-			$config['allowed_types'] = 'gif|jpg|jpeg|png|bmp';
-			$config['max_size'] = '2048'; //最大2M
-			$config['encrypt_name'] = TRUE;
-			$this->load->library('upload', $config);
-			if($this->upload->do_upload('enterprise_bussiness')){
-				$upload_data = $this->upload->data();  //文件信息
-				$data['enterprise_bussiness'] = $upload_data['file_name'];
-			}else{
-				 $error = $this->upload->display_errors();
-				 redirect(formatUrl('officehall/application?msg=').$error);
-			}
+		//上传营业执照
+		$config['upload_path'] =   './upload/enterprise/licence/'; //存放路径
+		$config['allowed_types'] = 'gif|jpg|jpeg|png|bmp';
+		$config['max_size'] = '2048'; //最大2M
+		$config['encrypt_name'] = TRUE;
+		$this->load->library('upload', $config);
+		if($this->upload->do_upload('enterprise_bussiness')){
+			$upload_data = $this->upload->data();  //文件信息
+			$data['enterprise_business_licence'] = $upload_data['file_name'];
 		}else{
-			$error = '没上传营业执照';
-			redirect(formatUrl('officehall/application?msg=').$error);
+			 $error = $this->upload->display_errors();
+			 redirect(formatUrl('officehall/application?msg=').$error);
 		}
-		$this->MIS_EnterprisePotential->add($data);
+		$id = $this->MIS_EnterprisePotential->add($data);
 		redirect(formatUrl('myhome/application'));
 	}
 	
@@ -91,7 +86,7 @@ class officehall extends MIS_Controller
 			$type = $this->input->post('type');
 			$data = $this->input->post();
 			unset($data['type']);
-			$data['user_id'] = $thi->userId;
+			$data['user_id'] = $this->userId;
 			$data['add_time'] = time();
 			if($type==1){
 				$this->load->model('MIS_Repair');

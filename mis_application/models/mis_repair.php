@@ -117,6 +117,21 @@ class MIS_Repair extends CI_Model
 	}
 	
 	/**
+	 *
+	 * 增加
+	 * @param unknown_type $data
+	 */
+	public function add($data)
+	{
+		$this->db->insert($this->_table, $data);
+		if($this->db->affected_rows() <= 0){
+			return FALSE;
+		}
+		$id = $this->db->insert_id();
+		return $id;
+	}
+	
+	/**
 	 * 
 	 * 编辑
 	 * @param unknown_type $data

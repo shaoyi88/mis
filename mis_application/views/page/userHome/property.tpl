@@ -81,7 +81,7 @@
 		        <td>{$item['contacts']}</td> 
 		        <td>{$item['contacts_phone']}</td>
 		        <td>{date('Y-m-d H:i:s',$item['add_time'])}</td>
-		        <td>{$repair_status[$item['status']]}</td>
+		        <td>{$apply_status[$item['status']]}</td>
 		        <td></td>  
 		    </tr>
 		    {/foreach}
