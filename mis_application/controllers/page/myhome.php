@@ -181,7 +181,7 @@ class myhome extends MIS_Controller
 		$data['title'] = '我的物业';
 		$uid = $this->userId;
 		$offset = 0;
-		$pageUrl1 = $pageUrl2 = $pageUrl3 = '';
+		$pageUrl1 = $pageUrl2 = $pageUrl3 = $pageUrl4 ='';
 		$keyword = array();
 		$this->load->model('MIS_Repair');
 		page(formatUrl('myhome/property').'?', $this->MIS_Repair->getCount($keyword,$uid), PER_COUNT, $offset, $pageUrl1);
@@ -196,8 +196,17 @@ class myhome extends MIS_Controller
 		$this->load->model('MIS_Apply');
 		page(formatUrl('myhome/property').'?', $this->MIS_Apply->getCount($keyword,$uid), PER_COUNT, $offset, $pageUrl3);
 		$dataList3 = $this->MIS_Apply->getList($keyword,$offset, PER_COUNT, $uid);
-		$data['pageUrl2'] = $pageUrl3;
+		$data['pageUrl3'] = $pageUrl3;
 		$data['list3'] = $dataList3;
+		$this->load->model('MIS_User');
+		$userinfo = $this->MIS_User->getInfo($uid);
+		if($userinfo['user_second_type']==2){
+			$this->load->model('MIS_Fee');
+			page(formatUrl('myhome/property').'?', $this->MIS_Fee->getCount($keyword,$userinfo['enterprise_id']), PER_COUNT, $offset, $pageUrl4);
+			$dataList4 = $this->MIS_Fee->getList($keyword,$offset, PER_COUNT, $userinfo['enterprise_id']);
+			$data['pageUrl4'] = $pageUrl4;
+			$data['list4'] = $dataList4;
+		}
 		$data['repair_type'] = $this->config->item('repair_type');
 		$data['apply_type'] = $this->config->item('apply_type');
 		$data['repair_status'] = $this->config->item('repair_status');

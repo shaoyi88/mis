@@ -23,10 +23,13 @@ class MIS_Fee extends CI_Model
 	 * 
 	 * 获取总数
 	 */
-	public function getCount($keyword)
+	public function getCount($keyword, $eid=0)
 	{
 		if(isset($keyword['pay_status']) && $keyword['pay_status'] != ''){
 			$this->db->where('pay_status', $keyword['pay_status']);
+		}
+		if($eid!=0){
+			$this->db->where('enterprise_id', $eid);
 		}
 		return $this->db->count_all_results($this->_table);
 	}
@@ -35,13 +38,16 @@ class MIS_Fee extends CI_Model
 	 * 获取列表
 	 * Enter description here ...
 	 */
-	public function getList($keyword, $offset, $limit)
+	public function getList($keyword, $offset, $limit, $eid=0)
 	{
 		$info = array();
 		$sql = "select * from `$this->_table` as a left join `$this->_enterpriseTable` as b on 
 				a.enterprise_id = b.enterprise_id where 1=1 ";
 		if(isset($keyword['pay_status']) && $keyword['pay_status'] != ''){
 			$sql .= ' and a.pay_status ='.$keyword['pay_status'];
+		}
+		if($eid!=0){
+			$sql .= ' and a.enterprise_id ='.$eid;
 		}
 		$sql .= " order by a.fee_id desc limit $offset, $limit";
 		$query = $this->db->query($sql);

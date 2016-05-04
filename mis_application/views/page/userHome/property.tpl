@@ -1,9 +1,12 @@
-<h3>我的物业申请</h3>
+<h3>我的物业</h3>
 <div class="tabcontrol2 tabs-bottom padding20" data-role="tabcontrol">
     <ul class="tabs">
         <li><a href="#type1">报修</a></li>
         <li><a href="#type2">投诉</a></li>
         <li><a href="#type3">需求</a></li>
+        {if isset($list4)}
+        <li><a href="#type4">费用</a></li>
+        {/if}
     </ul>
     <div class="frames">
         <div class="frame" id="type1">
@@ -91,6 +94,37 @@
 		<div>暂无需求</div>
         {/if}
         </div>
+        {if isset($list4)}
+        <div class="frame" id="type4">       
+        {if !empty($list4)}
+		<table class="dataTable border bordered" data-auto-width="false">
+		    <tr>
+		        <th>日期</th>
+		        <th>物业费</th>
+		        <th>水费</th>
+		        <th>电费</th>
+		        <th>合计</th>
+		        <th>支付状态</th>
+		        <th>操作</th>
+		    </tr>
+		    {foreach $list4 as $item}
+		    <tr>
+		        <td>{date("Y年m月",$item['fee_date'])}</td>
+		        <td>{$item['property_fee_amount']}</td>
+		        <td>{$item['water_fee_amount']}</td> 
+		        <td>{$item['elec_fee_amount']}</td> 
+		        <td>{$item['elec_fee_amount']+$item['water_fee_amount']+$item['property_fee_amount']}</td>
+		        <td>{if $item['pay_status']==1}已支付{else}未支付{/if}</td>
+		        <td></td>  
+		    </tr>
+		    {/foreach}
+		</table>
+		{if isset($pageUrl4)}{$pageUrl4}{/if}
+		{else}
+		<div>暂无费用</div>
+        {/if}
+        </div>
+        {/if}
     </div>
 </div>
 
