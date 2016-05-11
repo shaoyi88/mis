@@ -147,9 +147,23 @@ class Room extends MIS_Controller
 			$this->showView('denied', $data);
 			exit;
 		}
+		if($this->input->get('msg')){
+			$data['msg'] = $this->input->get('msg');
+		}
 		$id = $this->input->get('id');
 		$this->load->model('MIS_Room');
 		$data['info'] = $this->MIS_Room->getBookingInfo($id);
+		$bookingInfo = $this->MIS_Room->searchBookingByTime($data['info']['booking_id'], $data['info']['room_id'], $data['info']['start_time'], $data['info']['end_time']);
+		$data['curBooking'] = $data['bookingList'] = array();
+		foreach($bookingInfo as $info){
+			if($info['status'] == 1){
+				$data['curBooking'] = $info;
+				break;
+			}
+			if($info['status'] == 0){
+				$data['bookingList'][] = $info;
+			}
+		}
 		$data['room_booking_status'] = $this->config->item('room_booking_status');
 		$data['userId'] = $this->userId;
 		//获取可跟进用户
@@ -186,6 +200,16 @@ class Room extends MIS_Controller
 			exit;
 		}
 		$this->load->model('MIS_Room');
+		if(!$data['follow_by']){
+			$info = $this->MIS_Room->getBookingInfo($data['booking_id']);
+			$bookingInfo = $this->MIS_Room->searchBookingByTime($info['booking_id'], $info['room_id'], $info['start_time'], $info['end_time']);
+			foreach($bookingInfo as $info){
+				if($info['status'] == 1){
+					redirect(formatUrl('room/viewBooking?id=').$data['booking_id'].'&msg='.urlencode('该时段已被预约'));
+					exit;
+				}
+			}
+		}		
 		$this->MIS_Room->updateBooking($data);
 		redirect(formatUrl('room/viewBooking?id=').$data['booking_id']);
 	}

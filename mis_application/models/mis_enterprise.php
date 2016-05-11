@@ -139,4 +139,20 @@ class MIS_Enterprise extends CI_Model
 		$this->db->where('enterprise_id', $id);
 		$this->db->delete($this->_table); 
 	} 
+	
+	/**
+	 * 
+	 * 搜索企业
+	 * @param unknown_type $key
+	 */
+	public function queryEnterpriseByKey($key)
+	{
+		$sql = "SELECT * FROM (`$this->_table`) WHERE enterprise_name like '%$key%'";
+		$info = array();
+		$query = $this->db->query($sql);
+		if($query){
+			$info = $query->result_array();
+		}
+		return $info;
+	}
 }

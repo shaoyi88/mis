@@ -26,6 +26,35 @@ var fee = function(){
 		
 		$('#property_fee_unit_price').blur(fee_amount);
 		$('#property_fee_num').blur(fee_amount);
+		$('#enterprise_key').keyup(searchEnterprise);
+	};
+	
+	var searchEnterprise = function(){
+		var key = $(event.currentTarget).val();
+		var getEnterpriseUrl = $('#getEnterpriseUrl').val()+'?key='+key;
+		$('.auto-complete-result').html('').hide();
+		$('#enterprise_id').val('');
+		$('#submitFee').addClass('disabled');
+		if(key == ''){
+			return;
+		}
+		$.ajax({
+            type: "GET",
+            url: getEnterpriseUrl,
+            dataType: "json",
+            success: function(data){
+            	if(data.status == 1){
+            		var template = Hogan.compile($('#enterpriseTpl').html(),{delimiters:'<% %>'});
+            		$('.auto-complete-result').html(template.render({enterpriseList:data.enterpriseList})).show();
+            		$('.auto-complete-result').find('li').click(function(event){
+						$('#enterprise_id').val($(event.currentTarget).attr('eid'));
+						$('#submitFee').removeClass('disabled');
+            			$('#enterprise_key').val($(event.currentTarget).html());
+            			$('.auto-complete-result').hide();
+            		});
+            	}
+            }
+        });
 	};
 	
 	var fee_amount = function(){

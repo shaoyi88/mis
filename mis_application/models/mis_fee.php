@@ -110,4 +110,23 @@ class MIS_Fee extends CI_Model
 		$this->db->where('fee_id', $id);
 		$this->db->delete($this->_table); 
 	} 
+	
+	/**
+	 * 
+	 * 通过企业和日期查找信息
+	 * @param unknown_type $enterprise_id
+	 * @param unknown_type $date
+	 */
+	public function getInfoByEnterpriseAndDate($enterprise_id, $date)
+	{
+		$this->db->where('enterprise_id', $enterprise_id);
+		$this->db->where('fee_date', $date);
+		$query = $this->db->get($this->_table);
+		$info = array();
+		if($query){
+			$info = $query->row_array();
+		}
+		echo $this->db->last_query();
+		return $info;
+	}
 }

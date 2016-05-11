@@ -1,3 +1,8 @@
+{if isset($msg)}
+<div class="header">
+	<div class="Huialert Huialert-danger"><i class="icon-remove"></i>{$msg}</div>
+</div>
+{/if}
 <div class="pd-20">
 	<form class="Huiform" id="form-role-add" action="{formatUrl('room/doConfirmBooking')}" method="post">
 		<table class="table table-border table-bordered table-bg">
@@ -35,10 +40,53 @@
           			 <td>{date('Y-m-d H:i:s', $info['add_time'])}</td>
         		</tr>
         		{if checkRight('room_booking_confirm') && $info['status'] == 0 && $info['follow_by'] == $userId}
+        		{if !empty($curBooking)}
+        		<tr>
+          		    <th class="text-r" style="width:100px;color:red">该时段已被以下会议预约</th>
+          			<td>
+          				<table class="table table-border table-bordered table-bg">
+							<tbody>
+								<tr>
+									<th>会议主题</th>
+									<th>时间段</th>
+									<th>联系人</th>
+          						</tr>
+          						<tr>
+          							<td>{$curBooking['meeting_title']}</td>
+          							<td>{date('Y-m-d H:i:s', $curBooking['start_time'])}~{date('Y-m-d H:i:s', $curBooking['end_time'])}</td>
+          							<td>{$curBooking['contacts']}</td>
+          						</tr>
+          					</tbody>
+          				</table>
+          		     </td>
+        		</tr>
+        		{else if !empty($bookingList)}
+        		<tr>
+          		    <th class="text-r" style="width:100px;color:red">该时段还有以下会议预约</th>
+          			<td>
+          				<table class="table table-border table-bordered table-bg">
+							<tbody>
+								<tr>
+									<th>会议主题</th>
+									<th>时间段</th>
+									<th>联系人</th>
+          						</tr>
+          						{foreach $bookingList as $item}
+          						<tr>
+          							<td>{$item['meeting_title']}</td>
+          							<td>{date('Y-m-d H:i:s', $item['start_time'])}~{date('Y-m-d H:i:s', $item['end_time'])}</td>
+          							<td>{$item['contacts']}</td>
+          						</tr>
+          						{/foreach}
+          					</tbody>
+          				</table>
+          		     </td>
+        		</tr>
+        		{/if}
         		<tr>
           		     <th class="text-r" style="width:100px">确认结果<span class="c-red">*</span></th>
           			<td>
-          		     	<input type="radio" name="status" value="1" nullmsg="确认结果不能为空！" datatype="*">通过
+          		     	{if empty($curBooking)}<input type="radio" name="status" value="1" nullmsg="确认结果不能为空！" datatype="*">通过{/if}
           		     	&nbsp;&nbsp;
           		     	<input type="radio" name="status" value="2" nullmsg="确认结果不能为空！" datatype="*">不通过
           		     </td>

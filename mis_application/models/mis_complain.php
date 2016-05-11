@@ -61,7 +61,7 @@ class MIS_Complain extends CI_Model
 	 */
 	public function getConfirmCount()
 	{
-		$sql = "select count(*) as num from $this->_table where status = 0";
+		$sql = "select count(*) as num from $this->_table where (status = 0 or status = 1)";
 		if(checkRight('complain_assign')){
 			$sql .= " and (follow_by=0 or follow_by=".$this->_ci->userId.")";
 		}else{
@@ -81,7 +81,7 @@ class MIS_Complain extends CI_Model
 	public function getConfirmList($offset, $limit)
 	{
 		$info = array();
-		$sql = "select * from $this->_table where status = 0";
+		$sql = "select * from $this->_table where (status = 0 or status = 1)";
 		if(checkRight('complain_assign')){
 			$sql .= " and (follow_by=0 or follow_by=".$this->_ci->userId.")";
 		}else{

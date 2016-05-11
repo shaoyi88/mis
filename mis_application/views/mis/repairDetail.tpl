@@ -79,8 +79,19 @@
         		<tr>
           			<th></th>
           			<td>
+          				<input name="status" value="1" type="hidden"></input>
           				<input name="repair_id" value="{$info['repair_id']}" type="hidden"></input>
             			<button type="submit" class="btn btn-success radius"><i class="icon-ok"></i> 提交</button>
+          			</td>
+        		</tr>
+        		{/if}
+        		{if $info['status'] == 1 && checkRight('repair_confirm') && $info['follow_by'] == $userId}
+        		<tr>
+          			<th></th>
+          			<td>
+          				<input name="status" value="2" type="hidden"></input>
+          				<input name="repair_id" value="{$info['repair_id']}" type="hidden"></input>
+            			<button type="submit" class="btn btn-success radius"><i class="icon-ok"></i> 确认处理完毕</button>
           			</td>
         		</tr>
         		{/if}

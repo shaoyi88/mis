@@ -24,6 +24,66 @@ var workbench = function(){
 		$('.enterpriseUserFollow').click(enterpriseUserFollow);
 		$('.potentialFollow').click(potentialFollow);
 		$('.potentialConfirm').click(potentialConfirm);
+		$('.repairFinish').click(repairFinish);
+		$('.complainFinish').click(complainFinish);
+		$('.enterpriseApplyFollow').click(enterpriseApplyFollow);
+		$('.enterpriseApplyAudit').click(enterpriseApplyAudit);
+	};
+	
+	var enterpriseApplyFollow = function(event){
+		form.resetForm();
+		$('.Validform_checktip').html('');
+		$('#f_enterprise_id').val($(event.currentTarget).attr('did'));
+		layer.open({
+		    type: 1,
+		    area: '500px',
+		    title: [
+		        '指派跟进人',
+		        'border:none; background:#61BA7A; color:#fff;' 
+		    ],
+		    bgcolor: '#eee', //设置层背景色
+		    content: $('#enterpriseApplyFollowWindow')
+		});
+	};
+	
+	var enterpriseApplyAudit = function(event){
+		form.resetForm();
+		$('.Validform_checktip').html('');
+		$('#a_enterprise_id').val($(event.currentTarget).attr('did'));
+		var is_change = $(event.currentTarget).attr('is_change');
+		if(is_change==1){
+			$('#isChangeBtn').hide().unbind('click');
+			$('#isChangeMsg').show();
+		}else{
+			$('#isChangeBtn').show().click(function(){
+				window.location.href = $('#changeUrl').val()+'?id='+$(event.currentTarget).attr('did');
+			});
+			$('#isChangeMsg').hide();
+		}
+		layer.open({
+		    type: 1,
+		    area: ['600px'],
+		    title: [
+		        '跟进',
+		        'border:none; background:#61BA7A; color:#fff;' 
+		    ],
+		    bgcolor: '#eee', //设置层背景色
+		    content: $('#enterpriseApplyAuditWindow')
+		});
+	};
+	
+	var repairFinish = function(event){
+		var id = $(event.currentTarget).attr('did');
+		layer.confirm('确定处理完毕吗？',function(index){
+		    window.location.href = $('#repairConfirmUrl').val()+'?status=2&repair_id='+id;
+		});
+	};
+	
+	var complainFinish = function(event){
+		var id = $(event.currentTarget).attr('did');
+		layer.confirm('确定处理完毕吗？',function(index){
+		    window.location.href = $('#complainConfirmUrl').val()+'?status=2&complain_id='+id;
+		});
 	};
 	
 	var potentialFollow = function(event){
@@ -99,7 +159,7 @@ var workbench = function(){
   			title: '确认',
   			shadeClose: true,
   			shade: 0.8,
-  			area: ['600px'],
+  			area: ['1000px','600px'],
   			content: $('#roomBookingConfirmUrl').val()+'?id='+id,
 			end : function(index, layero){
     			layer.close(index); 

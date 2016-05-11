@@ -2,54 +2,37 @@
 <div class="pd-20">
 	<form class="Huiform" action="{formatUrl('investment/apply')}" method="get">
 		<div class="text-c"> 
-			<select class="select" id="apply_type" name="apply_type" style="width:200px">
-      			<option value="">请选择类型</option>
-      			{foreach $apply_type as $key=>$item}
-      				<option value="{$key}" {if isset($keyword['apply_type']) && $keyword['apply_type'] != '' && $keyword['apply_type'] == $key}selected{/if}>
-      				{$item}
-      				</option>
-      			{/foreach}
-    		</select>
+			<input type="text" value="{if isset($keyword['enterprise_name'])}{$keyword['enterprise_name']}{/if}" class="input-text" style="width:150px" placeholder="输入公司名" id="" name="enterprise_name">
     		&nbsp;&nbsp;&nbsp;&nbsp;
-			<select class="select" id="status" name="status" style="width:200px">
-      			<option value="">请选择状态</option>
-      			{foreach $apply_status as $key=>$item}
-      				<option value="{$key}" {if isset($keyword['status']) && $keyword['status'] != '' && $keyword['status'] == $key}selected{/if}>
-      				{$item}
-      				</option>
-      			{/foreach}
-    		</select>
+    		<input type="text" value="{if isset($keyword['enterprise_contact'])}{$keyword['enterprise_contact']}{/if}" class="input-text" style="width:150px" placeholder="输入联系人名字" id="" name="enterprise_contact">
     		&nbsp;&nbsp;&nbsp;&nbsp;
-    		<button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜入驻申请单</button>
+    		<button type="submit" class="btn btn-success" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索客户</button>
     	</div>
 	</form>
 	<div class="mt-20"> 
 	</div>
 	 {if empty($dataList)}
-	 	<div class="cl pd-5 bg-1 bk-gray"><h2 class="text-c">暂无入驻申请单</h2></div>
+	 	<div class="cl pd-5 bg-1 bk-gray"><h2 class="text-c">暂无潜在客户</h2></div>
 	 {else}
 	 	<table class="table table-border table-bg table-bordered table-hover">
 			<thead>
         		<tr class="text-c">
-          			<th>申请类型</th>
-          			<th>申请内容</th>
-          			<th>联系人</th>
-          			<th>申请时间</th>
-					<th>状态</th>
-          			<th>操作</th>
+			        <th>企业名称</th>
+			        <th>联系人</th>
+			        <th>联系电话</th>
+			        <th>提交时间</th>
+			        <th>操作</th>
         		</tr>
       		</thead>
       		<tbody>
       			{foreach $dataList as $item}
       				<tr class="text-c">
-          				<td>{$apply_type[$item['apply_type']]}</td>
-          				<td>{$item['apply_content']}</td>
-          				<td>{$item['contacts']}</td>
-          				<td>{date('Y-m-d',$item['add_time'])}</td>
-          				<td>{$apply_status[$item['status']]}</td>
+				        <td>{$item['enterprise_name']}</td>
+				        <td>{$item['enterprise_contact']}</td> 
+				        <td>{$item['enterprise_contact_mobile']}</td> 
+				        <td>{date('Y-m-d H:i:s',$item['app_time'])}</td> 
           				<td>
-          					{if $item['status'] == 0 && checkRight('apply_confirm')}<a class="btn btn-primary radius" id="confirm" title="确认" href="javascript:;" did="{$item['apply_id']}" style="text-decoration:none">确认</a>{/if}
-          					{if $item['status'] == 1 && checkRight('apply_confirm')}<a class="btn btn-primary radius" id="finish" title="完成" href="javascript:;" did="{$item['apply_id']}" style="text-decoration:none">完成</a>{/if}
+          					<a class="btn btn-primary radius" title="详情" href="{formatUrl('investment/applyDetail?id=')}{$item['enterprise_id']}" style="text-decoration:none">查看</a>
           				</td>
         		</tr>
       			{/foreach}
@@ -58,5 +41,3 @@
 	 {/if}
 	 {if isset($pageUrl)}{$pageUrl}{/if}
 </div>
-<input type="hidden" id="confirmUrl" value="{formatUrl('investment/applyConfirm')}"></input>
-<script type="text/javascript" src="/public/mis/js/apply.js""></script>

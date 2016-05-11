@@ -14,7 +14,8 @@ class Workbench extends MIS_Controller
 	 */
 	public function activity()
 	{
-		if(checkRight('activity_audit') === FALSE){
+		$data = array();
+		if(checkRight(array('activity_audit', 'activity_assign')) === FALSE){
 			$this->showView('denied', $data);
 			exit;
 		}
@@ -83,16 +84,16 @@ class Workbench extends MIS_Controller
 	public function property()
 	{
 		$data = array();
-		if(checkRight(array('repair_confirm', 'complain_reply')) === FALSE){
+		if(checkRight(array('repair_confirm', 'repair_assign', 'complain_reply', 'complain_assign')) === FALSE){
 			$this->showView('denied', $data);
 			exit;
 		}
-		$data['type'] = checkRight('repair_confirm') ? 0 : 1;
+		$data['type'] = checkRight(array('repair_confirm', 'repair_assign')) ? 0 : 1;
 		if($this->input->get('type')){
 			$data['type'] = $this->input->get('type');
 		}
 		if($data['type'] == 0){
-			if(checkRight('repair_confirm') === FALSE){
+			if(checkRight(array('repair_confirm', 'repair_assign')) === FALSE){
 				$this->showView('denied', $data);
 				exit;
 			}
@@ -121,7 +122,7 @@ class Workbench extends MIS_Controller
 			}
 			$data['adminList'] = $adminList;
 		}else{
-			if(checkRight('complain_reply') === FALSE){
+			if(checkRight(array('complain_reply','complain_assign')) === FALSE){
 				$this->showView('denied', $data);
 				exit;
 			}
@@ -163,9 +164,10 @@ class Workbench extends MIS_Controller
 			$this->showView('denied', $data);
 			exit;
 		}
-		$data = $this->input->post();
-		$data['status'] = 1;
-		$data['service_time'] = strtotime($data['service_time']);
+		$data = $this->input->get();
+		if($data['status'] == 1){
+			$data['service_time'] = strtotime($data['service_time']);
+		}
 		$this->load->model('MIS_Repair');
 		$this->MIS_Repair->update($data);
 		redirect(formatUrl('workbench/property?type=0'));
@@ -198,8 +200,7 @@ class Workbench extends MIS_Controller
 			$this->showView('denied', $data);
 			exit;
 		}
-		$data = $this->input->post();
-		$data['status'] = 1;
+		$data = $this->input->get();
 		$this->load->model('MIS_Complain');
 		$this->MIS_Complain->update($data);
 		redirect(formatUrl('workbench/property?type=1'));
@@ -228,13 +229,13 @@ class Workbench extends MIS_Controller
 	public function business()
 	{
 		$data = array();
-		if(checkRight(array('project_apply_confirm','room_booking_confirm','potential_follow')) === FALSE){
+		if(checkRight(array('project_apply_confirm', 'project_apply_assign', 'room_booking_confirm', 'room_booking_assign', 'potential_follow', 'potential_assign')) === FALSE){
 			$this->showView('denied', $data);
 			exit;
 		}
-		if(checkRight('project_apply_confirm')){
+		if(checkRight(array('project_apply_confirm', 'project_apply_assign'))){
 			$data['type'] = 0;
-		}else if(checkRight('room_booking_confirm')){
+		}else if(checkRight(array('room_booking_confirm','room_booking_assign'))){
 			$data['type'] = 1;
 		}else{
 			$data['type'] = 2;
@@ -243,15 +244,15 @@ class Workbench extends MIS_Controller
 			$data['type'] = $this->input->get('type');
 		}
 		if($data['type'] == 0){
-			if(checkRight('project_apply_confirm') === FALSE){
+			if(checkRight(array('project_apply_confirm','project_apply_assign')) === FALSE){
 				$this->showView('denied', $data);
 				exit;
 			}
-			$this->load->model('MIS_Project');
+			$this->load->model('MIS_Apply');
 			$offset = 0;
 			$pageUrl = '';
-			page(formatUrl('workbench/business').'?type=0', $this->MIS_Project->getConfirmApplyCount(), PER_COUNT, $offset, $pageUrl);
-			$dataList = $this->MIS_Project->getConfirmApplyList($offset, PER_COUNT);
+			page(formatUrl('workbench/business').'?type=0', $this->MIS_Apply->getConfirmApplyCount(), PER_COUNT, $offset, $pageUrl);
+			$dataList = $this->MIS_Apply->getConfirmApplyList($offset, PER_COUNT);
 			$data['pageUrl'] = $pageUrl;
 			$data['dataList'] = $dataList;
 			//获取可跟进用户
@@ -269,8 +270,10 @@ class Workbench extends MIS_Controller
 				}
 			}
 			$data['adminList'] = $adminList;
+			$data['apply_status'] = $this->config->item('project_apply_status');
+			$data['apply_type'] = $this->config->item('apply_type');
 		}else if($data['type'] == 1){
-			if(checkRight('room_booking_confirm') === FALSE){
+			if(checkRight(array('room_booking_confirm','room_booking_assign')) === FALSE){
 				$this->showView('denied', $data);
 				exit;
 			}
@@ -283,15 +286,15 @@ class Workbench extends MIS_Controller
 			$data['dataList'] = $dataList;
 			$data['room_type'] = $this->config->item('room_type');
 		}else{
-			if(checkRight('potential_follow') === FALSE){
+			if(checkRight(array('potential_follow','potential_assign')) === FALSE){
 				$this->showView('denied', $data);
 				exit;
 			}
-			$this->load->model('MIS_EnterprisePotential');
+			$this->load->model('MIS_EnterpriseHidden');
 			$offset = 0;
 			$pageUrl = '';
-			page(formatUrl('workbench/business').'?type=2', $this->MIS_EnterprisePotential->getFollowCount(), PER_COUNT, $offset, $pageUrl);
-			$dataList = $this->MIS_EnterprisePotential->getFollowList($offset, PER_COUNT);
+			page(formatUrl('workbench/business').'?type=2', $this->MIS_EnterpriseHidden->getFollowCount(), PER_COUNT, $offset, $pageUrl);
+			$dataList = $this->MIS_EnterpriseHidden->getFollowList($offset, PER_COUNT);
 			$data['pageUrl'] = $pageUrl;
 			$data['dataList'] = $dataList;
 			//获取可跟进用户
@@ -324,13 +327,52 @@ class Workbench extends MIS_Controller
 			$this->showView('denied', $data);
 			exit;
 		}
-		if(!$data['follow_by']){
-			$data['deal_status'] = 1;
+		$this->load->model('MIS_EnterpriseHidden');
+		$msg = '';
+		$this->MIS_EnterpriseHidden->update($data);
+		redirect(formatUrl('workbench/business?type=2'));
+	}
+	
+	public function doEnterpriseApplyFollow()
+	{
+		$data = $this->input->post();
+		if(!$data['follow_by'] && checkRight('apply_audit') === FALSE){
+			$this->showView('denied', $data);
+			exit;
+		}
+		if($data['follow_by'] && checkRight('apply_assign') === FALSE){
+			$this->showView('denied', $data);
+			exit;
 		}
 		$this->load->model('MIS_EnterprisePotential');
 		$msg = '';
 		$this->MIS_EnterprisePotential->update($data);
-		redirect(formatUrl('workbench/business?type=2'));
+		redirect(formatUrl('workbench/enterprise?type=1'));
+	}
+	
+	public function doEnterpriseApplyChange()
+	{
+		$data = array();
+		if(checkRight('activity_audit') === FALSE){
+			$this->showView('denied', $data);
+			exit;
+		}
+		$id = $this->input->get('id');
+		$this->load->model('MIS_EnterprisePotential');
+		$msg = '';
+		$data['enterprise_id'] = $id;
+		$data['is_change'] = 1;
+		$this->MIS_EnterprisePotential->update($data);
+		
+		$info = $this->MIS_EnterprisePotential->getInfo($id);
+		$this->load->model('MIS_EnterpriseHidden');
+		$addData = array();
+		$addData['enterprise_contact'] = $info['enterprise_contact'];
+		$addData['enterprise_contact_mobile'] = $info['enterprise_contact_mobile'];
+		$addData['add_time'] = time();
+		$this->MIS_EnterpriseHidden->add($addData);
+		
+		redirect(formatUrl('workbench/enterprise?type=1'));
 	}
 	
 	/**
@@ -346,9 +388,9 @@ class Workbench extends MIS_Controller
 		}
 		$data = $this->input->post();
 		$data['status'] = 1;
-		$this->load->model('MIS_Project');
+		$this->load->model('MIS_Apply');
 		$msg = '';
-		$this->MIS_Project->updateApply($data);
+		$this->MIS_Apply->update($data);
 		redirect(formatUrl('workbench/business?type=0'));
 	}
 	
@@ -363,8 +405,8 @@ class Workbench extends MIS_Controller
 			exit;
 		}
 		$data = $this->input->post();
-		$this->load->model('MIS_Project');
-		$this->MIS_Project->updateApply($data);
+		$this->load->model('MIS_Apply');
+		$this->MIS_Apply->update($data);
 		redirect(formatUrl('workbench/business?type=0'));
 	}
 	
@@ -375,32 +417,73 @@ class Workbench extends MIS_Controller
 	public function enterprise()
 	{
 		$data = array();
-		if(checkRight('enterprise_user_approve') === FALSE){
+		if(checkRight(array('enterprise_user_approve','enterprise_user_assign','apply_assign','apply_audit')) === FALSE){
 			$this->showView('denied', $data);
 			exit;
 		}
-		$this->load->model('MIS_User');
-		$offset = 0;
-		$pageUrl = '';
-		page(formatUrl('workbench/enterprise').'?', $this->MIS_User->getApproveEnterpriseUserCount(), PER_COUNT, $offset, $pageUrl);
-		$dataList = $this->MIS_User->getApproveEnterpriseUserList($offset, PER_COUNT);
-		$data['pageUrl'] = $pageUrl;
-		$data['dataList'] = $dataList;
-		//获取可跟进用户
-		$this->load->model('MIS_Admin');
-		$adminList = array();
-		$list = $this->MIS_Admin->getAll();
-		foreach($list as $item){
-			if($item['admin_role'] == 0){
-				$adminList[] = $item;
-			}else{
-				$rightsArr = explode(',', $item['role_rights']);
-				if(in_array('enterprise_user_approve', $rightsArr)){
+		if(checkRight(array('enterprise_user_approve', 'enterprise_user_assign'))){
+			$data['type'] = 0;
+		}else{
+			$data['type'] = 1;
+		}
+		if($this->input->get('type')){
+			$data['type'] = $this->input->get('type');
+		}
+		if($data['type'] == 0){
+			if(checkRight(array('enterprise_user_approve','enterprise_user_assign')) === FALSE){
+				$this->showView('denied', $data);
+				exit;
+			}
+			$this->load->model('MIS_User');
+			$offset = 0;
+			$pageUrl = '';
+			page(formatUrl('workbench/enterprise').'?type=0', $this->MIS_User->getApproveEnterpriseUserCount(), PER_COUNT, $offset, $pageUrl);
+			$dataList = $this->MIS_User->getApproveEnterpriseUserList($offset, PER_COUNT);
+			$data['pageUrl'] = $pageUrl;
+			$data['dataList'] = $dataList;
+			//获取可跟进用户
+			$this->load->model('MIS_Admin');
+			$adminList = array();
+			$list = $this->MIS_Admin->getAll();
+			foreach($list as $item){
+				if($item['admin_role'] == 0){
 					$adminList[] = $item;
+				}else{
+					$rightsArr = explode(',', $item['role_rights']);
+					if(in_array('enterprise_user_approve', $rightsArr)){
+						$adminList[] = $item;
+					}
 				}
 			}
+			$data['adminList'] = $adminList;
+		}else{
+			if(checkRight(array('apply_assign','apply_audit')) === FALSE){
+				$this->showView('denied', $data);
+				exit;
+			}
+			$this->load->model('MIS_EnterprisePotential');
+			$offset = 0;
+			$pageUrl = '';
+			page(formatUrl('workbench/business').'?type=1', $this->MIS_EnterprisePotential->getFollowCount(), PER_COUNT, $offset, $pageUrl);
+			$dataList = $this->MIS_EnterprisePotential->getFollowList($offset, PER_COUNT);
+			$data['pageUrl'] = $pageUrl;
+			$data['dataList'] = $dataList;
+			//获取可跟进用户
+			$this->load->model('MIS_Admin');
+			$adminList = array();
+			$list = $this->MIS_Admin->getAll();
+			foreach($list as $item){
+				if($item['admin_role'] == 0){
+					$adminList[] = $item;
+				}else{
+					$rightsArr = explode(',', $item['role_rights']);
+					if(in_array('apply_audit', $rightsArr)){
+						$adminList[] = $item;
+					}
+				}
+			}
+			$data['adminList'] = $adminList;
 		}
-		$data['adminList'] = $adminList;
 		$this->showView('approveEnterpriseUserList', $data);
 	}
 	

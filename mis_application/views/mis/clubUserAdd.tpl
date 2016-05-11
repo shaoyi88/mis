@@ -12,6 +12,14 @@
           			 <td><input name="user_account" type="text" {if isset($info)}disabled{/if} class="input-text" id="user_account" value="{if isset($info)}{$info['user_account']}{/if}" nullmsg="账户不能为空！" datatype="s"></td>
         		</tr>
         		<tr>
+          		     <th class="text-r" width="180">姓名：</th>
+          			 <td><input name="user_name" type="text" class="input-text" id="user_name" value="{if isset($info)}{$info['user_name']}{/if}"></td>
+        		</tr>
+        		<tr>
+          		     <th class="text-r" width="180">手机：</th>
+          			 <td><input name="user_mobile" type="text" class="input-text" id="user_mobile" value="{if isset($info)}{$info['user_mobile']}{/if}"></td>
+        		</tr>
+        		<tr>
           		     <th class="text-r" width="180">{if !isset($info)}<span class="c-red">*</span>{/if}密码{if isset($info)}(留空则不修改){/if}：</th>
           			 <td><input name="user_password" type="password" class="input-text" id="user_password" value="" {if !isset($info)}nullmsg="密码不能为空！" datatype="s"{/if}></td>
         		</tr>
@@ -24,10 +32,10 @@
           			 <td>
           				<select class="select" id="user_level" name="user_level" nullmsg="等级不能为空！" datatype="*">
       						<option value="">请选择等级</option>
-      						<option value="0">0</option>
-      						<option value="1">1</option>
-      						<option value="2">2</option>
-      						<option value="3">3</option>
+      						<option value="0" {if isset($info) && $info['user_level']==0}selected{/if}>0</option>
+      						<option value="1" {if isset($info) && $info['user_level']==1}selected{/if}>1</option>
+      						<option value="2" {if isset($info) && $info['user_level']==2}selected{/if}>2</option>
+      						<option value="3" {if isset($info) && $info['user_level']==3}selected{/if}>3</option>
     					</select>
           			</td>
         		</tr>

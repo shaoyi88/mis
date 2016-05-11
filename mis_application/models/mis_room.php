@@ -315,4 +315,21 @@ class MIS_Room extends CI_Model
 		$sql = "update $this->_bookingTable set last_remind_time=".time().",remind_times=2 where status = 0 AND (UNIX_TIMESTAMP(NOW()) - last_remind_time>172800) AND remind_times=1";
 		$query = $this->db->query($sql);
 	}
+	
+	/**
+	 * 
+	 * 查询预订
+	 * @param unknown_type $room_id
+	 * @param unknown_type $start_time
+	 * @param unknown_type $end_time
+	 */
+	public function searchBookingByTime($booking_id, $room_id, $start_time, $end_time)
+	{
+		$sql = "select * from $this->_bookingTable where booking_id <> $booking_id and room_id = $room_id and ((start_time >= $start_time and start_time <= $end_time) or (end_time >= $start_time and end_time <= $end_time))";
+		$query = $this->db->query($sql);
+		if($query){
+			$info = $query->result_array();
+		}
+		return $info;
+	}
 }

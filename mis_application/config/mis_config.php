@@ -6,10 +6,10 @@ $config['menus'] = array(
 	array(
 		'module' => '工作台',
 		'menu' => array(
-			array('活动审批', formatUrl('workbench/activity'), 'activity_audit'),
-			array('企业审批', formatUrl('workbench/enterprise'), 'enterprise_user_approve'),
-			array('物业服务', formatUrl('workbench/property'), array('repair_confirm', 'complain_reply')),
-			array('企业服务', formatUrl('workbench/business'), array('project_apply_confirm')),
+			array('活动审批', formatUrl('workbench/activity'), array('activity_audit','activity_assign')),
+			array('企业审批', formatUrl('workbench/enterprise'), array('enterprise_user_approve','enterprise_user_assign','apply_assign','apply_audit')),
+			array('物业服务', formatUrl('workbench/property'), array('repair_confirm', 'repair_assign', 'complain_reply', 'complain_assign')),
+			array('企业服务', formatUrl('workbench/business'), array('project_apply_confirm', 'project_apply_assign', 'room_booking_confirm', 'room_booking_assign', 'potential_follow', 'potential_assign')),
 		),
 		'right' => 'workbench'
 	),
@@ -100,7 +100,8 @@ $config['rights'] = array(
 			array('入驻流程编辑', 'flow_edit'),
 			array('入驻流程删除', 'flow_del', TRUE),
 			array('入驻申请列表', 'apply_list'),
-			array('入驻申请确认', 'apply_confirm', TRUE),
+			array('入驻申请审核指派', 'apply_assign'),
+			array('入驻申请审核', 'apply_audit', TRUE),
 			array('入驻企业列表', 'enterprise_list'),
 			array('入驻企业添加', 'enterprise_add'),
 			array('入驻企业编辑', 'enterprise_edit'),
@@ -331,6 +332,7 @@ $config['repair_type'] = array(
 $config['repair_status'] = array(
 	'0' => '已提交',
 	'1' => '已跟进',
+	'2' => '处理完毕'
 );
 
 /**
@@ -338,7 +340,8 @@ $config['repair_status'] = array(
  */
 $config['complain_status'] = array(
 	'0' => '已提交',
-	'1' => '已跟进'
+	'1' => '已跟进',
+	'2' => '处理完毕'
 );
 
 /**
@@ -450,4 +453,15 @@ $config['invest_apply_status'] = array(
 	'1' => '已跟进',
 	'2' => '申请通过',
 	'3' => '申请不通过',
+);
+
+/**
+ * 
+ * 入驻申请状态
+ * @var unknown_type
+ */
+$config['apply_deal_status'] = array(
+	'0' => '已提交',
+	'1' => '审核通过',
+	'2' => '审核不通过'
 );

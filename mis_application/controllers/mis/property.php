@@ -83,8 +83,7 @@ class Property extends MIS_Controller
 			$this->showView('denied', $data);
 			exit;
 		}
-		if(!$data['follow_by']){
-			$data['status'] = 1;
+		if(!$data['follow_by'] && $data['status'] == 1){
 			$data['service_time'] = strtotime($data['service_time']);
 		}
 		$this->load->model('MIS_Repair');
@@ -166,9 +165,6 @@ class Property extends MIS_Controller
 			$this->showView('denied', $data);
 			exit;
 		}
-		if(!$data['follow_by']){
-			$data['status'] = 1;
-		}
 		$this->load->model('MIS_Complain');
 		$msg = '';
 		$this->MIS_Complain->update($data);
@@ -208,8 +204,6 @@ class Property extends MIS_Controller
 	public function addFee()
 	{
 		$data = array();
-		$this->load->model('MIS_Enterprise');
-		$data['enterpriseList'] = $this->MIS_Enterprise->getAllList();
 		if($this->input->get('did')){
 			if(checkRight('fee_edit') === FALSE){
 				$this->showView('denied', $data);
@@ -319,29 +313,34 @@ class Property extends MIS_Controller
 	 */
 	public function doAddFee()
 	{
-		$data = array();
-		$data['fee_date'] = strtotime($data['fee_date']);
-		if($this->input->post('fee_id')){
+		$data = $this->input->post();
+		$this->load->model('MIS_Fee');
+		$info = $this->MIS_Fee->getInfoByEnterpriseAndDate($data['enterprise_id'], $data['fee_date']);
+		if($data['fee_id']){
 			if(checkRight('fee_edit') === FALSE){
 				$this->showView('denied', $data);
 				exit;
 			}
-			$data = $this->input->post();
-			$this->load->model('MIS_Fee');
 			$msg = '';
-			$this->MIS_Fee->update($data);
+			if(isset($info['fee_id']) && $info['fee_id'] != $data['fee_id']){
+				$msg = '?msg='.urlencode('同一个企业同一个月份不能创建多份费用');
+			}else{
+				$this->MIS_Fee->update($data);
+			}
 		}else{
 			if(checkRight('fee_add') === FALSE){
 				$this->showView('denied', $data);
 				exit;
 			}
-			$data = $this->input->post();
-			$this->load->model('MIS_Fee');
 			$msg = '';
-			$id = $this->MIS_Fee->add($data);
-			if($id === FALSE){
-				$msg = '?msg='.urlencode('创建失败');
-			}
+			if(isset($info['fee_id'])){
+				$msg = '?msg='.urlencode('同一个企业同一个月份不能创建多份费用');
+			}else{
+				$id = $this->MIS_Fee->add($data);
+				if($id === FALSE){
+					$msg = '?msg='.urlencode('创建失败');
+				}
+			}		
 		}
 		redirect(formatUrl('property/feeList'.$msg));
 	}

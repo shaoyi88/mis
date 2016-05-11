@@ -116,4 +116,15 @@ class MIS_Building extends CI_Model
 		}
 		return $info;
 	}
+	
+	/**
+	 * 
+	 * 删除
+	 * @param unknown_type $dids
+	 */
+	public function del($id)
+	{
+		$this->db->where('building_id', $id);
+		$this->db->delete($this->_table);
+	}
 }

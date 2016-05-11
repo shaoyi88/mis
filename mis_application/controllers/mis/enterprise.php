@@ -253,4 +253,22 @@ class Enterprise extends MIS_Controller
 		$data['info'] = $this->MIS_Enterprise->getInfo($id);
 		$this->showView('enterpriseDetail', $data);
 	}
+	
+	/**
+	 * 
+	 * 获取企业
+	 */
+	public function getEnterprise()
+	{
+		if($this->input->get('key')){
+			$key = $this->input->get('key');
+		}
+		$this->load->model('MIS_Enterprise');
+		$enterpriseList = $this->MIS_Enterprise->queryEnterpriseByKey($key);	
+		if(empty($enterpriseList)){			
+			$this->send_json(array('status'=>0));
+		}else{
+			$this->send_json(array('status'=>1,'enterpriseList'=>$enterpriseList));
+		}
+	}
 }

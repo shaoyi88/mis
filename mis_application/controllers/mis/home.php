@@ -50,38 +50,45 @@ class Home extends MIS_Controller
 		$defaultConfig = $this->config->item('default_sys_config');
 		$data['website_title'] = isset($info['website_title']) && $info['website_title'] ? $info['website_title'] : $defaultConfig['website_title'];
 		$data['userName'] = $this->userName;
-		if(checkRight('activity_audit')){
+		if(checkRight(array('activity_audit', 'activity_assign'))){
 			$this->load->model('MIS_Activity');
 			$data['activityNum'] = $this->MIS_Activity->getAuditCount();
 		}
-		if(checkRight('enterprise_user_approve')){
-			$this->load->model('MIS_User');
-			$data['userNum'] = $this->MIS_User->getApproveEnterpriseUserCount();
+		if(checkRight(array('enterprise_user_approve','enterprise_user_assign','apply_assign','apply_audit'))){
+			$data['userNum'] = 0;
+			if(checkRight(array('enterprise_user_approve','enterprise_user_assign'))){
+				$this->load->model('MIS_User');
+				$data['userNum'] = $this->MIS_User->getApproveEnterpriseUserCount();
+			}
+			if(checkRight(array('apply_assign','apply_audit'))){
+				$this->load->model('MIS_EnterprisePotential');
+				$data['userNum'] += $this->MIS_EnterprisePotential->getFollowCount();
+			}
 		}
-		if(checkRight(array('repair_confirm', 'complain_reply'))){
+		if(checkRight(array('repair_confirm', 'repair_assign', 'complain_reply', 'complain_assign'))){
 			$data['propertyNum'] = 0;
-			if(checkRight('repair_confirm')){
+			if(checkRight(array('repair_confirm','repair_assign'))){
 				$this->load->model('MIS_Repair');
 				$data['propertyNum'] += $this->MIS_Repair->getConfirmCount();
 			}
-			if(checkRight('complain_reply')){
+			if(checkRight(array('complain_reply','complain_assign'))){
 				$this->load->model('MIS_Complain');
 				$data['propertyNum'] += $this->MIS_Complain->getConfirmCount();
 			}
 		}
-		if(checkRight(array('project_apply_confirm','room_booking_confirm','potential_follow'))){
+		if(checkRight(array('project_apply_confirm', 'project_apply_assign', 'room_booking_confirm', 'room_booking_assign', 'potential_follow', 'potential_assign'))){
 			$data['businessNum'] = 0;
-			if(checkRight('project_apply_confirm')){
-				$this->load->model('MIS_Project');
-				$data['businessNum'] += $this->MIS_Project->getConfirmApplyCount();
+			if(checkRight(array('project_apply_confirm','project_apply_assign'))){
+				$this->load->model('MIS_Apply');
+				$data['businessNum'] += $this->MIS_Apply->getConfirmApplyCount();
 			}
-			if(checkRight('room_booking_confirm')){
+			if(checkRight(array('room_booking_confirm','room_booking_assign'))){
 				$this->load->model('MIS_Room');
 				$data['businessNum'] += $this->MIS_Room->getConfirmBookingCount();
 			}
-			if(checkRight('potential_follow')){
-				$this->load->model('MIS_EnterprisePotential');
-				$data['businessNum'] += $this->MIS_EnterprisePotential->getFollowCount();
+			if(checkRight(array('potential_follow','potential_assign'))){
+				$this->load->model('MIS_EnterpriseHidden');
+				$data['businessNum'] += $this->MIS_EnterpriseHidden->getFollowCount();
 			}
 		}
 		$this->showView('welcome', $data);

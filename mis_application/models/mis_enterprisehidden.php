@@ -2,13 +2,13 @@
 
 /**
  * 
- * 入驻申请模型类
+ * 潜在客户模型类
  * @author Administrator
  *
  */
-class MIS_EnterprisePotential extends CI_Model
+class MIS_EnterpriseHidden extends CI_Model
 {
-	private $_table = 'mis_enterprise_potential';
+	private $_table = 'mis_enterprise_hidden';
 	private $_ci;
 	
 	/**
@@ -24,19 +24,10 @@ class MIS_EnterprisePotential extends CI_Model
 	 * 
 	 * 获取列表
 	 */
-	public function getList($keaword, $offset, $limit, $uid=0)
+	public function getList($offset, $limit)
 	{
 		$info = array();
-		if($uid){
-		    $this->db->where('app_by', $uid);
-		}
-		if(isset($keyword['enterprise_name'])){
-			$this->db->like('enterprise_name', $keyword['enterprise_name']);
-		}
-		if(isset($keyword['enterprise_contact'])){
-			$this->db->like('enterprise_contact', $keyword['enterprise_contact']);
-		}
-		$this->db->order_by('app_time','DESC');
+		$this->db->order_by('add_time','DESC');
 		$query = $this->db->get($this->_table, $limit, $offset);
 		if($query){
 			$info = $query->result_array();
@@ -48,38 +39,9 @@ class MIS_EnterprisePotential extends CI_Model
 	 * 
 	 * 获取总数
 	 */
-	public function getCount($keaword,$uid=0)
+	public function getCount()
 	{   
-		$info = array();
-		if($uid){
-			$this->db->where('app_by', $uid);
-		}
-		if(isset($keyword['enterprise_name'])){
-			$this->db->like('enterprise_name', $keyword['enterprise_name']);
-		}
-	    if(isset($keyword['enterprise_contact'])){
-			$this->db->like('enterprise_contact', $keyword['enterprise_contact']);
-		}
-		$query = $this->db->get($this->_table);
-		if($query){
-			$info = $query->result_array();
-		}
-		return count($info);
-	}
-	
-	/**
-	 * 获取信息
-	 * Enter description here ...
-	 * @param unknown_type $id
-	 */
-	public function getInfo($id)
-	{
-		$query = $this->db->get_where($this->_table, array('enterprise_id' => $id));
-		$info = array();
-		if($query){
-			$info = $query->row_array();
-		}
-		return $info;
+		return $this->db->count_all_results($this->_table);
 	}
 	
 	/**
@@ -110,23 +72,12 @@ class MIS_EnterprisePotential extends CI_Model
 	
 	/**
 	 * 
-	 * 删除
-	 * @param unknown_type $ids
-	 */
-	public function del($id)
-	{
-		$this->db->where('enterprise_id', $id);
-		$this->db->delete($this->_table); 
-	} 
-	
-	/**
-	 * 
 	 * 获取待跟进的数目
 	 */
 	public function getFollowCount()
 	{
-		$sql = "select count(*) as num from $this->_table where deal_status = 0";
-		if(checkRight('apply_assign')){
+		$sql = "select count(*) as num from $this->_table where status = 0";
+		if(checkRight('potential_assign')){
 			$sql .= " and (follow_by=0 or follow_by=".$this->_ci->userId.")";
 		}else{
 			$sql .= " and follow_by=".$this->_ci->userId;
@@ -145,13 +96,13 @@ class MIS_EnterprisePotential extends CI_Model
 	public function getFollowList($offset, $limit)
 	{
 		$info = array();
-		$sql = "select * from $this->_table where deal_status = 0";
-		if(checkRight('apply_assign')){
+		$sql = "select * from $this->_table where status = 0";
+		if(checkRight('potential_assign')){
 			$sql .= " and (follow_by=0 or follow_by=".$this->_ci->userId.")";
 		}else{
 			$sql .= " and follow_by=".$this->_ci->userId;
 		}
-		$sql .= " order by app_time desc limit $offset,$limit";
+		$sql .= " order by add_time desc limit $offset,$limit";
 		$query = $this->db->query($sql);
 		if($query){
 			$info = $query->result_array();
@@ -166,7 +117,7 @@ class MIS_EnterprisePotential extends CI_Model
 	public function getRemindFirstNum()
 	{
 		$info = array();
-		$sql = "SELECT count(*) as num FROM $this->_table WHERE deal_status = 0 AND (UNIX_TIMESTAMP(NOW()) - app_time>172800) AND remind_times=0";
+		$sql = "SELECT count(*) as num FROM $this->_table WHERE status = 0 AND (UNIX_TIMESTAMP(NOW()) - add_time>172800) AND remind_times=0";
 		$query = $this->db->query($sql);
 		if($query){
 			$info = $query->row_array();
@@ -181,7 +132,7 @@ class MIS_EnterprisePotential extends CI_Model
 	public function getRemindSecondNum()
 	{
 		$info = array();
-		$sql = "SELECT count(*) as num FROM $this->_table WHERE deal_status = 0 AND (UNIX_TIMESTAMP(NOW()) -last_remind_time>172800) AND remind_times=1";
+		$sql = "SELECT count(*) as num FROM $this->_table WHERE status = 0 AND (UNIX_TIMESTAMP(NOW()) -last_remind_time>172800) AND remind_times=1";
 		$query = $this->db->query($sql);
 		if($query){
 			$info = $query->row_array();
@@ -195,7 +146,7 @@ class MIS_EnterprisePotential extends CI_Model
 	 */
 	public function updataRemindFitst()
 	{
-		$sql = "update $this->_table set last_remind_time=".time().",remind_times=1 where deal_status = 0 AND (UNIX_TIMESTAMP(NOW()) - app_time>172800) AND remind_times=0";
+		$sql = "update $this->_table set last_remind_time=".time().",remind_times=1 where status = 0 AND (UNIX_TIMESTAMP(NOW()) - add_time>172800) AND remind_times=0";
 		$query = $this->db->query($sql);
 	}
 	
@@ -205,7 +156,7 @@ class MIS_EnterprisePotential extends CI_Model
 	 */
 	public function updataRemindSecond()
 	{
-		$sql = "update $this->_table set last_remind_time=".time().",remind_times=2 where deal_status = 0 AND (UNIX_TIMESTAMP(NOW()) - last_remind_time>172800) AND remind_times=1";
+		$sql = "update $this->_table set last_remind_time=".time().",remind_times=2 where status = 0 AND (UNIX_TIMESTAMP(NOW()) - last_remind_time>172800) AND remind_times=1";
 		$query = $this->db->query($sql);
 	}
 }

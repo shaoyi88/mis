@@ -9,12 +9,10 @@
 				<tr>
           		     <th class="text-r" width="180">企业<span class="c-red">*</span>：</th>
           			 <td>
-          			 	<select class="select" id="enterprise_id" name="enterprise_id" nullmsg="企业不能为空！" datatype="*">
-      						<option value="">请选择企业</option>
-      						{foreach $enterpriseList as $enterprise}
-      							<option value="{$enterprise['enterprise_id']}" {if isset($info) && $info['enterprise_id'] == $enterprise['enterprise_id']}selected{/if}>{$enterprise['enterprise_name']}</option>
-      						{/foreach}
-    					</select>
+          			 	<input style="width:200px" type="text" class="input-text" id="enterprise_key" value="{if isset($info)}{$info['enterprise_name']}{/if}" nullmsg="企业不能为空！" datatype="*" autocomplete="off">
+          			 	<div style="position:relative;">
+      						<div class="auto-complete-result"></div>
+      					</div>
           			 </td>
         		</tr>
         		<tr>
@@ -46,13 +44,27 @@
         		</tr>
         		<tr>
           			<th></th>
-          			<td>         				
-            			<button type="submit" class="btn btn-success radius"><i class="icon-ok"></i> {$typeMsg}</button>
+          			<td>         
+          				<input name="enterprise_id" id="enterprise_id" type="hidden" value="{if isset($info)}{$info['enterprise_id']}{/if}">	
+          				{if isset($info)}
+          				<button id="submitFee" type="submit" class="btn btn-success radius"><i class="icon-ok"></i> {$typeMsg}</button>
+          				{else}			
+            			<button id="submitFee" type="submit" class="btn btn-success radius disabled"><i class="icon-ok"></i> {$typeMsg}</button>
+            			{/if}
           			</td>
         		</tr>
         	</tbody>
         </table>
 	</form>
 </div>
+<script type="text/template" id="enterpriseTpl">
+<ul>
+<%#enterpriseList%>
+<li eid="<%enterprise_id%>"><%enterprise_name%></li>
+<%/enterpriseList%>
+</ul>
+</script>
+<script type="text/javascript" src="/public/common/js/hogan-2.0.0.min.js"></script>
 <script type="text/javascript" src="/public/common/js/date/WdatePicker.js"></script>
+<input type="hidden" id="getEnterpriseUrl" value="{formatUrl('enterprise/getEnterprise')}"></input>
 <script type="text/javascript" src="/public/mis/js/fee.js""></script>

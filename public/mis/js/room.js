@@ -43,7 +43,7 @@ var fee = function(){
   			title: '查看/确认',
   			shadeClose: true,
   			shade: 0.8,
-  			area: ['600px', '90%'],
+  			area: ['1000px', '600px'],
   			content: $('#viewUrl').val()+'?id='+id,
 			end : function(index, layero){
     			layer.close(index); 

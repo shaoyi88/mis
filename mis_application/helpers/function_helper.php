@@ -218,11 +218,15 @@ function remind()
 	$ci =& get_instance();
 	$ci->load->model('MIS_Activity');
 	$ci->load->model('MIS_User');
+	$ci->load->model('MIS_EnterprisePotential');	
 	$ci->load->model('MIS_Repair');
-	$ci->load->model('MIS_Complain');
-	$ci->load->model('MIS_Project');
+	$ci->load->model('MIS_Complain');	
+	$ci->load->model('MIS_Apply');
 	$ci->load->model('MIS_Room');
-	$ci->load->model('MIS_EnterprisePotential');
+	$ci->load->model('MIS_EnterpriseHidden');
+	
+	
+	
 	$activityFirstNum = $userFirstNum = $propertyFirstNum = $businessFirstNum = 
 	$activitySecondNum = $userSecondNum = $propertySecondNum = $businessSecondNum = 0;
 	$msgFirst = $msgSecond = '';
@@ -230,11 +234,12 @@ function remind()
 	// 获取第一次提醒数据
 	$activityFirstNum += $ci->MIS_Activity->getRemindFirstNum();
 	$userFirstNum += $ci->MIS_User->getRemindFirstNum();
+	$userFirstNum += $ci->MIS_EnterprisePotential->getRemindFirstNum();	
 	$propertyFirstNum += $ci->MIS_Repair->getRemindFirstNum();
-	$propertyFirstNum += $ci->MIS_Complain->getRemindFirstNum();
-	$businessFirstNum += $ci->MIS_Project->getRemindFirstNum();
+	$propertyFirstNum += $ci->MIS_Complain->getRemindFirstNum();	
+	$businessFirstNum += $ci->MIS_Apply->getRemindFirstNum();
 	$businessFirstNum += $ci->MIS_Room->getRemindFirstNum();
-	$businessFirstNum += $ci->MIS_EnterprisePotential->getRemindFirstNum();
+	$businessFirstNum += $ci->MIS_EnterpriseHidden->getRemindFirstNum();
 
 	// 发送第一次提醒通知 TODO
 	$msgFirst .= $activityFirstNum > 0 ? $activityFirstNum.'项待审批活动,' : '';
@@ -248,21 +253,23 @@ function remind()
 	/*
 	$ci->MIS_Activity->updataRemindFitst();
 	$ci->MIS_User->updataRemindFitst();
+	$ci->MIS_EnterprisePotential->updataRemindFitst();
 	$ci->MIS_Repair->updataRemindFitst();
 	$ci->MIS_Complain->updataRemindFitst();
-	$ci->MIS_Project->updataRemindFitst();
+	$ci->MIS_Apply->updataRemindFitst();
 	$ci->MIS_Room->updataRemindFitst();
-	$ci->MIS_EnterprisePotential->updataRemindFitst();
+	$ci->MIS_EnterpriseHidden->updataRemindFitst();
 	*/
 	
 	// 获取第二次提醒数据
 	$activitySecondNum += $ci->MIS_Activity->getRemindSecondNum();
 	$userSecondNum += $ci->MIS_User->getRemindSecondNum();
+	$userSecondNum += $ci->MIS_EnterprisePotential->getRemindSecondNum();
 	$propertySecondNum += $ci->MIS_Repair->getRemindSecondNum();
 	$propertySecondNum += $ci->MIS_Complain->getRemindSecondNum();
-	$businessSecondNum += $ci->MIS_Project->getRemindSecondNum();
+	$businessSecondNum += $ci->MIS_Apply->getRemindSecondNum();
 	$businessSecondNum += $ci->MIS_Room->getRemindSecondNum();
-	$businessSecondNum += $ci->MIS_EnterprisePotential->getRemindSecondNum();
+	$businessSecondNum += $ci->MIS_EnterpriseHidden->getRemindSecondNum();
 
 	// 发送第二次提醒通知 TODO
 	$msgSecond .= $activitySecondNum > 0 ? $activitySecondNum.'项待审批活动,' : '';
@@ -275,10 +282,11 @@ function remind()
 	/*
 	$ci->MIS_Activity->updataRemindSecond();
 	$ci->MIS_User->updataRemindSecond();
+	$ci->MIS_EnterprisePotential->updataRemindFitst();
 	$ci->MIS_Repair->updataRemindSecond();
 	$ci->MIS_Complain->updataRemindSecond();
-	$ci->MIS_Project->updataRemindSecond();
+	$ci->MIS_Apply->updataRemindSecond();
 	$ci->MIS_Room->updataRemindSecond();
-	$ci->MIS_EnterprisePotential->updataRemindSecond();
+	$ci->MIS_EnterpriseHidden->updataRemindSecond();
 	*/
 }

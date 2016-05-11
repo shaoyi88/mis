@@ -89,7 +89,6 @@ class Club extends MIS_Controller
 			$data = $this->input->post();
 			$data['user_password'] = md5($data['user_password']);
 			$data['reg_time'] = time();
-			$data['user_audit_type'] = 0;
 			$this->load->model('MIS_User');
 			$msg = '';
 			$userInfo = $this->MIS_User->queryUserByAccountPhone($data['user_account'], $data['user_phone']);

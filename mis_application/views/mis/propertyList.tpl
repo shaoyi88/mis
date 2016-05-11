@@ -1,7 +1,7 @@
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 工作台<span class="c-gray en">&gt;</span> 物业服务<a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="pd-20">
 	<div id="tab-system" class="HuiTab">
-	 <div class="tabBar cl">{if checkRight('repair_confirm')}<a href="{formatUrl('workbench/property?type=0')}"><span {if $type == 0}class="current"{/if}>物业报修申请</span></a>{/if}{if checkRight('complain_reply')}<a href="{formatUrl('workbench/property?type=1')}"><span {if $type == 1}class="current"{/if}>物业投诉</span></a>{/if}</div>
+	 <div class="tabBar cl">{if checkRight(array('repair_confirm', 'repair_assign'))}<a href="{formatUrl('workbench/property?type=0')}"><span {if $type == 0}class="current"{/if}>物业报修申请</span></a>{/if}{if checkRight(array('complain_reply','complain_assign'))}<a href="{formatUrl('workbench/property?type=1')}"><span {if $type == 1}class="current"{/if}>物业投诉</span></a>{/if}</div>
 	 {if $type == 0}
 	 {if empty($dataList)}
 	 	<div class="cl pd-5 bg-1 bk-gray"><h2 class="text-c">暂无物业报修申请</h2></div>
@@ -28,8 +28,10 @@
           				<td>
           					{if $item['follow_by'] == 0}
           					<a class="btn btn-primary radius repairFollow" title="指派跟进人" href="javascript:;" did="{$item['repair_id']}" style="text-decoration:none">指派跟进人</a>
-          					{else}
+          					{elseif $item['status'] == 0}
           					<a class="btn btn-primary radius repairConfirm" title="确认" href="javascript:;" did="{$item['repair_id']}" style="text-decoration:none">确认</a>
+          					{else}
+          					<a class="btn btn-primary radius repairFinish" title="处理完毕" href="javascript:;" did="{$item['repair_id']}" style="text-decoration:none">处理完毕</a>
           					{/if}
           				</td>
         		</tr>
@@ -62,8 +64,10 @@
           				<td>
           					{if $item['follow_by'] == 0}
           					<a class="btn btn-primary radius complainFollow" title="指派跟进人" href="javascript:;" did="{$item['complain_id']}" style="text-decoration:none">指派跟进人</a>
-          					{else}
+          					{elseif $item['status'] == 0}
           					<a class="btn btn-primary radius complainConfirm" title="确认" href="javascript:;" did="{$item['complain_id']}" style="text-decoration:none">确认</a>
+          					{else}
+          					<a class="btn btn-primary radius complainFinish" title="处理完毕" href="javascript:;" did="{$item['complain_id']}" style="text-decoration:none">处理完毕</a>
           					{/if}
           				</td>
         		</tr>
@@ -100,7 +104,7 @@
 	</form>
 </div>
 <div class="pd-20 text-c" style="display:none" id="repairConfirmWindow">
-	<form class="Huiform" action="{formatUrl('workbench/doRepairConfirm')}" method="post">
+	<form class="Huiform" action="{formatUrl('workbench/doRepairConfirm')}" method="get">
 		<input type="hidden" name="repair_id" id="repair_id" value="" />
 		<table class="table table-bg table-border table-bordered">
 			<tr>
@@ -120,6 +124,7 @@
         		<tr>
           			<th></th>
           			<td>
+          				<input name="status" value="1" type="hidden">
             			<button type="submit" class="btn btn-success radius"><i class="icon-ok"></i> 提交</button>
           			</td>
         		</tr>
@@ -137,6 +142,7 @@
         		<tr>
           			<th></th>
           			<td>
+          				<input name="status" value="1" type="hidden">
             			<button type="submit" class="btn btn-success radius"><i class="icon-ok"></i> 提交</button>
           			</td>
         		</tr>
@@ -144,7 +150,7 @@
 	</form>
 </div>
 <div class="pd-20 text-c" style="display:none" id="complainFollowWindow">
-	<form class="Huiform" action="{formatUrl('workbench/doComplainFollow')}" method="post">
+	<form class="Huiform" action="{formatUrl('workbench/doComplainFollow')}" method="get">
 		<input type="hidden" name="complain_id" id="f_complain_id" value="" />
 		<table class="table table-bg table-border table-bordered">
 			<tr>
@@ -167,5 +173,7 @@
       	</table>
 	</form>
 </div>
+<input value="{formatUrl('workbench/doRepairConfirm')}" type="hidden" id="repairConfirmUrl">
+<input value="{formatUrl('workbench/doComplainConfirm')}" type="hidden" id="complainConfirmUrl">
 <script type="text/javascript" src="/public/common/js/date/WdatePicker.js"></script>
 <script type="text/javascript" src="/public/mis/js/workbench.js""></script>

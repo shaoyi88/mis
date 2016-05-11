@@ -19,36 +19,104 @@ class Investment extends MIS_Controller
 			$this->showView('denied', $data);
 			exit;
 		}
-		$this->load->model('MIS_Apply');
+		$this->load->model('MIS_EnterprisePotential');
 		$keyword = $this->input->get();
 		$offset = 0;
 		$pageUrl = '';
-		page(formatUrl('investment/apply').'?', $this->MIS_Apply->getCount($keyword), PER_COUNT, $offset, $pageUrl);
-		$dataList = $this->MIS_Apply->getList($keyword, $offset, PER_COUNT);
+		page(formatUrl('investment/potential').'?', $this->MIS_EnterprisePotential->getCount($keyword), PER_COUNT, $offset, $pageUrl);
+		$dataList = $this->MIS_EnterprisePotential->getList($keyword, $offset, PER_COUNT);
 		$data['pageUrl'] = $pageUrl;
 		$data['dataList'] = $dataList;
 		$data['keyword'] = $keyword;
-		$data['apply_status'] = $this->config->item('apply_status');
-		$data['apply_type'] = $this->config->item('apply_type');
 		$this->showView('applyList', $data);
 	}	
 	
 	/**
-	 * 
-	 * 申请确认
+	 *
+	 * 潜在客户详情
 	 */
-	public function applyConfirm()
+	public function applyDetail()
 	{
 		$data = array();
-		if(checkRight('apply_confirm') === FALSE){
+		if(checkRight('apply_list') === FALSE){
 			$this->showView('denied', $data);
 			exit;
 		}
-		$data = $this->input->get();
-		$this->load->model('MIS_Apply');
+		$this->load->model('MIS_EnterprisePotential');
+		if(is_numeric($this->input->get('id'))){
+			$data['id'] = $this->input->get('id');			
+			$data['info'] = $this->MIS_EnterprisePotential->getInfo($data['id']);
+			$data['userId'] = $this->userId;
+			//获取可跟进用户
+			$this->load->model('MIS_Admin');
+			$adminList = array();
+			$list = $this->MIS_Admin->getAll();
+			foreach($list as $item){
+				if($item['admin_role'] == 0){
+					$adminList[] = $item;
+				}else{
+					$rightsArr = explode(',', $item['role_rights']);
+					if(in_array('activity_audit', $rightsArr)){
+						$adminList[] = $item;
+					}
+				}
+			}
+			$data['adminList'] = $adminList;
+			$data['apply_deal_status'] = $this->config->item('apply_deal_status');
+			$this->showView('applyDetail', $data);
+		}else{
+			redirect(formatUrl('investment/apply'));
+		}
+	}
+	
+	/**
+	 * 
+	 * 入驻申请审核
+	 */
+	public function doAuditApply()
+	{
+		$data = $this->input->post();
+		if(!$data['follow_by'] && checkRight('activity_audit') === FALSE){
+			$this->showView('denied', $data);
+			exit;
+		}
+		if($data['follow_by'] && checkRight('activity_assign') === FALSE){
+			$this->showView('denied', $data);
+			exit;
+		}
+		$this->load->model('MIS_EnterprisePotential');
 		$msg = '';
-		$this->MIS_Apply->update($data);
-		redirect(formatUrl('investment/apply'));
+		$this->MIS_EnterprisePotential->update($data);
+		redirect(formatUrl('investment/applyDetail?id='.$data['enterprise_id']));
+	}
+	
+	/**
+	 * 入驻转为潜在用户
+	 * Enter description here ...
+	 */
+	public function doChangeApply()
+	{
+		$data = array();
+		if(checkRight('activity_audit') === FALSE){
+			$this->showView('denied', $data);
+			exit;
+		}
+		$id = $this->input->get('id');
+		$this->load->model('MIS_EnterprisePotential');
+		$msg = '';
+		$data['enterprise_id'] = $id;
+		$data['is_change'] = 1;
+		$this->MIS_EnterprisePotential->update($data);
+		
+		$info = $this->MIS_EnterprisePotential->getInfo($id);
+		$this->load->model('MIS_EnterpriseHidden');
+		$addData = array();
+		$addData['enterprise_contact'] = $info['enterprise_contact'];
+		$addData['enterprise_contact_mobile'] = $info['enterprise_contact_mobile'];
+		$addData['add_time'] = time();
+		$this->MIS_EnterpriseHidden->add($addData);
+		
+		redirect(formatUrl('investment/applyDetail?id='.$data['enterprise_id']));
 	}
 	
 	/**
@@ -203,52 +271,30 @@ class Investment extends MIS_Controller
 			$this->showView('denied', $data);
 			exit;
 		}
-		$this->load->model('MIS_EnterprisePotential');
-		$keyword = $this->input->get();
+		$this->load->model('MIS_EnterpriseHidden');
 		$offset = 0;
 		$pageUrl = '';
-		page(formatUrl('investment/potential').'?', $this->MIS_EnterprisePotential->getCount($keyword), PER_COUNT, $offset, $pageUrl);
-		$dataList = $this->MIS_EnterprisePotential->getList($keyword, $offset, PER_COUNT);
+		page(formatUrl('investment/potential').'?', $this->MIS_EnterpriseHidden->getCount(), PER_COUNT, $offset, $pageUrl);
+		$dataList = $this->MIS_EnterpriseHidden->getList($offset, PER_COUNT);
 		$data['pageUrl'] = $pageUrl;
 		$data['dataList'] = $dataList;
-		$data['keyword'] = $keyword;
-		$this->showView('potentialList', $data);
-	}
-	/**
-	 *
-	 * 潜在客户详情
-	 */
-	public function potentialDetail()
-	{
-		$data = array();
-		if(checkRight('potential_list') === FALSE){
-			$this->showView('denied', $data);
-			exit;
-		}
-		$this->load->model('MIS_EnterprisePotential');
-		if(is_numeric($this->input->get('id'))){
-			$data['id'] = $this->input->get('id');			
-			$data['info'] = $this->MIS_EnterprisePotential->getInfo($data['id']);
-			$data['userId'] = $this->userId;
-			//获取可跟进用户
-			$this->load->model('MIS_Admin');
-			$adminList = array();
-			$list = $this->MIS_Admin->getAll();
-			foreach($list as $item){
-				if($item['admin_role'] == 0){
+		$data['uid'] = $this->userId;
+		//获取可跟进用户
+		$this->load->model('MIS_Admin');
+		$adminList = array();
+		$list = $this->MIS_Admin->getAll();
+		foreach($list as $item){
+			if($item['admin_role'] == 0){
+				$adminList[] = $item;
+			}else{
+				$rightsArr = explode(',', $item['role_rights']);
+				if(in_array('potential_follow', $rightsArr)){
 					$adminList[] = $item;
-				}else{
-					$rightsArr = explode(',', $item['role_rights']);
-					if(in_array('potential_follow', $rightsArr)){
-						$adminList[] = $item;
-					}
 				}
 			}
-			$data['adminList'] = $adminList;
-			$this->showView('potentialDetail', $data);
-		}else{
-			redirect(formatUrl('investment/potential'));
 		}
+		$data['adminList'] = $adminList;
+		$this->showView('potentialList', $data);
 	}
 	
 	public function doFollowPotential()
@@ -262,12 +308,9 @@ class Investment extends MIS_Controller
 			$this->showView('denied', $data);
 			exit;
 		}
-		if(!$data['follow_by']){
-			$data['deal_status'] = 1;
-		}
-		$this->load->model('MIS_EnterprisePotential');
+		$this->load->model('MIS_EnterpriseHidden');
 		$msg = '';
-		$this->MIS_EnterprisePotential->update($data);
-		redirect(formatUrl('investment/potentialDetail?id='.$data['enterprise_id']));
+		$this->MIS_EnterpriseHidden->update($data);
+		redirect(formatUrl('investment/potential'));
 	}
 }

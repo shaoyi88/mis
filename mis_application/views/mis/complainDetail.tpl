@@ -29,12 +29,10 @@
           		     <th class="text-r" width="180">投诉时间：</th>
           			 <td>{date('Y-m-d H:i:s',$info['add_time'])}</td>
         		</tr>     		
-        		{if $info['status'] == 1}
         		<tr>
           		     <th class="text-r" width="180">回复信息：</th>
           			 <td>{$info['feedback']}</td>
         		</tr>
-        		{/if}
         		<tr>
           		     <th class="text-r" width="180">当前状态：</th>
           			 <td>{$complain_status[$info['status']]}</td>
@@ -47,8 +45,19 @@
         		<tr>
           			<th></th>
           			<td>
+          				<input name="status" value="1" type="hidden"></input>
           				<input name="complain_id" value="{$info['complain_id']}" type="hidden"></input>
             			<button type="submit" class="btn btn-success radius"><i class="icon-ok"></i> 提交</button>
+          			</td>
+        		</tr>
+        		{/if}
+        		{if $info['status'] == 1 && checkRight('complain_reply') && $info['follow_by'] == $userId}
+        		<tr>
+          			<th></th>
+          			<td>
+          				<input name="status" value="2" type="hidden"></input>
+          				<input name="complain_id" value="{$info['complain_id']}" type="hidden"></input>
+            			<button type="submit" class="btn btn-success radius"><i class="icon-ok"></i> 确认处理完毕</button>
           			</td>
         		</tr>
         		{/if}

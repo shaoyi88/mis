@@ -2,9 +2,9 @@
 <div class="pd-20">
 	<div id="tab-system" class="HuiTab">
 	 <div class="tabBar cl">
-	 	{if checkRight('project_apply_confirm')}<a href="{formatUrl('workbench/business?type=0')}"><span {if $type == 0}class="current"{/if}>项目需求申请</span></a>{/if}
-	 	{if checkRight('room_booking_confirm')}<a href="{formatUrl('workbench/business?type=1')}"><span {if $type == 1}class="current"{/if}>房间预订申请</span></a>{/if}
-	 	{if checkRight('potential_follow')}<a href="{formatUrl('workbench/business?type=2')}"><span {if $type == 2}class="current"{/if}>潜在客户跟进</span></a>{/if}
+	 	{if checkRight(array('project_apply_confirm','project_apply_assign'))}<a href="{formatUrl('workbench/business?type=0')}"><span {if $type == 0}class="current"{/if}>项目需求申请</span></a>{/if}
+	 	{if checkRight(array('room_booking_confirm','room_booking_assign'))}<a href="{formatUrl('workbench/business?type=1')}"><span {if $type == 1}class="current"{/if}>房间预订申请</span></a>{/if}
+	 	{if checkRight(array('potential_follow','potential_assign'))}<a href="{formatUrl('workbench/business?type=2')}"><span {if $type == 2}class="current"{/if}>潜在客户跟进</span></a>{/if}
 	 </div>
 	 {if $type == 0}
 	 {if empty($dataList)}
@@ -13,27 +13,27 @@
 	 	<table class="table table-border table-bg table-bordered table-hover">
 			<thead>
         		<tr class="text-c">
-          			<th>项目名称</th>
-          			<th>用户</th>
-          			<th>联系电话</th>
-          			<th>联系邮箱</th>
+          			<th>申请类型</th>
+          			<th>申请内容</th>
+          			<th>联系人</th>
           			<th>申请时间</th>
+					<th>状态</th>
           			<th>操作</th>
         		</tr>
       		</thead>
       		<tbody>
       			{foreach $dataList as $item}
       				<tr class="text-c">
-          				<td>{$item['project_name']}</td>
+      					<td>{$apply_type[$item['apply_type']]}</td>
+          				<td>{$item['apply_content']}</td>
           				<td>{$item['contacts']}</td>
-      					<td>{$item['contacts_phone']}</td>
-      					<td>{$item['contacts_email']}</td>
-        				<td>{date('Y-m-d',$item['add_time'])}</td>
+          				<td>{date('Y-m-d',$item['add_time'])}</td>
+          				<td>{$apply_status[$item['status']]}</td>
           				<td>
           					{if $item['follow_by'] == 0}
           					<a class="btn btn-primary radius projectApplyFollow" title="指派跟进人" href="javascript:;" did="{$item['apply_id']}" style="text-decoration:none">指派跟进人</a>
           					{else}
-          					<a class="btn btn-primary radius projectApplyConfirm" title="确认" href="javascript:;" did="{$item['apply_id']}" style="text-decoration:none">确认</a>
+          					<a class="btn btn-primary radius projectApplyConfirm" title="跟进" href="javascript:;" did="{$item['apply_id']}" style="text-decoration:none">跟进</a>
           					{/if}
           				</td>
         		</tr>
@@ -85,20 +85,20 @@
 	 	<table class="table table-border table-bg table-bordered table-hover">
 			<thead>
         		<tr class="text-c">
-          		 	<th>企业名称</th>
-			        <th>联系人</th>
+          		 	<th>联系人</th>
 			        <th>联系电话</th>
 			        <th>提交时间</th>
+			        <th>状态</th>
 			        <th>操作</th>
         		</tr>
       		</thead>
       		<tbody>
       			{foreach $dataList as $item}
       				<tr class="text-c">
-          			 <td>{$item['enterprise_name']}</td>
-				        <td>{$item['enterprise_contact']}</td> 
+          			 <td>{$item['enterprise_contact']}</td> 
 				        <td>{$item['enterprise_contact_mobile']}</td> 
-				        <td>{date('Y-m-d H:i:s',$item['app_time'])}</td> 
+				        <td>{date('Y-m-d H:i:s',$item['add_time'])}</td> 
+				        <td>{if $item['status'] == 0}待跟进{else}已跟进{/if}</td>
           				<td>
           					{if $item['follow_by'] == 0}
           					<a class="btn btn-primary radius potentialFollow" title="指派跟进人" href="javascript:;" did="{$item['enterprise_id']}" style="text-decoration:none">指派跟进人</a>
@@ -120,8 +120,8 @@
 		<input type="hidden" name="apply_id" id="apply_id" value="" />
 		<table class="table table-bg table-border table-bordered">
 			<tr>
-          		     <th class="text-r" width="180"><span class="c-red">*</span>确认信息：</th>
-          			 <td><textarea style="width:500px;height:140px;" name="feedback" cols="" rows="" class="textarea" id="feedback" nullmsg="确认信息不能为空！" datatype="s"></textarea></td>
+          		     <th class="text-r" width="180"><span class="c-red">*</span>跟进信息：</th>
+          			 <td><textarea style="width:500px;height:140px;" name="msg" cols="" rows="" class="textarea" id="msg" nullmsg="跟进信息不能为空！" datatype="s"></textarea></td>
         		</tr>
         		<tr>
           			<th></th>
@@ -159,10 +159,11 @@
 <div class="pd-20 text-c" style="display:none" id="potentialConfirmWindow">
 	<form class="Huiform" action="{formatUrl('workbench/doFollowPotential')}" method="post">
 		<input type="hidden" name="enterprise_id" id="enterprise_id" value="" />
+		<input name="status" value="1" type="hidden">
 		<table class="table table-bg table-border table-bordered">
 			<tr>
           		     <th class="text-r" width="180"><span class="c-red">*</span>跟进信息：</th>
-          			 <td><textarea style="width:500px;height:140px;" name="msg" cols="" rows="" class="textarea" id="msg" nullmsg="跟进信息不能为空！" datatype="s"></textarea></td>
+          			 <td><textarea style="width:300px;height:140px;" name="msg" cols="" rows="" class="textarea" id="msg" nullmsg="跟进信息不能为空！" datatype="s"></textarea></td>
         		</tr>
         		<tr>
           			<th></th>
