@@ -111,6 +111,7 @@ class Investment extends MIS_Controller
 		$info = $this->MIS_EnterprisePotential->getInfo($id);
 		$this->load->model('MIS_EnterpriseHidden');
 		$addData = array();
+		$addData['enterprise_name'] = $info['enterprise_name'];
 		$addData['enterprise_contact'] = $info['enterprise_contact'];
 		$addData['enterprise_contact_mobile'] = $info['enterprise_contact_mobile'];
 		$addData['add_time'] = time();

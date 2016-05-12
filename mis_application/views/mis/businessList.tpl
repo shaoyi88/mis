@@ -85,6 +85,7 @@
 	 	<table class="table table-border table-bg table-bordered table-hover">
 			<thead>
         		<tr class="text-c">
+        			<th>公司名</th>
           		 	<th>联系人</th>
 			        <th>联系电话</th>
 			        <th>提交时间</th>
@@ -95,7 +96,8 @@
       		<tbody>
       			{foreach $dataList as $item}
       				<tr class="text-c">
-          			 <td>{$item['enterprise_contact']}</td> 
+      					<td>{$item['enterprise_name']}</td> 
+          			 	<td>{$item['enterprise_contact']}</td> 
 				        <td>{$item['enterprise_contact_mobile']}</td> 
 				        <td>{date('Y-m-d H:i:s',$item['add_time'])}</td> 
 				        <td>{if $item['status'] == 0}待跟进{else}已跟进{/if}</td>
