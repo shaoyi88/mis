@@ -7,7 +7,11 @@
  */
 class MIS_Controller extends CI_Controller
 {
-	const EXT              = VIEW_EXT;    // 模板后缀名     
+	const EXT              = VIEW_EXT;    // 模板后缀名 
+
+	public $userId = '';                  // 用户id
+	public $userName = '';                // 用户名
+	public $userType = '';              // 用户类型
 
 	public $rtrClass;                     // 当前控制器class
 	public $rtrMethod;                    // 当前控制器method

@@ -29,6 +29,7 @@ class home extends MIS_Controller
 		$weather = json_decode($res);
 		$weather = object_array($weather);
 		$weatherinfo = $weather['HeWeather data service 3.0'];
+		$data['weatherNow'] = array();
 		if(isset($weatherinfo[0]['status'])&&$weatherinfo[0]['status']=='ok'){
 			$data['weatherNow'] = $weatherinfo[0]['now'];
 			//$data['weatherAqi'] = $weatherinfo[0]['aqi'];

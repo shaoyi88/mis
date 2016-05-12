@@ -10,22 +10,17 @@
     <div id="content-outer" class="clear"><div id="content-wrapper">
         <div id="content"><div class="col-one">
           				
-			<a name="济宁开发区领导团莅临参观融易大厦"></a>
-			<h2><a href="javascript:">济宁开发区领导团莅临参观融易大厦</a></h2>
+			<a name="{$articleInfo['article_title']}"></a>
+			<h2><a href="javascript:">{$articleInfo['article_title']}</a></h2>
 			
 			<p class="post-info">编辑 <a href="javascript:">小易</a> | 来自 <a href="javascript:">融易园区报道小组</a></p>
 				
-            <p><strong>2016年</strong>1月15日山东省济宁市经济开发区管委会主任杜强、副主任贾庆华、济宁市城投集团董市长田海臣、软通动力副总裁陈志明等一行9人来访融易集团并参观松山湖高新区。
-            </p>
-
-            <p>
-                        松山湖管委会张志毅处长、中美融易孵化器投资管理有限公司总经理<a href="javascript:">乐中英</a>女士等领导热情接待了来宾，双方就两地的经济发展状况及未来合作方向等方面进行了深入的交流与探讨，乐中英总经理向来宾详细地介绍了融易集团的主营业务及战略规划。
-            </p>
+            {$articleInfo['article_content']}
 				
 			<p class="postmeta">		
-			<a href="javascript:" class="readmore">更多</a> |
-			<a href="javascript:" class="comments">评论 (7)</a> |				
-			<span class="date">1月 15, 2016</span>	
+			<a href="{formatUrl('article/index/')}" class="readmore">更多</a> |
+			<a href="{formatUrl('article/comment?id=')}{$articleInfo['article_id']}" class="comments">评论 ({$articleCommentCount})</a> |				
+			<span class="date">{date("m月d，Y",$articleInfo['add_time'])}</span>	
 			</p>
 			
 			<h2>&nbsp;</h2>

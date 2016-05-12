@@ -6,6 +6,7 @@
     <tr>
         <th>企业名称</th>
         <th>申请投资金额</th>
+        <th>资金用途概述</th>
         <th>联系人</th>
         <th>联系电话</th>
         <th>提交时间</th>
@@ -16,6 +17,7 @@
     <tr>
         <td>{$item['enterprise_name']}</td>
         <td>{$item['invest_sum']}万元</td>
+        <td>{$item['usage']}</td> 
         <td>{$item['contacts']}</td> 
         <td>{$item['contacts_phone']}</td> 
         <td>{date('Y-m-d H:i:s',$item['add_time'])}</td>
