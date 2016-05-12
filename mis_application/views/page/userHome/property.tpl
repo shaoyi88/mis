@@ -1,5 +1,5 @@
 <h3>我的物业</h3>
-<div class="tabcontrol2 tabs-bottom padding20" data-role="tabcontrol">
+<div class="tabcontrol2 tabs-bottom padding20" data-role="tabcontrol" data-open-target="#type{$type}">
     <ul class="tabs">
         <li><a href="#type1">报修</a></li>
         <li><a href="#type2">投诉</a></li>

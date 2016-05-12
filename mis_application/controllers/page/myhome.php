@@ -212,6 +212,12 @@ class myhome extends MIS_Controller
 		$data['repair_status'] = $this->config->item('repair_status');
 		$data['apply_status'] = $this->config->item('apply_status');
 		$data['complain_status'] = $this->config->item('complain_status');
+		$t = 1;
+		$type = $this->input->get('t');
+		if(is_numeric($type)&&$type<5){
+			$t = $this->input->get('t');
+		}
+		$data['type'] = $t;
 		$this->showView('/userHome/property', $data);
 	}
 	

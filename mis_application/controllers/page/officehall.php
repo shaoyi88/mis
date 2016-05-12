@@ -100,7 +100,7 @@ class officehall extends MIS_Controller
 			}else{
 				redirect(formatUrl('officehall/property'));
 			}
-			redirect(formatUrl('myhome/property'));
+			redirect(formatUrl('myhome/property?t='.$type));
 		}else{
 			redirect(formatUrl('officehall/property'));
 		}
