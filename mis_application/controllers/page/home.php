@@ -48,4 +48,37 @@ class home extends MIS_Controller
 		$this->session->sess_destroy();
 		redirect(formatUrl('home/index'));
 	}
+	
+	/**
+	 *
+	 * 投诉建议
+	 */
+	public function advice()
+	{
+		checkUserLogin();
+		$data = array();
+		$data['msg'] = $this->input->get('msg');
+		$data['feedback_type'] = $this->config->item('feedback_type');
+		$this->showView('advice', $data);
+	}
+	
+	/**
+	 *
+	 * 投诉建议do
+	 */
+	public function do_advice()
+	{
+		checkUserLogin();
+		$data = array();
+		$data = $this->input->post();
+		$this->load->model('MIS_Feedback');
+		$data['user_id'] = $this->userId;
+		$this->load->model('MIS_User');
+		$userInfo = $this->MIS_User->getInfo($data['user_id']);
+		$data['user_name'] = $userInfo['user_name'];
+		$data['add_time'] = time();
+		$this->MIS_Feedback->add($data);
+		redirect(formatUrl('home/index'));
+	}
+	
 }

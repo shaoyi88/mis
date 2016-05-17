@@ -5,7 +5,7 @@
 			<select class="select" id="feedback_type" name="feedback_type" style="width:200px">
       			<option value="">请选择类型</option>
       			{foreach $feedback_type as $key=>$val}
-      				<option value="{$key}" {if isset($keyword['feedback_type']) && $keyword['feedback_type'] == $key}selected{/if}>
+      				<option value="{$key}" {if isset($keyword['feedback_type']) && is_numeric($keyword['feedback_type']) && $keyword['feedback_type'] == $key}selected{/if}>
       				{$val}
       				</option>
       			{/foreach}
@@ -14,7 +14,7 @@
     		<select class="select" id="feedback_status" name="feedback_status" style="width:200px">
       			<option value="">请选择状态</option>
       			{foreach $feedback_status as $key=>$val}
-      				<option value="{$key}" {if isset($keyword['feedback_status']) && $keyword['feedback_status'] == $key}selected{/if}>
+      				<option value="{$key}" {if isset($keyword['feedback_status']) && is_numeric($keyword['feedback_status']) && $keyword['feedback_status'] == $key}selected{/if}>
       				{$val}
       				</option>
       			{/foreach}
