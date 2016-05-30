@@ -83,7 +83,7 @@
                         {/foreach}
                     </ul>
                 </div>
-                <div class="cell auto-size padding20 bg-white" id="cell-content">
+                <div class="cell auto-size padding10 bg-white" id="cell-content">
                     {$LAYOUT_CONTENT} 
                 </div>
             </div>

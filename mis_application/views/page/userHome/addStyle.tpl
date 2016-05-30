@@ -6,6 +6,7 @@
 <p class="padding10 fg-red">{$msg}</p>
 {/if}
 <h3>添加企业风采</h3>
+<hr class="thin bg-grayLighter">
 <form name="form1" action="{formatUrl('myhome/do_addCorporate')}" method="post" enctype="multipart/form-data" onsubmit="return checkform();">
 <div class="padding10">
     <div class="input-control file" data-role="input">

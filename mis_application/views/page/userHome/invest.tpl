@@ -1,8 +1,10 @@
+<h3>投资申请</h3>
+<hr class="thin bg-grayLighter">
 {if empty($list)}
 <p>未提交任何申请，<a href="{formatUrl('officehall/invest')}">点击提交项目投资申请</a></p>
 {else}
-<h3>投资申请</h3>
 <table class="dataTable border bordered" data-auto-width="false">
+    <thead>
     <tr>
         <th>企业名称</th>
         <th>申请投资金额</th>
@@ -13,6 +15,7 @@
         <th>当前状态</th>
         <th>操作</th>
     </tr>
+    </thead>
     {foreach $list as $item}
     <tr>
         <td>{$item['enterprise_name']}</td>

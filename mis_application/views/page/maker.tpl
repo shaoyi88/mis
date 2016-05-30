@@ -59,7 +59,7 @@
         <div class="place-left" style="width:680px;">
         <h3>“易创客”众创空间</h3>
         <p>易创客”众创空间的核心价值不在于办公场地的提供，而是在于其提供的辅助创业创新的服务，向创业者提供各种类别、不同程度的服务。这些服务包括但不限于：综合服务、商务财税服务、市场服务、活动策划服务、政策信息服务、法律服务、知识产权服务、投融资服务等等。此外，帮助初创企业或项目团队进行奖励、补贴的政策申请，还通过与第三方合作的方式提供服务等</p>
-        <button class="button primary">详情介绍</button>&nbsp;&nbsp;<button class="button primary">行业定位</button>
+        <button class="button primary" onclick="location.href='{formatUrl('maker/info')}'">详情介绍</button>&nbsp;&nbsp;<button class="button primary" onclick="location.href='{formatUrl('maker/mentor')}'">导师团队</button>
         </div>       
     </div>
 

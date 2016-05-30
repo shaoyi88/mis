@@ -45,7 +45,8 @@ $config['menus'] = array(
 			array('会议室管理', formatUrl('room/roomList?t=0'), 'room_list'),
 			array('路演厅管理', formatUrl('room/roomList?t=1'), 'room_list'),
 			array('商务包房管理', formatUrl('room/roomList?t=2'), 'room_list'),
-			array('项目需求管理', formatUrl('project/index'), 'project_list')
+			array('项目需求管理', formatUrl('project/index'), 'project_list'),
+			array('投资申请管理', formatUrl('investment/index'), 'project_list')
 		),
 		'right' => 'business'
 	),

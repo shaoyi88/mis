@@ -1,8 +1,10 @@
+<h3>公共资源申请</h3>
+<hr class="thin bg-grayLighter">
 {if empty($list)}
 <p>未提交任何申请，<a href="{formatUrl('officehall/resource')}">点击提交公共资源申请</a></p>
 {else}
-<h3>公共资源申请</h3>
 <table class="dataTable border bordered" data-auto-width="false">
+    <thead>
     <tr>
         <th>预订资源</th>
         <th>使用用途</th>
@@ -14,6 +16,7 @@
         <th>当前状态</th>
         <th>操作</th>
     </tr>
+    </thead>
     {foreach $list as $item}
     <tr>
         <td>{$item['room_address']}<br/>{$item['room_name']}</td>
