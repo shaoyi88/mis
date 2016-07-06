@@ -34,6 +34,76 @@ class Room extends MIS_Controller
 	
 	/**
 	 * 
+	 * 导出会议室使用情况
+	 */
+	public function export()
+	{
+		$data = array();
+		if(checkRight('room_used_export') === FALSE){
+			$this->showView('denied', $data);
+			exit;
+		}
+		$this->load->model('MIS_Room');
+		$t = $this->input->get('t');
+		$info = $this->MIS_Room->getUsedList($t);
+		$room_type = $this->config->item('room_type');
+		//加载PHPExcel库
+	   	require_once THIRD_PATH.'PHPExcel.php';
+	   	require_once THIRD_PATH.'PHPExcel/IOFactory.php';
+	   	$objPHPExcel = new PHPExcel();
+		//列宽
+		$objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(12);
+		$objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(24);
+		$objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(24);
+		$objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(24);
+		$objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(24);
+		$objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(24);
+		$objPHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(24);
+		$objPHPExcel->getActiveSheet()->getColumnDimension('H')->setWidth(36);
+		//第一行
+		$objPHPExcel->getActiveSheet()->getRowDimension(1)->setRowHeight(30);
+		$objPHPExcel->getActiveSheet()->mergeCells('A1:H1');
+		$objPHPExcel->getActiveSheet()->setCellValue('A1', '创投大厦'.$room_type[$t].'使用情况登记表');
+		$objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setSize(20);
+		$objPHPExcel->getActiveSheet()->getStyle('A1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+		$objPHPExcel->getActiveSheet()->getStyle('A1')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+		$objPHPExcel->getActiveSheet()->getStyle('A1:H1')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+		//第二行
+		$objPHPExcel->getActiveSheet()->getRowDimension(2)->setRowHeight(20);
+		$objPHPExcel->getActiveSheet()->setCellValue('A2', '序号');
+		$objPHPExcel->getActiveSheet()->setCellValue('B2', '日期	');
+		$objPHPExcel->getActiveSheet()->setCellValue('C2', '使用单位');
+		$objPHPExcel->getActiveSheet()->setCellValue('D2', '使用前电量');
+		$objPHPExcel->getActiveSheet()->setCellValue('E2', '使用后电量');
+		$objPHPExcel->getActiveSheet()->setCellValue('F2', '使用电量');
+		$objPHPExcel->getActiveSheet()->setCellValue('G2', '会议时长');
+		$objPHPExcel->getActiveSheet()->setCellValue('H2', '备注');
+		$objPHPExcel->getActiveSheet()->getStyle('A2:H2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+		$objPHPExcel->getActiveSheet()->getStyle('A2:H2')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+		$objPHPExcel->getActiveSheet()->getStyle('A2:H2')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+		$n = 3;
+		foreach($info as $k=>$item){
+			$objPHPExcel->getActiveSheet()->getRowDimension($n)->setRowHeight(20);
+			$objPHPExcel->getActiveSheet()->setCellValue('A'.$n, $k+1);
+			$objPHPExcel->getActiveSheet()->setCellValue('B'.$n, date('Y年m月d日', $item['start_time']));
+			$objPHPExcel->getActiveSheet()->setCellValue('C'.$n, $item['enterprise_name']);
+			$objPHPExcel->getActiveSheet()->setCellValue('G'.$n, (($item['end_time']-$item['start_time'])/3600).'小时');
+			$objPHPExcel->getActiveSheet()->getStyle("A$n:H$n")->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+			$objPHPExcel->getActiveSheet()->getStyle("A$n:H$n")->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+			$objPHPExcel->getActiveSheet()->getStyle("A$n:H$n")->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+			$n++;
+		}
+		$objPHPExcel->getActiveSheet()->setTitle($room_type[$t].'使用情况登记表');
+		$objWriter = IOFactory::createWriter($objPHPExcel, 'Excel2007');
+		$file_name=$room_type[$t]."使用情况登记表_".date("YmdHis").".xlsx";
+		header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="'.$file_name.'"');
+        header('Cache-Control: max-age=0');
+        $objWriter->save('php://output');
+	}
+	
+	/**
+	 * 
 	 * 房间添加/编辑
 	 */
 	public function add()

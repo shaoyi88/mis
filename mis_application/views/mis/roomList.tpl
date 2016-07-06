@@ -5,13 +5,20 @@
 </div>
 {/if}
 <div class="pd-20">
-	{if checkRight('room_add')}
 	<div class="cl pd-5 bg-1 bk-gray mt-20"> 
+		{if checkRight('room_add')}
 		<span class="l">
 			<a href="{formatUrl('room/add?t=')}{$keyword['t']}" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加{$room_type[$keyword['t']]}</a>
 		</span>
+		{/if}
+		{if checkRight('room_used_export')}
+		<span class="l">
+			&nbsp;&nbsp;
+			<a href="{formatUrl('room/export?t=')}{$keyword['t']}" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 导出{$room_type[$keyword['t']]}使用情况登记表</a>
+		</span>
+		{/if}
 	 </div>
-	 {/if}
+	 
 	 {if empty($dataList)}
 	 	<div class="cl pd-5 bg-1 bk-gray"><h2 class="text-c">暂无{$room_type[$keyword['t']]}信息</h2></div>
 	 {else}

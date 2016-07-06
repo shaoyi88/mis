@@ -70,6 +70,9 @@
         				<td>{date('Y-m-d H:i:s',$item['add_time'])}</td>
           				<td>
           					<a class="btn btn-primary radius roomBookingConfirm" title="查看" href="javascript:;" did="{$item['booking_id']}" style="text-decoration:none">查看</a>
+          					{if checkRight('room_booking_export')}
+          					&nbsp;&nbsp;<a class="btn btn-primary radius" title="导出申请表" href="{formatUrl('workbench/exportRoomBooking?id=')}{$item['booking_id']}" style="text-decoration:none">导出申请表</a>
+          					{/if}
           				</td>
         		</tr>
       			{/foreach}

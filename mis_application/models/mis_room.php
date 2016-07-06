@@ -332,4 +332,40 @@ class MIS_Room extends CI_Model
 		}
 		return $info;
 	}
+	
+	/**
+	 * 获取使用情况列表
+	 * Enter description here ...
+	 */
+	public function getUsedList($type)
+	{
+		$info = array();
+		$sql = "select * from $this->_bookingTable as b left join $this->_table as r on b.room_id = r.room_id 
+				LEFT JOIN mis_user AS u ON b.user_id = u.user_id
+				LEFT  JOIN mis_enterprise AS e ON u.enterprise_id = e.enterprise_id 
+				where r.room_type = $type and b.status = 1";
+		$query = $this->db->query($sql);
+		if($query){
+			$info = $query->result_array();
+		}
+		return $info;
+	}
+	
+	/**
+	 * 获取预订申请情况
+	 * Enter description here ...
+	 */
+	public function getBookingApplyInfo($id)
+	{
+		$info = array();
+		$sql = "select * from $this->_bookingTable as b left join $this->_table as r on b.room_id = r.room_id 
+				LEFT JOIN mis_user AS u ON b.user_id = u.user_id
+				LEFT  JOIN mis_enterprise AS e ON u.enterprise_id = e.enterprise_id 
+				where b.booking_id = $id";
+		$query = $this->db->query($sql);
+		if($query){
+			$info = $query->row_array();
+		}
+		return $info;
+	}
 }

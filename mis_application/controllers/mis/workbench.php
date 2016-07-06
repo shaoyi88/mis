@@ -528,4 +528,197 @@ class Workbench extends MIS_Controller
 		$this->MIS_User->updateRelateEnterpriseApply($data);
 		redirect(formatUrl('workbench/enterprise'));
 	}
+	
+	/**
+	 * 
+	 * 导出会议室租用申请表
+	 */
+	public function exportRoomBooking()
+	{
+		$data = array();
+		if(checkRight('room_booking_export') === FALSE){
+			$this->showView('denied', $data);
+			exit;
+		}
+		$id = $this->input->get('id');
+		$this->load->model('MIS_Room');
+		$info = $this->MIS_Room->getBookingApplyInfo($id);
+		$room_type = $this->config->item('room_type');
+		 //加载PHPExcel库
+	   	require_once THIRD_PATH.'PHPExcel.php';
+	   	require_once THIRD_PATH.'PHPExcel/IOFactory.php';
+	   	$objPHPExcel = new PHPExcel();
+	   	//列宽
+		$objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(12);
+		$objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(12);
+		$objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(15);
+		$objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(15);
+		$objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(12);
+		$objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(12);
+		$objPHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(12);
+		$objPHPExcel->getActiveSheet()->getColumnDimension('H')->setWidth(12);
+		
+		//第一行
+		$objPHPExcel->getActiveSheet()->getRowDimension(1)->setRowHeight(30);
+		$objPHPExcel->getActiveSheet()->mergeCells('A1:H1');
+		$objPHPExcel->getActiveSheet()->setCellValue('A1', '创投大厦'.$room_type[$info['room_type']].'租用申请表');
+		$objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setSize(20);
+		$objPHPExcel->getActiveSheet()->getStyle('A1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+		$objPHPExcel->getActiveSheet()->getStyle('A1')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+		$objPHPExcel->getActiveSheet()->getStyle('A1:H1')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+		//第二行
+		$objPHPExcel->getActiveSheet()->mergeCells('A2:F2');
+		$objPHPExcel->getActiveSheet()->mergeCells('G2:H2');
+		$objPHPExcel->getActiveSheet()->setCellValue('G2', '编号：');
+		$objPHPExcel->getActiveSheet()->getStyle('A2:H2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+		$objPHPExcel->getActiveSheet()->getStyle('A2:H2')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+		$objPHPExcel->getActiveSheet()->getStyle('A2:H2')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+		//第三行
+		$objPHPExcel->getActiveSheet()->getRowDimension(3)->setRowHeight(30);
+		$objPHPExcel->getActiveSheet()->setCellValue('A3', '申请单位');
+		$objPHPExcel->getActiveSheet()->mergeCells('B3:C3');
+		$objPHPExcel->getActiveSheet()->setCellValue('B3', $info['enterprise_name']);
+		$objPHPExcel->getActiveSheet()->setCellValue('D3', '申请日期');
+		$objPHPExcel->getActiveSheet()->mergeCells('E3:H3');
+		$objPHPExcel->getActiveSheet()->setCellValue('E3', date('Y年m月d日', $info['start_time']));
+		$objPHPExcel->getActiveSheet()->getStyle('A3:H3')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+		$objPHPExcel->getActiveSheet()->getStyle('A3:H3')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+		$objPHPExcel->getActiveSheet()->getStyle('A3:H3')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+		//第四行
+		$objPHPExcel->getActiveSheet()->getRowDimension(4)->setRowHeight(30);
+		$objPHPExcel->getActiveSheet()->setCellValue('A4', '租用场地');
+		$objPHPExcel->getActiveSheet()->mergeCells('B4:H4');
+		$objPHPExcel->getActiveSheet()->setCellValue('B4', $info['room_name']);
+		$objPHPExcel->getActiveSheet()->getStyle('A4:H4')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+		$objPHPExcel->getActiveSheet()->getStyle('A4:H4')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+		$objPHPExcel->getActiveSheet()->getStyle('A4:H4')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+		//第五行
+		$objPHPExcel->getActiveSheet()->getRowDimension(5)->setRowHeight(30);
+		$objPHPExcel->getActiveSheet()->setCellValue('A5', '租用事由');
+		$objPHPExcel->getActiveSheet()->mergeCells('B5:H5');
+		$objPHPExcel->getActiveSheet()->setCellValue('B5', $info['meeting_title']);
+		$objPHPExcel->getActiveSheet()->getStyle('A5:H5')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+		$objPHPExcel->getActiveSheet()->getStyle('A5:H5')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+		$objPHPExcel->getActiveSheet()->getStyle('A5:H5')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+		//第六行
+		$objPHPExcel->getActiveSheet()->getRowDimension(6)->setRowHeight(30);
+		$objPHPExcel->getActiveSheet()->setCellValue('A6', '使用设备');
+		$objPHPExcel->getActiveSheet()->mergeCells('B6:H6');
+		$objPHPExcel->getActiveSheet()->setCellValue('B6', '口空调     口话筒    口投影       口其它：（         ）');
+		$objPHPExcel->getActiveSheet()->getStyle('A6:H6')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+		$objPHPExcel->getActiveSheet()->getStyle('A6:H6')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+		$objPHPExcel->getActiveSheet()->getStyle('A6:H6')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+		//第七行
+		$objPHPExcel->getActiveSheet()->getRowDimension(7)->setRowHeight(30);
+		$objPHPExcel->getActiveSheet()->setCellValue('A7', '张贴物品');
+		$objPHPExcel->getActiveSheet()->mergeCells('B7:E7');
+		$objPHPExcel->getActiveSheet()->setCellValue('B7', '口无  口标示  口框架海报  口横幅  口其它');
+		$objPHPExcel->getActiveSheet()->setCellValue('F7', '张贴位置');
+		$objPHPExcel->getActiveSheet()->mergeCells('G7:H7');
+		$objPHPExcel->getActiveSheet()->getStyle('A7:H7')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+		$objPHPExcel->getActiveSheet()->getStyle('A7:H7')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+		$objPHPExcel->getActiveSheet()->getStyle('A7:H7')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+		//第八行
+		$objPHPExcel->getActiveSheet()->getRowDimension(8)->setRowHeight(30);
+		$objPHPExcel->getActiveSheet()->setCellValue('A8', '与会人数');
+		$objPHPExcel->getActiveSheet()->mergeCells('C8:D8');
+		$objPHPExcel->getActiveSheet()->setCellValue('C8', '预计与会嘉宾（仅供参考）');
+		$objPHPExcel->getActiveSheet()->mergeCells('E8:H8');
+		$objPHPExcel->getActiveSheet()->getStyle('A8:H8')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+		$objPHPExcel->getActiveSheet()->getStyle('A8:H8')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+		$objPHPExcel->getActiveSheet()->getStyle('A8:H8')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+		//第九行
+		$objPHPExcel->getActiveSheet()->getRowDimension(9)->setRowHeight(30);
+		$objPHPExcel->getActiveSheet()->mergeCells('A9:B9');
+		$objPHPExcel->getActiveSheet()->mergeCells('C9:D9');
+		$objPHPExcel->getActiveSheet()->mergeCells('E9:F9');
+		$objPHPExcel->getActiveSheet()->mergeCells('G9:H9');
+		$objPHPExcel->getActiveSheet()->setCellValue('A9', '申请人');
+		$objPHPExcel->getActiveSheet()->setCellValue('C9', '办公室电话');
+		$objPHPExcel->getActiveSheet()->setCellValue('E9', '移动电话');
+		$objPHPExcel->getActiveSheet()->setCellValue('G9', '单位地址');
+		$objPHPExcel->getActiveSheet()->getStyle('A9:H9')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+		$objPHPExcel->getActiveSheet()->getStyle('A9:H9')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+		$objPHPExcel->getActiveSheet()->getStyle('A9:H9')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+		//第十行
+		$objPHPExcel->getActiveSheet()->getRowDimension(10)->setRowHeight(30);
+		$objPHPExcel->getActiveSheet()->mergeCells('A10:B10');
+		$objPHPExcel->getActiveSheet()->mergeCells('C10:D10');
+		$objPHPExcel->getActiveSheet()->mergeCells('E10:F10');
+		$objPHPExcel->getActiveSheet()->mergeCells('G10:H10');
+		$objPHPExcel->getActiveSheet()->setCellValue('A10', $info['contacts']);
+		$objPHPExcel->getActiveSheet()->setCellValue('E10', $info['contacts_phone']);
+		$objPHPExcel->getActiveSheet()->getStyle('A10:H10')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+		$objPHPExcel->getActiveSheet()->getStyle('A10:H10')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+		$objPHPExcel->getActiveSheet()->getStyle('A10:H10')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+		//第十一行
+		$objPHPExcel->getActiveSheet()->getRowDimension(11)->setRowHeight(30);
+		$objPHPExcel->getActiveSheet()->setCellValue('A11', '收费金额');
+		$objPHPExcel->getActiveSheet()->setCellValue('B11', '元');
+		$objPHPExcel->getActiveSheet()->mergeCells('C11:H11');
+		$objPHPExcel->getActiveSheet()->setCellValue('C11', '预先缴纳定金       元，场地保证金       元');
+		$objPHPExcel->getActiveSheet()->getStyle('A11:H11')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+		$objPHPExcel->getActiveSheet()->getStyle('A11:H11')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+		$objPHPExcel->getActiveSheet()->getStyle('A11:H11')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+		//第十二行
+		$objPHPExcel->getActiveSheet()->getRowDimension(12)->setRowHeight(30);
+		$objPHPExcel->getActiveSheet()->mergeCells('A12:D12');
+		$objPHPExcel->getActiveSheet()->mergeCells('E12:H12');
+		$objPHPExcel->getActiveSheet()->setCellValue('A12', '申请单位负责人意见:');
+		$objPHPExcel->getActiveSheet()->setCellValue('E12', '运营部意见：');
+		$objPHPExcel->getActiveSheet()->getStyle('A12:H12')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+		$objPHPExcel->getActiveSheet()->getStyle('A12:H12')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+		$objPHPExcel->getActiveSheet()->getStyle('A12:H12')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+		//第十三行
+		$objPHPExcel->getActiveSheet()->mergeCells('A13:D16');
+		$objPHPExcel->getActiveSheet()->mergeCells('E13:H16');
+		$objPHPExcel->getActiveSheet()->getStyle('A13:H16')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+		$objPHPExcel->getActiveSheet()->getStyle('A13:H16')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+		$objPHPExcel->getActiveSheet()->getStyle('A13:A19')->getBorders()->getLeft()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+		$objPHPExcel->getActiveSheet()->getStyle('D13:D19')->getBorders()->getRight()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+		$objPHPExcel->getActiveSheet()->getStyle('H13:H19')->getBorders()->getRight()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+		//第十四行
+		$objPHPExcel->getActiveSheet()->getRowDimension(17)->setRowHeight(30);
+		$objPHPExcel->getActiveSheet()->mergeCells('A17:D17');
+		$objPHPExcel->getActiveSheet()->mergeCells('E17:H17');
+		$objPHPExcel->getActiveSheet()->setCellValue('A17', '申请单位盖章：');
+		$objPHPExcel->getActiveSheet()->setCellValue('E17', '部门负责人签字：');			
+		$objPHPExcel->getActiveSheet()->getStyle('A17:H17')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+		$objPHPExcel->getActiveSheet()->getStyle('A17:H17')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+		//第十五行
+		$objPHPExcel->getActiveSheet()->mergeCells('A18:D18');
+		$objPHPExcel->getActiveSheet()->mergeCells('E18:H18');
+		$objPHPExcel->getActiveSheet()->getStyle('A18:H18')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+		$objPHPExcel->getActiveSheet()->getStyle('A18:H18')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+		//第十六行
+		$objPHPExcel->getActiveSheet()->getRowDimension(19)->setRowHeight(30);
+		$objPHPExcel->getActiveSheet()->mergeCells('A19:D19');
+		$objPHPExcel->getActiveSheet()->mergeCells('E19:H19');
+		$objPHPExcel->getActiveSheet()->setCellValue('A19', '日期：   年    月    日');
+		$objPHPExcel->getActiveSheet()->setCellValue('E19', '日期：   年    月    日');
+		$objPHPExcel->getActiveSheet()->getStyle('A19:H19')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+		$objPHPExcel->getActiveSheet()->getStyle('A19:H19')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+		$objPHPExcel->getActiveSheet()->getStyle('A19:H19')->getBorders()->getBottom()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+		//最后四行
+		$objPHPExcel->getActiveSheet()->getRowDimension(20)->setRowHeight(20);
+		$objPHPExcel->getActiveSheet()->getRowDimension(21)->setRowHeight(20);
+		$objPHPExcel->getActiveSheet()->getRowDimension(22)->setRowHeight(20);
+		$objPHPExcel->getActiveSheet()->getRowDimension(23)->setRowHeight(20);
+		$objPHPExcel->getActiveSheet()->mergeCells('A20:H20');
+		$objPHPExcel->getActiveSheet()->mergeCells('A21:H21');
+		$objPHPExcel->getActiveSheet()->mergeCells('A22:H22');
+		$objPHPExcel->getActiveSheet()->mergeCells('A23:H23');
+		$objPHPExcel->getActiveSheet()->setCellValue('A20', '备注：');
+		$objPHPExcel->getActiveSheet()->setCellValue('A21', '1、租用场地包含会后清洁服务，但不包含纸、笔、茶水及人员服务；');
+		$objPHPExcel->getActiveSheet()->setCellValue('A22', '2、请自备笔记本电脑,但需提前联系物业服务中心工程人员安装一软件方可使用；');
+		$objPHPExcel->getActiveSheet()->setCellValue('A23', '3、请爱惜会议室设备，若有损坏照价赔偿');
+		
+		$objPHPExcel->getActiveSheet()->setTitle('创投大厦'.$room_type[$info['room_type']].'租用申请表');
+		$objWriter = IOFactory::createWriter($objPHPExcel, 'Excel2007');
+		$file_name='创投大厦'.$room_type[$info['room_type']].'租用申请表_'.date("YmdHis").".xlsx";
+		header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="'.$file_name.'"');
+        header('Cache-Control: max-age=0');
+        $objWriter->save('php://output');
+	}
 }

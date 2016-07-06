@@ -15,16 +15,20 @@
 					 <td>{date('Y-m',$info['fee_date'])}</td>
 				</tr>
 				<tr>
-          		     <th class="text-r" width="180">物业费：</th>
-					 <td>{$info['property_fee_amount']}元</td>
+          		     <th class="text-r" width="180">物管费：</th>
+					 <td>{$info['property_fee_unit_price']*$info['property_fee_num']}元</td>
+				</tr>
+				<tr>
+          		     <th class="text-r" width="180">租金：</th>
+					 <td>{$info['rent_fee_unit_price']*$info['property_fee_num']}元</td>
 				</tr>
 				<tr>
           		     <th class="text-r" width="180">水费：</th>
-					 <td>{$info['water_fee_amount']}元</td>
+					 <td>{$info['water_fee_unit_price']*$info['water_fee_num']}元</td>
 				</tr>
 				<tr>
           		     <th class="text-r" width="180">电费：</th>
-					 <td>{$info['elec_fee_amount']}元</td>
+					 <td>{$info['elec_fee_unit_price']*$info['elec_fee_num']}元</td>
 				</tr>
 				<tr>
           		     <th class="text-r" width="180">总费用：</th>

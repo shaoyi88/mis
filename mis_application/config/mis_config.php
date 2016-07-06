@@ -151,7 +151,9 @@ $config['rights'] = array(
 			array('房间编辑', 'room_edit'),
 			array('房间删除', 'room_del'),
 			array('房间预订确认指派', 'room_booking_assign'),
-			array('房间预订确认', 'room_booking_confirm', TRUE),
+			array('房间预订确认', 'room_booking_confirm'),
+			array('房间租用申请导出', 'room_booking_export'),
+			array('房间使用情况导出', 'room_used_export', TRUE),
 			array('项目需求列表', 'project_list'),
 			array('项目需求查看', 'project_detail'),
 			array('项目需求增加', 'project_add'),
@@ -178,6 +180,7 @@ $config['rights'] = array(
 			array('费用编辑', 'fee_edit'),
 			array('费用删除', 'fee_del'),
 			array('费用支付', 'fee_pay'),
+			array('缴费通知单导出', 'fee_export'),
 		),
 		'right' => 'property'
 	),

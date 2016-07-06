@@ -26,7 +26,12 @@ var fee = function(){
 		
 		$('#property_fee_unit_price').blur(fee_amount);
 		$('#property_fee_num').blur(fee_amount);
+		$('#rent_fee_unit_price').blur(fee_amount);
 		$('#enterprise_key').keyup(searchEnterprise);
+		$('#water_fee_unit_price').blur(water_fee_amount);
+		$('#water_fee_num').blur(water_fee_amount);
+		$('#elec_fee_unit_price').blur(elec_fee_amount);
+		$('#elec_fee_num').blur(elec_fee_amount);
 	};
 	
 	var searchEnterprise = function(){
@@ -61,7 +66,36 @@ var fee = function(){
 		if($('#property_fee_unit_price').val() != '' && $('#property_fee_num').val() != ''){
 			var fee_unit_price = parseFloat($('#property_fee_unit_price').val());
 			var amount = parseFloat($('#property_fee_num').val());
-			$('#property_fee_amount').val((fee_unit_price*amount).toFixed(2));
+			$('#property_fee_amount').html('（物业费：'+(fee_unit_price*amount).toFixed(2)+'元）');
+		}else{
+			$('#property_fee_amount').html('');
+		}
+		if($('#rent_fee_unit_price').val() != '' && $('#property_fee_num').val() != ''){
+			var fee_unit_price = parseFloat($('#rent_fee_unit_price').val());
+			var amount = parseFloat($('#property_fee_num').val());
+			$('#rent_fee_amount').html('（租金：'+(fee_unit_price*amount).toFixed(2)+'元）');
+		}else{
+			$('#rent_fee_amount').html('');
+		}
+	};
+	
+	var water_fee_amount = function(){
+		if($('#water_fee_unit_price').val() != '' && $('#water_fee_num').val() != ''){
+			var fee_unit_price = parseFloat($('#water_fee_unit_price').val());
+			var amount = parseFloat($('#water_fee_num').val());
+			$('#water_fee_amount').html('（水费：'+(fee_unit_price*amount).toFixed(2)+'元）');
+		}else{
+			$('#water_fee_amount').html('');
+		}
+	};
+	
+	var elec_fee_amount = function(){
+		if($('#elec_fee_unit_price').val() != '' && $('#elec_fee_num').val() != ''){
+			var fee_unit_price = parseFloat($('#elec_fee_unit_price').val());
+			var amount = parseFloat($('#elec_fee_num').val());
+			$('#elec_fee_amount').html('（电费：'+(fee_unit_price*amount).toFixed(2)+'元）');
+		}else{
+			$('#elec_fee_amount').html('');
 		}
 	};
 	
