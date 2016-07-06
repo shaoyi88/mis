@@ -7,13 +7,23 @@
 						        <span class="title">{date('Y年m月d日')}&nbsp;星期{$week[date('w')]}</span>
 						    </div>
 						    <div class="content">
+						        {if !empty($weatherNow)}
 						        <div class="middle" style="float:left;width:80px;">
 						        <img src="/public/page/images/cond/{$weatherNow['cond']['code']}.png" width="70">
 						        </div>
-						        <div style="float:left;">
+						        <div style="float:left;">		        
 						        <p>{$weatherNow['cond']['txt']}</p>
 						        <p>当前温度{$weatherNow['tmp']}°，相对湿度{$weatherNow['hum']}%</p>
 						        </div>
+						        {else}
+						        <div class="middle" style="float:left;width:80px;">
+						        <img src="/public/page/images/cond/999.png" width="70">
+						        </div>
+						        <div style="float:left;">		        
+						        <p>未知天气</p>
+						        <p>此天气温度湿度数据无法获取</p>
+						        </div>
+						        {/if}
 						        <div class="clear-float"></div>
 						    </div>
 						</div>

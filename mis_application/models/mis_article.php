@@ -10,6 +10,7 @@ class MIS_Article extends CI_Model
 {
 	private $_table = 'mis_article';
 	private $_typeTable = 'mis_article_type';
+	private $_commentTable = 'mis_article_comment';
 	
 	/**
 	 * 初始化
@@ -232,5 +233,40 @@ class MIS_Article extends CI_Model
 			$info = $query->row_array();
 		}
 		return $info;
+	}
+	
+	/**
+	 *
+	 * 获取文章评论
+	 * @param unknown_type $id
+	 */
+	public function getCommentList($id)
+	{
+		$this->db->select("a.*,b.user_nickname");
+		$this->db->from("mis_article_comment as a");
+		$this->db->join('mis_user as b', 'a.user_id = b.user_id');
+		$this->db->group_by('a.comment_id');
+		$this->db->order_by('a.comment_time desc');
+		$query = $this->db->get($this->_commentTable);
+		$info = array();
+		if($query){
+			$info = $query->result_array();
+		}
+		return $info;
+	}
+	
+	/**
+	 *
+	 * 添加文章评论
+	 * @param unknown_type $data
+	 */
+	public function addComment($data)
+	{
+		$this->db->insert($this->_commentTable, $data);
+		if($this->db->affected_rows() <= 0){
+			return FALSE;
+		}
+		$id = $this->db->insert_id();
+		return $id;
 	}
 }

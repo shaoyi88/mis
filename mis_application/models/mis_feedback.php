@@ -27,10 +27,10 @@ class MIS_Feedback extends CI_Model
 	{
 		$info = array();
 		$this->db->order_by('add_time','DESC');
-		if(isset($keyword['feedback_type'])){
+		if(isset($keyword['feedback_type'])&&is_numeric($keyword['feedback_type'])){
 			$this->db->where('feedback_type', $keyword['feedback_type']);
 		}
-		if(isset($keyword['feedback_status'])){
+		if(isset($keyword['feedback_status'])&&is_numeric($keyword['feedback_status'])){
 			$this->db->where('feedback_status', $keyword['feedback_status']);
 		}
 		$query = $this->db->get($this->_table, $limit, $offset);
@@ -70,6 +70,21 @@ class MIS_Feedback extends CI_Model
 			$info = $query->row_array();
 		}
 		return $info;
+	}
+	
+	/**
+	 *
+	 * 添加
+	 * @param unknown_type $data
+	 */
+	public function add($data)
+	{
+		$this->db->insert($this->_table, $data);
+		if($this->db->affected_rows() <= 0){
+			return FALSE;
+		}
+		$id = $this->db->insert_id();
+		return $id;
 	}
 	
 	/**

@@ -212,6 +212,12 @@ class myhome extends MIS_Controller
 		$data['repair_status'] = $this->config->item('repair_status');
 		$data['apply_status'] = $this->config->item('apply_status');
 		$data['complain_status'] = $this->config->item('complain_status');
+		$t = 1;
+		$type = $this->input->get('t');
+		if(is_numeric($type)&&$type<5){
+			$t = $this->input->get('t');
+		}
+		$data['type'] = $t;
 		$this->showView('/userHome/property', $data);
 	}
 	
@@ -306,12 +312,12 @@ class myhome extends MIS_Controller
 		$data['unav'] = 7;
 		$data['layoutName'] = "myhome";
 		$data['title'] = '企业风采';
-		$this->load->model('MIS_EnterpriseStyle');
+		$this->load->model('MIS_Enterprisestyle');
 		$uid = $this->userId;
 		$this->load->model('MIS_User');
 		$userinfo = $this->MIS_User->getInfo($this->userId);
 		$data['enterprise_id'] = $userinfo['enterprise_id'];
-		$data['info'] = $this->MIS_EnterpriseStyle->getInfo($data['enterprise_id']);
+		$data['info'] = $this->MIS_Enterprisestyle->getInfo($data['enterprise_id']);
 		$this->showView('/userHome/style', $data);
 	}
 	
@@ -339,7 +345,7 @@ class myhome extends MIS_Controller
 	{
 		$data = array();
 		$data = $this->input->post();
-		if($data['enterprise_bussiness']){
+		if($_FILES['style_cover']['name']){
 			//上传头像
 			$config['upload_path'] =   './upload/enterprise/cover/'; //存放路径
 			$config['allowed_types'] = 'gif|jpg|jpeg|png|bmp';

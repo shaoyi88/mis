@@ -43,6 +43,8 @@ class MIS_Invest extends CI_Model
 	    if($uid){
 			$this->db->where('a.user_id', $uid);
 		}
+		$this->db->group_by('invest_id');
+		$this->db->order_by('a.add_time desc');
 		$query = $this->db->get($this->_table, $limit, $offset);
 		if($query){
 			$info = $query->result_array();

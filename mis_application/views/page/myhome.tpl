@@ -50,15 +50,17 @@
         <ul class="app-bar-menu">
         <li><a href="{formatUrl('home/')}">园区首页</a></li>
         </ul>
-
+        
         <div class="app-bar-element place-right">
+        <span class="app-bar-element" onclick='location.href="{formatUrl('home/logout')}"'><span class="mif-exit"></span>退出</span>
+        </div>        
+        <div class="app-bar-element place-right">          
             <span class="dropdown-toggle"><span class="mif-cog"></span>设置</span>
             <div class="app-bar-drop-container padding10 place-right no-margin-top block-shadow fg-dark" data-role="dropdown" data-no-close="true" style="width: 220px;border:2px solid #87794E;">
                 <h2 class="text-light">快速设置</h2>
                 <ul class="unstyled-list fg-dark">
                     <li><a href="{formatUrl('myhome/user_setting')}" class="fg-white1 fg-hover-yellow">账户设置</a></li>
                     <li><a href="{formatUrl('myhome/password')}" class="fg-white2 fg-hover-yellow">密码设置</a></li>
-                    <li><a href="{formatUrl('home/logout')}" class="fg-white3 fg-hover-yellow">退出</a></li>
                 </ul>
             </div>
         </div>
@@ -81,7 +83,7 @@
                         {/foreach}
                     </ul>
                 </div>
-                <div class="cell auto-size padding20 bg-white" id="cell-content">
+                <div class="cell auto-size padding10 bg-white" id="cell-content">
                     {$LAYOUT_CONTENT} 
                 </div>
             </div>

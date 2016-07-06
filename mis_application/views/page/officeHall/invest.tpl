@@ -21,6 +21,14 @@
         </td>
     </tr>
     <tr>
+        <th width="15%">资金用途概述</th>
+        <td width="85%">
+			<div class="input-control">
+			    <input type="text" name="usage" id="usage" style="width:600px;" placeholder="请输入资金用途概述">
+			</div>
+        </td>
+    </tr>
+    <tr>
         <th width="15%">联系人</th>
         <td width="85%">
 			<div class="input-control">

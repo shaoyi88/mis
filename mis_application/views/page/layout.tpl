@@ -69,7 +69,7 @@
                     <li><a href="http://www.ry168.cn/">©{$web['website_copyright']}</a></li>
                     <li class="place-right"><a href="http://www.miitbeian.gov.cn/">{$web['website_record_no']}</a></li>
                     <li class="place-right"><a href="#">合作单位</a></li>
-                    <li class="place-right"><a href="#">建议</a></li>
+                    <li class="place-right"><a href="{formatUrl('home/advice')}">投诉/建议</a></li>
                     <li class="place-right"><a href="#">帮助</a></li>
                     <li class="place-right"><a href="#">联系我们</a></li>
                 </ul>

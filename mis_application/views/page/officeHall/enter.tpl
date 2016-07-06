@@ -96,7 +96,14 @@
 			</div>
         </td>
     </tr>
-    
+    <tr>
+        <th width="15%">提示</th>
+        <td width="85%">
+			<div class="input-control fg-darkRed">
+			        如企业仍未获得营业执照，请在营业执照处上传一张说明自身情况的图片
+			</div>
+        </td>
+    </tr>
     <tr>
         <th>&nbsp;</th>
         <td><button class="button primary block-shadow-success dosubmit">提交</button></td>

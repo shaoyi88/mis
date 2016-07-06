@@ -1,15 +1,18 @@
+<h3>我的申请</h3>
+<hr class="thin bg-grayLighter">
 {if empty($list)}
 <p>未提交任何申请，<a href="{formatUrl('officehall/application')}">点击提交入驻申请</a></p>
 {else}
-<h3>我的申请</h3>
 <table class="dataTable border bordered" data-auto-width="false">
+    <thead>
     <tr>
-        <th>企业名称</th>
-        <th>联系人</th>
-        <th>联系电话</th>
-        <th>提交时间</th>
-        <th>操作</th>
+        <td>企业名称</td>
+        <td>联系人</td>
+        <td>联系电话</td>
+        <td>提交时间</td>
+        <td>操作</td>
     </tr>
+    </thead>
     {foreach $list as $item}
     <tr>
         <td>{$item['enterprise_name']}</td>

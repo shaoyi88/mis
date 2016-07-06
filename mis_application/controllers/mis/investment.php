@@ -10,6 +10,29 @@ class Investment extends MIS_Controller
 	
 	/**
 	 * 
+	 * 投资申请列表
+	 */
+	public function index(){
+		$data = array();
+		if(checkRight('project_list') === FALSE){
+			$this->showView('denied', $data);
+			exit;
+		}
+		$this->load->model('MIS_Invest');
+		$keyword = $this->input->get();
+		$offset = 0;
+		$pageUrl = '';
+		page(formatUrl('investment/index').'?', $this->MIS_Invest->getCount($keyword), PER_COUNT, $offset, $pageUrl);
+		$dataList = $this->MIS_Invest->getList($keyword, $offset, PER_COUNT);
+		$data['pageUrl'] = $pageUrl;
+		$data['dataList'] = $dataList;
+		$data['keyword'] = $keyword;
+		$data['invest_status'] = $this->config->item('invest_apply_status');
+		$this->showView('investList', $data);
+	}
+	
+	/**
+	 * 
 	 * 申请列表
 	 */
 	public function apply()

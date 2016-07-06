@@ -1,5 +1,6 @@
 <h3>我的物业</h3>
-<div class="tabcontrol2 tabs-bottom padding20" data-role="tabcontrol">
+<hr class="thin bg-grayLighter">
+<div class="tabcontrol2 tabs-bottom padding20" data-role="tabcontrol" data-open-target="#type{$type}">
     <ul class="tabs">
         <li><a href="#type1">报修</a></li>
         <li><a href="#type2">投诉</a></li>
@@ -12,6 +13,7 @@
         <div class="frame" id="type1">
         {if !empty($list1)}
 		<table class="dataTable border bordered" data-auto-width="false">
+		    <thead>
 		    <tr>
 		        <th>报修类型</th>
 		        <th>报修内容</th>
@@ -21,6 +23,7 @@
 		        <th>当前状态</th>
 		        <th>操作</th>
 		    </tr>
+		    </thead>
 		    {foreach $list1 as $item}
 		    <tr>
 		        <td>{$repair_type[$item['repair_type']]}</td>
@@ -41,6 +44,7 @@
         <div class="frame" id="type2">
         {if !empty($list2)}
 		<table class="dataTable border bordered" data-auto-width="false">
+		    <thead>
 		    <tr>
 		        <th>投诉内容</th>
 		        <th>联系人</th>
@@ -49,6 +53,7 @@
 		        <th>当前状态</th>
 		        <th>操作</th>
 		    </tr>
+		    </thead>
 		    {foreach $list2 as $item}
 		    <tr>
 		        <td>{$item['complain_content']}</td> 
@@ -68,6 +73,7 @@
         <div class="frame" id="type3">
         {if !empty($list3)}
 		<table class="dataTable border bordered" data-auto-width="false">
+		    <thead>
 		    <tr>
 		        <th>需求类型</th>
 		        <th>需求内容</th>
@@ -77,6 +83,7 @@
 		        <th>当前状态</th>
 		        <th>操作</th>
 		    </tr>
+		    </thead>
 		    {foreach $list3 as $item}
 		    <tr>
 		        <td>{$apply_type[$item['apply_type']]}</td>
@@ -98,6 +105,7 @@
         <div class="frame" id="type4">       
         {if !empty($list4)}
 		<table class="dataTable border bordered" data-auto-width="false">
+		    <thead>
 		    <tr>
 		        <th>日期</th>
 		        <th>物业费</th>
@@ -107,6 +115,7 @@
 		        <th>支付状态</th>
 		        <th>操作</th>
 		    </tr>
+		    </thead>
 		    {foreach $list4 as $item}
 		    <tr>
 		        <td>{date("Y年m月",$item['fee_date'])}</td>

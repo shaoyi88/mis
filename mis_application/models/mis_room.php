@@ -245,7 +245,8 @@ class MIS_Room extends CI_Model
 			$this->db->where('b.room_type', $keyword['t']);
 		}
 		$this->db->where('a.user_id', $uid);
-		$this->db->group_by('a.room_id');
+		$this->db->group_by('a.booking_id');
+		$this->db->order_by('a.start_time desc');
 		$query = $this->db->get($this->_bookingTable, $limit, $offset);
 		if($query){
 			$info = $query->result_array();

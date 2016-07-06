@@ -17,4 +17,24 @@ class maker extends MIS_Controller
 		$this->showView('maker', $data);
 	}
 	
+	/**
+	 *
+	 * 易创客详情介绍
+	 */
+	public function info()
+	{
+		$data = array();
+		$this->showView('makerinfo', $data);
+	}
+	
+	/**
+	 *
+	 * 易创客导师团队
+	 */
+	public function mentor()
+	{
+		$data = array();
+		$this->showView('mentorlist', $data);
+	}
+	
 }

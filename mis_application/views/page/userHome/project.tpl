@@ -1,8 +1,10 @@
+<h3>项目需求申请</h3>
+<hr class="thin bg-grayLighter">
 {if empty($list)}
 <p>未提交任何申请，<a href="{formatUrl('officehall/project')}">点击提交项目需求申请</a></p>
 {else}
-<h3>项目需求申请</h3>
 <table class="dataTable border bordered" data-auto-width="false">
+    <thead>
     <tr>
         <th>需求内容</th>
         <th>联系人</th>
@@ -10,6 +12,7 @@
         <th>当前状态</th>
         <th>操作</th>
     </tr>
+    </thead>
     {foreach $list as $item}
     <tr>
         <td>{$item['apply_content']}</td>

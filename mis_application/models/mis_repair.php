@@ -54,6 +54,7 @@ class MIS_Repair extends CI_Model
 		if($uid){
 			$this->db->where('user_id', $uid);
 		}
+		$this->db->order_by('add_time desc');
 		$query = $this->db->get($this->_table, $limit, $offset);
 		if($query){
 			$info = $query->result_array();

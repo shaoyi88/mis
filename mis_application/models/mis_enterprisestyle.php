@@ -48,7 +48,7 @@ class MIS_Enterprisestyle extends CI_Model
 	 */
 	public function getInfo($id)
 	{
-		$query = $this->db->get_where($this->_table, array('style_id' => $id));
+		$query = $this->db->get_where($this->_table, array('enterprise_id' => $id));
 		$info = array();
 		if($query){
 			$info = $query->row_array();
