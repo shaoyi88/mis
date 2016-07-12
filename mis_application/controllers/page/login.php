@@ -47,7 +47,7 @@ class login extends MIS_Controller
 	
 	/**
 	 *
-	 * 登录处理
+	 * ajax登录处理
 	 */
 	public function ajaxLogin(){
 		$data = array();
@@ -74,4 +74,5 @@ class login extends MIS_Controller
 		$data['status'] = 1;
 		$this->send_json($data);
 	}
+		
 }

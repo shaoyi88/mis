@@ -76,6 +76,23 @@ class MIS_User extends CI_Model
 	}
 	
 	/**
+	 * 获取信息
+	 * Enter description here ...
+	 * @param unknown_type $account
+	 */
+	public function getInfoByName($account)
+	{
+		$query = $this->db->get_where($this->_table, array('user_account' => $account));
+		if($query){
+			$info = $query->row_array();
+			if(!empty($info)){
+				return TRUE;
+			}
+		}
+		return FALSE;
+	}
+	
+	/**
 	 * 
 	 * 获取列表
 	 */
