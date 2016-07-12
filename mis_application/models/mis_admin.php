@@ -90,6 +90,21 @@ class MIS_Admin extends CI_Model
 	}
 	
 	/**
+	 * 获取权限信息
+	 * Enter description here ...
+	 * @param unknown_type $id
+	 */
+	public function getRoleInfo($id)
+	{
+		$query = $this->db->get_where($this->_roleTable, array('id' => $id));
+		$info = array();
+		if($query){
+			$info = $query->row_array();
+		}
+		return $info;
+	}
+	
+	/**
 	 * 
 	 * 获取列表
 	 */

@@ -54,7 +54,7 @@ class Login extends MIS_Controller
 			$info['admin_rights'] = 'all';
 		}else{
 			$this->load->model('MIS_Admin');
-			$roleInfo = $this->MIS_Admin->getInfo($adminInfo['admin_role']);
+			$roleInfo = $this->MIS_Admin->getRoleInfo($adminInfo['admin_role']);
 			$info['admin_role'] = $adminInfo['admin_role'];
 			$info['admin_rights'] = $roleInfo['role_rights'];
 		}
