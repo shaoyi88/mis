@@ -199,4 +199,40 @@ class officehall extends MIS_Controller
 		}
 	}
 	
+	/**
+	 *
+	 * 办事大厅-表格下载
+	 */
+	public function form()
+	{
+		$data = array();
+		$data['msg'] = $this->input->get('msg');
+		$this->showView('officeHall/form', $data);
+	}
+	
+	/**
+	 *
+	 * 办事大厅-表格下载
+	 */
+	public function formdown()
+	{
+		$data = array();
+	    $data = $this->input->get();
+	    if(!empty($data)){
+	        $path = "./upload/form/".$data['fno'].".pdf";
+	        if(file_exists($path)){
+	        	$file_name = date('Ymdhis').rand(11,99).'.pdf';
+	        	header( "Cache-Control: public" );
+	        	header( "Pragma: public" );
+	        	header("Content-Disposition:attachment;filename=".$file_name);
+	        	header('Content-Type:APPLICATION/OCTET-STREAM');
+	        	$objWriter->save('php://output');
+	        }else{
+	        	redirect(formatUrl('officehall/form'));
+	        }
+	    }else{
+	    	redirect(formatUrl('officehall/form'));
+	    }
+	}
+	
 }
