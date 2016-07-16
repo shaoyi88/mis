@@ -16,7 +16,7 @@
         		</tr>
         		<tr>
           		     <th class="text-r" width="180">企业营业执照：</th>
-          			 <td><img width="100" src="{$info['enterprise_business_licence']}"></td>
+          			 <td><img {if !$info['enterprise_business_licence']}style="display:none"{/if} width="100" src="{$info['enterprise_business_licence']}"></td>
         		</tr>
         		<tr>
           		     <th class="text-r" width="180">企业入驻时间：</th>

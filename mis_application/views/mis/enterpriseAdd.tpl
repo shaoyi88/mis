@@ -19,12 +19,12 @@
           			 <td><input nullmsg="请输入注册资金！" datatype="n" class="input-text" style="width:250px" name="enterprise_registered_funds" id="enterprise_registered_funds" type="text" value="{if isset($info)}{$info['enterprise_registered_funds']}{/if}" placeholder="输入注册基金">万</td>
         		</tr>
         		<tr>
-          		     <th class="text-r" width="180">企业营业执照<span class="c-red">*</span>：</th>
+          		     <th class="text-r" width="180">企业营业执照：</th>
           			 <td>
           			 	<div>
     						<div id="filePicker">选择企业营业执照</div>
-    						<img width="50" {if !isset($info)}style="display:none"{/if} height="50" id="previewImg" src="{if isset($info)}{$info['enterprise_business_licence']}{/if}">
-    						<input nullmsg="请选择企业营业执照！" datatype="*" class="input-text" style="width:250px" name="enterprise_business_licence" id="enterprise_business_licence" type="hidden" value="{if isset($info)}{$info['enterprise_business_licence']}{/if}">
+    						<img width="50" {if !isset($info)|| !$info['enterprise_business_licence']}style="display:none"{/if} height="50" id="previewImg" src="{if isset($info)}{$info['enterprise_business_licence']}{/if}">
+    						<input class="input-text" style="width:250px" name="enterprise_business_licence" id="enterprise_business_licence" type="hidden" value="{if isset($info)}{$info['enterprise_business_licence']}{/if}">
 						</div>
           			 </td>
         		</tr>
