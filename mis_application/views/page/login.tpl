@@ -72,7 +72,8 @@
             <br />
             <br />
             <div class="form-actions">
-                <button type="submit" class="button primary">登录</button>
+                <button type="submit" class="button primary">登录</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="button" class="button primary" onclick="location.href='{formatUrl('home/register')}'">注册</button>
                 <button type="button" class="button link">取消</button>
             </div>
             <div class="padding10 fg-darkRed">{$msg}</div>

@@ -25,7 +25,7 @@
                     {if $userinfo['userId']}
                     <li><a href="javascript:">欢迎您，{$userinfo['userName']}</a></li>
                     {else}
-                    <li><a href="javascript:">&nbsp;</a></li>
+                    <li><a href="{formatUrl('home/register')}">注册</a></li>
                     <li><a href="{formatUrl('login/')}">登录</a></li>
                     {/if}
                     <li><a href="{formatUrl('myhome/')}">用户中心</a></li>
