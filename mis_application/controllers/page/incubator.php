@@ -15,7 +15,7 @@ class incubator extends MIS_Controller
 	{
 		$data = array();
 		$this->load->model('MIS_Article');
-		$id = 3;
+		$id = 7;
 		$data['articleInfo'] = $this->MIS_Article->getInfo($id);
 		$data['articleComment'] = $this->MIS_Article->getCommentList($id);
 		$data['articleCommentCount'] = count($data['articleComment']);

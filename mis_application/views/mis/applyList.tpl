@@ -12,7 +12,7 @@
 	<div class="mt-20"> 
 	</div>
 	 {if empty($dataList)}
-	 	<div class="cl pd-5 bg-1 bk-gray"><h2 class="text-c">暂无潜在客户</h2></div>
+	 	<div class="cl pd-5 bg-1 bk-gray"><h2 class="text-c">暂无入驻申请</h2></div>
 	 {else}
 	 	<table class="table table-border table-bg table-bordered table-hover">
 			<thead>
