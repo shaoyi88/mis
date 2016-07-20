@@ -173,6 +173,11 @@ class myhome extends MIS_Controller
 	public function property()
 	{
 		$data = array();
+	    $this->load->model('MIS_User');
+		$info = $this->MIS_User->getInfo($this->userId);
+		if($info['user_second_type']!=2){
+			redirect(formatUrl('myhome/index'));
+		}
 		if($this->input->get('msg')){
 			$data = getMsg($this->input->get('msg'));
 		}
@@ -228,6 +233,11 @@ class myhome extends MIS_Controller
 	public function resource()
 	{
 		$data = array();
+		$this->load->model('MIS_User');
+		$info = $this->MIS_User->getInfo($this->userId);
+		if($info['user_second_type']!=2){
+			redirect(formatUrl('myhome/index'));
+		}
 		if($this->input->get('msg')){
 			$data = getMsg($this->input->get('msg'));
 		}
@@ -280,6 +290,11 @@ class myhome extends MIS_Controller
 	public function invest()
 	{
 		$data = array();
+		$this->load->model('MIS_User');
+		$info = $this->MIS_User->getInfo($this->userId);
+		if($info['user_second_type']!=2){
+			redirect(formatUrl('myhome/index'));
+		}
 		if($this->input->get('msg')){
 			$data = getMsg($this->input->get('msg'));
 		}

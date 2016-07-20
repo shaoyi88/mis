@@ -45,6 +45,39 @@ var enterprise = function(){
 			}
 		});
 		
+		var uplogo = WebUploader.create({
+    		auto: true,
+			swf: '/public/common/js/webuploader-0.1.5/Uploader.swf',
+			server: $('#uploadLogoUrl').val(),
+   			pick: '#filePickerLogo',
+    		accept: {
+        		title: 'Images',
+        		extensions: 'gif,jpg,jpeg,bmp,png',
+        		mimeTypes: 'image/*'
+    		},
+			fileSingleSizeLimit : 1024*1024*10
+		});
+		
+		uplogo.on( 'error', function( type  ) {
+			if(type == 'F_EXCEED_SIZE'){
+				alert('仅支持10M以下文件上传');
+			}
+		});
+
+		uplogo.on( 'uploadError', function( file) {
+   			 alert('上传失败，请重试');
+		});
+
+		uplogo.on( 'uploadSuccess', function( file, response) {
+			var json = eval( "(" + response._raw + ")" );
+			if(json.result){
+				$('#enterprise_logo').val(json.result);
+				$('#previewLogoImg').attr('src', json.result).show();
+			}else{
+				 alert('上传失败，请重试');
+			}
+		});
+		
 	};
 	
 	var del = function(event){

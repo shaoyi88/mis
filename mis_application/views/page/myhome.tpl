@@ -76,10 +76,23 @@
                             <span class="title">我的园区</span>
                         </a></li>
                         {foreach $homemenu[$userinfo['userType']] as $key=>$m}
-                        <li {if $unav==$key+2}class="active"{/if}><a href="{formatUrl('myhome/')}{$m[1]}">
+                        {if isset($m[3])}
+                        {if $m[3]==$userinfo['userSecondType']}
+                        <li {if $unav==$key+2}class="active"{/if}>
+                        <a href="{formatUrl('myhome/')}{$m[1]}">
                             <span class="mif-{$m[2]} icon"></span>
                             <span class="title">{$m[0]}</span>
-                        </a></li>
+                        </a>
+                        </li>
+                        {/if}
+                        {else}
+                        <li {if $unav==$key+2}class="active"{/if}>
+                        <a href="{formatUrl('myhome/')}{$m[1]}">
+                            <span class="mif-{$m[2]} icon"></span>
+                            <span class="title">{$m[0]}</span>
+                        </a>
+                        </li>
+                        {/if}
                         {/foreach}
                     </ul>
                 </div>

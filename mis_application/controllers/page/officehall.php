@@ -36,7 +36,7 @@ class officehall extends MIS_Controller
 	 * 办事大厅-提交入驻申请
 	 */
 	public function do_application(){
-		$data = array();
+		$data = array();		
 		$data = $this->input->post();
 		$this->load->model('MIS_EnterprisePotential');
 		$data['app_by'] = $this->userId;
@@ -65,6 +65,11 @@ class officehall extends MIS_Controller
 	public function property()
 	{
 		$data = array();
+		$this->load->model('MIS_User');
+		$info = $this->MIS_User->getInfo($this->userId);
+		if($info['user_second_type']!=2){
+			redirect(formatUrl('officehall/index'));
+		}
 		$data['msg'] = $this->input->get('msg');
 		$data['type'] = 1;
 		if($this->input->get('type')){
@@ -82,6 +87,11 @@ class officehall extends MIS_Controller
 	public function do_property()
 	{
 		$data = array();
+		$this->load->model('MIS_User');
+		$info = $this->MIS_User->getInfo($this->userId);
+		if($info['user_second_type']!=2){
+			redirect(formatUrl('officehall/index'));
+		}
 		if($this->input->post('type')){
 			$type = $this->input->post('type');
 			$data = $this->input->post();
@@ -113,6 +123,11 @@ class officehall extends MIS_Controller
 	public function resource()
 	{
 		$data = array();
+		$this->load->model('MIS_User');
+		$info = $this->MIS_User->getInfo($this->userId);
+		if($info['user_second_type']!=2){
+			redirect(formatUrl('officehall/index'));
+		}
 		$data['msg'] = $this->input->get('msg');
 		$this->load->model('MIS_Room');
 		$keyword = array();
@@ -128,6 +143,11 @@ class officehall extends MIS_Controller
 	public function do_resource()
 	{
 		$data = array();
+		$this->load->model('MIS_User');
+		$info = $this->MIS_User->getInfo($this->userId);
+		if($info['user_second_type']!=2){
+			redirect(formatUrl('officehall/index'));
+		}
 		$data = $this->input->post();
 		$data['user_id'] = $this->userId;
 		$data['start_time'] = strtotime($data['start_time']);
@@ -175,6 +195,11 @@ class officehall extends MIS_Controller
 	public function invest()
 	{
 		$data = array();
+		$this->load->model('MIS_User');
+		$info = $this->MIS_User->getInfo($this->userId);
+		if($info['user_second_type']!=2){
+			redirect(formatUrl('officehall/index'));
+		}
 		$data['msg'] = $this->input->get('msg');
 		$this->showView('officeHall/invest', $data);
 	}
@@ -186,6 +211,11 @@ class officehall extends MIS_Controller
 	public function do_invest()
 	{
 		$data = array();
+		$this->load->model('MIS_User');
+		$info = $this->MIS_User->getInfo($this->userId);
+		if($info['user_second_type']!=2){
+			redirect(formatUrl('officehall/index'));
+		}
 	    $data = $this->input->post();
 		$data['user_id'] = $this->userId;
 		$this->load->model('MIS_User');

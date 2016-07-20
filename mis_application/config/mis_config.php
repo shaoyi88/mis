@@ -394,9 +394,8 @@ $config['project_apply_status'] = array(
  * 房间类型
  */
 $config['room_type'] = array(
-	'0' => '会议室',
-	'1' => '路演厅',
-	'2' => '商务包房'
+	'0' => '多功能厅',
+	'1' => 'VIP室'
 );
 
 /**
@@ -415,11 +414,11 @@ $config['room_booking_status'] = array(
 $config['user_home_menu'] = array(
 		'0' => array(
 		    array('入驻申请','application','enter'),
-			array('我的物业','property','wrench'),
-			array('公共资源','resource','palette'),
-			array('投资申请','invest','coins'),
+			array('我的物业','property','wrench',2),
+			array('公共资源','resource','palette',2),
+			array('投资申请','invest','coins',2),
 			array('项目需求','project','filter'),
-			array('企业风采','corporate','cog'),
+			array('企业风采','corporate','cog',2),
 			array('我的活动','activity','calendar'),
 		),
 		'1' => array(

@@ -136,7 +136,11 @@ class Enterprise extends MIS_Controller
 
 		@set_time_limit(5 * 60);
 		$targetDir = 'upload_tmp';
-		$uploadDir = 'upload/licence';
+		if (isset($_REQUEST["dir"])) {
+			 $uploadDir = 'upload/'.$_REQUEST["dir"];
+		}else{
+		    $uploadDir = 'upload/other';
+		}
 		$cleanupTargetDir = true; // Remove old files
 		$maxFileAge = 5 * 3600; // Temp file age in seconds
 		// Create target dir

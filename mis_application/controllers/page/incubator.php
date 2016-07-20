@@ -15,10 +15,11 @@ class incubator extends MIS_Controller
 	{
 		$data = array();
 		$this->load->model('MIS_Article');
-		$id = 7;
-		$data['articleInfo'] = $this->MIS_Article->getInfo($id);
-		$data['articleComment'] = $this->MIS_Article->getCommentList($id);
+		$data['articleInfo'] = $this->MIS_Article->getLatest();
+		$data['articleComment'] = $this->MIS_Article->getCommentList($data['articleInfo']['article_id']);
 		$data['articleCommentCount'] = count($data['articleComment']);
+		$this->load->model('MIS_Enterprise');
+		$data['elogo'] = $this->MIS_Enterprise->getLogo();
 		$this->showView('incubator', $data);
 	}
 	

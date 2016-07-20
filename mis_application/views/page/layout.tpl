@@ -24,6 +24,7 @@
                     <ul class="horizontal-menu compact navbar">
                     {if $userinfo['userId']}
                     <li><a href="javascript:">欢迎您，{$userinfo['userName']}</a></li>
+                    <li><a href="{formatUrl('home/logout')}">退出</a></li>
                     {else}
                     <li><a href="{formatUrl('home/register')}">注册</a></li>
                     <li><a href="{formatUrl('login/')}">登录</a></li>

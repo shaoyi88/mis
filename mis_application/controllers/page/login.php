@@ -38,7 +38,7 @@ class login extends MIS_Controller
 		}
 		$info = array(
 				'user_id' => $userInfo['user_id'],
-				'user_name' => $userInfo['user_nickname'],
+				'user_name' => $userInfo['user_nickname']?$userInfo['user_nickname']:$userInfo['user_name'],
 				'user_type' => $userInfo['user_type'],
 		);
 		$this->session->set_userdata($info);

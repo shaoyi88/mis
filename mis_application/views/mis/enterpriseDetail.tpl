@@ -19,6 +19,10 @@
           			 <td><img {if !$info['enterprise_business_licence']}style="display:none"{/if} width="100" src="{$info['enterprise_business_licence']}"></td>
         		</tr>
         		<tr>
+          		     <th class="text-r" width="180">企业logo：</th>
+          			 <td><img {if !$info['enterprise_logo']}style="display:none"{/if} width="100" src="{$info['enterprise_logo']}"></td>
+        		</tr>
+        		<tr>
           		     <th class="text-r" width="180">企业入驻时间：</th>
           			 <td>{date('Y-m-d',$info['enterprise_enter_time'])}</td>
         		</tr>

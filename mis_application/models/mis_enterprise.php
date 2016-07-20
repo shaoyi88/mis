@@ -155,4 +155,20 @@ class MIS_Enterprise extends CI_Model
 		}
 		return $info;
 	}
+	
+	/**
+	 *
+	 * 获取企业logo
+	 * @param unknown_type $key
+	 */
+	public function getLogo()
+	{
+		$sql = "SELECT * FROM (`$this->_table`) WHERE enterprise_logo<>''";
+		$info = array();
+		$query = $this->db->query($sql);
+		if($query){
+			$info = $query->result_array();
+		}
+		return $info;
+	}
 }

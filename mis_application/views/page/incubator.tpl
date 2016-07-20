@@ -76,7 +76,11 @@
 	        <span class="title">入驻企业</span>
 	    </div>
 	    <div class="content">
-	        <img src="/public/page/images/incubator/comps.png" width="100%">
+	        <div class="logolist">
+	        {foreach $elogo as $v}
+	        <img src="{$v['enterprise_logo']}">
+			{/foreach}
+			</div>
 	    </div>
     </div>
     <div class="panel" style="width:38%;float:left;margin-left:2%;">

@@ -86,11 +86,16 @@ class Smarty_ext extends Smarty
 				$this->assign($key, $val, TRUE);
 			}
 		}
-		$ci =& get_instance();
-		$userinfo = array();
+		$ci =& get_instance();		
 	    $userinfo['userId'] = $ci->userId = $ci->session->userdata('user_id'); 
 	    $userinfo['userName'] = $ci->userName = $ci->session->userdata('user_name');
 	    $userinfo['userType'] = $ci->userType = $ci->session->userdata('user_type');
+	    $userinfo['userSecondType'] = '';
+	    if($userinfo['userId']){
+	    	$ci->load->model('MIS_User');
+		    $uinfo = $ci->MIS_User->getInfo($userinfo['userId']);
+		    $userinfo['userSecondType'] = $uinfo['user_second_type']?$uinfo['user_second_type']:'';
+	    }
 		$this->assign('userinfo', $userinfo, TRUE);
 		$ci->load->model('MIS_Sys');
 		$info = $ci->MIS_Sys->getInfo();

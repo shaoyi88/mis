@@ -236,6 +236,22 @@ class MIS_Article extends CI_Model
 	}
 	
 	/**
+	 * 获取最新信息
+	 * Enter description here ...
+	 * @param unknown_type $id
+	 */
+	public function getLatest()
+	{
+		$this->db->order_by('article_id','DESC');
+		$query = $this->db->get($this->_table, 1);
+		$info = array();
+		if($query){
+			$info = $query->row_array();
+		}
+		return $info;
+	}
+	
+	/**
 	 *
 	 * 获取文章评论
 	 * @param unknown_type $id
