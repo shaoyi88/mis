@@ -26,6 +26,7 @@
         		<tr class="text-c">
           			<th>用户名</th>
           			<th>账户</th>
+          			<th>分组</th>
           			<th>操作</th>
         		</tr>
       		</thead>
@@ -34,6 +35,7 @@
 				<tr class="text-c">
         			<td>{$item['admin_name']}</td>
         			<td>{$item['admin_account']}</td>
+        			<td>{$role[$item['admin_role']]}</td>
           			<td>
           				{if checkRight('admin_edit') && $item['admin_role'] != 0}<a class="btn btn-primary radius edit" title="编辑" href="{formatUrl('admin/add?id=')}{$item['admin_id']}" style="text-decoration:none">编辑</a>{/if}
           				{if checkRight('admin_del') && $item['admin_role'] != 0}<a class="btn btn-primary radius ml-5 del" did="{$item['admin_id']}" title="删除" href="javascript:;" style="text-decoration:none">删除</a>{/if}

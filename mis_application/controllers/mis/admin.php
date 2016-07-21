@@ -48,6 +48,14 @@ class Admin extends MIS_Controller
 		$data['pageUrl'] = $pageUrl;
 		$data['adminList'] = $dataList;
 		$data['keyword'] = $keyword;
+		$this->load->model('MIS_Role');
+		$rolelist = $this->MIS_Role->getAll();
+		$role = array();
+		foreach($rolelist as $v){
+			$role[$v['id']] = $v['role_name']; 
+		}
+		$role[0] = '管理员';
+		$data['role'] = $role;
 		$this->showView('adminList', $data);
 	}
 	
