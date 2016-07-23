@@ -35,8 +35,8 @@
         		<tr class="text-c">
           			<th>企业</th>
           			<th>日期</th>
-          			<th>物业费</th>
           			<th>租金</th>
+          			<th>物业费</th>
           			<th>水费</th>
           			<th>电费</th>
           			<th>总费用</th>
@@ -50,12 +50,12 @@
       				<tr class="text-c">
           				<td>{$item['enterprise_name']}</td>
           				<td>{date('Y-m',$item['fee_date'])}</td>
-          				<td>{$item['property_fee_unit_price']*$item['property_fee_num']}元</td>
-          				<td>{$item['rent_fee_unit_price']*$item['property_fee_num']}元</td>
+          				<td>{$item['rent_fee']}元</td>
+          				<td>{$item['property_fee']}元</td>
 						<td>{$item['water_fee_unit_price']*$item['water_fee_num']}元</td>
           				<td>{$item['elec_fee_unit_price']*$item['elec_fee_num']}元</td>
-          				<td>{$item['property_fee_unit_price']*$item['property_fee_num']+
-          					$item['rent_fee_unit_price']*$item['property_fee_num']+
+          				<td>{$item['rent_fee']+
+          					$item['property_fee']+
           					$item['water_fee_unit_price']*$item['water_fee_num']+
           					$item['elec_fee_unit_price']*$item['elec_fee_num']}元</td>
           				<td>{if $item['pay_status'] == 0}0元{else}{$item['pay_amount']}元{/if}</td>

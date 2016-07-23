@@ -468,3 +468,13 @@ $config['apply_deal_status'] = array(
 	'1' => '审核通过',
 	'2' => '审核不通过'
 );
+
+/**
+ * 初始费用信息
+ */
+$config['init_fee'] = array(
+	'building_rent_fee' 	=> 50,   // 租金单价
+	'building_property_fee' => 6,  	 // 物业费单价
+	'water_fee'             => 3.57, // 水费单价
+	'elec_fee'              => 1.2   // 电费单价
+);

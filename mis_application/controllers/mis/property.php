@@ -220,6 +220,7 @@ class Property extends MIS_Controller
 			}
 			$data['typeMsg'] = '新增';
 		}
+		$data['init_fee'] = $this->config->item('init_fee');
 		$this->showView('feeAdd', $data);
 	}
 	
@@ -238,8 +239,8 @@ class Property extends MIS_Controller
 		$this->load->model('MIS_Fee');
 		$info = $this->MIS_Fee->getInfo($id);
 		$data['info'] = $info;
-		$data['total'] = $info['rent_fee_unit_price']*$info['property_fee_num']+
-						$info['property_fee_unit_price']*$info['property_fee_num']+
+		$data['total'] = $info['rent_fee']+
+						$info['property_fee']+
 						$info['water_fee_unit_price']*$info['water_fee_num']+
 						$info['elec_fee_unit_price']*$info['elec_fee_num'];
 		$this->showView('feePay', $data);
@@ -441,7 +442,10 @@ class Property extends MIS_Controller
 		}
 		$id = $this->input->get('did');
 		$this->load->model('MIS_Fee');
+		$this->load->model('MIS_Enterprise');
 		$info = $this->MIS_Fee->getInfo($id);
+		$buildInfo = array();
+		$this->MIS_Enterprise->getEnterpriseBuildingInfo($info['enterprise_id'], $buildInfo);
 		 //加载PHPExcel库
 	   	require_once THIRD_PATH.'PHPExcel.php';
 	   	require_once THIRD_PATH.'PHPExcel/IOFactory.php';
@@ -494,13 +498,27 @@ class Property extends MIS_Controller
 		$objPHPExcel->getActiveSheet()->getStyle('A4:G4')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
 		$objPHPExcel->getActiveSheet()->getStyle('A4:G4')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
 		//第五行
-		$objPHPExcel->getActiveSheet()->getRowDimension(5)->setRowHeight(30);
+		$building_actual_area = $building_property_fee = $fee = '';
+		$height = 0;
+		foreach($buildInfo as $k=>$item){
+			$height += 30;
+			$building_actual_area .= $item['building_actual_area'];
+			$building_property_fee .= $item['building_property_fee'];
+			$fee .= $item['building_actual_area']*$item['building_property_fee'];
+			if($k < count($buildInfo)-1){
+				$building_actual_area .= "\n";
+				$building_property_fee .= "\n";
+				$fee .= "\n";
+			}
+		}
+		$objPHPExcel->getActiveSheet()->getRowDimension(5)->setRowHeight($height);
 		$objPHPExcel->getActiveSheet()->setCellValue('A5', '物管费');
 		$objPHPExcel->getActiveSheet()->mergeCells('B5:C5');
 		$objPHPExcel->getActiveSheet()->setCellValue('B5', date('Y年n月',$info['fee_date']));
-		$objPHPExcel->getActiveSheet()->setCellValue('D5', $info['property_fee_num']);
-		$objPHPExcel->getActiveSheet()->setCellValue('E5', $info['property_fee_unit_price']);
-		$objPHPExcel->getActiveSheet()->setCellValue('F5', $info['property_fee_num']*$info['property_fee_unit_price']);
+		$objPHPExcel->getActiveSheet()->setCellValue('D5', $building_actual_area);
+		$objPHPExcel->getActiveSheet()->setCellValue('E5', $building_property_fee);
+		$objPHPExcel->getActiveSheet()->setCellValue('F5', $fee);
+		$objPHPExcel->getActiveSheet()->getStyle('D5:F5')->getAlignment()->setWrapText(true);
 		$objPHPExcel->getActiveSheet()->getStyle('A5:G5')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 		$objPHPExcel->getActiveSheet()->getStyle('A5:G5')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
 		$objPHPExcel->getActiveSheet()->getStyle('A5:G5')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
@@ -543,7 +561,7 @@ class Property extends MIS_Controller
 		$objPHPExcel->getActiveSheet()->getRowDimension(11)->setRowHeight(30);
 		$objPHPExcel->getActiveSheet()->setCellValue('A11', '费用合计');
 		$objPHPExcel->getActiveSheet()->mergeCells('B11:E11');
-		$total = $info['property_fee_num']*$info['property_fee_unit_price']+$info['elec_fee_num']*$info['elec_fee_unit_price']+$info['water_fee_num']*$info['water_fee_unit_price'];
+		$total = $info['property_fee']+$info['elec_fee_num']*$info['elec_fee_unit_price']+$info['water_fee_num']*$info['water_fee_unit_price'];
 		$objPHPExcel->getActiveSheet()->setCellValue('B11', '（人民币大写）：'.cny($total));
 		$objPHPExcel->getActiveSheet()->setCellValue('F11', '￥'.$total);
 		$objPHPExcel->getActiveSheet()->getStyle('A11:G11')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
@@ -607,7 +625,10 @@ class Property extends MIS_Controller
 		}
 		$id = $this->input->get('did');
 		$this->load->model('MIS_Fee');
+		$this->load->model('MIS_Enterprise');
 		$info = $this->MIS_Fee->getInfo($id);
+		$buildInfo = array();
+		$this->MIS_Enterprise->getEnterpriseBuildingInfo($info['enterprise_id'], $buildInfo);
 		//加载PHPExcel库
 	   	require_once THIRD_PATH.'PHPExcel.php';
 	   	require_once THIRD_PATH.'PHPExcel/IOFactory.php';
@@ -660,21 +681,36 @@ class Property extends MIS_Controller
 		$objPHPExcel->getActiveSheet()->getStyle('A4:G4')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
 		$objPHPExcel->getActiveSheet()->getStyle('A4:G4')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
 		//第五行
-		$objPHPExcel->getActiveSheet()->getRowDimension(5)->setRowHeight(30);
 		$objPHPExcel->getActiveSheet()->setCellValue('A5', '租金');
 		$objPHPExcel->getActiveSheet()->mergeCells('B5:C5');
 		$objPHPExcel->getActiveSheet()->setCellValue('B5', date('Y年n月',$info['fee_date']));
-		$objPHPExcel->getActiveSheet()->setCellValue('D5', $info['property_fee_num']);
-		$objPHPExcel->getActiveSheet()->setCellValue('E5', $info['rent_fee_unit_price']);
-		$objPHPExcel->getActiveSheet()->setCellValue('F5', $info['property_fee_num']*$info['rent_fee_unit_price']);
+		$building_actual_area = $building_rent_fee = $fee = '';
+		$height = 0;
+		foreach($buildInfo as $k=>$item){
+			$height += 30;
+			$building_actual_area .= $item['building_actual_area'];
+			$building_rent_fee .= $item['building_rent_fee'];
+			$fee .= $item['building_actual_area']*$item['building_rent_fee'];
+			if($k < count($buildInfo)-1){
+				$building_actual_area .= "\n";
+				$building_rent_fee .= "\n";
+				$fee .= "\n";
+			}
+		}
+		$objPHPExcel->getActiveSheet()->getRowDimension(5)->setRowHeight($height);
+		$objPHPExcel->getActiveSheet()->setCellValue('D5', $building_actual_area);
+		$objPHPExcel->getActiveSheet()->setCellValue('E5', $building_rent_fee);
+		$objPHPExcel->getActiveSheet()->setCellValue('F5', $fee);
+		$objPHPExcel->getActiveSheet()->getStyle('D5:F5')->getAlignment()->setWrapText(true);
 		$objPHPExcel->getActiveSheet()->getStyle('A5:G5')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 		$objPHPExcel->getActiveSheet()->getStyle('A5:G5')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
 		$objPHPExcel->getActiveSheet()->getStyle('A5:G5')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+		
 		//第六行
 		$objPHPExcel->getActiveSheet()->getRowDimension(6)->setRowHeight(30);
 		$objPHPExcel->getActiveSheet()->setCellValue('A6', '费用合计');
 		$objPHPExcel->getActiveSheet()->mergeCells('B6:E6');
-		$total = $info['property_fee_num']*$info['rent_fee_unit_price'];
+		$total = $info['rent_fee'];
 		$objPHPExcel->getActiveSheet()->setCellValue('B6', '（人民币大写）：'.cny($total));
 		$objPHPExcel->getActiveSheet()->setCellValue('F6', '￥'.$total);
 		$objPHPExcel->getActiveSheet()->getStyle('A6:G6')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
@@ -715,7 +751,6 @@ class Property extends MIS_Controller
 		$objPHPExcel->getActiveSheet()->mergeCells('A13:G13');
 		$objPHPExcel->getActiveSheet()->setCellValue('A13', '行址：');
 		$objPHPExcel->getActiveSheet()->getStyle('A13')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-		
 		$objPHPExcel->getActiveSheet()->setTitle('缴费通知单（租金）');
 		$objWriter = IOFactory::createWriter($objPHPExcel, 'Excel2007');
 		$file_name="缴费通知单（租金）_".date("YmdHis").".xlsx";

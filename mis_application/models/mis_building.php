@@ -9,6 +9,7 @@
 class MIS_Building extends CI_Model
 {
 	private $_table = 'mis_building';
+	private $_eb_table = 'mis_enterprise_building';
 	
 	/**
 	 * 初始化
@@ -126,5 +127,34 @@ class MIS_Building extends CI_Model
 	{
 		$this->db->where('building_id', $id);
 		$this->db->delete($this->_table);
+	}
+	
+	/**
+	 * 
+	 * 根据房间号获取信息
+	 * @param unknown_type $id
+	 */
+	public function getInfoByBuildingRoom($building_floor, $building_room)
+	{
+		$query = $this->db->get_where($this->_table, array('building_floor'=> $building_floor,'building_room' => $building_room));
+		$info = array();
+		if($query){
+			$info = $query->row_array();
+		}
+		return $info;
+	}
+	
+	/**
+	 * 获取全部列表
+	 * Enter description here ...
+	 */
+	public function getAllList()
+	{
+		$info = array();
+		$query = $this->db->get($this->_table);
+		if($query){
+			$info = $query->result_array();
+		}
+		return $info;
 	}
 }

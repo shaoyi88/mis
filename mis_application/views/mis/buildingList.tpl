@@ -41,7 +41,12 @@
           			<th>楼宇名称</th>
           			<th>楼层</th>
           			<th>房间号</th>
-          			<th>面积</th>
+          			<th>套内面积</th>
+          			<th>分摊面积</th>
+          			<th>建筑面积</th>
+          			<th>实测使用率</th>
+          			<th>租金单价</th>
+          			<th>物业费单价</th>
           			<th>类型</th>
           			<th>操作</th>
         		</tr>
@@ -52,7 +57,12 @@
           				<td>{$item['building_name']}</td>
           				<td>{$item['building_floor']}</td>
           				<td>{$item['building_room']}</td>
-          				<td>{$item['building_area']}</td>
+          				<td>{$item['building_inner_area']}平方</td>
+          				<td>{$item['building_sharing_area']}平方</td>
+          				<td>{$item['building_actual_area']}平方</td>
+          				<td>{round($item['building_inner_area']/$item['building_actual_area']*100,2)}%</td>
+          				<td>{$item['building_rent_fee']}元/平方</td>
+          				<td>{$item['building_property_fee']}元/平方</td>
           				<td>{$building_type[$item['building_type']]}</td>
           				<td>
           					{if checkRight('building_edit')}<a class="btn btn-primary radius" title="编辑" href="{formatUrl('building/add?did=')}{$item['building_id']}" style="text-decoration:none">编辑</a>{/if}

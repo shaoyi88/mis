@@ -23,10 +23,6 @@ var fee = function(){
 		});
 		
 		$('.del').click(del);
-		
-		$('#property_fee_unit_price').blur(fee_amount);
-		$('#property_fee_num').blur(fee_amount);
-		$('#rent_fee_unit_price').blur(fee_amount);
 		$('#enterprise_key').keyup(searchEnterprise);
 		$('#water_fee_unit_price').blur(water_fee_amount);
 		$('#water_fee_num').blur(water_fee_amount);
@@ -39,6 +35,10 @@ var fee = function(){
 		var getEnterpriseUrl = $('#getEnterpriseUrl').val()+'?key='+key;
 		$('.auto-complete-result').html('').hide();
 		$('#enterprise_id').val('');
+		$('#rent_fee').val('');
+		$('#rent_fee_txt').html('0');
+		$('#property_fee').val('');
+		$('#property_fee_txt').html('0');
 		$('#submitFee').addClass('disabled');
 		if(key == ''){
 			return;
@@ -53,6 +53,10 @@ var fee = function(){
             		$('.auto-complete-result').html(template.render({enterpriseList:data.enterpriseList})).show();
             		$('.auto-complete-result').find('li').click(function(event){
 						$('#enterprise_id').val($(event.currentTarget).attr('eid'));
+						$('#rent_fee').val($(event.currentTarget).attr('rent_fee'));
+						$('#rent_fee_txt').html($(event.currentTarget).attr('rent_fee'));
+						$('#property_fee').val($(event.currentTarget).attr('property_fee'));
+						$('#property_fee_txt').html($(event.currentTarget).attr('property_fee'));
 						$('#submitFee').removeClass('disabled');
             			$('#enterprise_key').val($(event.currentTarget).html());
             			$('.auto-complete-result').hide();
@@ -60,23 +64,6 @@ var fee = function(){
             	}
             }
         });
-	};
-	
-	var fee_amount = function(){
-		if($('#property_fee_unit_price').val() != '' && $('#property_fee_num').val() != ''){
-			var fee_unit_price = parseFloat($('#property_fee_unit_price').val());
-			var amount = parseFloat($('#property_fee_num').val());
-			$('#property_fee_amount').html('（物业费：'+(fee_unit_price*amount).toFixed(2)+'元）');
-		}else{
-			$('#property_fee_amount').html('');
-		}
-		if($('#rent_fee_unit_price').val() != '' && $('#property_fee_num').val() != ''){
-			var fee_unit_price = parseFloat($('#rent_fee_unit_price').val());
-			var amount = parseFloat($('#property_fee_num').val());
-			$('#rent_fee_amount').html('（租金：'+(fee_unit_price*amount).toFixed(2)+'元）');
-		}else{
-			$('#rent_fee_amount').html('');
-		}
 	};
 	
 	var water_fee_amount = function(){

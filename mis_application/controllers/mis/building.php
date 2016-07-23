@@ -44,6 +44,7 @@ class Building extends MIS_Controller
 	{
 		$data = array();
 		$data['building_type'] = $this->config->item('building_type');
+		$data['init_fee'] = $this->config->item('init_fee');
 		if($this->input->get('did')){
 			if(checkRight('building_edit') === FALSE){
 				$this->showView('denied', $data);
@@ -78,7 +79,12 @@ class Building extends MIS_Controller
 			$data = $this->input->post();
 			$this->load->model('MIS_Building');
 			$msg = '';
-			$this->MIS_Building->update($data);
+			$info = $this->MIS_Building->getInfoByBuildingRoom($data['building_floor'],$data['building_room']);
+			if($info && $info['building_id'] != $data['building_id']){
+				$msg = '?msg='.urlencode('同一楼层不可创建相同房号信息');
+			}else{
+				$this->MIS_Building->update($data);
+			}
 		}else{
 			if(checkRight('building_add') === FALSE){
 				$this->showView('denied', $data);
@@ -87,9 +93,14 @@ class Building extends MIS_Controller
 			$data = $this->input->post();
 			$this->load->model('MIS_Building');
 			$msg = '';
-			$id = $this->MIS_Building->add($data);
-			if($id === FALSE){
-				$msg = '?msg='.urlencode('创建失败');
+			$info = $this->MIS_Building->getInfoByBuildingRoom($data['building_floor'], $data['building_room']);
+			if($info){
+				$msg = '?msg='.urlencode('同一楼层不可创建相同房号信息');
+			}else{
+				$id = $this->MIS_Building->add($data);
+				if($id === FALSE){
+					$msg = '?msg='.urlencode('创建失败');
+				}
 			}
 		}
 		redirect(formatUrl('building/index'.$msg));

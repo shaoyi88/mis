@@ -42,6 +42,17 @@
           		     <th class="text-r" width="180">企业账户余额：</th>
           			 <td>{$info['enterprise_account']}元</td>
         		</tr>
+        		<tr>
+          		     <th class="text-r" width="180">企业办公地点：</th>
+          			 <td>
+          			 	{foreach $info['building'] as $item}
+          			 		<p>{$item['building_name']}-{$item['building_floor']}层-{$item['building_room']}</p>
+          			 	{/foreach}
+          			 	{if count($info['building'])==0}
+          			 	暂无信息
+          			 	{/if}
+          			 </td>
+        		</tr>
         	</tbody>
 		</table>
 		

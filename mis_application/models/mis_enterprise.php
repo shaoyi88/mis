@@ -10,6 +10,8 @@ class MIS_Enterprise extends CI_Model
 {
 	private $_table = 'mis_enterprise';
 	private $_accountRecordTable = 'mis_enterprise_account_record';
+	private $_eb_table = 'mis_enterprise_building';
+	private $_build_table = 'mis_building';
 	
 	/**
 	 * 初始化
@@ -171,4 +173,47 @@ class MIS_Enterprise extends CI_Model
 		}
 		return $info;
 	}
+	
+	/**
+	 * 
+	 * 批量增加企业所在办公地点
+	 */
+	public function batchAddEnterpriseBuilding($list)
+	{
+		$this->db->insert_batch($this->_eb_table, $list); 
+		if($this->db->affected_rows() <= 0){
+			return FALSE;
+		}
+		return TRUE;
+	}
+	
+	/**
+	 * 获取企业所在办公地点
+	 * Enter description here ...
+	 * @param unknown_type $id
+	 */
+	public function getEnterpriseBuildingInfo($id, &$info = array())
+	{
+		$sql = "select * from $this->_eb_table as e left join $this->_build_table as b on e.building_id = b.building_id where e.enterprise_id = $id";
+		$query = $this->db->query($sql);
+		$result = array();
+		if($query){
+			$info = $query->result_array();
+		}
+		foreach($info as $item){
+			$result[] = $item['building_id'];
+		}
+		return $result;
+	}
+	
+	/**
+	 * 
+	 * 删除企业所在办公地点
+	 * @param unknown_type $ids
+	 */
+	public function delEnterpriseBuildingInfo($id)
+	{
+		$this->db->where('enterprise_id', $id);
+		$this->db->delete($this->_eb_table); 
+	} 
 }

@@ -16,12 +16,28 @@
           			 <td><input nullmsg="请输入楼层！" datatype="s" class="input-text" style="width:250px" name="building_floor" type="text" value="{if isset($info)}{$info['building_floor']}{/if}" placeholder="输入楼层"></td>
         		</tr>
         		<tr>
-          		     <th class="text-r" width="180">房间<span class="c-red">*</span>：</th>
-          			 <td><input nullmsg="请输入房间！" datatype="s" class="input-text" style="width:250px" name="building_room" type="text" value="{if isset($info)}{$info['building_room']}{/if}" placeholder="输入房间"></td>
+          		     <th class="text-r" width="180">房号<span class="c-red">*</span>：</th>
+          			 <td><input nullmsg="请输入房号！" datatype="s" class="input-text" style="width:250px" name="building_room" type="text" value="{if isset($info)}{$info['building_room']}{/if}" placeholder="输入房号"></td>
         		</tr>
         		<tr>
-          		     <th class="text-r" width="180">面积<span class="c-red">*</span>：</th>
-          			 <td><input nullmsg="请输入面积！" datatype="s" class="input-text" style="width:250px" name="building_area" type="text" value="{if isset($info)}{$info['building_area']}{/if}" placeholder="输入面积"></td>
+          		     <th class="text-r" width="180">套内面积<span class="c-red">*</span>：</th>
+          			 <td><input nullmsg="请输入套内面积！" errormsg="请输入正确的数字格式" datatype="num" class="input-text" style="width:250px" name="building_inner_area" type="text" value="{if isset($info)}{$info['building_inner_area']}{/if}" placeholder="输入套内面积">平方</td>
+        		</tr>
+        		<tr>
+          		     <th class="text-r" width="180">分摊面积<span class="c-red">*</span>：</th>
+          			 <td><input nullmsg="请输入分摊面积！" errormsg="请输入正确的数字格式" datatype="num" class="input-text" style="width:250px" name="building_sharing_area" type="text" value="{if isset($info)}{$info['building_sharing_area']}{/if}" placeholder="输入分摊面积">平方</td>
+        		</tr>
+        		<tr>
+          		     <th class="text-r" width="180">建筑面积<span class="c-red">*</span>：</th>
+          			 <td><input nullmsg="请输入建筑面积！" errormsg="请输入正确的数字格式" datatype="num" class="input-text" style="width:250px" name="building_actual_area" type="text" value="{if isset($info)}{$info['building_actual_area']}{/if}" placeholder="输入建筑面积">平方</td>
+        		</tr>
+        		<tr>
+          		     <th class="text-r" width="180">租金单价<span class="c-red">*</span>：</th>
+          			 <td><input nullmsg="请输入租金单价！" errormsg="请输入正确的数字格式" datatype="num" class="input-text" style="width:250px" name="building_rent_fee" type="text" value="{if isset($info)}{$info['building_rent_fee']}{else}{$init_fee['building_rent_fee']}{/if}" placeholder="输入租金单价">元/平方</td>
+        		</tr>
+        		<tr>
+          		     <th class="text-r" width="180">物业费单价<span class="c-red">*</span>：</th>
+          			 <td><input nullmsg="请输入物业费单价！" errormsg="请输入正确的数字格式" datatype="num" class="input-text" style="width:250px" name="building_property_fee" type="text" value="{if isset($info)}{$info['building_property_fee']}{else}{$init_fee['building_property_fee']}{/if}" placeholder="输入物业费单价">元/平方</td>
         		</tr>
         		<tr>
           		     <th class="text-r" width="180">类型<span class="c-red">*</span>：</th>

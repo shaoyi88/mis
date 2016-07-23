@@ -47,6 +47,7 @@ class Enterprise extends MIS_Controller
 			$id = $this->input->get('id');
 			$this->load->model('MIS_Enterprise');
 			$data['info'] = $this->MIS_Enterprise->getInfo($id);
+			$data['info']['building'] = $this->MIS_Enterprise->getEnterpriseBuildingInfo($id);
 			$data['typeMsg'] = '编辑';
 		}else{
 			if(checkRight('enterprise_add') === FALSE){
@@ -55,6 +56,8 @@ class Enterprise extends MIS_Controller
 			}
 			$data['typeMsg'] = '新增';
 		}
+		$this->load->model('MIS_Building');
+		$data['buildInfo'] = $this->MIS_Building->getAllList();
 		$this->showView('enterpriseAdd', $data);
 	}
 	
@@ -71,11 +74,24 @@ class Enterprise extends MIS_Controller
 				exit;
 			}
 			$data = $this->input->post();
+			$enterprise_building = $data['enterprise_building'];
+			unset($data['enterprise_building']);
 			unset($data['file']);
 			$data['enterprise_reg_time'] = strtotime($data['enterprise_reg_time']);
 			$data['enterprise_enter_time'] = strtotime($data['enterprise_enter_time']);
 			$this->load->model('MIS_Enterprise');
 			$this->MIS_Enterprise->update($data);
+			// 删除企业原来所在办公地点
+			$this->MIS_Enterprise->delEnterpriseBuildingInfo($data['enterprise_id']);
+			// 新增企业所在办公地点
+			$addList = array();
+			foreach($enterprise_building as $item){
+				$addItem = array();
+				$addItem['building_id'] = $item;
+				$addItem['enterprise_id'] = $data['enterprise_id'];
+				$addList[] = $addItem;
+			}
+			$this->MIS_Enterprise->batchAddEnterpriseBuilding($addList);
 			redirect(formatUrl('enterprise/index'));
 		}else{
 			if(checkRight('enterprise_add') === FALSE){
@@ -83,6 +99,8 @@ class Enterprise extends MIS_Controller
 				exit;
 			}
 			$data = $this->input->post();
+			$enterprise_building = $data['enterprise_building'];
+			unset($data['enterprise_building']);
 			unset($data['file']);
 			$data['enterprise_reg_time'] = strtotime($data['enterprise_reg_time']);
 			$data['enterprise_enter_time'] = strtotime($data['enterprise_enter_time']);
@@ -90,8 +108,18 @@ class Enterprise extends MIS_Controller
 			$msg = '';
 			$info = $this->MIS_Enterprise->queryByName($data['enterprise_name']);
 			if(empty($info)){
-				if($this->MIS_Enterprise->add($data) === FALSE){
+				if(($enterprise_id = $this->MIS_Enterprise->add($data)) === FALSE){
 					$msg = '&msg='.urlencode('创建失败');
+				}else{
+					// 新增企业所在办公地点
+					$addList = array();
+					foreach($enterprise_building as $item){
+						$addItem = array();
+						$addItem['building_id'] = $item;
+						$addItem['enterprise_id'] = $enterprise_id;
+						$addList[] = $addItem;
+					}
+					$this->MIS_Enterprise->batchAddEnterpriseBuilding($addList);
 				}
 			}else{
 				$msg = '&msg='.urlencode('该入驻企业已存在，请勿重复新增');
@@ -114,6 +142,7 @@ class Enterprise extends MIS_Controller
 		$id = $this->input->get('id');
 		$this->load->model('MIS_Enterprise');
 		$this->MIS_Enterprise->del($id);
+		$this->MIS_Enterprise->delEnterpriseBuildingInfo($id);
 		redirect(formatUrl('enterprise/index'));
 	}
 	
@@ -255,6 +284,9 @@ class Enterprise extends MIS_Controller
 		$id = $this->input->get('id');
 		$this->load->model('MIS_Enterprise');
 		$data['info'] = $this->MIS_Enterprise->getInfo($id);
+		$info = array();
+		$this->MIS_Enterprise->getEnterpriseBuildingInfo($id, $info);
+		$data['info']['building'] = $info;
 		$this->showView('enterpriseDetail', $data);
 	}
 	
@@ -268,10 +300,24 @@ class Enterprise extends MIS_Controller
 			$key = $this->input->get('key');
 		}
 		$this->load->model('MIS_Enterprise');
-		$enterpriseList = $this->MIS_Enterprise->queryEnterpriseByKey($key);	
-		if(empty($enterpriseList)){			
+		$enterpriseResult = $this->MIS_Enterprise->queryEnterpriseByKey($key);	
+		if(empty($enterpriseResult)){			
 			$this->send_json(array('status'=>0));
 		}else{
+			$enterpriseList = array();
+			foreach($enterpriseResult as $item){
+				$info = $item;
+				$buildingInfo = array();
+				$this->MIS_Enterprise->getEnterpriseBuildingInfo($item['enterprise_id'], $buildingInfo);	
+				$rent_fee = $property_fee = 0;
+				foreach($buildingInfo as $b){
+					$rent_fee += $b['building_actual_area'] * $b['building_rent_fee'];
+					$property_fee += $b['building_actual_area'] * $b['building_property_fee'];
+				}
+				$info['rent_fee'] = $rent_fee;
+				$info['property_fee'] = $property_fee;
+				$enterpriseList[] = $info;
+			}
 			$this->send_json(array('status'=>1,'enterpriseList'=>$enterpriseList));
 		}
 	}

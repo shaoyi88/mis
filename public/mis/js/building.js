@@ -2,7 +2,14 @@ var club = function(){
 	var init = function(){
 		$(".Huiform").Validform({
 			tiptype : 4,
-			tipSweep : true
+			tipSweep : true,
+			datatype:{
+				"num":function(gets,obj,curform,regxp){
+					var reg=/^(\d*\.)?\d+$/;
+					if(reg.test(gets)){return true;}					
+					return false;
+				}	
+			}
 		});
 		$('.del').click(del);
 	};
