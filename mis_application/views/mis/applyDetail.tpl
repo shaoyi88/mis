@@ -182,4 +182,4 @@
 <div class="pd-20 text-c">
 <a class="btn btn-primary radius" href="javascript:history.go(-1);" style="text-decoration:none;height:auto">返回</a>
 </div>
-<script type="text/javascript" src="/public/mis/js/apply.js""></script>
+<script type="text/javascript" src="/public/mis/js/apply.js?v=0724"></script>
