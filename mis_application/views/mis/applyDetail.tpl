@@ -43,20 +43,39 @@
       			 <td>{$info['enterprise_contact_mobile']}</td>
     		</tr>
     		<tr>
-      		     <th class="text-r">审核状态：</th>
-      			 <td>{$apply_deal_status[$info['deal_status']]}</td>
+      		     <th class="text-r">状态：</th>
+      			 <td>{$apply_deal_status[$info['deal_status']]}{if $info['deal_status']>1}&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-primary radius checkapproval" href="javascript:;">查看立项表</a>{/if}</td>
     		</tr>
+    		{if $info['deal_status'] >2} 
     		<tr>
       		     <th class="text-r">审核信息：</th>
       			 <td>{$info['msg']}</td>
     		</tr>
+    		{/if}
     		{if checkRight('activity_audit') && $info['deal_status'] == 0 && $info['follow_by'] == $userId}
+    			<tr>
+        			<th class="text-r" style="width:100px">立项判断<span class="c-red">*</span></th>
+        			<td>
+        				<input type="radio" name="deal_status" value="2" nullmsg="立项判断不能为空！" datatype="*">立项
+		          		&nbsp;&nbsp;
+		          		<input type="radio" name="deal_status" value="1" nullmsg="立项判断不能为空！" datatype="*">放弃
+        			</td>
+        		</tr>
+        		<tr>
+        			<th></th>
+      				<td colspan="2">
+      					<input name="enterprise_id" type="hidden" value="{$info['enterprise_id']}">
+      					<button type="submit" class="btn btn-success radius"><i class="icon-ok"></i>确认</button>
+      				</td>
+      			</tr>
+            {/if}
+    		{if checkRight('activity_audit') && $info['deal_status'] == 2 && $info['follow_by'] == $userId}
     			<tr>
         			<th class="text-r" style="width:100px">审核结果<span class="c-red">*</span></th>
         			<td>
-        				<input type="radio" name="deal_status" value="1" nullmsg="审核结果不能为空！" datatype="*">通过
+        				<input type="radio" name="deal_status" value="3" nullmsg="审核结果不能为空！" datatype="*">通过
 		          		&nbsp;&nbsp;
-		          		<input type="radio" name="deal_status" value="2" nullmsg="审核结果不能为空！" datatype="*">不通过
+		          		<input type="radio" name="deal_status" value="4" nullmsg="审核结果不能为空！" datatype="*">不通过
         			</td>
         		</tr>
     			<tr>
@@ -70,12 +89,6 @@
       				<td colspan="2">
       					<input name="enterprise_id" type="hidden" value="{$info['enterprise_id']}">
       					<button type="submit" class="btn btn-success radius"><i class="icon-ok"></i>确认</button>
-      					{if $info['is_change'] == 0}
-      					&nbsp;&nbsp;
-      					<button type="button" class="btn btn-success radius change"><i class="icon-ok"></i>转为潜在用户</button>
-      					{else}
-      					(已转为潜在用户)
-      					{/if}
       				</td>
       			</tr>
     		{/if}
@@ -104,8 +117,69 @@
 	</form>
 	{/if}
 </div>
+{if $info['deal_status']>1}
+<div class="pd-20 text-c" style="display:none" id="approvalWindow">
+	<table class="table table-bg table-border table-bordered">
+	    <tr>
+  		     <th class="text-r" width="100">注册地点：</th>
+  			 <td>{$approval['registered_address']}</td>
+		</tr>
+		<tr>
+  		     <th class="text-r">行业分类：</th>
+  			 <td>{$approval['industry_classification']}</td>
+		</tr>
+		<tr>
+			<th class="text-r">股东情况：</th>
+			<td>
+				{$approval['shareholder']}
+			</td>
+    	</tr>
+    	<tr>
+			<th class="text-r">主营业务及产品</th>
+			<td>
+				{$approval['primary_business']}
+			</td>
+    	</tr>
+    	<tr>
+			<th class="text-r">技术和专利情况</th>
+			<td>
+				{$approval['technology_patents']}
+			</td>
+    	</tr>
+    	<tr>
+			<th class="text-r">团队判断</th>
+			<td>
+				{$approval['team_judgment']}
+			</td>
+    	</tr>
+    	<tr>
+			<th class="text-r">商业模式</th>
+			<td>
+				{$approval['business_model']}
+			</td>
+    	</tr>
+    	<tr>
+			<th class="text-r">营收及财务状况</th>
+			<td>
+				{$approval['revenue_financial']}
+			</td>
+    	</tr>
+    	<tr>
+			<th class="text-r">所处市场情况</th>
+			<td>
+				{$approval['market']}
+			</td>
+    	</tr>
+		<tr>
+			<th class="text-r">竞争力判断</th>
+			<td>
+				{$approval['competitive_judgment']}
+			</td>
+    	</tr>
+  	</table>
+</div>
+{/if}
 <div class="pd-20 text-c">
 <a class="btn btn-primary radius" href="javascript:history.go(-1);" style="text-decoration:none;height:auto">返回</a>
 </div>
-<input type="hidden" value="{formatUrl('investment/doChangeApply?id=')}{$info['enterprise_id']}" id="changeUrl">
 <script type="text/javascript" src="/public/mis/js/apply.js""></script>

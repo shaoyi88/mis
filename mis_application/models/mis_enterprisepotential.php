@@ -9,6 +9,7 @@
 class MIS_EnterprisePotential extends CI_Model
 {
 	private $_table = 'mis_enterprise_potential';
+	private $_approval = 'mis_enterprise_approval';
 	private $_ci;
 	
 	/**
@@ -207,5 +208,33 @@ class MIS_EnterprisePotential extends CI_Model
 	{
 		$sql = "update $this->_table set last_remind_time=".time().",remind_times=2 where deal_status = 0 AND (UNIX_TIMESTAMP(NOW()) - last_remind_time>172800) AND remind_times=1";
 		$query = $this->db->query($sql);
+	}
+	
+	/**
+	 * 立项申请
+	 * 
+	 */
+	public function addApproval($data)
+	{
+		$this->db->insert($this->_approval, $data);
+		if($this->db->affected_rows() <= 0){
+			return FALSE;
+		}
+		$id = $this->db->insert_id();
+		return $id;
+	}
+	
+	/**
+	 * 获取立项信息信息
+	 * @param unknown_type $id
+	 */
+	public function getApprovalInfo($id)
+	{
+		$query = $this->db->get_where($this->_approval, array('potential_id' => $id));
+		$info = array();
+		if($query){
+			$info = $query->row_array();
+		}
+		return $info;
 	}
 }

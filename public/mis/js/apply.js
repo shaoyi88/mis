@@ -4,12 +4,11 @@ var apply = function(){
 			tiptype: 4,
 			tipSweep: true
 		});
-		
-		$('.change').click(change);
+		$(".checkapproval").click(showApproval);
 	};
 	
-	var change = function(){
-		window.location.href = $('#changeUrl').val();
+	var showApproval = function(event){
+		//$("#approvalWindow").show();
 	};
 	
 	init();

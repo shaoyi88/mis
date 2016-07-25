@@ -42,9 +42,8 @@ $config['menus'] = array(
 	array(
 		'module' => '企业服务',
 		'menu' => array(
-			array('会议室管理', formatUrl('room/roomList?t=0'), 'room_list'),
-			array('路演厅管理', formatUrl('room/roomList?t=1'), 'room_list'),
-			array('商务包房管理', formatUrl('room/roomList?t=2'), 'room_list'),
+			array('多功能厅管理', formatUrl('room/roomList?t=0'), 'room_list'),
+			array('VIP室管理', formatUrl('room/roomList?t=1'), 'room_list'),
 			array('项目需求管理', formatUrl('project/index'), 'project_list'),
 			array('投资申请管理', formatUrl('investment/index'), 'project_list')
 		),
@@ -465,8 +464,10 @@ $config['invest_apply_status'] = array(
  */
 $config['apply_deal_status'] = array(
 	'0' => '已提交',
-	'1' => '审核通过',
-	'2' => '审核不通过'
+	'1' => '放弃立项',
+	'2' => '已立项',
+	'3' => '审核通过',
+	'4' => '审核未通过',
 );
 
 /**

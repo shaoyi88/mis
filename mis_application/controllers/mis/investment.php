@@ -69,6 +69,9 @@ class Investment extends MIS_Controller
 		if(is_numeric($this->input->get('id'))){
 			$data['id'] = $this->input->get('id');			
 			$data['info'] = $this->MIS_EnterprisePotential->getInfo($data['id']);
+			if($data['info']['deal_status']>1){
+				$data['approval'] = $this->MIS_EnterprisePotential->getApprovalInfo($data['id']);
+			}
 			$data['userId'] = $this->userId;
 			//获取可跟进用户
 			$this->load->model('MIS_Admin');
@@ -79,7 +82,7 @@ class Investment extends MIS_Controller
 					$adminList[] = $item;
 				}else{
 					$rightsArr = explode(',', $item['role_rights']);
-					if(in_array('activity_audit', $rightsArr)){
+					if(in_array('apply_audit', $rightsArr)){
 						$adminList[] = $item;
 					}
 				}
@@ -99,25 +102,71 @@ class Investment extends MIS_Controller
 	public function doAuditApply()
 	{
 		$data = $this->input->post();
-		if(!$data['follow_by'] && checkRight('activity_audit') === FALSE){
+		if(!$data['follow_by'] && checkRight('apply_audit') === FALSE){
 			$this->showView('denied', $data);
 			exit;
 		}
-		if($data['follow_by'] && checkRight('activity_assign') === FALSE){
+		if($data['follow_by'] && checkRight('apply_assign') === FALSE){
 			$this->showView('denied', $data);
 			exit;
 		}
 		$this->load->model('MIS_EnterprisePotential');
 		$msg = '';
 		$this->MIS_EnterprisePotential->update($data);
-		redirect(formatUrl('investment/applyDetail?id='.$data['enterprise_id']));
+		switch($data['deal_status']){
+			case 1:
+				redirect(formatUrl('investment/apply'));
+				break;
+			case 2:
+				redirect(formatUrl('investment/approval?id='.$data['enterprise_id']));
+				break;
+			case 4:
+				//立项审核不通过，转为潜在客户
+				$this->doChangeApply($data['enterprise_id']);
+				redirect(formatUrl('investment/applyDetail?id='.$data['enterprise_id']));
+				break;
+			default:
+				redirect(formatUrl('investment/applyDetail?id='.$data['enterprise_id']));				
+		}
+	}
+	
+	/**
+	 *
+	 * 立项申请
+	 */
+	public function approval(){
+		$data = array();
+		if(checkRight('apply_audit') === FALSE){
+			$this->showView('denied', $data);
+			exit;
+		}
+		$id = $this->input->get('id');
+		$this->load->model('MIS_EnterprisePotential');
+		$data['info'] = $this->MIS_EnterprisePotential->getInfo($id);
+		$this->showView('applyApproval', $data);
+	}
+	
+	/**
+	 *
+	 * 立项申请do
+	 */
+	public function doApproval(){
+		$data = array();
+		if(checkRight('apply_audit') === FALSE){
+			$this->showView('denied', $data);
+			exit;
+		}
+		$data = $this->input->post();
+		$this->load->model('MIS_EnterprisePotential');
+		$this->MIS_EnterprisePotential->addApproval($data);
+		redirect(formatUrl('investment/applyDetail?id='.$data['potential_id']));
 	}
 	
 	/**
 	 * 入驻转为潜在用户
 	 * Enter description here ...
 	 */
-	public function doChangeApply()
+	private function doChangeApply($id)
 	{
 		$data = array();
 		if(checkRight('activity_audit') === FALSE){
