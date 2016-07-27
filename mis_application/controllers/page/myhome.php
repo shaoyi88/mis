@@ -213,9 +213,9 @@ class myhome extends MIS_Controller
 			$data['list4'] = $dataList4;
 		}
 		$data['repair_type'] = $this->config->item('repair_type');
-		$data['apply_type'] = $this->config->item('apply_type');
+		$data['need_type'] = $this->config->item('need_type');
 		$data['repair_status'] = $this->config->item('repair_status');
-		$data['apply_status'] = $this->config->item('apply_status');
+		$data['need_status'] = $this->config->item('need_status');
 		$data['complain_status'] = $this->config->item('complain_status');
 		$t = 1;
 		$type = $this->input->get('t');

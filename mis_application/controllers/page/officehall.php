@@ -76,7 +76,7 @@ class officehall extends MIS_Controller
 			$data['type'] = $this->input->get('type');
 		}
 		$data['repair_type'] = $this->config->item('repair_type');
-		$data['apply_type'] = $this->config->item('apply_type');
+		$data['need_type'] = $this->config->item('need_type');
 		$this->showView('officeHall/property', $data);
 	}
 	
@@ -105,7 +105,10 @@ class officehall extends MIS_Controller
 				$this->load->model('MIS_Complain');
 				$this->MIS_Complain->add($data);
 			}else if($type==3){
-				$this->load->model('MIS_Need');				
+				$this->load->model('MIS_Need');
+				$this->load->model('MIS_User');
+				$userinfo = $this->MIS_User->getInfo($this->userId);
+				$data['enterprise_id'] = $userinfo['enterprise_id'];
 				$this->MIS_Need->add($data);
 			}else{
 				redirect(formatUrl('officehall/property'));

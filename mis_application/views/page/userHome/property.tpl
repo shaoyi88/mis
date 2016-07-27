@@ -86,12 +86,12 @@
 		    </thead>
 		    {foreach $list3 as $item}
 		    <tr>
-		        <td>{$apply_type[$item['apply_type']]}</td>
-		        <td>{$item['apply_content']}</td> 
+		        <td>{$need_type[$item['need_type']]}</td>
+		        <td>{$item['need_content']}</td> 
 		        <td>{$item['contacts']}</td> 
 		        <td>{$item['contacts_phone']}</td>
 		        <td>{date('Y-m-d H:i:s',$item['add_time'])}</td>
-		        <td>{$apply_status[$item['status']]}</td>
+		        <td>{$need_status[$item['status']]}</td>
 		        <td></td>  
 		    </tr>
 		    {/foreach}
