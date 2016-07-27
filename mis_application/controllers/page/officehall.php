@@ -105,8 +105,8 @@ class officehall extends MIS_Controller
 				$this->load->model('MIS_Complain');
 				$this->MIS_Complain->add($data);
 			}else if($type==3){
-				$this->load->model('MIS_Apply');				
-				$this->MIS_Apply->add($data);
+				$this->load->model('MIS_Need');				
+				$this->MIS_Need->add($data);
 			}else{
 				redirect(formatUrl('officehall/property'));
 			}
@@ -168,6 +168,7 @@ class officehall extends MIS_Controller
 	{
 		$data = array();
 		$data['msg'] = $this->input->get('msg');
+		$data['apply_type'] = $this->config->item('apply_type');
 		$this->showView('officeHall/project', $data);
 	}
 	
@@ -182,8 +183,8 @@ class officehall extends MIS_Controller
 		$data['user_id'] = $this->userId;
 		$data['status'] = 0;
 		$data['add_time'] = time();
-		$this->load->model('MIS_Project');
-		if($this->MIS_Project->addApply($data)){
+		$this->load->model('MIS_Apply');
+		if($this->MIS_Apply->add($data)){
 			redirect(formatUrl('myhome/project'));
 		}
 	}

@@ -4,13 +4,26 @@
 <link rel="stylesheet" type="text/css" href="/public/common/js/newdate/DateTimePicker-ltie9.css" />
 <script type="text/javascript" src="/public/common/js/newdate/DateTimePicker-ltie9.js"></script>
 <![endif]-->
-<div class="hallb"><span class="icon mif-apps fg-cyan"></span>&nbsp;<a href="{formatUrl('officehall')}">办事大厅</a>&nbsp;>&nbsp;<span class="icon mif-filter"></span>&nbsp;项目需求</div>
+<div class="hallb"><span class="icon mif-apps fg-cyan"></span>&nbsp;<a href="{formatUrl('officehall')}">办事大厅</a>&nbsp;>&nbsp;<span class="icon mif-filter"></span>&nbsp;企业需求</div>
 {if $msg}
 <p class="fg-red">错误：{$msg}</p>
 {/if}
 <form name="form1" action="{formatUrl('officehall/do_project')}" method="post" enctype="multipart/form-data" onsubmit="return checkform();">
-<h3>项目需求</h3>
+<h3>企业需求</h3>
 <table class="dataTable border bordered" data-auto-width="false">
+    <tr>
+        <th width="15%">需求类型</th>
+        <td width="85%">
+			<div class="input-control select">
+			    <select name="apply_type">
+			        <option value="">请选择类型</option>
+			        {foreach $apply_type as $key=>$item}
+			        <option value="{$key}">{$item}</option>
+			        {/foreach}
+			    </select>
+			</div>
+        </td>
+    </tr> 
     <tr>
         <th width="15%">需求内容</th>
         <td width="85%">

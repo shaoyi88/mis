@@ -20,51 +20,18 @@
 <table class="dataTable border bordered" data-auto-width="false">
     <thead>
     <tr>
-        <td style="width: 20px">
+        <td width="40">
         </td>
         <td class="sortable-column sort-asc" style="width: 100px">事项编号</td>
         <td class="sortable-column">事项概述</td>
         <td class="sortable-column">详情</td>
-        <td class="sortable-column" style="width: 20px">状态</td>
-        <td style="width: 20px">已处理</td>
+        <td class="sortable-column" style="width: 80px">状态</td>
+        <td width="80">已处理</td>
     </tr>
     </thead>
     <tbody>
     <tr>
-        <td>
-            <label class="input-control checkbox small-check no-margin">
-                <input type="checkbox">
-                <span class="check"></span>
-            </label>
-        </td>
-        <td>123890723211</td>
-        <td>公司车辆占用他人停车场位置</td>
-        <td><a href="#">点击查看详情</a></td>
-        <td class="align-center"><span class="mif-stop fg-red"></span></td>
-        <td>
-            <label class="switch-original">
-                <input type="checkbox">
-                <span class="check"></span>
-            </label>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <label class="input-control checkbox small-check no-margin">
-                <input type="checkbox">
-                <span class="check"></span>
-            </label>
-        </td>
-        <td>123890723212</td>
-        <td>{date('Y年m月')}物业水电费缴纳</td>
-        <td><a href="#">点击查看详情</a></td>
-        <td class="align-center"><span class="mif-stop fg-red"></span></td>
-        <td>
-            <label class="switch-original">
-                <input type="checkbox">
-                <span class="check"></span>
-            </label>
-        </td>
+        <td colspan="6">暂无</td>
     </tr>
     </tbody>
 </table>
