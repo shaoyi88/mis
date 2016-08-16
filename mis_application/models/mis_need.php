@@ -23,13 +23,16 @@ class MIS_Need extends CI_Model
 	 * 
 	 * 获取总数
 	 */
-	public function getCount($keyword)
+	public function getCount($keyword,$uid=0)
 	{
 		if(isset($keyword['need_type']) && $keyword['need_type'] != ''){
 			$this->db->where('need_type', $keyword['need_type']);
 		}
 		if(isset($keyword['status']) && $keyword['status'] != ''){
 			$this->db->where('status', $keyword['status']);
+		}
+		if($uid){
+			$this->db->where('user_id', $uid);
 		}
 		return $this->db->count_all_results($this->_table);
 	}
@@ -38,7 +41,7 @@ class MIS_Need extends CI_Model
 	 * 获取列表
 	 * Enter description here ...
 	 */
-	public function getList($keyword, $offset, $limit)
+	public function getList($keyword, $offset, $limit, $uid=0)
 	{
 		$info = array();
 		$sql = "select * from `$this->_table` as a left join `$this->_enterpriseTable` as b on 
@@ -48,6 +51,9 @@ class MIS_Need extends CI_Model
 		}
 		if(isset($keyword['status']) && $keyword['status'] != ''){
 			$sql .= ' and a.status ='.$keyword['status'];
+		}
+		if($uid){
+			$sql .= ' and a.user_id ='.$uid;
 		}
 		$sql .= " limit $offset, $limit";
 		$query = $this->db->query($sql);
@@ -83,5 +89,20 @@ class MIS_Need extends CI_Model
 	{
         $this->db->where('need_id', $data['need_id']);
 		$this->db->update($this->_table, $data); 
+	}
+	
+	/**
+	 *
+	 * 添加
+	 * @param unknown_type $data
+	 */
+	public function add($data)
+	{
+		$this->db->insert($this->_table, $data);
+		if($this->db->affected_rows() <= 0){
+			return FALSE;
+		}
+		$id = $this->db->insert_id();
+		return $id;
 	}
 }

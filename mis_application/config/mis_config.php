@@ -42,10 +42,9 @@ $config['menus'] = array(
 	array(
 		'module' => '企业服务',
 		'menu' => array(
-			array('会议室管理', formatUrl('room/roomList?t=0'), 'room_list'),
-			array('路演厅管理', formatUrl('room/roomList?t=1'), 'room_list'),
-			array('商务包房管理', formatUrl('room/roomList?t=2'), 'room_list'),
-			array('项目需求管理', formatUrl('project/index'), 'project_list'),
+			array('多功能厅管理', formatUrl('room/roomList?t=0'), 'room_list'),
+			array('VIP室管理', formatUrl('room/roomList?t=1'), 'room_list'),
+			array('企业需求管理', formatUrl('project/index'), 'project_list'),
 			array('投资申请管理', formatUrl('investment/index'), 'project_list')
 		),
 		'right' => 'business'
@@ -362,7 +361,7 @@ $config['fee_type'] = array(
 );
 
 /**
- * 物业申请类型
+ * 企业需求类型
  */
 $config['apply_type'] = array(
 	'0' => '基础服务',
@@ -376,7 +375,7 @@ $config['apply_type'] = array(
 );
 
 /**
- * 物业申请状态
+ * 需求申请状态
  */
 $config['apply_status'] = array(
 	'0' => '已提交',
@@ -419,7 +418,7 @@ $config['user_home_menu'] = array(
 			array('我的物业','property','wrench',2),
 			array('公共资源','resource','palette',2),
 			array('投资申请','invest','coins',2),
-			array('项目需求','project','filter'),
+			array('企业需求','project','filter'),
 			array('企业风采','corporate','cog',2),
 			array('我的活动','activity','calendar'),
 		),
@@ -434,12 +433,13 @@ $config['user_home_menu'] = array(
 );
 
 /**
- * 企业需求类型
+ * 企业物业需求类型
  */
 $config['need_type'] = array(
-	'0' => 'a类型',
-	'1' => 'b类型',
-	'2' => 'c类型'
+	'0' => '咨询',
+	'1' => '安保',
+	'2' => '保洁',
+	'3' => '其他',
 );
 
 /**
@@ -467,8 +467,10 @@ $config['invest_apply_status'] = array(
  */
 $config['apply_deal_status'] = array(
 	'0' => '已提交',
-	'1' => '审核通过',
-	'2' => '审核不通过'
+	'1' => '放弃立项',
+	'2' => '已立项',
+	'3' => '审核通过',
+	'4' => '审核未通过',
 );
 
 /**

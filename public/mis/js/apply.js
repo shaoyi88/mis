@@ -4,12 +4,20 @@ var apply = function(){
 			tiptype: 4,
 			tipSweep: true
 		});
-		
-		$('.change').click(change);
+		$(".checkapproval").click(showApproval);
 	};
 	
-	var change = function(){
-		window.location.href = $('#changeUrl').val();
+	var showApproval = function(event){
+		layer.open({
+		    type: 1,
+		    area: '500px',
+		    title: [
+		        '立项表',
+		        'border:none; background:#61BA7A; color:#fff;' 
+		    ],
+		    bgcolor: '#eee', //设置层背景色
+		    content: $('#approvalWindow')
+		});
 	};
 	
 	init();

@@ -38,7 +38,7 @@
 				{/if}					
 				<div class="tile" style="width:196px;height:196px;" onclick="location.href='{formatUrl('officehall/project')}'">
 				    <div class="tile-content iconic">
-				        <span class="tile-label">项目需求</span>
+				        <span class="tile-label">企业需求</span>
 				        <span class="icon mif-filter"></span>
 				    </div>
 				</div>

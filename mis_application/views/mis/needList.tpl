@@ -2,7 +2,7 @@
 <div class="pd-20">
 	<form class="Huiform" action="{formatUrl('property/need')}" method="get">
 		<div class="text-c"> 
-			<select class="select" id="need_type" name="need_type" style="width:200px">
+			<select class="select-box" id="need_type" name="need_type" style="width:200px">
       			<option value="">请选择类型</option>
       			{foreach $need_type as $key=>$item}
       				<option value="{$key}" {if isset($keyword['need_type']) && $keyword['need_type'] != '' && $keyword['need_type'] == $key}selected{/if}>
@@ -11,7 +11,7 @@
       			{/foreach}
     		</select>
     		&nbsp;&nbsp;&nbsp;&nbsp;
-			<select class="select" id="status" name="status" style="width:200px">
+			<select class="select-box" id="status" name="status" style="width:200px">
       			<option value="">请选择状态</option>
       			{foreach $need_status as $key=>$item}
       				<option value="{$key}" {if isset($keyword['status']) && $keyword['status'] != '' && $keyword['status'] == $key}selected{/if}>
@@ -33,6 +33,8 @@
         		<tr class="text-c">
         			<th>企业</th>
           			<th>需求类型</th>
+          			<th>联系人</th>
+          			<th>联系电话</th>
           			<th>提交时间</th>
 					<th>状态</th>
           			<th>操作</th>
@@ -43,6 +45,8 @@
       				<tr class="text-c">
       					<td>{$item['enterprise_name']}</td>
           				<td>{$need_type[$item['need_type']]}</td>
+          				<td>{$item['contacts']}</td>
+          				<td>{$item['contacts_phone']}</td>
           				<td>{date('Y-m-d',$item['add_time'])}</td>
           				<td>{$need_status[$item['status']]}</td>
           				<td>

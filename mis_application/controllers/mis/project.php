@@ -10,7 +10,7 @@ class Project extends MIS_Controller
 	
 	/**
 	 * 
-	 * 项目列表
+	 * 项目需求列表
 	 */
 	public function index()
 	{

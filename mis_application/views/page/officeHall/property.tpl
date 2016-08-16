@@ -96,9 +96,9 @@
         <th width="15%">需求类型</th>
         <td width="85%">
 			<div class="input-control select">
-			    <select name="apply_type">
+			    <select name="need_type">
 			        <option value="">请选择需求类型</option>
-			        {foreach $apply_type as $key=>$item}
+			        {foreach $need_type as $key=>$item}
 			        <option value="{$key}">{$item}</option>
 			        {/foreach}
 			    </select>
@@ -109,7 +109,7 @@
         <th width="15%">需求内容</th>
         <td width="85%">
 			<div class="input-control textarea">
-			    <textarea name="apply_content"  placeholder="请填写需求内容详情"></textarea>
+			    <textarea name="need_content"  placeholder="请填写需求内容详情"></textarea>
 			</div>
         </td>
     </tr>

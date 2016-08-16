@@ -198,9 +198,9 @@ class myhome extends MIS_Controller
 		$dataList2 = $this->MIS_Complain->getList($keyword,$offset, PER_COUNT, $uid);
 		$data['pageUrl2'] = $pageUrl2;
 		$data['list2'] = $dataList2;
-		$this->load->model('MIS_Apply');
-		page(formatUrl('myhome/property').'?', $this->MIS_Apply->getCount($keyword,$uid), PER_COUNT, $offset, $pageUrl3);
-		$dataList3 = $this->MIS_Apply->getList($keyword,$offset, PER_COUNT, $uid);
+		$this->load->model('MIS_Need');
+		page(formatUrl('myhome/Need').'?', $this->MIS_Need->getCount($keyword,$uid), PER_COUNT, $offset, $pageUrl3);
+		$dataList3 = $this->MIS_Need->getList($keyword,$offset, PER_COUNT, $uid);
 		$data['pageUrl3'] = $pageUrl3;
 		$data['list3'] = $dataList3;
 		$this->load->model('MIS_User');
@@ -213,9 +213,9 @@ class myhome extends MIS_Controller
 			$data['list4'] = $dataList4;
 		}
 		$data['repair_type'] = $this->config->item('repair_type');
-		$data['apply_type'] = $this->config->item('apply_type');
+		$data['need_type'] = $this->config->item('need_type');
 		$data['repair_status'] = $this->config->item('repair_status');
-		$data['apply_status'] = $this->config->item('apply_status');
+		$data['need_status'] = $this->config->item('need_status');
 		$data['complain_status'] = $this->config->item('complain_status');
 		$t = 1;
 		$type = $this->input->get('t');
@@ -270,15 +270,16 @@ class myhome extends MIS_Controller
 		$data['unav'] = 6;
 		$data['layoutName'] = "myhome";
 		$data['title'] = '项目需求申请';
-		$this->load->model('MIS_Project');
+		$this->load->model('MIS_Apply');
 		$uid = $this->userId;
 		$offset = 0;
 		$pageUrl = '';
 		$keyword = array();
-		page(formatUrl('myhome/project').'?', $this->MIS_Project->getUidApplyCount($keyword,$uid), PER_COUNT, $offset, $pageUrl);
-		$dataList = $this->MIS_Project->getApplyListByUid($keyword, $offset, PER_COUNT, $uid);
+		page(formatUrl('myhome/project').'?', $this->MIS_Apply->getCount($keyword,$uid), PER_COUNT, $offset, $pageUrl);
+		$dataList = $this->MIS_Apply->getList($keyword, $offset, PER_COUNT, $uid);
 		$data['pageUrl'] = $pageUrl;
 		$data['list'] = $dataList;
+		$data['apply_type'] = $this->config->item('apply_type');
 		$data['project_apply_status'] = $this->config->item('project_apply_status');
 		$this->showView('/userHome/project', $data);
 	}
