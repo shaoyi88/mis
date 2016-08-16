@@ -21,6 +21,32 @@ class MIS_EnterpriseHidden extends CI_Model
 	}
 	
 	/**
+	 * 获取信息
+	 * Enter description here ...
+	 * @param unknown_type $id
+	 */
+	public function getInfo($id)
+	{
+		$query = $this->db->get_where($this->_table, array('enterprise_id' => $id));
+		$info = array();
+		if($query){
+			$info = $query->row_array();
+		}
+		return $info;
+	}
+	
+	/**
+	 * 
+	 * 删除
+	 * @param unknown_type $ids
+	 */
+	public function del($id)
+	{
+		$this->db->where('enterprise_id', $id);
+		$this->db->delete($this->_table); 
+	}
+	
+	/**
 	 * 
 	 * 获取列表
 	 */

@@ -295,6 +295,10 @@ class Investment extends MIS_Controller
 			$this->showView('denied', $data);
 			exit;
 		}
+		if($this->input->get('msg')){
+			$data['msg'] = $this->input->get('msg');
+			unset($_GET['msg']);
+		}
 		$this->load->model('MIS_EnterpriseHidden');
 		$offset = 0;
 		$pageUrl = '';
@@ -336,5 +340,74 @@ class Investment extends MIS_Controller
 		$msg = '';
 		$this->MIS_EnterpriseHidden->update($data);
 		redirect(formatUrl('investment/potential'));
+	}
+	
+	public function addPotential()
+	{
+		$data = array();
+		if($this->input->get('id')){
+			if(checkRight('potential_add') === FALSE){
+				$this->showView('denied', $data);
+				exit;
+			}
+			$id = $this->input->get('id');
+			$this->load->model('MIS_EnterpriseHidden');
+			$data['info'] = $this->MIS_EnterpriseHidden->getInfo($id);
+			$data['typeMsg'] = '编辑';
+		}else{
+			if(checkRight('potential_add') === FALSE){
+				$this->showView('denied', $data);
+				exit;
+			}
+			$data['typeMsg'] = '新增';
+		}
+		$this->showView('potentialAdd', $data);
+	}
+	
+	/**
+	 * 
+	 * 删除
+	 */
+	public function doDelPotential()
+	{
+		$data = array();
+		if(checkRight('potential_del') === FALSE){
+			$this->showView('denied', $data);
+			exit;
+		}
+		$id = $this->input->get('id');
+		$this->load->model('MIS_EnterpriseHidden');
+		$this->MIS_EnterpriseHidden->del($id);
+		redirect(formatUrl('investment/potential'));
+	}
+	
+	public function doAddPotential()
+	{
+		$data = array();
+		if($this->input->post('enterprise_id')){
+			if(checkRight('potential_add') === FALSE){
+				$this->showView('denied', $data);
+				exit;
+			}
+			$data = $this->input->post();
+			$this->load->model('MIS_EnterpriseHidden');
+			$this->MIS_EnterpriseHidden->update($data);
+			redirect(formatUrl('investment/potential'));
+		}else{
+			if(checkRight('potential_add') === FALSE){
+				$this->showView('denied', $data);
+				exit;
+			}
+			$data = $this->input->post();
+			$data['add_time'] = time();
+			$this->load->model('MIS_EnterpriseHidden');
+			$msg = '';
+			if($this->MIS_EnterpriseHidden->add($data) === FALSE){
+				$msg = 'msg='.urlencode('创建失败');
+			}else{
+				$msg = 'msg='.urlencode('创建成功');
+			}
+			redirect(formatUrl('investment/potential?'.$msg));
+		}
 	}
 }

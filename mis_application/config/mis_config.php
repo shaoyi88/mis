@@ -108,6 +108,8 @@ $config['rights'] = array(
 			array('入驻企业编辑', 'enterprise_edit'),
 			array('入驻企业删除', 'enterprise_del', TRUE),
 			array('潜在客户管理', 'potential_list'),
+			array('潜在客户添加', 'potential_add'),
+			array('潜在客户删除', 'potential_del'),
 			array('潜在客户跟进指派', 'potential_assign'),
 			array('潜在客户跟进', 'potential_follow', TRUE),
 		),

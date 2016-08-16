@@ -1,7 +1,17 @@
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 招商管理<span class="c-gray en">&gt;</span> 潜在客户管理 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+{if isset($msg)}
+<div class="header">
+	<div class="Huialert Huialert-danger"><i class="icon-remove"></i>{$msg}</div>
+</div>
+{/if}
 <div class="pd-20">
-	<div class="mt-20"> 
-	</div>
+	{if checkRight('potential_add')}
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> 
+		<span class="l">
+			<a href="{formatUrl('investment/addPotential')}" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加潜在客户</a>
+		</span>
+	 </div>
+	 {/if}
 	 {if empty($dataList)}
 	 	<div class="cl pd-5 bg-1 bk-gray"><h2 class="text-c">暂无潜在客户</h2></div>
 	 {else}
@@ -25,10 +35,16 @@
 				        <td>{date('Y-m-d H:i:s',$item['add_time'])}</td> 
 				        <td>{if $item['status'] == 0}待跟进{else}已跟进{/if}</td>
           				<td>
+          					{if $item['status'] == 0 && checkRight('potential_add')}
+          						<a class="btn btn-primary radius" title="编辑" href="{formatUrl('investment/addPotential?id=')}{$item['enterprise_id']}" style="text-decoration:none">编辑</a>
+          					{/if}
+          					{if $item['status'] == 0 && checkRight('potential_del')}
+          						<a class="btn btn-primary radius ml-5 del" did="{$item['enterprise_id']}" title="删除" href="javascript:;" style="text-decoration:none">删除</a>
+          					{/if}
           					{if $item['follow_by'] == 0 && $item['status'] == 0 && checkRight('potential_assign')}
-          						<a class="btn btn-primary radius hiddenAssign" title="指派跟进人" href="javascript:;" did="{$item['enterprise_id']}" style="text-decoration:none">指派跟进人</a>
+          						<a class="btn btn-primary radius hiddenAssign ml-5" title="指派跟进人" href="javascript:;" did="{$item['enterprise_id']}" style="text-decoration:none">指派跟进人</a>
           					{elseif $item['status'] == 0 && $item['follow_by'] == $uid}
-          						<a class="btn btn-primary radius hiddenFollow" title="跟进" href="javascript:;" did="{$item['enterprise_id']}" style="text-decoration:none">跟进</a>
+          						<a class="btn btn-primary radius hiddenFollow ml-5" title="跟进" href="javascript:;" did="{$item['enterprise_id']}" style="text-decoration:none">跟进</a>
           					{/if}
           				</td>
         		</tr>
@@ -81,3 +97,4 @@
 	</form>
 </div>
 <script type="text/javascript" src="/public/mis/js/hidden.js""></script>
+<input type="hidden" id="delUrl" value="{formatUrl('investment/doDelPotential')}"></input>
