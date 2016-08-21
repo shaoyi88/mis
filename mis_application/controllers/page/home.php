@@ -13,30 +13,24 @@ class home extends MIS_Controller
 	 */
 	public function index()
 	{
-		$data = $weather = $weatherinfo = array();
-		//获取东莞实时天气
-		$ch = curl_init();
-		$url = 'http://apis.baidu.com/heweather/weather/free?cityid=CN101281601';
-		$header = array(
-				'apikey: b65d28287acf1ad5ab79501fb7f51636',
-		);
-		// 添加apikey到header
-		curl_setopt($ch, CURLOPT_HTTPHEADER  , $header);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		// 执行HTTP请求
-		curl_setopt($ch , CURLOPT_URL , $url);
-		$res = curl_exec($ch);
-		$weather = json_decode($res);
-		$weather = object_array($weather);
-		$weatherinfo = $weather['HeWeather data service 3.0'];
-		$data['weatherNow'] = array();
-		if(isset($weatherinfo[0]['status'])&&$weatherinfo[0]['status']=='ok'){
-			$data['weatherNow'] = $weatherinfo[0]['now'];
-			//$data['weatherAqi'] = $weatherinfo[0]['aqi'];
-		}
-		$data['week'] = array("日","一","二","三","四","五","六");
-		$data['hideNav'] = 1;
+		$data = array();
+		$this->load->model('MIS_Enterprise');
+		$data['elogo'] = $this->MIS_Enterprise->getLogo();
+		$data['layoutName'] = 'lwLayout';
+		$data['nav'] = 1;
 		$this->showView('index', $data);
+	}
+	
+	/**
+	 *
+	 * 简介
+	 */
+	public function zs()
+	{
+		$data = array();
+		$data['nav'] = 2;
+		$data['layoutName'] = 'lwLayout';
+		$this->showView('rycenter', $data);
 	}
 	
 	/**
