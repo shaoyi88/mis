@@ -9,6 +9,8 @@
 class MIS_EnterpriseHidden extends CI_Model
 {
 	private $_table = 'mis_enterprise_hidden';
+	private $_eb_table = 'mis_enterprise_hidden_building';
+	private $_build_table = 'mis_building';
 	private $_ci;
 	
 	/**
@@ -185,4 +187,47 @@ class MIS_EnterpriseHidden extends CI_Model
 		$sql = "update $this->_table set last_remind_time=".time().",remind_times=2 where status = 0 AND (UNIX_TIMESTAMP(NOW()) - last_remind_time>172800) AND remind_times=1";
 		$query = $this->db->query($sql);
 	}
+	
+	/**
+	 * 获取意向办公地点
+	 * Enter description here ...
+	 * @param unknown_type $id
+	 */
+	public function getEnterpriseBuildingInfo($id, &$info = array())
+	{
+		$sql = "select * from $this->_eb_table as e left join $this->_build_table as b on e.building_id = b.building_id where e.enterprise_id = $id";
+		$query = $this->db->query($sql);
+		$result = array();
+		if($query){
+			$info = $query->result_array();
+		}
+		foreach($info as $item){
+			$result[] = $item['building_id'];
+		}
+		return $result;
+	}
+	
+	/**
+	 * 
+	 * 批量增加意向办公地点
+	 */
+	public function batchAddEnterpriseBuilding($list)
+	{
+		$this->db->insert_batch($this->_eb_table, $list); 
+		if($this->db->affected_rows() <= 0){
+			return FALSE;
+		}
+		return TRUE;
+	}
+	
+	/**
+	 * 
+	 * 删除意向办公地点
+	 * @param unknown_type $ids
+	 */
+	public function delEnterpriseBuildingInfo($id)
+	{
+		$this->db->where('enterprise_id', $id);
+		$this->db->delete($this->_eb_table); 
+	} 
 }

@@ -19,6 +19,21 @@
           			 <td><input name="enterprise_contact_mobile" type="text" class="input-text" id="enterprise_contact_mobile" value="{if isset($info)}{$info['enterprise_contact_mobile']}{/if}" nullmsg="联系电话不能为空！" datatype="s"></td>
         		</tr>
         		<tr>
+          		     <th class="text-r" width="180">备注：</th>
+          			 <td><input name="remark" type="text" class="input-text" id="remark" value="{if isset($info)}{$info['remark']}{/if}"></td>
+        		</tr>
+        		<tr>
+          		     <th class="text-r" width="80">意向楼宇<span class="c-red">*</span>：</th>
+          			 <td>
+          			 	{foreach $buildInfo as $k=>$item}                  					
+                    	<label class="item" style="width:150px;display:inline-block;"><input {if isset($info) && in_array($item['building_id'], $info['building'])}checked{/if} datatype="*" nullmsg="请至少选择一个意向楼宇！" name="enterprise_building[]" type="checkbox" value="{$item['building_id']}">{$item['building_floor']}层-{$item['building_room']}</label>
+                    	{if ($k+1)%5==0}
+                    	<div style="margin:10px"></div>
+                    	{/if}
+                    	{/foreach}
+          			 </td>
+        		</tr>
+        		<tr>
           			<th></th>
           			<td>
             			<button type="submit" class="btn btn-success radius"><i class="icon-ok"></i> {$typeMsg}</button>

@@ -402,6 +402,7 @@ class Investment extends MIS_Controller
 			$id = $this->input->get('id');
 			$this->load->model('MIS_EnterpriseHidden');
 			$data['info'] = $this->MIS_EnterpriseHidden->getInfo($id);
+			$data['info']['building'] = $this->MIS_EnterpriseHidden->getEnterpriseBuildingInfo($id);
 			$data['typeMsg'] = '编辑';
 		}else{
 			if(checkRight('potential_add') === FALSE){
@@ -410,6 +411,8 @@ class Investment extends MIS_Controller
 			}
 			$data['typeMsg'] = '新增';
 		}
+		$this->load->model('MIS_Building');
+		$data['buildInfo'] = $this->MIS_Building->getAllList();
 		$this->showView('potentialAdd', $data);
 	}
 	
@@ -427,6 +430,7 @@ class Investment extends MIS_Controller
 		$id = $this->input->get('id');
 		$this->load->model('MIS_EnterpriseHidden');
 		$this->MIS_EnterpriseHidden->del($id);
+		$this->MIS_EnterpriseHidden->delEnterpriseBuildingInfo($id);
 		redirect(formatUrl('investment/potential'));
 	}
 	
@@ -439,8 +443,21 @@ class Investment extends MIS_Controller
 				exit;
 			}
 			$data = $this->input->post();
+			$enterprise_building = $data['enterprise_building'];
+			unset($data['enterprise_building']);
 			$this->load->model('MIS_EnterpriseHidden');
 			$this->MIS_EnterpriseHidden->update($data);
+			// 删除意向办公地点
+			$this->MIS_EnterpriseHidden->delEnterpriseBuildingInfo($data['enterprise_id']);
+			// 新增意向办公地点
+			$addList = array();
+			foreach($enterprise_building as $item){
+				$addItem = array();
+				$addItem['building_id'] = $item;
+				$addItem['enterprise_id'] = $data['enterprise_id'];
+				$addList[] = $addItem;
+			}
+			$this->MIS_EnterpriseHidden->batchAddEnterpriseBuilding($addList);
 			redirect(formatUrl('investment/potential'));
 		}else{
 			if(checkRight('potential_add') === FALSE){
@@ -448,12 +465,23 @@ class Investment extends MIS_Controller
 				exit;
 			}
 			$data = $this->input->post();
+			$enterprise_building = $data['enterprise_building'];
+			unset($data['enterprise_building']);
 			$data['add_time'] = time();
 			$this->load->model('MIS_EnterpriseHidden');
 			$msg = '';
-			if($this->MIS_EnterpriseHidden->add($data) === FALSE){
+			if(($id = $this->MIS_EnterpriseHidden->add($data)) === FALSE){
 				$msg = 'msg='.urlencode('创建失败');
 			}else{
+				// 新增企业所在办公地点
+				$addList = array();
+				foreach($enterprise_building as $item){
+					$addItem = array();
+					$addItem['building_id'] = $item;
+					$addItem['enterprise_id'] = $id;
+					$addList[] = $addItem;
+				}
+				$this->MIS_EnterpriseHidden->batchAddEnterpriseBuilding($addList);
 				$msg = 'msg='.urlencode('创建成功');
 			}
 			redirect(formatUrl('investment/potential?'.$msg));
