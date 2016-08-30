@@ -43,7 +43,7 @@
                             <div class="col-sm-6">
                                 <div class="carousel-content">
                                     <h1 class="animation animated-item-1">为企业提供最舒适的工作环境</h1>
-                                    <h2 class="animation animated-item-2">规划有多功能会议厅、多功能展馆、人才餐厅、订制式 VIP 会所、金融中介机构、 商务休闲等功能配套，能有效满足入驻企业办公及商务之专属需求...</h2>
+                                    <h2 class="animation animated-item-2">现有多功能会议厅、多功能展馆、人才餐厅、订制式 VIP 会所、金融中介机构、 商务休闲等功能配套，能有效满足入驻企业办公及商务之专属需求...</h2>
                                     <a class="btn-slide animation animated-item-3" href="{formatUrl('home/zs')}">更多介绍</a>
                                 </div>
                                 
@@ -222,7 +222,31 @@
             </div>
         </div>
     </section>
-
+    
+    <section id="recent-works" style="padding:10px 0;">
+        <div class="container">
+            <div class="center wow fadeInDown">
+                <h2>园区风采</h2>
+            </div>
+            <div class="row">
+                {section name=loop loop=8} 
+                <div class="col-xs-12 col-sm-4 col-md-3">
+                    <div class="recent-work-wrap">
+                        <img class="img-responsive" src="/public/new/images/portfolio/recent/item{$smarty.section.loop.index+1}.jpg" alt="">
+                        <div class="overlay">
+                            <div class="recent-work-inner">
+                                <h3>&nbsp;</h3>
+                                <p>&nbsp;</p>
+                                <a class="preview" href="/public/new/images/portfolio/full/item{$smarty.section.loop.index+1}.jpg" rel="prettyPhoto"><i class="fa fa-eye"></i> 查看</a>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+                {/section}       
+            </div>
+        </div>
+    </section>
+    
     <section id="middle">
         <div class="container">
             <div class="row">

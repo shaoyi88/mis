@@ -35,6 +35,30 @@ class home extends MIS_Controller
 	
 	/**
 	 *
+	 * 联系我们
+	 */
+	public function contact()
+	{
+		$data = array();
+		$data['layoutName'] = 'lwLayout';
+		$data['nav'] = 6;
+		$this->showView('contact', $data);
+	}
+	
+	/**
+	 *
+	 * 易创客
+	 */
+	public function maker()
+	{
+		$data = array();
+		$data['layoutName'] = 'lwLayout';
+		$data['nav'] = 4;
+		$this->showView('maker', $data);
+	}
+	
+	/**
+	 *
 	 * 退出
 	 */
 	public function logout()
@@ -86,7 +110,10 @@ class home extends MIS_Controller
 		}else{
 			$data = array();
 			$data['msg'] = $this->input->get('msg');
-			$data['hideNav'] = 1;
+			$data['uri'] = $this->input->get('uri');
+			$data['layoutName'] = 'nlwLayout';
+		    $data['nav'] = 0;
+		    $data['headTitle'] = '注册';
 			$this->showView('register', $data);
 		}
 	}
