@@ -10,7 +10,7 @@
     <link href="/public/new/css/font-awesome.min.css" rel="stylesheet">
     <link href="/public/new/css/animate.min.css" rel="stylesheet">
     <link href="/public/new/css/prettyPhoto.css" rel="stylesheet">
-    <link href="/public/new/css/main.css?v=122" rel="stylesheet">
+    <link href="/public/new/css/main.css?v=129" rel="stylesheet">
     <link href="/public/new/css/responsive.css" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="/public/new/js/html5shiv.js"></script>

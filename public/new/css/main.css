@@ -181,8 +181,8 @@ body > section {
 
 .top-bar {
   padding: 10px 0;
-  background: #D00139;
-  border-bottom: 1px solid #d6033c;
+  background: #191919;
+  border-bottom: 1px solid #222;
   line-height: 28px;
 }
 
@@ -225,8 +225,8 @@ ul.social-share li {
 
 ul.social-share li a {
   display: inline-block;
-  color: #404040;
-  background: #fff;
+  color: #fff;
+  background: #404040;
   width: 80px;
   height: 25px;
   line-height: 25px;
@@ -235,7 +235,7 @@ ul.social-share li a {
 }
 
 ul.social-share li a:hover {
-  background: #404040;
+  background: #D00139;
   color: #fff;
 }
 
@@ -276,7 +276,7 @@ input.search-form:hover {
 .navbar {
   border-radius: 0;
   margin-bottom: 0;
-  background: #d1053c;
+  background: #151515;
   padding: 15px 0;
   padding-bottom: 0;
 }
@@ -300,8 +300,8 @@ input.search-form:hover {
 }
 
 .navbar-inverse .navbar-nav > li > a:hover{
-	background-color: #fff;
-  color: #191919;
+	background-color: #D00139;
+  color: #fff;
 }
 
 .navbar-inverse {
@@ -320,12 +320,12 @@ input.search-form:hover {
 .navbar-inverse .navbar-nav > .open > a,
 .navbar-inverse .navbar-nav > .open > a:hover,
 .navbar-inverse .navbar-nav > .open > a:focus {
-  background-color: #fff;
-  color: #191919;
+  background-color: #D00139;
+  color: #fff;
 }
 
 .navbar-inverse .navbar-nav .dropdown-menu {
-  background-color: rgba(255,255,255,.85);
+  background-color: rgba(0,0,0,.85);
   -webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, 0.125);
   -moz-box-shadow: 0 3px 8px rgba(0, 0, 0, 0.125);
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.125);
@@ -344,7 +344,7 @@ input.search-form:hover {
 
 .navbar-inverse .navbar-nav .dropdown-menu > li > a {
   padding: 8px 15px;
-  color: #191919;
+  color: #fff;
 }
 
 .navbar-inverse .navbar-nav .dropdown-menu > li:hover > a,
@@ -2519,7 +2519,7 @@ shortcodes page css
   padding-top: 30px;
   padding-bottom: 30px;
   color: #fff;
-  background: #d1053c;
+  background: #2e2e2e;
 }
 
 #footer a {
