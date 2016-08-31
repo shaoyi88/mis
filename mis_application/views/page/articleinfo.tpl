@@ -90,7 +90,9 @@
                             <div class="col-sm-12">
                                 <ul class="blog_archieve">
                                     {foreach $list as $val}
+                                    {if $val['article_id']!=$articleInfo['article_id']}
                                     <li><a href="{formatUrl('article/info?id=')}{$val['article_id']}"><i class="fa fa-angle-double-right"></i> {$val['article_title']}</a></li>
+                                    {/if}
                                     {/foreach}
                                 </ul>
                             </div>

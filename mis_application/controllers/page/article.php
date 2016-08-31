@@ -40,8 +40,7 @@ class article extends MIS_Controller
 		$type = '';
 		$data['list'] = $this->MIS_Article->getList($type, 0, 10);
 		$data['nav'] = 0;
-		$data['layoutName'] = 'lwlayout';
-		$data['headTitle'] = $data['articleInfo']['article_title'];
+		$data['layoutName'] = 'lwLayout';
 		$this->showView('articleinfo', $data);
 	}
 	
