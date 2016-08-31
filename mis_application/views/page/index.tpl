@@ -118,75 +118,30 @@
                         <div class="media">
                             <div class="parrent pull-left">
                                 <ul class="nav nav-tabs nav-stacked">
-                                    <li class="active"><a href="#tab1" data-toggle="tab" class="analistic-02">德国高端智能企业总部领导到访</a></li>
-                                    <li class=""><a href="#tab2" data-toggle="tab" class="analistic-01">融易带你走进世界创业青年论坛</a></li>
-                                    <li class=""><a href="#tab3" data-toggle="tab" class="tehnical">东莞智能制造与产业投融资高峰论坛</a></li>
-                                    <li class=""><a href="#tab4" data-toggle="tab" class="tehnical">创新南山2016创业之星大赛</a></li>
-                                    <li class=""><a href="#tab5" data-toggle="tab" class="tehnical">济宁开发区领导参观融易大厦</a></li>
+                                    {foreach $articleList as $k=>$v}
+                                    <li class="{if $k==0}active{/if}"><a href="#tab{$k+1}" data-toggle="tab" class="{if $k==0}analistic-02{else}tehnical{/if}">{mb_substr($v['article_title'],0,17)}</a></li>
+                                    {/foreach}
                                 </ul>
                             </div>
 
                             <div class="parrent media-body">
                                 <div class="tab-content">
-                                    <div class="tab-pane fade active in" id="tab1">
+                                
+                                    {foreach $articleList as $k=>$v}
+                                    <div class="tab-pane fade{if $k==0} active in{/if}" id="tab{$k+1}">
                                         <div class="media">
                                            <div class="pull-left">
-                                                <img class="img-responsive" src="/public/new/images/tab1.jpg" width="204">
+                                                <input type="hidden" value="{preg_match_all($pattern,$v['article_content'],$match)}">
+                                                <img class="img-responsive" src="{if isset($match[1])&&!empty($match[1])}{$match[1][0]}{else}/public/new/images/news.jpg{/if}" width="204">
                                             </div>
                                             <div class="media-body">
-                                                 <h2>德国高端智能企业总部领导到访</h2>
-                                                 <p>8月10日上午，中国-德国高端智能企业总部领导莅临融易集团参观考察，融易集团副总裁令西普、中美融易孵化器总经理乐中英等热情接待，并进行了深入广泛的交流。</p>
+                                                 <h4>{$v['article_title']}</h4>
+                                                 <p>{mb_substr(strip_tags(preg_replace("/<img.+?\/>/", "", $v['article_content'])),0,90)}...[<a href="{formatUrl('article/info?id=')}{$v['article_id']}">详情</a>]</p>
                                             </div>
                                         </div>
                                     </div>
-
-                                     <div class="tab-pane fade" id="tab2">
-                                        <div class="media">
-                                           <div class="pull-left">
-                                                <img class="img-responsive" src="/public/new/images/tab2.jpg" width="204">
-                                            </div>
-                                            <div class="media-body">
-                                                 <h2>融易带你走进世界创业青年论坛</h2>
-                                                 <p>2016年8月3日，由香港青年协会及深圳市青年联合会主办，龙传基金合办，前海深港青年梦工场等承办的世界青年创业论坛2016前海站于前海深港青年梦工场圆满举办。</p>
-                                            </div>
-                                        </div>
-                                     </div>
-
-                                     <div class="tab-pane fade" id="tab3">
-                                        <div class="media">
-                                           <div class="pull-left">
-                                                <img class="img-responsive" src="/public/new/images/tab3.jpg" width="204">
-                                            </div>
-                                            <div class="media-body">
-                                                 <h2>智能制造与产业投融资高峰论坛</h2>
-                                                 <p>7月29日，由华商制造主办，中美融易孵化器承办的东莞智能制造与产业投融资高峰论坛在融易大厦举行。吸引了智能领域专家、企业家、投资者等在内逾200人参加。</p>
-                                            </div>
-                                        </div>
-                                     </div>
+                                    {/foreach}
                                      
-                                     <div class="tab-pane fade" id="tab4">
-                                        <div class="media">
-                                           <div class="pull-left">
-                                                <img class="img-responsive" src="/public/new/images/tab4.jpg" width="204">
-                                            </div>
-                                            <div class="media-body">
-                                                 <h2>创新南山2016创业之星大赛</h2>
-                                                 <p>东莞分赛区·松山湖融易种子期孵化器，面向全球招募创新项目。李开复喊你来参加！“世界因你不同”</p>
-                                            </div>
-                                        </div>
-                                     </div>
-
-                                     <div class="tab-pane fade" id="tab5">
-                                        <div class="media">
-                                           <div class="pull-left">
-                                                <img class="img-responsive" src="/public/new/images/tab5.jpg" width="204">
-                                            </div>
-                                            <div class="media-body">
-                                                 <h2>济宁开发区莅临融易大厦</h2>
-                                                 <p>2016年1月15日山东省济宁市经济开发区管委会主任杜强、副主任贾庆华、济宁市城投集团董市长田海臣、软通动力副总裁陈志明等一行9人来访融易集团并参观松山湖高新区。</p>
-                                            </div>
-                                        </div>
-                                     </div>
                                 </div> 
                             </div> 
                         </div>     
@@ -395,28 +350,70 @@
                               </div>
                             </div>
                           </div>
-                        </div><!--/#accordion1-->
+                        </div>
                     </div>
                 </div>
 
             </div>
         </div>
     </section>  
-
-    <section id="partner">
-        <div class="container">
-            <div class="center wow fadeInDown">
+    
+    <section id="bottom" style="border-bottom:0;">
+        <div class="container wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
+            <div class="row">
+                <div class="center wow fadeInDown">
                 <h2>已入驻企业</h2>
                 <p class="lead"></p>
-            </div>    
+            </div> 
+                <div class="col-md-3 col-sm-6">
+                    <div class="widget">
+                        <ul>
+                            <li>{$ename[0]['enterprise_name']}</li>
+                            <li><a href="#">{$ename[1]['enterprise_name']}</a></li>
+                            <li><a href="#">{$ename[2]['enterprise_name']}</a></li>
+                            <li><a href="#">{$ename[3]['enterprise_name']}</a></li>
+                            <li><a href="#">{$ename[4]['enterprise_name']}</a></li>
+                        </ul>
+                    </div>    
+                </div>
+                
+                <div class="col-md-3 col-sm-6">
+                    <div class="widget">
+                        <ul>
+                            <li>{$ename[5]['enterprise_name']}</li>
+                            <li><a href="#">{$ename[6]['enterprise_name']}</a></li>
+                            <li><a href="#">{$ename[7]['enterprise_name']}</a></li>
+                            <li><a href="#">{$ename[8]['enterprise_name']}</a></li>
+                            <li><a href="#">{$ename[9]['enterprise_name']}</a></li>
+                        </ul>
+                    </div>    
+                </div>
+                
+                <div class="col-md-3 col-sm-6">
+                    <div class="widget">
+                        <ul>
+                            <li>{$ename[10]['enterprise_name']}</li>
+                            <li><a href="#">{$ename[11]['enterprise_name']}</a></li>
+                            <li><a href="#">{$ename[12]['enterprise_name']}</a></li>
+                            <li><a href="#">{$ename[13]['enterprise_name']}</a></li>
+                            <li><a href="#">{$ename[14]['enterprise_name']}</a></li>
+                        </ul>
+                    </div>    
+                </div>
 
-            <div class="partners">
-                <ul>
-                    {foreach $elogo as $k=>$v}
-                    <li><a href="#"><img class="img-responsive wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="{($k+1)*300}ms" src="{$v['enterprise_logo']}"></a></li>
-                    {/foreach}
-                </ul>
-            </div>        
+                <div class="col-md-3 col-sm-6">
+                    <div class="widget">
+                        <ul>
+                            <li>{$ename[15]['enterprise_name']}</li>
+                            <li><a href="#">{$ename[16]['enterprise_name']}</a></li>
+                            <li><a href="#">{$ename[17]['enterprise_name']}</a></li>
+                            <li><a href="#">{$ename[18]['enterprise_name']}</a></li>
+                            <li><a href="#">{$ename[19]['enterprise_name']}</a></li>
+                        </ul>
+                    </div>    
+                </div>
+            </div>
         </div>
     </section>
+
     <section style="padding:10px 0;"></section>

@@ -102,10 +102,9 @@
                 </div>
                 <div class="col-sm-6">
                     <ul class="pull-right">
-                        <li><a href="#">主页</a></li>
-                        <li><a href="#">帮助</a></li>
+                        <li><a href="{formatUrl('home/')}">主页</a></li>
                         <li><a href="{formatUrl('home/advice')}">投诉/建议</a></li>
-                        <li><a href="#">联系我们</a></li>
+                        <li><a href="{formatUrl('home/contact')}">联系我们</a></li>
                     </ul>
                 </div>
             </div>

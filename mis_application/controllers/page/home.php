@@ -16,8 +16,16 @@ class home extends MIS_Controller
 		$data = array();
 		$this->load->model('MIS_Enterprise');
 		$data['elogo'] = $this->MIS_Enterprise->getLogo();
+		$data['ename'] = $this->MIS_Enterprise->getList(0,20);
 		$data['layoutName'] = 'lwLayout';
 		$data['nav'] = 1;
+		$this->load->model('MIS_Article');
+		$type = '';
+		$offset = 0;
+		$pageUrl = '';
+		$articleList = $this->MIS_Article->getList($type, $offset, 5);
+		$data['articleList'] = $articleList;
+		$data['pattern'] = "/<img.*?src=[\'|\"](.*?(?:[\.gif|\.jpg]))[\'|\"].*?[\/]?>/";
 		$this->showView('index', $data);
 	}
 	

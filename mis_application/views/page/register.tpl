@@ -4,7 +4,7 @@
         <div class="container">          
             <div class="row contact-wrap"> 
                 <div class="status alert alert-success" style="display: none"></div>
-                <form name="form1" action="{formatUrl('home/doRegister')}" method="post" enctype="multipart/form-data" onsubmit="return checkform();">
+                <form name="form1" action="{formatUrl('home/doRegister')}" method="post" enctype="multipart/form-data">
                     <div class="col-xs-12 col-sm-6">
                         <img src="/public/new/images/regP.jpg" width="100%">
                         <p class="uname" style="text-align:right;color:#D00139;"></p>
@@ -36,7 +36,7 @@
                         <div class="form-group">
                             <input type="hidden" name="uri" value="{$uri}">
                             <input type="hidden" id="checkAccountUrl" value="{formatUrl('home/checkAccount')}">
-                            <button type="submit" name="submit" class="btn btn-primary dosubmit">注册</button>&nbsp;&nbsp;
+                            <button type="button" name="button" class="btn btn-primary dosubmit">注册</button>&nbsp;&nbsp;
                             <button type="button" class="btn btn-primary" style="background:#404040;" required="required" onclick="location.href='{formatUrl('login/')}'">登录</button>
                         </div>
                     </div>
@@ -48,6 +48,7 @@
 var dragTxt = $('.dragTxt').html(); 	
 $(document).ready(function(){
 	$('#drag').drag(); 
+	$('.dosubmit').click(checkform);
 });	
 function redrag(){
     $('.dragTxt').html(dragTxt); 
@@ -115,10 +116,10 @@ function checkform(){
                 return false;
         	}else{
         	    $(".dosubmit").attr('disabled',true);
-                document.form1.submit();
+        	    document.form1.submit();
         	}
         }
-    });       
-    return false;
+    }); 
+    return false;      
 } 	
 </script>

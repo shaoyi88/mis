@@ -182,7 +182,15 @@
 							<p>入孵方式采取免费提供办公卡位、资源支持、提供增值服务及投资种子资金方式置换项目5-10%股权，通常项目估值不超过1000 万。目标为打造中国第一的种子期投资孵化平台、项目池、交易平台。</p>
 						</div>
 					</div>
-				</div>	<!--/.row-->
-			</div><!--section-->
-		</div><!--/.container-->
-    </section><!--/about-us-->
+				</div>
+			</div>
+		</div>
+    </section>
+    
+    <section id="about-us">
+        <div class="container">
+                <div class="form-group center">
+                      <button type="button" class="btn btn-primary btn-lg" onclick="location.href='{formatUrl('officehall/application')}'">马上申请入驻</button>
+                </div>
+        </div>
+   </section>

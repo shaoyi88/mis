@@ -37,6 +37,11 @@ class article extends MIS_Controller
 		$data['articleInfo'] = $this->MIS_Article->getInfo($id);
 		$data['articleComment'] = $this->MIS_Article->getCommentList($id);
 		$data['articleCommentCount'] = count($data['articleComment']);
+		$type = '';
+		$data['list'] = $this->MIS_Article->getList($type, 0, 10);
+		$data['nav'] = 0;
+		$data['layoutName'] = 'lwlayout';
+		$data['headTitle'] = $data['articleInfo']['article_title'];
 		$this->showView('articleinfo', $data);
 	}
 	
