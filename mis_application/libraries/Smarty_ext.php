@@ -94,7 +94,7 @@ class Smarty_ext extends Smarty
 	    if($userinfo['userId']){
 	    	$ci->load->model('MIS_User');
 		    $uinfo = $ci->MIS_User->getInfo($userinfo['userId']);
-		    $userinfo['userSecondType'] = $uinfo['user_second_type']?$uinfo['user_second_type']:'';
+		    $userinfo['userSecondType'] = isset($uinfo['user_second_type'])?$uinfo['user_second_type']:'';
 	    }
 		$this->assign('userinfo', $userinfo, TRUE);
 		$ci->load->model('MIS_Sys');

@@ -15,6 +15,7 @@
 <link href="/public/mis/css/admin.css" rel="stylesheet" type="text/css" />
 <link href="/public/common/css/lib-iconfont/iconfont.css" rel="stylesheet" type="text/css" />
 <link href="/public/skin/default/skin.css" rel="stylesheet" type="text/css" />
+<link rel="shortcut icon" href="/public/new/images/ico/favicon.ico">
 <title>{$website_title}管理系统</title>
 </head>
 <body>

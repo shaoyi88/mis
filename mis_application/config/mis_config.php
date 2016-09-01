@@ -420,7 +420,7 @@ $config['user_home_menu'] = array(
 			array('投资申请','invest','coins',2),
 			array('企业需求','project','filter'),
 			array('企业风采','corporate','cog',2),
-			array('我的活动','activity','calendar'),
+			//array('我的活动','activity','calendar'),
 		),
 		'1' => array(
 		    array('我的活动','activity','calendar'),

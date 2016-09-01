@@ -182,4 +182,16 @@ class home extends MIS_Controller
 		}
 		$this->send_json($data);
 	}
+	
+	/**
+	 * 404、错误页面
+	 */
+	public function none(){
+		$data = array();
+		$data['msg'] = $this->input->get('msg');
+		$data['layoutName'] = 'nlwLayout';
+		$data['nav'] = 0;
+		$data['headTitle'] = '错误';
+		$this->showView('none', $data);
+	}
 }

@@ -14,6 +14,7 @@
 <link href="/public/common/css/lib.css" rel="stylesheet" type="text/css" />
 <link href="/public/mis/css/login.css" rel="stylesheet" type="text/css" />
 <link href="/public/common/css/lib-iconfont/iconfont.css" rel="stylesheet" type="text/css" />
+<link rel="shortcut icon" href="/public/new/images/ico/favicon.ico">
 <title>{$website_title}登录</title>
 </head>
 <body>

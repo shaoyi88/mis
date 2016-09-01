@@ -2,11 +2,12 @@
         <div class="container">          
             <div class="center" style="padding-top:20px;padding-bottom:10px;">        
                 <h2>物业相关</h2>
+                {if isset($msg)&&$msg}<p>{$msg}</p>{/if}
                 <p class="lead"><a href="{formatUrl('officehall/property?type=1')}" {if $type==1}style="color:#404040;"{/if}>报修</a>&nbsp;|&nbsp;<a href="{formatUrl('officehall/property?type=2')}" {if $type==2}style="color:#404040;"{/if}>投诉</a>&nbsp;|&nbsp;<a href="{formatUrl('officehall/property?type=3')}" {if $type==3}style="color:#404040;"{/if}>需求</a>&nbsp;</p>
             </div>             
             <div class="row contact-wrap"> 
                 <div class="status alert alert-success" style="display: none"></div>
-                <form name="form1" action="{formatUrl('login/do_property')}" method="post" data-role="validator" onsubmit="return checkform();">
+                <form name="form1" action="{formatUrl('officehall/do_property')}" method="post" data-role="validator" onsubmit="return checkform();">
                     <input type="hidden" name="type" value="{$type}">
                     <div class="col-xs-12 col-sm-2"></div>
                     <div class="col-xs-12 col-sm-8">

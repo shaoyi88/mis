@@ -135,7 +135,7 @@
                                                 <img class="img-responsive" src="{if isset($match[1])&&!empty($match[1])}{$match[1][0]}{else}/public/new/images/news.jpg{/if}" width="204">
                                             </div>
                                             <div class="media-body">
-                                                 <h4>{$v['article_title']}</h4>
+                                                 <h4><a href="{formatUrl('article/info?id=')}{$v['article_id']}">{$v['article_title']}</a></h4>
                                                  <p>{mb_substr(strip_tags(preg_replace("/<img.+?\/>/", "", $v['article_content'])),0,90)}...[<a href="{formatUrl('article/info?id=')}{$v['article_id']}">详情</a>]</p>
                                             </div>
                                         </div>

@@ -3,11 +3,11 @@
         <div class="container">
             <div class="center" style="padding-top:20px;padding-bottom:10px;">        
                 <h2>投资申请</h2>
-                <p class="lead">请填写以下信息</p>
+                <p class="lead">{if isset($msg)&&$msg}{$msg}{else}请填写以下信息{/if}</p>
             </div> 
             <div class="row contact-wrap"> 
                 <div class="status alert alert-success" style="display: none"></div>
-                <form name="form1" action="{formatUrl('login/do_resource')}" method="post" data-role="validator" onsubmit="return checkform();">
+                <form name="form1" action="{formatUrl('officehall/do_resource')}" method="post" data-role="validator" onsubmit="return checkform();">
                     <div class="col-xs-12 col-sm-2"></div>
                     <div class="col-xs-12 col-sm-8">
                         <div class="form-group">

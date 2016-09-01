@@ -8,11 +8,11 @@
         <div class="container">
             <div class="center" style="padding-top:20px;padding-bottom:10px;">        
                 <h2>入驻申请</h2>
-                <p class="lead">请填写以下信息</p>
+                <p class="lead">{if isset($msg)&&$msg}{$msg}{else}请填写以下信息{/if}</p>
             </div> 
             <div class="row contact-wrap"> 
                 <div class="status alert alert-success" style="display: none"></div>
-                <form name="form1" action="{formatUrl('login/do_application')}" method="post" data-role="validator"  enctype="multipart/form-data" onsubmit="return checkform();">
+                <form name="form1" action="{formatUrl('officehall/do_application')}" method="post" data-role="validator"  enctype="multipart/form-data" onsubmit="return checkform();">
                     <div class="col-xs-12 col-sm-2"></div>
                     <div class="col-xs-12 col-sm-8">
                         <div class="form-group">
@@ -27,10 +27,6 @@
                             <label>企业注册资金 *（单位：万）</label>
                             <input type="text" class="form-control" name="registered_funds" id="registered_funds" placeholder="请输入企业注册资金" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')" required="required">
                         </div>
-                        <div class="form-group">
-                            <label>企业注册资金 *（单位：万）</label>
-                            <input type="text" class="form-control" name="registered_funds" id="registered_funds" placeholder="请输入企业注册资金" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')" required="required">
-                        </div> 
                         <div class="form-group">
                             <label>去年营业收入 *（单位：万）</label>
                             <input type="text" class="form-control" name="last_year_income" id="last_year_income" placeholder="请输入企业去年营业收入" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')" required="required">

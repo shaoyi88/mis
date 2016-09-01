@@ -74,7 +74,8 @@ class officehall extends MIS_Controller
 		$this->load->model('MIS_User');
 		$info = $this->MIS_User->getInfo($this->userId);
 		if($info['user_second_type']!=2){
-			redirect(formatUrl('officehall/index'));
+			$msg = '该功能仅对园区企业认证用户开放，您的账号无法申请';
+			redirect(formatUrl('home/none?msg='.$msg));
 		}
 		$data['msg'] = $this->input->get('msg');
 		$data['type'] = 1;
@@ -98,7 +99,8 @@ class officehall extends MIS_Controller
 		$this->load->model('MIS_User');
 		$info = $this->MIS_User->getInfo($this->userId);
 		if($info['user_second_type']!=2){
-			redirect(formatUrl('officehall/index'));
+			$msg = '该功能仅对园区企业认证用户开放，您的账号无法申请';
+			redirect(formatUrl('home/none?msg='.$msg));
 		}
 		if($this->input->post('type')){
 			$type = $this->input->post('type');
@@ -137,7 +139,8 @@ class officehall extends MIS_Controller
 		$this->load->model('MIS_User');
 		$info = $this->MIS_User->getInfo($this->userId);
 		if($info['user_second_type']!=2){
-			redirect(formatUrl('officehall/index'));
+			$msg = '该功能仅对园区企业认证用户开放，您的账号无法申请';
+			redirect(formatUrl('home/none?msg='.$msg));
 		}
 		$data['msg'] = $this->input->get('msg');
 		$this->load->model('MIS_Room');
@@ -159,7 +162,8 @@ class officehall extends MIS_Controller
 		$this->load->model('MIS_User');
 		$info = $this->MIS_User->getInfo($this->userId);
 		if($info['user_second_type']!=2){
-			redirect(formatUrl('officehall/index'));
+			$msg = '该功能仅对园区企业认证用户开放，您的账号无法申请';
+			redirect(formatUrl('home/none?msg='.$msg));
 		}
 		$data = $this->input->post();
 		$data['user_id'] = $this->userId;
@@ -216,7 +220,8 @@ class officehall extends MIS_Controller
 		$this->load->model('MIS_User');
 		$info = $this->MIS_User->getInfo($this->userId);
 		if($info['user_second_type']!=2){
-			redirect(formatUrl('officehall/index'));
+			$msg = '该功能仅对园区企业认证用户开放，您的账号无法申请';
+			redirect(formatUrl('home/none?msg='.$msg));
 		}
 		$data['msg'] = $this->input->get('msg');
 		$data['info'] = $info;
@@ -235,7 +240,8 @@ class officehall extends MIS_Controller
 		$this->load->model('MIS_User');
 		$info = $this->MIS_User->getInfo($this->userId);
 		if($info['user_second_type']!=2){
-			redirect(formatUrl('officehall/index'));
+			$msg = '该功能仅对园区企业认证用户开放，您的账号无法申请';
+			redirect(formatUrl('home/none?msg='.$msg));
 		}
 	    $data = $this->input->post();
 		$data['user_id'] = $this->userId;

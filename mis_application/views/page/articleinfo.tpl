@@ -109,3 +109,8 @@
          </div>
          {/if}
 </section>
+<script type="text/javascript">
+$(document).ready(function(){
+    $(".blog-content img").width('100%');
+})
+</script>
