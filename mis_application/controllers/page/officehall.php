@@ -17,6 +17,8 @@ class officehall extends MIS_Controller
 		$data = array();
 		$this->load->model('MIS_User');
 		$data['info'] = $this->MIS_User->getInfo($this->userId);
+		$data['layoutName'] = 'lwLayout';
+		$data['nav'] = 3;
 		$this->showView('officeHall/main', $data);
 	}
 	
@@ -27,7 +29,11 @@ class officehall extends MIS_Controller
 	public function application()
 	{
 		$data = array();
-		$data['msg'] = $this->input->get('msg');		
+		$data['msg'] = $this->input->get('msg');
+		$this->load->model('MIS_User');
+		$data['info'] = $this->MIS_User->getInfo($this->userId);
+		$data['layoutName'] = 'lwLayout';
+		$data['nav'] = 3;
 		$this->showView('officeHall/enter', $data);
 	}
 	
@@ -68,7 +74,8 @@ class officehall extends MIS_Controller
 		$this->load->model('MIS_User');
 		$info = $this->MIS_User->getInfo($this->userId);
 		if($info['user_second_type']!=2){
-			redirect(formatUrl('officehall/index'));
+			$msg = '该功能仅对园区企业认证用户开放，您的账号无法申请';
+			redirect(formatUrl('home/none?msg='.$msg));
 		}
 		$data['msg'] = $this->input->get('msg');
 		$data['type'] = 1;
@@ -77,6 +84,8 @@ class officehall extends MIS_Controller
 		}
 		$data['repair_type'] = $this->config->item('repair_type');
 		$data['need_type'] = $this->config->item('need_type');
+		$data['layoutName'] = 'lwLayout';
+		$data['nav'] = 3;
 		$this->showView('officeHall/property', $data);
 	}
 	
@@ -90,7 +99,8 @@ class officehall extends MIS_Controller
 		$this->load->model('MIS_User');
 		$info = $this->MIS_User->getInfo($this->userId);
 		if($info['user_second_type']!=2){
-			redirect(formatUrl('officehall/index'));
+			$msg = '该功能仅对园区企业认证用户开放，您的账号无法申请';
+			redirect(formatUrl('home/none?msg='.$msg));
 		}
 		if($this->input->post('type')){
 			$type = $this->input->post('type');
@@ -129,13 +139,16 @@ class officehall extends MIS_Controller
 		$this->load->model('MIS_User');
 		$info = $this->MIS_User->getInfo($this->userId);
 		if($info['user_second_type']!=2){
-			redirect(formatUrl('officehall/index'));
+			$msg = '该功能仅对园区企业认证用户开放，您的账号无法申请';
+			redirect(formatUrl('home/none?msg='.$msg));
 		}
 		$data['msg'] = $this->input->get('msg');
 		$this->load->model('MIS_Room');
 		$keyword = array();
 		$data['roomInfo'] = $this->MIS_Room->search($keyword);
 		$data['room_type'] = $this->config->item('room_type');
+		$data['layoutName'] = 'lwLayout';
+		$data['nav'] = 3;
 		$this->showView('officeHall/resource', $data);
 	}
 	
@@ -149,7 +162,8 @@ class officehall extends MIS_Controller
 		$this->load->model('MIS_User');
 		$info = $this->MIS_User->getInfo($this->userId);
 		if($info['user_second_type']!=2){
-			redirect(formatUrl('officehall/index'));
+			$msg = '该功能仅对园区企业认证用户开放，您的账号无法申请';
+			redirect(formatUrl('home/none?msg='.$msg));
 		}
 		$data = $this->input->post();
 		$data['user_id'] = $this->userId;
@@ -171,6 +185,10 @@ class officehall extends MIS_Controller
 	{
 		$data = array();
 		$data['msg'] = $this->input->get('msg');
+		$this->load->model('MIS_User');
+		$data['info'] = $this->MIS_User->getInfo($this->userId);
+		$data['layoutName'] = 'lwLayout';
+		$data['nav'] = 3;
 		$data['apply_type'] = $this->config->item('apply_type');
 		$this->showView('officeHall/project', $data);
 	}
@@ -202,9 +220,13 @@ class officehall extends MIS_Controller
 		$this->load->model('MIS_User');
 		$info = $this->MIS_User->getInfo($this->userId);
 		if($info['user_second_type']!=2){
-			redirect(formatUrl('officehall/index'));
+			$msg = '该功能仅对园区企业认证用户开放，您的账号无法申请';
+			redirect(formatUrl('home/none?msg='.$msg));
 		}
 		$data['msg'] = $this->input->get('msg');
+		$data['info'] = $info;
+		$data['layoutName'] = 'lwLayout';
+		$data['nav'] = 3;
 		$this->showView('officeHall/invest', $data);
 	}
 	
@@ -218,7 +240,8 @@ class officehall extends MIS_Controller
 		$this->load->model('MIS_User');
 		$info = $this->MIS_User->getInfo($this->userId);
 		if($info['user_second_type']!=2){
-			redirect(formatUrl('officehall/index'));
+			$msg = '该功能仅对园区企业认证用户开放，您的账号无法申请';
+			redirect(formatUrl('home/none?msg='.$msg));
 		}
 	    $data = $this->input->post();
 		$data['user_id'] = $this->userId;

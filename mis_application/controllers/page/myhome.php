@@ -27,8 +27,9 @@ class myhome extends MIS_Controller
 		$data['user_type'] = $this->config->item('user_type');
 		$data['user_second_type'] = $this->config->item('user_second_type');
 		$data['unav'] = 1;
+		$data['nav'] = 7;
 		$data['layoutName'] = "myhome";	
-		$data['title'] = '我的园区';
+		$data['headTitle'] = '我的园区';
 		$this->showView('/userHome/main', $data);
 	}
 	

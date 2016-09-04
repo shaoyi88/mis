@@ -16,7 +16,10 @@ class login extends MIS_Controller
 	{
 		$data = array();
         $data['msg'] = $this->input->get('msg');
-        $data['layout'] = FALSE;
+        $data['layoutName'] = 'nlwLayout';
+        $data['headTitle'] = '用户登录';
+        $data['uri'] = $this->input->get('uri');
+        $data['nav'] = 0;
 		$this->showView('login', $data);
 	}
 	

@@ -1,54 +1,53 @@
-<div class="padding20 main-content clear-float" style="width:960px;">
-            <div class="tile-area no-padding">
-                <div class="tile-group no-margin no-padding" style="width: 100%">
-                <div class="ol-transparent" style="float: left;">
-                <div class="tile" style="width:280px;height:400px;">
-				    <div class="tile-content iconic">
-				        <h1 style="text-align:center;">办事大厅</h1>
-				        <span class="icon mif-apps"></span>
-				    </div>
-				</div>
+<section id="feature" >
+        <div class="container">
+           <div class="center wow fadeInDown">
+                <h2>园区服务</h2>
+                <p class="lead">入驻申请、物业相关服务、公共资源和企业服务</p>
+            </div>
+
+            <div class="row">
+                <div class="features">
+                    <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
+                        <div class="feature-wrap" onclick="location.href='{formatUrl('officehall/application')}'">
+                            <i class="fa fa-leaf"></i>
+                            <h2>入驻申请</h2>
+                            <h3>园区企业在入住园区前必须办理的手续</h3>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
+                        <div class="feature-wrap" onclick="location.href='{formatUrl('officehall/property')}'">
+                            <i class="fa fa-comments"></i>
+                            <h2>物业</h2>
+                            <h3>含报修、投诉、需求等物业服务</h3>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
+                        <div class="feature-wrap" onclick="location.href='{formatUrl('officehall/resource')}'">
+                            <i class="fa fa-cogs"></i>
+                            <h2>公共资源</h2>
+                            <h3>多功能厅和VIP室申请</h3>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
+                        <div class="feature-wrap" onclick="location.href='{formatUrl('officehall/invest')}'">
+                            <i class="fa fa-money"></i>
+                            <h2>投资申请</h2>
+                            <h3>企业项目投资申请</h3>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
+                        <div class="feature-wrap" onclick="location.href='{formatUrl('officehall/project')}'">
+                            <i class="fa fa-heart"></i>
+                            <h2>企业需求</h2>
+                            <h3>企业注册、工商财税、政策法律、专利知识产权服务</h3>
+                        </div>
+                    </div>
+             
                 </div>
-                <div class="ol-transparent" style="float: right; width:620px;">
-			    <div class="tile" style="width:196px;height:196px;" onclick="location.href='{formatUrl('officehall/application')}'">
-				    <div class="tile-content iconic">
-				        <span class="tile-label">入驻申请</span>
-				        <span class="icon mif-enter"></span>
-				    </div>
-				</div>
-				{if $info['user_second_type']==2}
-				<div class="tile" style="width:196px;height:196px;" onclick="location.href='{formatUrl('officehall/property')}'">
-				    <div class="tile-content iconic">
-				        <span class="tile-label">物业相关</span>
-				        <span class="icon mif-wrench"></span>
-				    </div>
-				</div>
-				<div class="tile" style="width:196px;height:196px;" onclick="location.href='{formatUrl('officehall/resource')}'">
-				    <div class="tile-content iconic">
-				        <span class="tile-label">公共资源</span>
-				        <span class="icon mif-palette"></span>
-				    </div>
-				</div>
-				<div class="tile" style="width:196px;height:196px;" onclick="location.href='{formatUrl('officehall/invest')}'">
-				    <div class="tile-content iconic">
-				        <span class="tile-label">投资申请</span>
-				        <span class="icon mif-coins"></span>
-				    </div>
-				</div>	
-				{/if}					
-				<div class="tile" style="width:196px;height:196px;" onclick="location.href='{formatUrl('officehall/project')}'">
-				    <div class="tile-content iconic">
-				        <span class="tile-label">企业需求</span>
-				        <span class="icon mif-filter"></span>
-				    </div>
-				</div>
-				<div class="tile" style="width:196px;height:196px;" onclick="location.href='{formatUrl('officehall/form')}'">
-				    <div class="tile-content iconic">
-				        <span class="tile-label">表格下载</span>
-				        <span class="icon mif-files-empty"></span>
-				    </div>
-				</div>			
-				</div>
-				</div>
-			</div>
-</div>
+            </div>    
+        </div>
+    </section>

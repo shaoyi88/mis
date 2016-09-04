@@ -16,8 +16,16 @@ class home extends MIS_Controller
 		$data = array();
 		$this->load->model('MIS_Enterprise');
 		$data['elogo'] = $this->MIS_Enterprise->getLogo();
+		$data['ename'] = $this->MIS_Enterprise->getList(0,20);
 		$data['layoutName'] = 'lwLayout';
 		$data['nav'] = 1;
+		$this->load->model('MIS_Article');
+		$type = '';
+		$offset = 0;
+		$pageUrl = '';
+		$articleList = $this->MIS_Article->getList($type, $offset, 5);
+		$data['articleList'] = $articleList;
+		$data['pattern'] = "/<img.*?src=[\'|\"](.*?(?:[\.gif|\.jpg]))[\'|\"].*?[\/]?>/";
 		$this->showView('index', $data);
 	}
 	
@@ -31,6 +39,30 @@ class home extends MIS_Controller
 		$data['nav'] = 2;
 		$data['layoutName'] = 'lwLayout';
 		$this->showView('rycenter', $data);
+	}
+	
+	/**
+	 *
+	 * 联系我们
+	 */
+	public function contact()
+	{
+		$data = array();
+		$data['layoutName'] = 'lwLayout';
+		$data['nav'] = 6;
+		$this->showView('contact', $data);
+	}
+	
+	/**
+	 *
+	 * 易创客
+	 */
+	public function maker()
+	{
+		$data = array();
+		$data['layoutName'] = 'lwLayout';
+		$data['nav'] = 4;
+		$this->showView('maker', $data);
 	}
 	
 	/**
@@ -86,7 +118,10 @@ class home extends MIS_Controller
 		}else{
 			$data = array();
 			$data['msg'] = $this->input->get('msg');
-			$data['hideNav'] = 1;
+			$data['uri'] = $this->input->get('uri');
+			$data['layoutName'] = 'nlwLayout';
+		    $data['nav'] = 0;
+		    $data['headTitle'] = '注册';
 			$this->showView('register', $data);
 		}
 	}
@@ -146,5 +181,17 @@ class home extends MIS_Controller
 			$data['status'] = 0;
 		}
 		$this->send_json($data);
+	}
+	
+	/**
+	 * 404、错误页面
+	 */
+	public function none(){
+		$data = array();
+		$data['msg'] = $this->input->get('msg');
+		$data['layoutName'] = 'nlwLayout';
+		$data['nav'] = 0;
+		$data['headTitle'] = '错误';
+		$this->showView('none', $data);
 	}
 }
