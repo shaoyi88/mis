@@ -35,6 +35,14 @@
         </td>
     </tr>
     <tr>
+        <th width="15%">房号</th>
+        <td width="85%">
+            <div class="input-control">
+                <input type="text" name="room_no" id="room_no" placeholder="请输入房号">
+            </div>
+        </td>
+    </tr>
+    <tr>
         <th width="15%">联系人</th>
         <td width="85%">
 			<div class="input-control">

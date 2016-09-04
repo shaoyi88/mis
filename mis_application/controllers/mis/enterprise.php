@@ -48,7 +48,7 @@ class Enterprise extends MIS_Controller
 			$this->load->model('MIS_Enterprise');
 			$data['info'] = $this->MIS_Enterprise->getInfo($id);
 			$data['info']['building'] = $this->MIS_Enterprise->getEnterpriseBuildingInfo($id);
-			$data['typeMsg'] = '编辑';
+			$data['typeMsg'] = '保存提交';
 		}else{
 			if(checkRight('enterprise_add') === FALSE){
 				$this->showView('denied', $data);

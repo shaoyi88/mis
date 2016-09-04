@@ -104,7 +104,7 @@ class MIS_User extends CI_Model
 		if(isset($keyword['user_type']) && $keyword['user_type'] != ''){
 			$sql .= " and a.user_type = ".$keyword['user_type'];
 		}
-		if(isset($keyword['user_second_type'])){
+		if(isset($keyword['user_second_type']) && $keyword['user_second_type'] != ''){
 			$sql .= " and a.user_second_type = ".$keyword['user_second_type'];
 		}
 		if(isset($keyword['keyword']) && $keyword['keyword'] != ''){

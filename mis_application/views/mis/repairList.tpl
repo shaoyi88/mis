@@ -33,6 +33,7 @@
         		<tr class="text-c">
           			<th>报修类型</th>
           			<th>报修内容</th>
+					<th>房号</th>
           			<th>联系人</th>
           			<th>报修时间</th>
 					<th>状态</th>
@@ -44,6 +45,7 @@
       				<tr class="text-c">
           				<td>{$repair_type[$item['repair_type']]}</td>
           				<td>{$item['repair_content']}</td>
+						<td>{$item['room_no']}</td>
           				<td>{$item['contacts']}</td>
           				<td>{date('Y-m-d',$item['add_time'])}</td>
           				<td>{$repair_status[$item['status']]}</td>

@@ -1,14 +1,12 @@
-<header class="Hui-header cl"> 
+<header class="Hui-header cl">
 	<a class="Hui-logo l" title="{$website_title}管理系统" href="javascript:;">{$website_title}管理系统</a> 
 	<ul class="Hui-userbar">
 		<li>{$userName}</li>
 		<li><a class="changePassword" href="javascript:;" title="修改密码">修改密码</a></li>
 		<li><a href="{formatUrl('home/logout')}" title="退出">退出</a></li>
 	</ul> 
-	<a aria-hidden="false" class="Hui-nav-toggle" href="#"></a> 
+	<a aria-hidden="false" class="Hui-nav-toggle" href="#"></a>
 </header>
-
-
 <aside class="Hui-aside">
   <input runat="server" id="divScrollValue" type="hidden" value="" />
   {foreach $menus as $k=>$item}
@@ -51,7 +49,11 @@
 	<form class="Huiform" action="{formatUrl('admin/changePassword')}" method="post">
 		<input type="hidden" name="admin_id" value="{$admin_id}" />
 		<table class="table table-bg table-border table-bordered">
-			<tr>
+            <tr>
+                <td>旧密码：</td>
+                <td><input type="password" class="input-text"  autocomplete="off" placeholder="密码" datatype="*6-18" nullmsg="请输入密码！" ajaxurl="{formatUrl('admin/validPassword')}" sucmsg="旧密码验证通过！" /></td>
+            </tr>
+            <tr>
       			<td>新密码：</td>
       			<td><input type="password" class="input-text" autocomplete="off" placeholder="密码" name="admin_password" id="admin_password" datatype="*6-18" nullmsg="请输入密码！"></td>
       		</tr>

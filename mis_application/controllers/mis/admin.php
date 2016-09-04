@@ -21,6 +21,22 @@ class Admin extends MIS_Controller
 		$this->session->sess_destroy();
 		redirect(formatUrl('login/index?msg='.urlencode('请使用新密码重新登录')));
 	}
+
+	/**
+     *
+     * 校验密码
+    */
+	public function validPassword()
+	{
+	    $old_password = $this->input->post('param');
+	    $this->load->model('MIS_Admin');
+	    $info = $this->MIS_Admin->getInfo($this->userId);
+	    if($info['admin_password'] == md5($old_password)){
+	        echo 'y';
+	    }else{
+	        echo '请输入正确的旧密码';
+	    }
+	}
 	
 	/**
 	 * 

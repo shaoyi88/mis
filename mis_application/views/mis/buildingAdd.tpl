@@ -39,6 +39,10 @@
           		     <th class="text-r" width="180">物业费单价<span class="c-red">*</span>：</th>
           			 <td><input nullmsg="请输入物业费单价！" errormsg="请输入正确的数字格式" datatype="num" class="input-text" style="width:250px" name="building_property_fee" type="text" value="{if isset($info)}{$info['building_property_fee']}{else}{$init_fee['building_property_fee']}{/if}" placeholder="输入物业费单价">元/平方</td>
         		</tr>
+				<tr>
+					<th class="text-r" width="180">售楼价格<span class="c-red">*</span>：</th>
+					<td><input nullmsg="请输入售楼价格！" errormsg="请输入正确的数字格式" datatype="num" class="input-text" style="width:250px" name="building_sell_fee" type="text" value="{if isset($info)}{$info['building_sell_fee']}{/if}" placeholder="输入售楼价格">万元</td>
+				</tr>
         		<tr>
           		     <th class="text-r" width="180">类型<span class="c-red">*</span>：</th>
           			 <td>
