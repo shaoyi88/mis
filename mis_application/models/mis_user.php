@@ -272,4 +272,32 @@ class MIS_User extends CI_Model
 		$sql = "update $this->_relateEnterpriseApply set last_remind_time=".time().",remind_times=2 where status = 0 AND (UNIX_TIMESTAMP(NOW()) - last_remind_time>172800) AND remind_times=1";
 		$query = $this->db->query($sql);
 	}
+	
+	/**
+	 * 获取信息
+	 * Enter description here ...
+	 * @param unknown_type $account
+	 */
+	public function getInfoByEmail($account)
+	{
+		$query = $this->db->get_where($this->_table, array('user_email' => $account));
+		if($query){
+			$info = $query->row_array();
+			if(!empty($info)){
+				return TRUE;
+			}
+		}
+		return FALSE;
+	}
+	
+	/**
+	 *
+	 * 更新
+	 * @param unknown_type $data
+	 */
+	public function updateByEmail($data)
+	{
+		$this->db->where('user_email', $data['user_email']);
+		$this->db->update($this->_table, $data);
+	}
 }

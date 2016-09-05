@@ -26,6 +26,14 @@
         </td>
     </tr>
     <tr>
+        <th width="15%">邮箱</th>
+        <td width="85%">
+			<div class="input-control text">
+			    <input type="text" name="user_email" value="{$info['user_email']}">
+			</div>
+        </td>
+    </tr>
+    <tr>
         <th width="15%">手机号码</th>
         <td width="85%">
 			<div class="input-control text">

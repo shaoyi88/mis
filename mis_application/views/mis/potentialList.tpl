@@ -5,13 +5,11 @@
 </div>
 {/if}
 <div class="pd-20">
-	{if checkRight('potential_add')}
 	<div class="cl pd-5 bg-1 bk-gray mt-20"> 
 		<span class="l">
 			<a href="{formatUrl('investment/addPotential')}" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加潜在客户</a>
 		</span>
 	 </div>
-	 {/if}
 	 {if empty($dataList)}
 	 	<div class="cl pd-5 bg-1 bk-gray"><h2 class="text-c">暂无潜在客户</h2></div>
 	 {else}

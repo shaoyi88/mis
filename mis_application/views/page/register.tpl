@@ -19,6 +19,15 @@
                             <input type="text" class="form-control" name="user_name" id="user_name" placeholder="请输入姓名" required="required">
                         </div>
                         <div class="form-group">
+                            <label>邮箱 *</label>
+                            <input type="email" class="form-control" name="user_email" id="user_email" placeholder="请输入邮箱" required="required">
+                            <input type="button" class="btn btn-primary getCode" style="background:#404040;" value="获取验证码">
+                        </div>
+                        <div class="form-group">
+                            <label>验证码 *</label>
+                            <input type="number" class="form-control" name="verify" id="verify" placeholder="请输入验证码" required="required">
+                        </div> 
+                        <div class="form-group">
                             <label>登录密码 *</label>
                             <input type="password" class="form-control" name="user_password" id="user_password" placeholder="请输入密码" required="required">
                         </div>   
@@ -36,8 +45,9 @@
                         <div class="form-group">
                             <input type="hidden" name="uri" value="{$uri}">
                             <input type="hidden" id="checkAccountUrl" value="{formatUrl('home/checkAccount')}">
+                            <input type="hidden" id="getCodeUrl" value="{formatUrl('home/getCode')}">
                             <button type="button" name="button" class="btn btn-primary dosubmit">注册</button>&nbsp;&nbsp;
-                            <button type="button" class="btn btn-primary" style="background:#404040;" required="required" onclick="location.href='{formatUrl('login/')}'">登录</button>
+                            <button type="button" class="btn btn-primary" style="background:#404040;" onclick="location.href='{formatUrl('login/')}'">登录</button>
                         </div>
                     </div>
                 </form> 
@@ -48,7 +58,8 @@
 var dragTxt = $('.dragTxt').html(); 	
 $(document).ready(function(){
 	$('#drag').drag(); 
-	$('.dosubmit').click(checkform);
+	$('.dosubmit').click(checkform); 
+    $(".getCode").click(getCode);
 });	
 function redrag(){
     $('.dragTxt').html(dragTxt); 
@@ -104,14 +115,24 @@ function checkform(){
         $('.dodrag').html('请拖动验证');
         return false;
     }
-    var checkAccount = $('#checkAccountUrl').val()+'?account='+user_account;
+    var code = $('#verify').val();
+    var mail = $('#user_email').val();
+    var checkAccount = $('#checkAccountUrl').val()+'?account='+user_account+'&mail='+mail+'&code='+code;
     $.ajax({
         type: "GET",
         url: checkAccount,
         dataType: "json",
         success: function(data){
-        	if(data.status != 1){
+        	if(data.status == -3){
         		$('.uname').html('该登录账号已存在');
+        		redrag();
+                return false;
+        	}else if(data.status == -2){
+        		$('.uname').html('该邮箱已注册');
+        		redrag();
+                return false;
+        	}else if(data.status == -1){
+        		$('.uname').html('验证码不正确');
         		redrag();
                 return false;
         	}else{
@@ -121,5 +142,37 @@ function checkform(){
         }
     }); 
     return false;      
+} 
+var countdown=60;
+function getCode(){
+    var mail = $('#user_email').val();
+	var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+	if(!reg.test(mail)){
+		alert('电子邮箱格式不正确');
+		return false;
+	}
+	if(countdown == 60){
+	    $(".getCode").attr("disabled", true); 
+		$(".getCode").val("重新发送" + countdown); 		
+	    var getCodeUrl = $('#getCodeUrl').val()+'?account='+mail;
+	    $.ajax({
+	        type: "GET",
+	        url: getCodeUrl,
+	        dataType: "json",
+        });
+        countdown--; 
+	}else if(countdown == 0){ 
+		$(".getCode").removeAttr("disabled");  
+		$(".getCode").val("获取验证码");
+		countdown = 60;
+		return false; 		
+	}else{	    
+		$(".getCode").attr("disabled", true); 
+		$(".getCode").val("重新发送" + countdown); 
+		countdown--; 
+	} 
+	var t=setTimeout(function(){ 
+	getCode() 
+	},1000) 
 } 	
 </script>

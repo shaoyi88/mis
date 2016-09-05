@@ -21,7 +21,9 @@
                         <div class="form-group">
                             <input type="hidden" name="uri" value="{$uri}">
                             <button type="submit" name="submit" class="btn btn-primary" required="required">登录</button>&nbsp;&nbsp;
-                            <button type="button" class="btn btn-primary" style="background:#404040;" required="required" onclick="location.href='{formatUrl('home/register')}'">注册</button>
+                            <button type="button" class="btn btn-primary" style="background:#404040;" onclick="location.href='{formatUrl('home/register')}'">注册</button>
+                            &nbsp;&nbsp;
+                            <button type="button" class="btn btn-primary" style="background:#dcdcdc;color:#191919;text-decoration:underline;" onclick="location.href='{formatUrl('home/find')}'">忘记密码?</button>
                         </div>
                     </div>
                 </form> 

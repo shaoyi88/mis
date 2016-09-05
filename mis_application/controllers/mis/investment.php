@@ -340,10 +340,6 @@ class Investment extends MIS_Controller
 	public function potential()
 	{
 		$data = array();
-		if(checkRight('potential_list') === FALSE){
-			$this->showView('denied', $data);
-			exit;
-		}
 		if($this->input->get('msg')){
 			$data['msg'] = $this->input->get('msg');
 			unset($_GET['msg']);
@@ -395,20 +391,12 @@ class Investment extends MIS_Controller
 	{
 		$data = array();
 		if($this->input->get('id')){
-			if(checkRight('potential_add') === FALSE){
-				$this->showView('denied', $data);
-				exit;
-			}
 			$id = $this->input->get('id');
 			$this->load->model('MIS_EnterpriseHidden');
 			$data['info'] = $this->MIS_EnterpriseHidden->getInfo($id);
 			$data['info']['building'] = $this->MIS_EnterpriseHidden->getEnterpriseBuildingInfo($id);
 			$data['typeMsg'] = '编辑';
 		}else{
-			if(checkRight('potential_add') === FALSE){
-				$this->showView('denied', $data);
-				exit;
-			}
 			$data['typeMsg'] = '新增';
 		}
 		$this->load->model('MIS_Building');
@@ -438,10 +426,6 @@ class Investment extends MIS_Controller
 	{
 		$data = array();
 		if($this->input->post('enterprise_id')){
-			if(checkRight('potential_add') === FALSE){
-				$this->showView('denied', $data);
-				exit;
-			}
 			$data = $this->input->post();
 			$enterprise_building = $data['enterprise_building'];
 			unset($data['enterprise_building']);

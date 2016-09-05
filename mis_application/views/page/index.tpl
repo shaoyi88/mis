@@ -135,7 +135,7 @@
                                                 <img class="img-responsive" src="{if isset($match[1])&&!empty($match[1])}{$match[1][0]}{else}/public/new/images/news.jpg{/if}" width="204">
                                             </div>
                                             <div class="media-body">
-                                                 <h4><a href="{formatUrl('article/info?id=')}{$v['article_id']}">{$v['article_title']}</a></h4>
+                                                 <h4>{$v['article_title']}</h4>
                                                  <p>{mb_substr(strip_tags(preg_replace("/<img.+?\/>/", "", $v['article_content'])),0,90)}...[<a href="{formatUrl('article/info?id=')}{$v['article_id']}">详情</a>]</p>
                                             </div>
                                         </div>
@@ -188,13 +188,15 @@
                 <div class="col-xs-12 col-sm-4 col-md-3">
                     <div class="recent-work-wrap">
                         <img class="img-responsive" src="/public/new/images/portfolio/recent/item{$smarty.section.loop.index+1}.jpg" alt="">
-                        <div class="overlay">
+                        <a class="preview" href="/public/new/images/portfolio/full/item{$smarty.section.loop.index+1}.jpg" rel="prettyPhoto">
+                        <div class="overlay">                          
                             <div class="recent-work-inner">
                                 <h3>&nbsp;</h3>
                                 <p>&nbsp;</p>
-                                <a class="preview" href="/public/new/images/portfolio/full/item{$smarty.section.loop.index+1}.jpg" rel="prettyPhoto"><i class="fa fa-eye"></i> 查看</a>
-                            </div> 
+                                <i class="fa fa-eye"></i> 查看
+                            </div>                            
                         </div>
+                        </a>
                     </div>
                 </div>
                 {/section}       
@@ -368,11 +370,11 @@
                 <div class="col-md-3 col-sm-6">
                     <div class="widget">
                         <ul>
-                            <li>{$ename[0]['enterprise_name']}</li>
-                            <li><a href="#">{$ename[1]['enterprise_name']}</a></li>
-                            <li><a href="#">{$ename[2]['enterprise_name']}</a></li>
-                            <li><a href="#">{$ename[3]['enterprise_name']}</a></li>
-                            <li><a href="#">{$ename[4]['enterprise_name']}</a></li>
+                            <li>{if $ename[0]['enterprise_web']}<a href="http://{$ename[0]['enterprise_web']}">{$ename[0]['enterprise_name']}</a>{else}{$ename[0]['enterprise_name']}{/if}</li>
+                            <li>{if $ename[1]['enterprise_web']}<a href="http://{$ename[1]['enterprise_web']}">{$ename[1]['enterprise_name']}</a>{else}{$ename[1]['enterprise_name']}{/if}</li>
+                            <li>{if $ename[2]['enterprise_web']}<a href="http://{$ename[2]['enterprise_web']}">{$ename[2]['enterprise_name']}</a>{else}{$ename[2]['enterprise_name']}{/if}</li>
+                            <li>{if $ename[3]['enterprise_web']}<a href="http://{$ename[3]['enterprise_web']}">{$ename[3]['enterprise_name']}</a>{else}{$ename[3]['enterprise_name']}{/if}</li>
+                            <li>{if $ename[4]['enterprise_web']}<a href="http://{$ename[4]['enterprise_web']}">{$ename[4]['enterprise_name']}</a>{else}{$ename[4]['enterprise_name']}{/if}</li>
                         </ul>
                     </div>    
                 </div>
@@ -380,11 +382,11 @@
                 <div class="col-md-3 col-sm-6">
                     <div class="widget">
                         <ul>
-                            <li>{$ename[5]['enterprise_name']}</li>
-                            <li><a href="#">{$ename[6]['enterprise_name']}</a></li>
-                            <li><a href="#">{$ename[7]['enterprise_name']}</a></li>
-                            <li><a href="#">{$ename[8]['enterprise_name']}</a></li>
-                            <li><a href="#">{$ename[9]['enterprise_name']}</a></li>
+                            <li>{if $ename[5]['enterprise_web']}<a href="http://{$ename[5]['enterprise_web']}">{$ename[5]['enterprise_name']}</a>{else}{$ename[5]['enterprise_name']}{/if}</li>
+                            <li>{if $ename[6]['enterprise_web']}<a href="http://{$ename[6]['enterprise_web']}">{$ename[6]['enterprise_name']}</a>{else}{$ename[6]['enterprise_name']}{/if}</li>
+                            <li>{if $ename[7]['enterprise_web']}<a href="http://{$ename[7]['enterprise_web']}">{$ename[7]['enterprise_name']}</a>{else}{$ename[7]['enterprise_name']}{/if}</li>
+                            <li>{if $ename[8]['enterprise_web']}<a href="http://{$ename[8]['enterprise_web']}">{$ename[8]['enterprise_name']}</a>{else}{$ename[8]['enterprise_name']}{/if}</li>
+                            <li>{if $ename[9]['enterprise_web']}<a href="http://{$ename[9]['enterprise_web']}">{$ename[9]['enterprise_name']}</a>{else}{$ename[9]['enterprise_name']}{/if}</li>
                         </ul>
                     </div>    
                 </div>
@@ -392,11 +394,11 @@
                 <div class="col-md-3 col-sm-6">
                     <div class="widget">
                         <ul>
-                            <li>{$ename[10]['enterprise_name']}</li>
-                            <li><a href="#">{$ename[11]['enterprise_name']}</a></li>
-                            <li><a href="#">{$ename[12]['enterprise_name']}</a></li>
-                            <li><a href="#">{$ename[13]['enterprise_name']}</a></li>
-                            <li><a href="#">{$ename[14]['enterprise_name']}</a></li>
+                            <li>{if $ename[10]['enterprise_web']}<a href="http://{$ename[10]['enterprise_web']}">{$ename[10]['enterprise_name']}</a>{else}{$ename[10]['enterprise_name']}{/if}</li>
+                            <li>{if $ename[11]['enterprise_web']}<a href="http://{$ename[11]['enterprise_web']}">{$ename[11]['enterprise_name']}</a>{else}{$ename[11]['enterprise_name']}{/if}</li>
+                            <li>{if $ename[12]['enterprise_web']}<a href="http://{$ename[12]['enterprise_web']}">{$ename[12]['enterprise_name']}</a>{else}{$ename[12]['enterprise_name']}{/if}</li>
+                            <li>{if $ename[13]['enterprise_web']}<a href="http://{$ename[13]['enterprise_web']}">{$ename[13]['enterprise_name']}</a>{else}{$ename[13]['enterprise_name']}{/if}</li>
+                            <li>{if $ename[14]['enterprise_web']}<a href="http://{$ename[14]['enterprise_web']}">{$ename[14]['enterprise_name']}</a>{else}{$ename[14]['enterprise_name']}{/if}</li>
                         </ul>
                     </div>    
                 </div>
@@ -404,11 +406,11 @@
                 <div class="col-md-3 col-sm-6">
                     <div class="widget">
                         <ul>
-                            <li>{$ename[15]['enterprise_name']}</li>
-                            <li><a href="#">{$ename[16]['enterprise_name']}</a></li>
-                            <li><a href="#">{$ename[17]['enterprise_name']}</a></li>
-                            <li><a href="#">{$ename[18]['enterprise_name']}</a></li>
-                            <li><a href="#">{$ename[19]['enterprise_name']}</a></li>
+                            <li>{if $ename[15]['enterprise_web']}<a href="http://{$ename[15]['enterprise_web']}">{$ename[15]['enterprise_name']}</a>{else}{$ename[15]['enterprise_name']}{/if}</li>
+                            <li>{if $ename[16]['enterprise_web']}<a href="http://{$ename[16]['enterprise_web']}">{$ename[16]['enterprise_name']}</a>{else}{$ename[16]['enterprise_name']}{/if}</li>
+                            <li>{if $ename[17]['enterprise_web']}<a href="http://{$ename[17]['enterprise_web']}">{$ename[17]['enterprise_name']}</a>{else}{$ename[17]['enterprise_name']}{/if}</li>
+                            <li>{if $ename[18]['enterprise_web']}<a href="http://{$ename[18]['enterprise_web']}">{$ename[18]['enterprise_name']}</a>{else}{$ename[18]['enterprise_name']}{/if}</li>
+                            <li>{if $ename[19]['enterprise_web']}<a href="http://{$ename[19]['enterprise_web']}">{$ename[19]['enterprise_name']}</a>{else}{$ename[19]['enterprise_name']}{/if}</li>
                         </ul>
                     </div>    
                 </div>

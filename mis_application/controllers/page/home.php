@@ -141,6 +141,9 @@ class home extends MIS_Controller
 			if(($data['user_name'] = $this->input->post('user_name', TRUE)) == FALSE){
 				redirect(formatUrl('home/register?msg='.urlencode('请填写姓名')));
 			}
+			if(($data['user_email'] = $this->input->post('user_email', TRUE)) == FALSE){
+				redirect(formatUrl('home/register?msg='.urlencode('请填写邮箱')));
+			}
 			if(($data['user_password'] = $this->input->post('user_password', TRUE)) == FALSE){
 				redirect(formatUrl('home/register?msg='.urlencode('请填写密码')));
 			}
@@ -149,7 +152,7 @@ class home extends MIS_Controller
 			}
 			if($data['user_password']!=$userPasswordRe){
 				redirect(formatUrl('home/register?msg='.urlencode('两次输入密码不相同')));
-			}
+			}			
 			$data['user_password'] = md5($data['user_password']);
 			$data['reg_time'] = time();
 			$data['user_type'] = 0;
@@ -175,13 +178,25 @@ class home extends MIS_Controller
 	public function checkAccount(){
 		$data = array();
 		$account = $this->input->get('account');
+		$mail = $this->input->get('mail');
+		$code = $this->input->get('code');
 		$this->load->model('MIS_User');
 		$data['status'] = 1;
 		if($this->MIS_User->getInfoByName(trim($account))){
-			$data['status'] = 0;
+			$data['status'] = -3;
 		}
+		if($this->MIS_User->getInfoByEmail(trim($mail))){
+			$data['status'] = -2;
+		}
+		$ci =& get_instance();
+	    $emailCode = $ci->session->userdata('emailCode');
+	    if(trim($code)!=$emailCode){
+	    	$data['status'] = -1;
+	    }
 		$this->send_json($data);
 	}
+	
+	
 	
 	/**
 	 * 404、错误页面
@@ -191,7 +206,154 @@ class home extends MIS_Controller
 		$data['msg'] = $this->input->get('msg');
 		$data['layoutName'] = 'nlwLayout';
 		$data['nav'] = 0;
-		$data['headTitle'] = '错误';
+		$data['headTitle'] = '提示';
 		$this->showView('none', $data);
+	}
+	
+	/**
+	 *
+	 */
+	public function find(){
+	if($this->userId){
+			redirect(formatUrl('home/index'));
+		}else{
+			$data = array();
+			$data['layoutName'] = 'nlwLayout';
+		    $data['nav'] = 0;
+		    $data['headTitle'] = '找回密码';
+		    $data['msg'] = '请填写您注册时的邮箱账号';
+			$this->showView('find', $data);
+		}
+	}
+	
+	/**
+	 *
+	 * 检查邮箱是否存在
+	 */
+	public function checkEmail(){
+		$data = array();
+		$account = $this->input->get('account');
+		$this->load->model('MIS_User');
+		$data['status'] = 0;
+		if($this->MIS_User->getInfoByEmail(trim($account))){
+			$data['status'] = 1;
+		}
+		$this->send_json($data);
+	}
+	
+	/**
+	 *
+	 */
+	public function sendFind(){
+		$data = array();
+		$mail = $this->input->get('account');
+		$str = 'ZMRY2016'.$mail;
+		$url = 'http://www.rycenter.com/page/home/reset?id='.md5($str).'&uid='.$mail;
+		$txt = '<a href="'.$url.'" target=_blank>'.$url.'点击链接重设密码</a>';
+		$title = '找回密码';
+		$data['msg'] = $this->sendemail($txt,$mail,$title);
+		$this->send_json($data);
+	}
+	
+	/**
+	 *
+	 * 重设密码
+	 */
+	public function reset(){
+		if($this->userId){
+			redirect(formatUrl('home/index'));
+		}else{
+			$data = array();
+			$id = $this->input->get('id');
+			$mail = $this->input->get('uid');
+			if(empty($id)||empty($mail)){
+				redirect(formatUrl('home/index'));
+			}
+			$str = 'ZMRY2016'.$mail;
+			if(md5($str)!=$id){
+				redirect(formatUrl('home/index'));
+			}
+			$data['id'] = $id;
+			$data['uid'] = $mail;
+			$data['layoutName'] = 'nlwLayout';
+			$data['nav'] = 0;
+			$data['headTitle'] = '重设密码';
+			$data['msg'] = '您的邮箱账号是'.$mail;
+			if($this->input->get('msg')){
+				$data['msg'] = $this->input->get('msg');
+			}
+			$this->showView('reset', $data);
+		}
+	}
+	
+	/**
+	 *
+	 * 重设密码do
+	 */
+	public function doReset(){
+	if($this->userId){
+			redirect(formatUrl('home/index'));
+		}else{
+			$data['user_email'] = $this->input->post('user_email');
+			if(($data['user_password'] = $this->input->post('user_password', TRUE)) == FALSE){
+				redirect(formatUrl('home/reset?id='.$this->input->post('id').'&uid='.$data['user_email'].'msg='.urlencode('请填写密码')));
+			}
+			if(($userPasswordRe = $this->input->post('user_password_re', TRUE)) == FALSE){
+				redirect(formatUrl('home/reset?id='.$this->input->post('id').'&uid='.$data['user_email'].'msg='.urlencode('请确认密码密码')));
+			}
+			if($data['user_password']!=$userPasswordRe){
+				redirect(formatUrl('home/reset?id='.$this->input->post('id').'&uid='.$data['user_email'].'msg='.urlencode('两次输入密码不相同')));
+			}			
+			$data['user_password'] = md5($data['user_password']);
+			$this->load->model('MIS_User');
+			$this->MIS_User->updateByEmail($data);
+			$this->session->sess_destroy();
+		    redirect(formatUrl('login'));
+		}
+	}
+	
+	/**
+	 * 
+	 */
+	public function getCode(){
+		$data = array();
+		$code = rand(100000,999999);
+		$mail = $this->input->get('account');
+		$info = array(
+			'emailCode' => $code,
+		);
+		$this->session->set_userdata($info);
+        $txt = '本次邮箱验证码为：'.$code;
+        $title = '注册验证码';
+        $data['msg'] = $this->sendemail($txt,$mail,$title);
+        $this->send_json($data);
+	}
+	
+	/**
+	 *
+	 * 单点邮件发送
+	 *
+	 */
+	private function sendemail($text,$touser,$title){
+		$config['protocol'] = 'smtp';
+		$config['smtp_host'] = 'smtp.exmail.qq.com';
+		$config['smtp_user'] = 'system@ry168.cn';
+		$config['smtp_pass'] = 'Rongyi2016';
+		$config['smtp_port'] = '25';  
+        $config['charset'] = 'utf-8';  
+        $config['wordwrap'] = TRUE;  
+        $config['mailtype'] = 'html';
+        $config['crlf']="\r\n"; 
+        $config['newline']="\r\n";
+        $this->load->library('email');
+	
+		$this->email->initialize($config);
+	
+		$this->email->from('system@ry168.cn', '中美融易系统邮件');
+		$this->email->to($touser);
+	    
+		$this->email->subject($title);
+		$this->email->message($text);
+		$this->email->send();
 	}
 }
