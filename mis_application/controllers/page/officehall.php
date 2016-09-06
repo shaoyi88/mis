@@ -324,10 +324,13 @@ class officehall extends MIS_Controller
 	{
 		$data = $this->input->post();
 		$this->load->model('MIS_Enterprise');
-		if($this->MIS_Enterprise->checkCode($data['code'])){
+		$check = $this->MIS_Enterprise->checkCode($data['code']);
+		if(!empty($check)){
 			$this->load->model('MIS_User');
 			$udata['user_id'] = $this->userId;
-			$udata['user_second_type']=2;
+			$udata['user_second_type'] = 2;
+			$udata['user_type'] = 0;
+			$udata['enterprise_id'] = $check['enterprise_id'];
 			$this->MIS_User->update($udata);
 			redirect(formatUrl('myhome'));
 		}else{

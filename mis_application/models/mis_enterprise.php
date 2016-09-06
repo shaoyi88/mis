@@ -229,10 +229,7 @@ class MIS_Enterprise extends CI_Model
 		$query = $this->db->get($this->_table);
 		if($query){
 			$info = $query->row_array();
-			if(!empty($info)){
-				return TRUE;
-			}
 		}
-		return FALSE;
+		return $info;
 	}
 }
