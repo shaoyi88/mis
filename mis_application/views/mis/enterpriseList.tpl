@@ -21,6 +21,7 @@
           			<th>企业名</th>
           			<th>企业法人</th>
           			<th>入驻时间</th>
+          			<th>邀请码</th>
           			<th>操作</th>
         		</tr>
       		</thead>
@@ -30,6 +31,7 @@
         			<td>{$item['enterprise_name']}</td>
         			<td>{$item['enterprise_artificial']}</td>
         			<td>{date('Y-m-d', $item['enterprise_enter_time'])}</td>
+        			<td>{$item['enterprise_code']}</td>
           			<td>
           				<a class="btn btn-primary radius" title="详情" href="{formatUrl('enterprise/detail?id=')}{$item['enterprise_id']}" style="text-decoration:none">查看</a>
           				{if checkRight('enterprise_edit')}<a class="btn btn-primary radius ml-5 edit" title="编辑" href="{formatUrl('enterprise/add?id=')}{$item['enterprise_id']}" style="text-decoration:none">编辑</a>{/if}

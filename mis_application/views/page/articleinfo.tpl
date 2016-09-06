@@ -18,7 +18,7 @@
                                 <div class="col-xs-12 col-sm-2 text-center">
                                     <div class="entry-meta">
                                         <span id="publish_date">{date('Y-m-d', $articleInfo['add_time'])}</span>
-                                        <span><i class="fa fa-user"></i> <a href="#">{$articleInfo['admin_name']}</a></span>
+                                        <span><i class="fa fa-user"></i> <a href="#">融易小编</a></span>
                                         <span><i class="fa fa-comment"></i> <a href="javascript:;">{$articleCommentCount} 评论</a></span>
                                     </div>
                                 </div>

@@ -79,6 +79,7 @@ class Enterprise extends MIS_Controller
 			unset($data['file']);
 			$data['enterprise_reg_time'] = strtotime($data['enterprise_reg_time']);
 			$data['enterprise_enter_time'] = strtotime($data['enterprise_enter_time']);
+			$data['enterprise_code'] = time().rand(11,99);
 			$this->load->model('MIS_Enterprise');
 			$this->MIS_Enterprise->update($data);
 			// 删除企业原来所在办公地点

@@ -215,5 +215,24 @@ class MIS_Enterprise extends CI_Model
 	{
 		$this->db->where('enterprise_id', $id);
 		$this->db->delete($this->_eb_table); 
-	} 
+	}
+
+	/**
+	 *
+	 * 验证企业邀请码
+	 * @param unknown_type $code
+	 */
+	public function checkCode($code)
+	{
+		$this->db->where('enterprise_code', $code);
+	    $info = array();
+		$query = $this->db->get($this->_table);
+		if($query){
+			$info = $query->row_array();
+			if(!empty($info)){
+				return TRUE;
+			}
+		}
+		return FALSE;
+	}
 }
