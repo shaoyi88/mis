@@ -79,6 +79,14 @@ $config['menus'] = array(
 		'right' => 'club'
 	),
 	array(
+    		'module' => '财务管理',
+    		'menu' => array(
+    			array('企业信息', formatUrl('finance/enterprise'), 'finance_enterprise'),
+    			array('收款情况', formatUrl('finance/fee'), 'finance_fee'),
+    		),
+    		'right' => 'finance'
+    	),
+	array(
 		'module' => '系统管理',
 		'menu' => array(
 			array('系统配置', formatUrl('sys/index'), 'sys_config'),
@@ -229,6 +237,14 @@ $config['rights'] = array(
 		),
 		'right' => 'club'
 	),
+	array(
+    	'module' => '财务管理',
+    	'roles' => array(
+    		array('企业信息', 'finance_enterprise'),
+    		array('收款情况', 'finance_fee')
+    	),
+    	'right' => 'finance'
+    ),
 	array(
 		'module' => '系统管理',
 		'roles' => array(

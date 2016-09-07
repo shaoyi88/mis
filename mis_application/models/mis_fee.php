@@ -25,13 +25,24 @@ class MIS_Fee extends CI_Model
 	 */
 	public function getCount($keyword, $eid=0)
 	{
+	    $sql = "select count(*) as num from `$this->_table` as a left join `$this->_enterpriseTable` as b on a.enterprise_id = b.enterprise_id where 1=1 ";
 		if(isset($keyword['pay_status']) && $keyword['pay_status'] != ''){
-			$this->db->where('pay_status', $keyword['pay_status']);
+			$sql .= ' and a.pay_status ='.$keyword['pay_status'];
 		}
+		if(isset($keyword['enterprise_name']) && $keyword['enterprise_name'] != ''){
+            $sql .= ' and b.enterprise_name like "%'.$keyword['enterprise_name'].'%"';
+        }
+        if(isset($keyword['fee_date']) && $keyword['fee_date'] != ''){
+            $sql .= ' and a.fee_date ='.$keyword['fee_date'];
+        }
 		if($eid!=0){
-			$this->db->where('enterprise_id', $eid);
+			$sql .= ' and a.enterprise_id ='.$eid;
 		}
-		return $this->db->count_all_results($this->_table);
+		$query = $this->db->query($sql);
+        if($query){
+        	$info = $query->row_array();
+        }
+        return $info['num'];
 	}
 	
 	/**
@@ -46,6 +57,12 @@ class MIS_Fee extends CI_Model
 		if(isset($keyword['pay_status']) && $keyword['pay_status'] != ''){
 			$sql .= ' and a.pay_status ='.$keyword['pay_status'];
 		}
+		if(isset($keyword['enterprise_name']) && $keyword['enterprise_name'] != ''){
+        	$sql .= ' and b.enterprise_name like "%'.$keyword['enterprise_name'].'%"';
+        }
+        if(isset($keyword['fee_date']) && $keyword['fee_date'] != ''){
+        	$sql .= ' and a.fee_date ='.$keyword['fee_date'];
+        }
 		if($eid!=0){
 			$sql .= ' and a.enterprise_id ='.$eid;
 		}
@@ -126,7 +143,21 @@ class MIS_Fee extends CI_Model
 		if($query){
 			$info = $query->row_array();
 		}
-		echo $this->db->last_query();
 		return $info;
+	}
+
+	public function getEnterpriseFee()
+	{
+	    $sql = "SELECT enterprise_id,SUM(rent_fee+property_fee+water_fee_unit_price*water_fee_num+elec_fee_unit_price*elec_fee_num) as fee FROM mis_fee WHERE pay_status = 0 GROUP BY enterprise_id";
+	    $query = $this->db->query($sql);
+        $info = array();
+        if($query){
+            $info = $query->result_array();
+        }
+        $result = array();
+        foreach($info as $item){
+            $result[$item['enterprise_id']] = $item;
+        }
+        return $result;
 	}
 }

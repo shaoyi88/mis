@@ -18,6 +18,9 @@ var fee = function(){
 				dateFmt:'yyyy-MM',
 				onpicking:function(dp){
 					$('#fee_date_str').val(Date.parse(new Date(dp.cal.getNewDateStr()))/1000);
+				},
+				oncleared:function(){
+					$('#fee_date_str').val('');
 				}
 			});
 		});

@@ -232,4 +232,15 @@ class MIS_Enterprise extends CI_Model
 		}
 		return $info;
 	}
+
+	public function getBuildingFee($enterpriseList)
+	{
+	    $sql = "SELECT * FROM mis_enterprise_building AS eb LEFT JOIN mis_building AS b ON eb.building_id = b.building_id where enterprise_id IN ($enterpriseList)";
+	    $query = $this->db->query($sql);
+        $result = array();
+        if($query){
+        	$result = $query->result_array();
+        }
+        return $result;
+	}
 }
