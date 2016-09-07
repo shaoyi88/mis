@@ -55,7 +55,7 @@
                             </ul>
                         </li>                       
                         <li {if $nav==4}class="active"{/if}><a href="{formatUrl('home/maker')}">易创客</a></li>
-                        <li><a href="http://www.ry168.cn" target=_blank>融易集团</a></li>
+                        <li {if $nav==5}class="active"{/if}><a href="{formatUrl('home/group')}">融易集团</a></li>
                         <li {if $nav==6}class="active"{/if}><a href="{formatUrl('home/contact')}">联系我们</a></li>                        
                     </ul>
                 </div>

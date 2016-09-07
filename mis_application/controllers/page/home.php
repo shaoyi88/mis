@@ -66,6 +66,17 @@ class home extends MIS_Controller
 	}
 	
 	/**
+	 *  集团介绍
+	 */
+	public function group(){
+	    $data = array();
+		$data['layoutName'] = 'lwLayout';
+		$data['nav'] = 5;
+		$data['headTitle'] = '融易集团介绍';
+		$this->showView('group', $data);
+	}
+	
+	/**
 	 *
 	 * 退出
 	 */
