@@ -9,31 +9,33 @@
                 <h4 style="color:#0070C0;">资本 ——产业——服务——投融资</h4>
                 <p class="lead">&nbsp;</p>
             </div>
-            <div class="col-xs-12 wow fadeInDown">
-               <div class="row">
-                   <div class="col-sm-4">
+            <div class="container">
+                <div class="row">
+                   <div class="col-sm-4 wow fadeInDown">
                        <img src="/public/new/images/group1.png" alt="" style="float:right;"/>
                    </div>                  
-                   <div class="col-sm-6">
+                   <div class="col-sm-6 wow fadeInDown">
 		               <ul>
-		                   <li><h4 style="font-weight:normal">东莞市第一个由<span style="font-size:18px;font-weight:bold">政府引导</span>的股权投资基金。</h4></li>
-		                   <li><h4 style="font-weight:normal">东莞市第一个战略<span style="font-size:18px;font-weight:bold">布局产业园</span>的投资基金。</h4></li>
-		                   <li><h4 style="font-weight:normal">第一个与国家最顶级科研机构<span style="font-size:18px;font-weight:bold">中国科学院</span>合作的私募股权基金。</h4></li>
+		                   <li><h4 style="font-weight:normal">东莞市第一个由<span style="font-size:18px;font-weight:bold;color:#191919;">政府引导</span>的股权投资基金。</h4></li>
+		                   <li><h4 style="font-weight:normal">东莞市第一个战略<span style="font-size:18px;font-weight:bold;color:#191919;">布局产业园</span>的投资基金。</h4></li>
+		                   <li><h4 style="font-weight:normal">第一个与国家最顶级科研机构<span style="font-size:18px;font-weight:bold;color:#191919;">中国科学院</span>合作的私募股权基金。</h4></li>
 		               </ul>
                    </div>
                </div>
             </div> 
-            <div class="col-xs-12 wow fadeInDown" style="padding:20px;">
+            <div class="container">
+                <div class="row">
                   <div class="col-sm-1"></div>
                   <div class="col-sm-7 wow fadeInDown">
 		               <ul style="float:right;">
-		                   <li style="padding-top:40px;"><h4 style="line-height:30px;font-weight:normal">融易创投致力于搭建<span style="font-size:18px;font-weight:bold">股权投资</span>、<span style="font-size:18px;font-weight:bold">连锁基金</span>、<span style="font-size:18px;font-weight:bold">互联网金融</span>、<span style="font-size:18px;font-weight:bold">财富管理</span>、<span style="font-size:18px;font-weight:bold">产业孵化</span>五大平台，力求以金融生态链服务产业的基础上，实现资本---产业---服务---投融资于一体的创新资本服务模式。</h4></li>
+		                   <li style="padding-top:40px;"><h4 style="line-height:30px;font-weight:normal">融易创投致力于搭建<span style="font-size:18px;font-weight:bold;color:#191919;">股权投资</span>、<span style="font-size:18px;font-weight:bold;color:#191919;">连锁基金</span>、<span style="font-size:18px;font-weight:bold;color:#191919;">互联网金融</span>、<span style="font-size:18px;font-weight:bold;color:#191919;">财富管理</span>、<span style="font-size:18px;font-weight:bold;color:#191919;">产业孵化</span>五大平台，力求以金融生态链服务产业的基础上，实现资本---产业---服务---投融资于一体的创新资本服务模式。</h4></li>
 		                   <li><h4 style="font-size:18px;">融易三大业务板块：</h4></li>
 		               </ul>
                    </div>
-                   <div class="col-sm-4">
+                   <div class="col-sm-4 wow fadeInDown">
                        <img src="/public/new/images/group2.png" alt="" />
                    </div>
+                 </div>
             </div> 
             <div class="pricing-area text-center">
                 <div class="row">
