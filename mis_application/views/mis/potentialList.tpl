@@ -58,7 +58,7 @@
 		<table class="table table-bg table-border table-bordered">
 			<tr>
           		     <th class="text-r" width="180"><span class="c-red">*</span>跟进信息：</th>
-          			 <td><textarea style="width:300px;height:140px;" name="msg" cols="" rows="" class="textarea" id="feedback" nullmsg="跟进信息不能为空！" datatype="s"></textarea></td>
+          			 <td><textarea style="width:300px;height:140px;" name="msg" cols="" rows="" class="textarea" id="feedback" nullmsg="跟进信息不能为空！" datatype="*"></textarea></td>
         		</tr>
         		<tr>
           			<th></th>
