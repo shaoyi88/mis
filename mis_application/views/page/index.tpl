@@ -185,7 +185,7 @@
             </div>
             <div class="row">
                 {section name=loop loop=8} 
-                <div class="col-xs-12 col-sm-4 col-md-3">
+                <div class="col-xs-12 col-sm-3" style="padding:5px 5px;">
                     <div class="recent-work-wrap">
                         <img class="img-responsive" src="/public/new/images/portfolio/recent/item{$smarty.section.loop.index+1}.jpg" alt="">
                         <a class="preview" href="/public/new/images/portfolio/full/item{$smarty.section.loop.index+1}.jpg" rel="prettyPhoto">
