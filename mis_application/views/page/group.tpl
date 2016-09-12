@@ -9,6 +9,9 @@
                 <h4 style="color:#0070C0;">资本 ——产业——服务——投融资</h4>
                 <p class="lead">&nbsp;</p>
             </div>
+            <div class="center" style="padding-top:20px;padding-bottom:10px;"> 
+            <img src="/public/new/images/group3.jpg">
+            </div>
             <div class="container">
                 <div class="row">
                    <div class="col-sm-4 wow fadeInDown">
