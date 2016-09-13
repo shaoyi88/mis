@@ -22,6 +22,8 @@
           			<th>会议主题</th>
           			<th>联系人</th>
           			<th>状态</th>
+          			<th>是否需要领导协助</th>
+					<th>附件</th>
           			<th>操作</th>
         		</tr>
       		</thead>
@@ -32,6 +34,12 @@
           				<td>{$item['meeting_title']}</td>
           				<td>{$item['contacts']}</td>
           				<td>{$room_booking_status[$item['status']]}</td>
+          				<td>{if $item['status'] != 0 && $item['need_help'] == 0}否{else if $item['status'] != 0 && $item['need_help'] == 1}是{/if}</td>
+          				<td>
+          				{if $item['attachment']}
+          				<a class="c-primary" href="{$item['attachment']}" target="_blank"><u class="c-primar">附件下载</u></a>
+          				{/if}
+          				</td>
           				<td>
           					<a title="查看" href="javascript:;" class="ml-5 btn btn-primary radius view" did="{$item['booking_id']}" style="text-decoration:none">查看</a>
           				</td>

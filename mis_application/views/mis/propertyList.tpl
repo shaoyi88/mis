@@ -112,6 +112,24 @@
           			 <td><textarea style="width:500px;height:140px;" name="admin_feedback" cols="" rows="" class="textarea" id="admin_feedback"></textarea></td>
         		</tr>
         		<tr>
+					<th class="text-r" style="width:100px">是否需要领导协助 <span class="c-red">*</span></th>
+          			<td>
+          		     	<input type="radio" name="need_help" value="1" nullmsg="请选择是否需要领导协助！" datatype="*">是
+          		     	&nbsp;&nbsp;
+          		     	<input type="radio" name="need_help" value="0" nullmsg="请选择是否需要领导协助！" datatype="*">否
+          		     </td>
+        		</tr>
+				<tr>
+					<th class="text-r" style="width:100px">上传附件</th>
+          			<td>
+          		     	<div id="uploader">
+          		     		<div class="btns"><div id="picker">选择文件</div></div>
+							<p id="result"></p>
+						</div>
+						<input type="hidden" name="attachment" value="" id="attachment">
+          		    </td>
+        		</tr>
+        		<tr>
           		     <th class="text-r" width="180"><span class="c-red">*</span>上门服务人员：</th>
           			 <td><input name="service_worker" class="input-text" value="" type="text" style="width:200px" nullmsg="上门服务人员不能为空！" datatype="s"></input></td>
         		</tr>
@@ -138,6 +156,24 @@
 			<tr>
           		     <th class="text-r" width="180"><span class="c-red">*</span>确认信息：</th>
           			 <td><textarea style="width:500px;height:140px;" name="feedback" cols="" rows="" class="textarea" id="feedback" nullmsg="确认信息不能为空！" datatype="s"></textarea></td>
+        		</tr>
+        		<tr>
+					<th class="text-r" style="width:100px">是否需要领导协助 <span class="c-red">*</span></th>
+          			<td>
+          		     	<input type="radio" name="need_help" value="1" nullmsg="请选择是否需要领导协助！" datatype="*">是
+          		     	&nbsp;&nbsp;
+          		     	<input type="radio" name="need_help" value="0" nullmsg="请选择是否需要领导协助！" datatype="*">否
+          		     </td>
+        		</tr>
+				<tr>
+					<th class="text-r" style="width:100px">上传附件</th>
+          			<td>
+          		     	<div id="uploader1">
+          		     		<div class="btns"><div id="picker1">选择文件</div></div>
+							<p id="result1"></p>
+						</div>
+						<input type="hidden" name="attachment" value="" id="attachment1">
+          		    </td>
         		</tr>
         		<tr>
           			<th></th>
@@ -173,6 +209,10 @@
       	</table>
 	</form>
 </div>
+<input type="hidden" id="uploadUrl" value="{formatUrl('file/upload')}"></input>
+<link rel="stylesheet" type="text/css" href="/public/common/js/webuploader-0.1.5/webuploader.css">
+<script type="text/javascript" src="/public/common/js/webuploader-0.1.5/webuploader.js"></script>
+<script type="text/javascript" src="/public/mis/js/file.js""></script>
 <input value="{formatUrl('workbench/doRepairConfirm')}" type="hidden" id="repairConfirmUrl">
 <input value="{formatUrl('workbench/doComplainConfirm')}" type="hidden" id="complainConfirmUrl">
 <script type="text/javascript" src="/public/common/js/date/WdatePicker.js"></script>

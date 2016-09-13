@@ -177,6 +177,7 @@ class Activity extends MIS_Controller
 			exit;
 		}
 		$data = $this->input->post();
+		unset($data['file']);
 		$this->load->model('MIS_Activity');
 		$this->MIS_Activity->update($data);
 		redirect(formatUrl('activity/detail?id=').$data['activity_id']);

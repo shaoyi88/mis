@@ -28,6 +28,7 @@ var workbench = function(){
 		$('.complainFinish').click(complainFinish);
 		$('.enterpriseApplyFollow').click(enterpriseApplyFollow);
 		$('.enterpriseApplyAudit').click(enterpriseApplyAudit);
+		$('.enterpriseApplyMake').click(enterpriseApplyMake);
 	};
 	
 	var enterpriseApplyFollow = function(event){
@@ -43,6 +44,22 @@ var workbench = function(){
 		    ],
 		    bgcolor: '#eee', //设置层背景色
 		    content: $('#enterpriseApplyFollowWindow')
+		});
+	};
+	
+	var enterpriseApplyMake = function(event){
+		form.resetForm();
+		$('.Validform_checktip').html('');
+		$('#m_enterprise_id').val($(event.currentTarget).attr('did'));
+		layer.open({
+		    type: 1,
+		    area: '500px',
+		    title: [
+		        '立项',
+		        'border:none; background:#61BA7A; color:#fff;' 
+		    ],
+		    bgcolor: '#eee', //设置层背景色
+		    content: $('#enterpriseApplyMakeWindow')
 		});
 	};
 	

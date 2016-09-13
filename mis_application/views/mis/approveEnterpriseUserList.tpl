@@ -60,6 +60,8 @@
           			<td>
           				{if $item['follow_by'] == 0}
           				<a class="btn btn-primary radius enterpriseApplyFollow" href="javascript:;" title="指派跟进人" did="{$item['enterprise_id']}" style="text-decoration:none">指派跟进人</a>
+          				{else if $item['deal_status'] == 0}
+          				<a class="btn btn-primary radius enterpriseApplyMake" href="javascript:;" title="立项" did="{$item['enterprise_id']}" style="text-decoration:none">立项</a>
           				{else}
           				<a class="btn btn-primary radius enterpriseApplyAudit" href="javascript:;" title="审核" is_change="{$item['is_change']}" did="{$item['enterprise_id']}" style="text-decoration:none">审核</a>
           				{/if}
@@ -111,6 +113,24 @@
           		     </td>
         		</tr>
         		<tr>
+					<th class="text-r" style="width:100px">是否需要领导协助 <span class="c-red">*</span></th>
+          			<td>
+          		     	<input type="radio" name="need_help" value="1" nullmsg="请选择是否需要领导协助！" datatype="*">是
+          		     	&nbsp;&nbsp;
+          		     	<input type="radio" name="need_help" value="0" nullmsg="请选择是否需要领导协助！" datatype="*">否
+          		     </td>
+        		</tr>
+				<tr>
+					<th class="text-r" style="width:100px">上传附件</th>
+          			<td>
+          		     	<div id="uploader">
+          		     		<div class="btns"><div id="picker">选择文件</div></div>
+							<p id="result"></p>
+						</div>
+						<input type="hidden" name="attachment" value="" id="attachment">
+          		    </td>
+        		</tr>
+        		<tr>
           		     <th class="text-r">审核意见<span class="c-red">*</span></th>
           		     <td>
           		     	<textarea style="width:300px;height:150px;" name="msg" nullmsg="审核意见不能为空！" datatype="*"></textarea>
@@ -149,6 +169,27 @@
       	</table>
 	</form>
 </div>
+<div class="pd-20 text-c" style="display:none" id="enterpriseApplyMakeWindow">
+	<form class="Huiform" action="{formatUrl('workbench/doEnterpriseApplyFollow')}" method="post">
+		<input type="hidden" name="enterprise_id" id="m_enterprise_id" value="" />
+		<table class="table table-bg table-border table-bordered">
+			<tr>
+          		<th class="text-r" style="width:100px">立项判断<span class="c-red">*</span></th>
+          			<td>
+          		     	<input type="radio" name="deal_status" value="2" nullmsg="立项判断不能为空！" datatype="*">立项
+		          		&nbsp;&nbsp;
+		          		<input type="radio" name="deal_status" value="1" nullmsg="立项判断不能为空！" datatype="*">放弃
+          		     </td>
+        		</tr>
+          		<tr>
+        			<th></th>
+      				<td colspan="2">
+      					<button itype="submit" class="btn btn-success radius"><i class="icon-ok"></i>提交</button>
+      				</td>
+      			</tr>
+      	</table>
+	</form>
+</div>
 <div class="pd-20 text-c" style="display:none" id="enterpriseApplyAuditWindow">
 	<form class="Huiform" action="{formatUrl('workbench/doEnterpriseApplyFollow')}" method="post">
 		<input type="hidden" name="enterprise_id" id="a_enterprise_id" value="" />
@@ -156,10 +197,28 @@
 			<tr>
           		<th class="text-r" style="width:100px">审核结果<span class="c-red">*</span></th>
           			<td>
-          		     	<input type="radio" name="deal_status" value="1" nullmsg="审核结果不能为空！" datatype="*">通过
+          		     	<input type="radio" name="deal_status" value="3" nullmsg="审核结果不能为空！" datatype="*">通过
           		     	&nbsp;&nbsp;
-          		     	<input type="radio" name="deal_status" value="2" nullmsg="审核结果不能为空！" datatype="*">不通过
+          		     	<input type="radio" name="deal_status" value="4" nullmsg="审核结果不能为空！" datatype="*">不通过
           		     </td>
+        		</tr>
+        		<tr>
+					<th class="text-r" style="width:100px">是否需要领导协助 <span class="c-red">*</span></th>
+          			<td>
+          		     	<input type="radio" name="need_help" value="1" nullmsg="请选择是否需要领导协助！" datatype="*">是
+          		     	&nbsp;&nbsp;
+          		     	<input type="radio" name="need_help" value="0" nullmsg="请选择是否需要领导协助！" datatype="*">否
+          		     </td>
+        		</tr>
+				<tr>
+					<th class="text-r" style="width:100px">上传附件</th>
+          			<td>
+          		     	<div id="uploader_1">
+          		     		<div class="btns"><div id="picker">选择文件</div></div>
+							<p id="result_1"></p>
+						</div>
+						<input type="hidden" name="attachment" value="" id="attachment_1">
+          		    </td>
         		</tr>
         		<tr>
           		     <th class="text-r">审核意见<span class="c-red">*</span></th>
@@ -179,5 +238,9 @@
       	</table>
 	</form>
 </div>
+<input type="hidden" id="uploadUrl" value="{formatUrl('file/upload')}"></input>
+<link rel="stylesheet" type="text/css" href="/public/common/js/webuploader-0.1.5/webuploader.css">
+<script type="text/javascript" src="/public/common/js/webuploader-0.1.5/webuploader.js"></script>
+<script type="text/javascript" src="/public/mis/js/file.js""></script>
 <input type="hidden" id="changeUrl" value="{formatUrl('workbench/doEnterpriseApplyChange')}" />
 <script type="text/javascript" src="/public/mis/js/workbench.js""></script>

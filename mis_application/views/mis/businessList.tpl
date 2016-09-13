@@ -129,6 +129,24 @@
           			 <td><textarea style="width:500px;height:140px;" name="msg" cols="" rows="" class="textarea" id="msg" nullmsg="跟进信息不能为空！" datatype="*"></textarea></td>
         		</tr>
         		<tr>
+					<th class="text-r" style="width:100px">是否需要领导协助 <span class="c-red">*</span></th>
+          			<td>
+          		     	<input type="radio" name="need_help" value="1" nullmsg="请选择是否需要领导协助！" datatype="*">是
+          		     	&nbsp;&nbsp;
+          		     	<input type="radio" name="need_help" value="0" nullmsg="请选择是否需要领导协助！" datatype="*">否
+          		     </td>
+        		</tr>
+				<tr>
+					<th class="text-r" style="width:100px">上传附件</th>
+          			<td>
+          		     	<div id="uploader">
+          		     		<div class="btns"><div id="picker">选择文件</div></div>
+							<p id="result"></p>
+						</div>
+						<input type="hidden" name="attachment" value="" id="attachment">
+          		    </td>
+        		</tr>
+        		<tr>
           			<th></th>
           			<td>
             			<button type="submit" class="btn btn-success radius"><i class="icon-ok"></i> 提交</button>
@@ -171,6 +189,24 @@
           			 <td><textarea style="width:300px;height:140px;" name="msg" cols="" rows="" class="textarea" id="msg" nullmsg="跟进信息不能为空！" datatype="*"></textarea></td>
         		</tr>
         		<tr>
+					<th class="text-r" style="width:100px">是否需要领导协助 <span class="c-red">*</span></th>
+          			<td>
+          		     	<input type="radio" name="need_help" value="1" nullmsg="请选择是否需要领导协助！" datatype="*">是
+          		     	&nbsp;&nbsp;
+          		     	<input type="radio" name="need_help" value="0" nullmsg="请选择是否需要领导协助！" datatype="*">否
+          		     </td>
+        		</tr>
+				<tr>
+					<th class="text-r" style="width:100px">上传附件</th>
+          			<td>
+          		     	<div id="uploader1">
+          		     		<div class="btns"><div id="picker1">选择文件</div></div>
+							<p id="result1"></p>
+						</div>
+						<input type="hidden" name="attachment" value="" id="attachment1">
+          		    </td>
+        		</tr>
+        		<tr>
           			<th></th>
           			<td>
             			<button type="submit" class="btn btn-success radius"><i class="icon-ok"></i> 提交</button>
@@ -204,4 +240,8 @@
 	</form>
 </div>
 <input type="hidden" id="roomBookingConfirmUrl" value="{formatUrl('room/viewBooking')}"></input>
+<input type="hidden" id="uploadUrl" value="{formatUrl('file/upload')}"></input>
+<link rel="stylesheet" type="text/css" href="/public/common/js/webuploader-0.1.5/webuploader.css">
+<script type="text/javascript" src="/public/common/js/webuploader-0.1.5/webuploader.js"></script>
+<script type="text/javascript" src="/public/mis/js/file.js""></script>
 <script type="text/javascript" src="/public/mis/js/workbench.js""></script>

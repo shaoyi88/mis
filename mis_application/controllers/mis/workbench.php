@@ -56,6 +56,7 @@ class Workbench extends MIS_Controller
 			exit;
 		}
 		$data = $this->input->post();
+		unset($data['file']);
 		$this->load->model('MIS_Activity');
 		$this->MIS_Activity->update($data);
 		redirect(formatUrl('workbench/activity'));
@@ -165,6 +166,7 @@ class Workbench extends MIS_Controller
 			exit;
 		}
 		$data = $this->input->get();
+		unset($data['file']);
 		if($data['status'] == 1){
 			$data['service_time'] = strtotime($data['service_time']);
 		}
@@ -200,7 +202,8 @@ class Workbench extends MIS_Controller
 			$this->showView('denied', $data);
 			exit;
 		}
-		$data = $this->input->get();
+		$data = $this->input->post();
+		unset($data['file']);
 		$this->load->model('MIS_Complain');
 		$this->MIS_Complain->update($data);
 		redirect(formatUrl('workbench/property?type=1'));
@@ -216,7 +219,7 @@ class Workbench extends MIS_Controller
 			$this->showView('denied', $data);
 			exit;
 		}
-		$data = $this->input->post();
+		$data = $this->input->get();
 		$this->load->model('MIS_Complain');
 		$this->MIS_Complain->update($data);
 		redirect(formatUrl('workbench/property?type=1'));
@@ -319,6 +322,7 @@ class Workbench extends MIS_Controller
 	public function doFollowPotential()
 	{
 		$data = $this->input->post();
+		unset($data['file']);
 		if(!$data['follow_by'] && checkRight('potential_follow') === FALSE){
 			$this->showView('denied', $data);
 			exit;
@@ -344,6 +348,7 @@ class Workbench extends MIS_Controller
 			$this->showView('denied', $data);
 			exit;
 		}
+		unset($data['file']);
 		$this->load->model('MIS_EnterprisePotential');
 		$msg = '';
 		$this->MIS_EnterprisePotential->update($data);
@@ -388,6 +393,7 @@ class Workbench extends MIS_Controller
 			exit;
 		}
 		$data = $this->input->post();
+		unset($data['file']);
 		$data['status'] = 1;
 		$this->load->model('MIS_Apply');
 		$msg = '';
@@ -500,6 +506,7 @@ class Workbench extends MIS_Controller
 			exit;
 		}
 		$data = $this->input->post();
+		unset($data['file']);
 		$this->load->model('MIS_User');
 		$updataApply = array();
 		$updataApply['apply_id'] = $data['apply_id'];

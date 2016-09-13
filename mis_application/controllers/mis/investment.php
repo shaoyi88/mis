@@ -102,6 +102,7 @@ class Investment extends MIS_Controller
 	public function doAuditApply()
 	{
 		$data = $this->input->post();
+		unset($data['file']);
 		if(!$data['follow_by'] && checkRight('apply_audit') === FALSE){
 			$this->showView('denied', $data);
 			exit;
@@ -373,6 +374,7 @@ class Investment extends MIS_Controller
 	public function doFollowPotential()
 	{
 		$data = $this->input->post();
+		unset($data['file']);
 		if(!$data['follow_by'] && checkRight('potential_follow') === FALSE){
 			$this->showView('denied', $data);
 			exit;

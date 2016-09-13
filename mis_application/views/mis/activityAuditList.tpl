@@ -38,13 +38,31 @@
 	<form class="Huiform" action="{formatUrl('workbench/doAuditActivity')}" method="post">
 		<input type="hidden" name="activity_id" id="activity_id" value="" />
 		<table class="table table-bg table-border table-bordered">
-			<tr>
-          		<th class="text-r" style="width:100px">审核结果<span class="c-red">*</span></th>
+				<tr>
+          			<th class="text-r" style="width:100px">审核结果<span class="c-red">*</span></th>
           			<td>
           		     	<input type="radio" name="activity_status" value="1" nullmsg="审核结果不能为空！" datatype="*">通过
           		     	&nbsp;&nbsp;
           		     	<input type="radio" name="activity_status" value="2" nullmsg="审核结果不能为空！" datatype="*">驳回
           		     </td>
+        		</tr>
+				<tr>
+					<th class="text-r" style="width:100px">是否需要领导协助 <span class="c-red">*</span></th>
+          			<td>
+          		     	<input type="radio" name="need_help" value="1" nullmsg="请选择是否需要领导协助！" datatype="*">是
+          		     	&nbsp;&nbsp;
+          		     	<input type="radio" name="need_help" value="0" nullmsg="请选择是否需要领导协助！" datatype="*">否
+          		     </td>
+        		</tr>
+				<tr>
+					<th class="text-r" style="width:100px">上传附件</th>
+          			<td>
+          		     	<div id="uploader">
+          		     		<div class="btns"><div id="picker">选择文件</div></div>
+							<p id="result"></p>
+						</div>
+						<input type="hidden" name="attachment" value="" id="attachment">
+          		    </td>
         		</tr>
         		<tr>
           		     <th class="text-r">审核意见<span class="c-red">*</span></th>
@@ -85,4 +103,8 @@
       	</table>
 	</form>
 </div>
+<input type="hidden" id="uploadUrl" value="{formatUrl('file/upload')}"></input>
+<link rel="stylesheet" type="text/css" href="/public/common/js/webuploader-0.1.5/webuploader.css">
+<script type="text/javascript" src="/public/common/js/webuploader-0.1.5/webuploader.js"></script>
+<script type="text/javascript" src="/public/mis/js/file.js""></script>
 <script type="text/javascript" src="/public/mis/js/workbench.js""></script>

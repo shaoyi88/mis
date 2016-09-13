@@ -55,6 +55,10 @@
           			 <td><input style="width:250px" name="enterprise_mobile" type="text" class="input-text" id="enterprise_mobile" value="{if isset($info)}{$info['enterprise_mobile']}{/if}" errormsg="请输入正确的手机号码！" nullmsg="企业联系人手机不能为空！" datatype="m" placeholder="输入企业联系人手机"></td>
         		</tr>
         		<tr>
+          		     <th class="text-r" width="80">企业联系人邮箱<span class="c-red">*</span>：</th>
+          			 <td><input style="width:250px" name="enterprise_email" type="text" class="input-text" id="enterprise_email" value="{if isset($info)}{$info['enterprise_email']}{/if}" nullmsg="企业联系人邮箱不能为空！" datatype="*" placeholder="输入企业联系人邮箱"></td>
+        		</tr>
+        		<tr>
           		     <th class="text-r" width="80">办公地点<span class="c-red">*</span>：</th>
           			 <td>
           			 	{foreach $buildInfo as $k=>$item}                  					

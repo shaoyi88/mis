@@ -126,7 +126,7 @@ class MIS_EnterprisePotential extends CI_Model
 	 */
 	public function getFollowCount()
 	{
-		$sql = "select count(*) as num from $this->_table where deal_status = 0";
+		$sql = "select count(*) as num from $this->_table where (deal_status = 0 or deal_status = 2)";
 		if(checkRight('apply_assign')){
 			$sql .= " and (follow_by=0 or follow_by=".$this->_ci->userId.")";
 		}else{
@@ -146,7 +146,7 @@ class MIS_EnterprisePotential extends CI_Model
 	public function getFollowList($offset, $limit)
 	{
 		$info = array();
-		$sql = "select * from $this->_table where deal_status = 0";
+		$sql = "select * from $this->_table where (deal_status = 0 or deal_status = 2)";
 		if(checkRight('apply_assign')){
 			$sql .= " and (follow_by=0 or follow_by=".$this->_ci->userId.")";
 		}else{

@@ -21,6 +21,8 @@
 			        <th>联系人</th>
 			        <th>联系电话</th>
 			        <th>提交时间</th>
+			        <th>是否需要领导协助</th>
+			        <th>附件</th>
 			        <th>操作</th>
         		</tr>
       		</thead>
@@ -31,6 +33,8 @@
 				        <td>{$item['enterprise_contact']}</td> 
 				        <td>{$item['enterprise_contact_mobile']}</td> 
 				        <td>{date('Y-m-d H:i:s',$item['app_time'])}</td> 
+		          		<td>{if $item['deal_status'] > 2 && $item['need_help'] == 0}否{else if $item['deal_status'] > 2 && $item['need_help'] == 1}是{/if}</td>
+		          		<td>{if $item['attachment']}<a class="c-primary" href="{$item['attachment']}" target="_blank"><u class="c-primar">附件下载</u></a>{/if}</td>
           				<td>
           					<a class="btn btn-primary radius" title="详情" href="{formatUrl('investment/applyDetail?id=')}{$item['enterprise_id']}" style="text-decoration:none">查看</a>
           				</td>

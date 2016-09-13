@@ -261,6 +261,7 @@ class Room extends MIS_Controller
 	public function doConfirmBooking()
 	{
 		$data = $this->input->post();
+		unset($data['file']);
 		if(!$data['follow_by'] && checkRight('room_booking_confirm') === FALSE){
 			$this->showView('denied', $data);
 			exit;

@@ -21,6 +21,8 @@
 			        <th>联系电话</th>
 			        <th>提交时间</th>
 			        <th>状态</th>
+			        <th>是否需要领导协助</th>
+					<th>附件</th>
 			        <th>操作</th>
         		</tr>
       		</thead>
@@ -32,6 +34,12 @@
 				        <td>{$item['enterprise_contact_mobile']}</td> 
 				        <td>{date('Y-m-d H:i:s',$item['add_time'])}</td> 
 				        <td>{if $item['status'] == 0}待跟进{else}已跟进{/if}</td>
+				        <td>{if $item['status'] != 0 && $item['need_help'] == 0}否{else if $item['status'] != 0 && $item['need_help'] == 1}是{/if}</td>
+          				<td>
+          				{if $item['attachment']}
+          				<a class="c-primary" href="{$item['attachment']}" target="_blank"><u class="c-primar">附件下载</u></a>
+          				{/if}
+          				</td>
           				<td>
           					{if $item['status'] == 0 && checkRight('potential_add')}
           						<a class="btn btn-primary radius" title="编辑" href="{formatUrl('investment/addPotential?id=')}{$item['enterprise_id']}" style="text-decoration:none">编辑</a>
@@ -59,6 +67,24 @@
 			<tr>
           		     <th class="text-r" width="180"><span class="c-red">*</span>跟进信息：</th>
           			 <td><textarea style="width:300px;height:140px;" name="msg" cols="" rows="" class="textarea" id="feedback" nullmsg="跟进信息不能为空！" datatype="*"></textarea></td>
+        		</tr>
+        		<tr>
+					<th class="text-r" style="width:100px">是否需要领导协助 <span class="c-red">*</span></th>
+          			<td>
+          		     	<input type="radio" name="need_help" value="1" nullmsg="请选择是否需要领导协助！" datatype="*">是
+          		     	&nbsp;&nbsp;
+          		     	<input type="radio" name="need_help" value="0" nullmsg="请选择是否需要领导协助！" datatype="*">否
+          		     </td>
+        		</tr>
+				<tr>
+					<th class="text-r" style="width:100px">上传附件</th>
+          			<td>
+          		     	<div id="uploader">
+          		     		<div class="btns"><div id="picker">选择文件</div></div>
+							<p id="result"></p>
+						</div>
+						<input type="hidden" name="attachment" value="" id="attachment">
+          		    </td>
         		</tr>
         		<tr>
           			<th></th>
@@ -94,5 +120,9 @@
       	</table>
 	</form>
 </div>
+<input type="hidden" id="uploadUrl" value="{formatUrl('file/upload')}"></input>
+<link rel="stylesheet" type="text/css" href="/public/common/js/webuploader-0.1.5/webuploader.css">
+<script type="text/javascript" src="/public/common/js/webuploader-0.1.5/webuploader.js"></script>
+<script type="text/javascript" src="/public/mis/js/file.js""></script>
 <script type="text/javascript" src="/public/mis/js/hidden.js""></script>
 <input type="hidden" id="delUrl" value="{formatUrl('investment/doDelPotential')}"></input>

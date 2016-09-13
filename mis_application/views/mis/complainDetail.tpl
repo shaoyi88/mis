@@ -34,6 +34,16 @@
           			 <td>{$info['feedback']}</td>
         		</tr>
         		<tr>
+          		     <th class="text-r" width="180">是否需要领导协助：</th>
+          			 <td>{if $info['status'] != 0 && $info['need_help'] == 0}否{else if $info['status'] != 0 && $info['need_help'] == 1}是{/if}</td>
+        		</tr>
+        		{if $info['attachment']}
+        		<tr>
+          		     <th class="text-r" width="180">附件：</th>
+          			 <td><a class="c-primary" href="{$info['attachment']}" target="_blank"><u class="c-primar">附件下载</u></a></td>
+        		</tr>
+        		{/if}
+        		<tr>
           		     <th class="text-r" width="180">当前状态：</th>
           			 <td>{$complain_status[$info['status']]}</td>
         		</tr>
@@ -41,6 +51,24 @@
         		<tr>
           		     <th class="text-r" width="180"><span class="c-red">*</span>确认信息：</th>
           			 <td><textarea style="width:500px;height:140px;" name="feedback" cols="" rows="" class="textarea" id="feedback" nullmsg="确认信息不能为空！" datatype="s"></textarea></td>
+        		</tr>
+        		<tr>
+					<th class="text-r" style="width:100px">是否需要领导协助 <span class="c-red">*</span></th>
+          			<td>
+          		     	<input type="radio" name="need_help" value="1" nullmsg="请选择是否需要领导协助！" datatype="*">是
+          		     	&nbsp;&nbsp;
+          		     	<input type="radio" name="need_help" value="0" nullmsg="请选择是否需要领导协助！" datatype="*">否
+          		     </td>
+        		</tr>
+				<tr>
+					<th class="text-r" style="width:100px">上传附件</th>
+          			<td>
+          		     	<div id="uploader">
+          		     		<div class="btns"><div id="picker">选择文件</div></div>
+							<p id="result"></p>
+						</div>
+						<input type="hidden" name="attachment" value="" id="attachment">
+          		    </td>
         		</tr>
         		<tr>
           			<th></th>
@@ -88,4 +116,8 @@
 <div class="pd-20 text-c">
 <a class="btn btn-primary radius" href="javascript:history.go(-1);" style="text-decoration:none;height:auto">返回</a>
 </div>
+<input type="hidden" id="uploadUrl" value="{formatUrl('file/upload')}"></input>
+<link rel="stylesheet" type="text/css" href="/public/common/js/webuploader-0.1.5/webuploader.css">
+<script type="text/javascript" src="/public/common/js/webuploader-0.1.5/webuploader.js"></script>
+<script type="text/javascript" src="/public/mis/js/file.js""></script>
 <script type="text/javascript" src="/public/mis/js/complain.js""></script>

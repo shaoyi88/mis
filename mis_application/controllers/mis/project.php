@@ -56,6 +56,7 @@ class Project extends MIS_Controller
 	public function doConfirmApply()
 	{
 		$data = $this->input->post();
+		unset($data['file']);
 		if(!$data['follow_by'] && checkRight('project_apply_confirm') === FALSE){
 			$this->showView('denied', $data);
 			exit;

@@ -75,6 +75,7 @@ class Property extends MIS_Controller
 	public function repairConfirm()
 	{
 		$data = $this->input->post();
+		unset($data['file']);
 		if(!$data['follow_by'] && checkRight('repair_confirm') === FALSE){
 			$this->showView('denied', $data);
 			exit;
@@ -157,6 +158,7 @@ class Property extends MIS_Controller
 	public function complainReply()
 	{
 		$data = $this->input->post();
+		unset($data['file']);
 		if(!$data['follow_by'] && checkRight('complain_reply') === FALSE){
 			$this->showView('denied', $data);
 			exit;
@@ -318,9 +320,11 @@ class Property extends MIS_Controller
 	public function doAddFee()
 	{
 		$data = $this->input->post();
+		$email = $data['enterprise_email'];
+		unset($data['enterprise_email']);
 		$this->load->model('MIS_Fee');
 		$info = $this->MIS_Fee->getInfoByEnterpriseAndDate($data['enterprise_id'], $data['fee_date']);
-		if($data['fee_id']){
+		if(isset($data['fee_id'])){
 			if(checkRight('fee_edit') === FALSE){
 				$this->showView('denied', $data);
 				exit;
@@ -345,8 +349,45 @@ class Property extends MIS_Controller
 					$msg = '?msg='.urlencode('创建失败');
 				}
 			}		
+			if($email){
+				$title = '缴费通知';
+				$txt = '<p>您好,'.date('Y-m',$data['fee_date']).'缴费信息如下:</p>';
+				$txt .= '<p>租金:'.$data['rent_fee'].'元</p>';
+				$txt .= '<p>物业费:'.$data['property_fee'].'元</p>';
+				$txt .= '<p>水费:'.$data['water_fee_unit_price']*$data['water_fee_num'].'元</p>';
+				$txt .= '<p>电费:'.$data['elec_fee_unit_price']*$data['elec_fee_num'].'元</p>';
+				$msg = $this->sendemail($txt,$email,$title);
+			}
 		}
 		redirect(formatUrl('property/feeList'.$msg));
+	}
+	
+	/**
+	 *
+	 * 单点邮件发送
+	 *
+	 */
+	private function sendemail($text,$touser,$title){
+		$config['protocol'] = 'smtp';
+		$config['smtp_host'] = 'smtp.exmail.qq.com';
+		$config['smtp_user'] = 'system@ry168.cn';
+		$config['smtp_pass'] = 'Rongyi2016';
+		$config['smtp_port'] = '25';  
+        $config['charset'] = 'utf-8';  
+        $config['wordwrap'] = TRUE;  
+        $config['mailtype'] = 'html';
+        $config['crlf']="\r\n"; 
+        $config['newline']="\r\n";
+        $this->load->library('email');
+	
+		$this->email->initialize($config);
+	
+		$this->email->from('system@ry168.cn', '中美融易系统邮件');
+		$this->email->to($touser);
+	    
+		$this->email->subject($title);
+		$this->email->message($text);
+		$this->email->send();
 	}
 	
  	/**

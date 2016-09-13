@@ -35,6 +35,8 @@
           			<th>活动标题</th>
           			<th>活动时间</th>
           			<th>活动审核状态</th>
+          			<th>是否需要领导协助</th>
+          			<th>附件</th>
           			<th>添加人</th>
           			<th>操作</th>
         		</tr>
@@ -45,6 +47,8 @@
         			<td>{$item['activity_title']}</td>
         			<td>{date('Y-m-d',$item['activity_start_time'])}~{date('Y-m-d',$item['activity_end_time'])}</td>
         			<td>{$activity_audit_type[$item['activity_status']]}</td>
+        			<td>{if $item['activity_status'] != 0 && $item['need_help'] == 0}否{else if $item['activity_status'] != 0 && $item['need_help'] == 1}是{/if}</td>
+        			<td>{if $item['attachment']}<a class="c-primary" href="{$item['attachment']}" target="_blank"><u class="c-primar">附件下载</u></a>{/if}</td>
         			<td>{if $item['user_name']}{$item['user_name']}{else}{$item['admin_name']}{/if}</td>
           			<td>
           				<a class="btn btn-primary radius" title="查看/审核" href="{formatUrl('activity/detail?id=')}{$item['activity_id']}" style="text-decoration:none">查看/审核</a>

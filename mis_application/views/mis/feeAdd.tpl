@@ -58,6 +58,7 @@
           				<input name="rent_fee" id="rent_fee" type="hidden" value="{if isset($info)}{$info['rent_fee']}{/if}">	
           				<input name="property_fee" id="property_fee" type="hidden" value="{if isset($info)}{$info['property_fee']}{/if}">	    
           				<input name="enterprise_id" id="enterprise_id" type="hidden" value="{if isset($info)}{$info['enterprise_id']}{/if}">	
+          				<input name="enterprise_email" id="enterprise_email" type="hidden" value="{if isset($info)}{$info['enterprise_email']}{/if}">	
           				{if isset($info)}
           				<button id="submitFee" type="submit" class="btn btn-success radius"><i class="icon-ok"></i> {$typeMsg}</button>
           				{else}			
@@ -72,7 +73,7 @@
 <script type="text/template" id="enterpriseTpl">
 <ul>
 <%#enterpriseList%>
-<li eid="<%enterprise_id%>" rent_fee="<%rent_fee%>" property_fee="<%property_fee%>"><%enterprise_name%></li>
+<li eid="<%enterprise_id%>" rent_fee="<%rent_fee%>" property_fee="<%property_fee%>" email="<%enterprise_email%>"><%enterprise_name%></li>
 <%/enterpriseList%>
 </ul>
 </script>

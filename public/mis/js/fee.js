@@ -38,6 +38,7 @@ var fee = function(){
 		var getEnterpriseUrl = $('#getEnterpriseUrl').val()+'?key='+key;
 		$('.auto-complete-result').html('').hide();
 		$('#enterprise_id').val('');
+		$('#enterprise_email').val('');
 		$('#rent_fee').val('');
 		$('#rent_fee_txt').html('0');
 		$('#property_fee').val('');
@@ -56,6 +57,7 @@ var fee = function(){
             		$('.auto-complete-result').html(template.render({enterpriseList:data.enterpriseList})).show();
             		$('.auto-complete-result').find('li').click(function(event){
 						$('#enterprise_id').val($(event.currentTarget).attr('eid'));
+						$('#enterprise_email').val($(event.currentTarget).attr('email'));
 						$('#rent_fee').val($(event.currentTarget).attr('rent_fee'));
 						$('#rent_fee_txt').html($(event.currentTarget).attr('rent_fee'));
 						$('#property_fee').val($(event.currentTarget).attr('property_fee'));
