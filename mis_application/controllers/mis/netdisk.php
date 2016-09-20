@@ -205,13 +205,7 @@ class Netdisk extends MIS_Controller
 		    @mkdir($uploadDir);
 		}
 		// Get a file name
-		if (isset($_REQUEST["name"])) {
-		    $fileName = $_REQUEST["name"];
-		} elseif (!empty($_FILES)) {
-		    $fileName = $_FILES["file"]["name"];
-		} else {
-		    $fileName = uniqid("file_");
-		}
+		$fileName = uniqid("file_");
 		$fileName = iconv("UTF-8", "GBK", $fileName); 
 		$filePath = $targetDir . DIRECTORY_SEPARATOR . $fileName;
 		$uploadPath = $uploadDir . DIRECTORY_SEPARATOR . $fileName;
@@ -290,7 +284,7 @@ class Netdisk extends MIS_Controller
 		$this->load->model('MIS_Netdisk');
 		$data = array();
 		$data['dir_id'] = $this->input->post('dirId');
-		$data['file_name'] = $this->input->post('name');
+		$data['file_name'] = $fileName;
 		$data['file_size'] = $this->input->post('size');
 		$data['file_path'] = '/'.$uploadDir.'/'.$data['file_name'];
 		$data['add_time'] = time();

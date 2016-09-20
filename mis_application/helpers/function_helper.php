@@ -116,6 +116,9 @@ function checkUserLogin()
  */
 function checkRight($key)
 {
+	if($key == ''){
+		return TRUE;
+	}
 	$ci =& get_instance();
 	if($ci->userRights == 'all'){
 		return TRUE;

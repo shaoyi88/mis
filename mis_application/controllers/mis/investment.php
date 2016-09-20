@@ -358,14 +358,7 @@ class Investment extends MIS_Controller
 		$adminList = array();
 		$list = $this->MIS_Admin->getAll();
 		foreach($list as $item){
-			if($item['admin_role'] == 0){
-				$adminList[] = $item;
-			}else{
-				$rightsArr = explode(',', $item['role_rights']);
-				if(in_array('potential_follow', $rightsArr)){
-					$adminList[] = $item;
-				}
-			}
+			$adminList[] = $item;
 		}
 		$data['adminList'] = $adminList;
 		$this->showView('potentialList', $data);
@@ -375,14 +368,6 @@ class Investment extends MIS_Controller
 	{
 		$data = $this->input->post();
 		unset($data['file']);
-		if(!$data['follow_by'] && checkRight('potential_follow') === FALSE){
-			$this->showView('denied', $data);
-			exit;
-		}
-		if($data['follow_by'] && checkRight('potential_assign') === FALSE){
-			$this->showView('denied', $data);
-			exit;
-		}
 		$this->load->model('MIS_EnterpriseHidden');
 		$msg = '';
 		$this->MIS_EnterpriseHidden->update($data);
@@ -413,10 +398,6 @@ class Investment extends MIS_Controller
 	public function doDelPotential()
 	{
 		$data = array();
-		if(checkRight('potential_del') === FALSE){
-			$this->showView('denied', $data);
-			exit;
-		}
 		$id = $this->input->get('id');
 		$this->load->model('MIS_EnterpriseHidden');
 		$this->MIS_EnterpriseHidden->del($id);
@@ -446,10 +427,6 @@ class Investment extends MIS_Controller
 			$this->MIS_EnterpriseHidden->batchAddEnterpriseBuilding($addList);
 			redirect(formatUrl('investment/potential'));
 		}else{
-			if(checkRight('potential_add') === FALSE){
-				$this->showView('denied', $data);
-				exit;
-			}
 			$data = $this->input->post();
 			$enterprise_building = $data['enterprise_building'];
 			unset($data['enterprise_building']);

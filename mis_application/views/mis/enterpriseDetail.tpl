@@ -39,6 +39,10 @@
           			 <td>{$info['enterprise_mobile']}</td>
         		</tr>
         		<tr>
+          		     <th class="text-r" width="180">企业联系邮箱：</th>
+          			 <td>{$info['enterprise_email']}</td>
+        		</tr>
+        		<tr>
           		     <th class="text-r" width="180">企业账户余额：</th>
           			 <td>{$info['enterprise_account']}元</td>
         		</tr>

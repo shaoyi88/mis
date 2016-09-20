@@ -232,10 +232,6 @@ class Workbench extends MIS_Controller
 	public function business()
 	{
 		$data = array();
-		if(checkRight(array('project_apply_confirm', 'project_apply_assign', 'room_booking_confirm', 'room_booking_assign', 'potential_follow', 'potential_assign')) === FALSE){
-			$this->showView('denied', $data);
-			exit;
-		}
 		if(checkRight(array('project_apply_confirm', 'project_apply_assign'))){
 			$data['type'] = 0;
 		}else if(checkRight(array('room_booking_confirm','room_booking_assign'))){
@@ -289,10 +285,6 @@ class Workbench extends MIS_Controller
 			$data['dataList'] = $dataList;
 			$data['room_type'] = $this->config->item('room_type');
 		}else{
-			if(checkRight(array('potential_follow','potential_assign')) === FALSE){
-				$this->showView('denied', $data);
-				exit;
-			}
 			$this->load->model('MIS_EnterpriseHidden');
 			$offset = 0;
 			$pageUrl = '';
@@ -305,14 +297,7 @@ class Workbench extends MIS_Controller
 			$adminList = array();
 			$list = $this->MIS_Admin->getAll();
 			foreach($list as $item){
-				if($item['admin_role'] == 0){
-					$adminList[] = $item;
-				}else{
-					$rightsArr = explode(',', $item['role_rights']);
-					if(in_array('potential_follow', $rightsArr)){
-						$adminList[] = $item;
-					}
-				}
+				$adminList[] = $item;
 			}
 			$data['adminList'] = $adminList;
 		}
@@ -323,14 +308,6 @@ class Workbench extends MIS_Controller
 	{
 		$data = $this->input->post();
 		unset($data['file']);
-		if(!$data['follow_by'] && checkRight('potential_follow') === FALSE){
-			$this->showView('denied', $data);
-			exit;
-		}
-		if($data['follow_by'] && checkRight('potential_assign') === FALSE){
-			$this->showView('denied', $data);
-			exit;
-		}
 		$this->load->model('MIS_EnterpriseHidden');
 		$msg = '';
 		$this->MIS_EnterpriseHidden->update($data);

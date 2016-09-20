@@ -9,7 +9,7 @@ $config['menus'] = array(
 			array('活动审批', formatUrl('workbench/activity'), array('activity_audit','activity_assign')),
 			array('企业审批', formatUrl('workbench/enterprise'), array('enterprise_user_approve','enterprise_user_assign','apply_assign','apply_audit')),
 			array('物业服务', formatUrl('workbench/property'), array('repair_confirm', 'repair_assign', 'complain_reply', 'complain_assign')),
-			array('企业服务', formatUrl('workbench/business'), array('project_apply_confirm', 'project_apply_assign', 'room_booking_confirm', 'room_booking_assign', 'potential_follow', 'potential_assign')),
+			array('企业服务', formatUrl('workbench/business'), ''),
 		),
 		'right' => 'workbench'
 	),
@@ -18,7 +18,7 @@ $config['menus'] = array(
 		'menu' => array(
 			array('入驻流程配置', formatUrl('investment/flow'), 'flow_list'),
 			array('入驻申请管理', formatUrl('investment/apply'), 'apply_list'),
-			array('潜在客户管理', formatUrl('investment/potential'), 'potential_list'),
+			array('潜在客户管理', formatUrl('investment/potential'), ''),
 			array('入驻企业管理', formatUrl('enterprise/index'), 'enterprise_list'),
 		),
 		'right' => 'investment'
@@ -113,12 +113,7 @@ $config['rights'] = array(
 			array('入驻企业列表', 'enterprise_list'),
 			array('入驻企业添加', 'enterprise_add'),
 			array('入驻企业编辑', 'enterprise_edit'),
-			array('入驻企业删除', 'enterprise_del', TRUE),
-			array('潜在客户管理', 'potential_list'),
-			array('潜在客户添加', 'potential_add'),
-			array('潜在客户删除', 'potential_del'),
-			array('潜在客户跟进指派', 'potential_assign'),
-			array('潜在客户跟进', 'potential_follow', TRUE),
+			array('入驻企业删除', 'enterprise_del', TRUE)
 		),
 		'right' => 'investment'
 	),
