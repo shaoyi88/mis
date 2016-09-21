@@ -25,6 +25,9 @@
                             &nbsp;&nbsp;
                             <button type="button" class="btn btn-primary" style="background:#dcdcdc;color:#191919;text-decoration:underline;" onclick="location.href='{formatUrl('home/find')}'">忘记密码?</button>
                         </div>
+                        {if isset($msg)&&$msg}
+                        <div class="form-group" style="color:#c00;">{$msg}</div>
+                        {/if}
                     </div>
                 </form> 
             </div>

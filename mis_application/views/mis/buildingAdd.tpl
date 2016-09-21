@@ -13,11 +13,11 @@
         		
         		<tr>
           		     <th class="text-r" width="180">楼层<span class="c-red">*</span>：</th>
-          			 <td><input nullmsg="请输入楼层！" datatype="s" class="input-text" style="width:250px" name="building_floor" type="text" value="{if isset($info)}{$info['building_floor']}{/if}" placeholder="输入楼层"></td>
+          			 <td><input nullmsg="请输入楼层！" datatype="*" class="input-text" style="width:250px" name="building_floor" type="text" value="{if isset($info)}{$info['building_floor']}{/if}" placeholder="输入楼层"></td>
         		</tr>
         		<tr>
           		     <th class="text-r" width="180">房号<span class="c-red">*</span>：</th>
-          			 <td><input nullmsg="请输入房号！" datatype="s" class="input-text" style="width:250px" name="building_room" type="text" value="{if isset($info)}{$info['building_room']}{/if}" placeholder="输入房号"></td>
+          			 <td><input nullmsg="请输入房号！" datatype="*" class="input-text" style="width:250px" name="building_room" type="text" value="{if isset($info)}{$info['building_room']}{/if}" placeholder="输入房号"></td>
         		</tr>
         		<tr>
           		     <th class="text-r" width="180">套内面积<span class="c-red">*</span>：</th>
