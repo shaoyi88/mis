@@ -47,6 +47,7 @@ class officehall extends MIS_Controller
 		$this->load->model('MIS_EnterprisePotential');
 		$data['app_by'] = $this->userId;
 		$data['app_time'] = time();
+		/*
 		//上传营业执照
 		$config['upload_path'] =   './upload/enterprise/licence/'; //存放路径
 		$config['allowed_types'] = 'gif|jpg|jpeg|png|bmp';
@@ -56,10 +57,8 @@ class officehall extends MIS_Controller
 		if($this->upload->do_upload('enterprise_bussiness')){
 			$upload_data = $this->upload->data();  //文件信息
 			$data['enterprise_business_licence'] = $upload_data['file_name'];
-		}else{
-			 $error = $this->upload->display_errors();
-			 redirect(formatUrl('officehall/application?msg=').$error);
 		}
+		*/
 		$id = $this->MIS_EnterprisePotential->add($data);
 		redirect(formatUrl('myhome/application'));
 	}
@@ -338,6 +337,42 @@ class officehall extends MIS_Controller
 			redirect(formatUrl('home/none?msg='.$msg));
 		} 
 		
+	}
+	
+	/**
+	 * 上传图片
+	 */
+	public function uploadPic(){
+		if($_FILES["image"]["error"]!=0){
+			$result = array('status'=>0,'msg'=>'上传错误');
+			$this->send_json($result);
+			exit();
+		}
+	
+		if( !in_array($_FILES["image"]["type"], array('image/jpg','image/png','image/gif','image/jpeg','image/bmp')) ){
+			$result = array('status'=>0,'msg'=>'图片格式错误');
+			$this->send_json($result);
+			exit();
+		}
+	
+		if($_FILES["image"]["size"] > 2000000){//判断是否大于2M
+			$result = array('status'=>0,'msg'=>'图片大小超过限制');
+			$this->send_json($result);
+			exit();
+		}
+	
+		$filename = substr(md5(time()),0,10).mt_rand(1,10000);
+		$ext = pathinfo($_FILES["image"]["name"], PATHINFO_EXTENSION);
+	
+		$localName = "./upload/enterprise/licence/".$filename.'.'.$ext;
+	
+		if(move_uploaded_file($_FILES["image"]["tmp_name"], $localName) == true) {
+			$lurl = '/'.$localName;
+			$result  = array('status'=>1,'msg'=>$lurl);
+		}else{
+			$result  = array('status'=>0,'msg'=>'error');
+		}
+		$this->send_json($result);
 	}
 	
 }

@@ -5,7 +5,7 @@
                 <h2>企业成员认证</h2>
                 <p class="lead">{if isset($msg)&&$msg}{$msg}{else}请填写以下信息{/if}</p>
             </div> 
-            <form name="form1" action="{formatUrl('home/do_identify')}" method="post" enctype="multipart/form-data">
+            <form name="form1" action="{formatUrl('officehall/do_identify')}" method="post" enctype="multipart/form-data">
             <div class="row contact-wrap"> 
                 <div class="status alert alert-success" style="display: none"></div>
                     <div class="col-xs-12 col-sm-2"></div>

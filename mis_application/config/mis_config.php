@@ -406,8 +406,7 @@ $config['project_apply_status'] = array(
  * 房间类型
  */
 $config['room_type'] = array(
-	'0' => '多功能厅',
-	'1' => 'VIP室'
+	'0' => '多功能厅和VIP室',
 );
 
 /**

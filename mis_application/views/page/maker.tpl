@@ -68,16 +68,16 @@
 									<h4>种子期孵化器</h4>
 									<h5>创业，有种你就来！</h5>
 									<ul class="tag clearfix">
-										<li class="btn"><a href="#">移动互联网</a></li>
-										<li class="btn"><a href="#">文化创意</a></li>
-										<li class="btn"><a href="#">智能硬件</a></li>
-										<li class="btn"><a href="#">大健康</a></li>
+										<li class="btn"><a href="javascript:;" style="cursor:default;">移动互联网</a></li>
+										<li class="btn"><a href="javascript:;" style="cursor:default;">文化创意</a></li>
+										<li class="btn"><a href="javascript:;" style="cursor:default;">智能硬件</a></li>
+										<li class="btn"><a href="javascript:;" style="cursor:default;">大健康</a></li>
 									</ul>
 									
 									<ul class="social_icons">
-										<li><a href="#"><i class="fa fa-chain"></i></a></li>
-										<li><a href="#"><i class="fa fa-files-o"></i></a></li> 
-										<li><a href="#"><i class="fa fa-magic"></i></a></li>
+										<li><a href="javascript:;" style="cursor:default;"><i class="fa fa-chain"></i></a></li>
+										<li><a href="javascript:;" style="cursor:default;"><i class="fa fa-files-o"></i></a></li> 
+										<li><a href="javascript:;" style="cursor:default;"><i class="fa fa-magic"></i></a></li>
 									</ul>
 								</div>
 							</div><!--/.media -->
@@ -96,15 +96,15 @@
 									<h4>众创空间</h4>
 									<h5>核心价值不仅限场地提供</h5>
 									<ul class="tag clearfix">
-										<li class="btn"><a href="#">新兴消费品</a></li>
-										<li class="btn"><a href="#">物联网</a></li>
-										<li class="btn"><a href="#">大健康</a></li>
-										<li class="btn"><a href="#">文化创意</a></li>
+										<li class="btn"><a href="javascript:;" style="cursor:default;">新兴消费品</a></li>
+										<li class="btn"><a href="javascript:;" style="cursor:default;">物联网</a></li>
+										<li class="btn"><a href="javascript:;" style="cursor:default;">大健康</a></li>
+										<li class="btn"><a href="javascript:;" style="cursor:default;">文化创意</a></li>
 									</ul>
 									<ul class="social_icons">
-										<li><a href="#"><i class="fa fa-chain"></i></a></li>
-										<li><a href="#"><i class="fa fa-files-o"></i></a></li> 
-										<li><a href="#"><i class="fa fa-magic"></i></a></li>
+										<li><a href="javascript:;" style="cursor:default;"><i class="fa fa-chain"></i></a></li>
+										<li><a href="javascript:;" style="cursor:default;"><i class="fa fa-files-o"></i></a></li> 
+										<li><a href="javascript:;" style="cursor:default;"><i class="fa fa-magic"></i></a></li>
 									</ul>
 								</div>
 							</div><!--/.media -->
@@ -142,15 +142,15 @@
 									<h4>优质种子项目</h4>
 									<h5>各类活动节目等着你</h5>
 									<ul class="tag clearfix">
-										<li class="btn"><a href="#">移动互联网</a></li>
-										<li class="btn"><a href="#">文化创意</a></li>
-										<li class="btn"><a href="#">智能硬件</a></li>
-										<li class="btn"><a href="#">新兴消费品</a></li>
+										<li class="btn"><a href="javascript:;" style="cursor:default;">移动互联网</a></li>
+										<li class="btn"><a href="javascript:;" style="cursor:default;">文化创意</a></li>
+										<li class="btn"><a href="javascript:;" style="cursor:default;">智能硬件</a></li>
+										<li class="btn"><a href="javascript:;" style="cursor:default;">新兴消费品</a></li>
 									</ul>
 									<ul class="social_icons">
-										<li><a href="#"><i class="fa fa-chain"></i></a></li>
-										<li><a href="#"><i class="fa fa-files-o"></i></a></li> 
-										<li><a href="#"><i class="fa fa-magic"></i></a></li>
+										<li><a href="javascript:;" style="cursor:default;"><i class="fa fa-chain"></i></a></li>
+										<li><a href="javascript:;" style="cursor:default;"><i class="fa fa-files-o"></i></a></li> 
+										<li><a href="javascript:;" style="cursor:default;"><i class="fa fa-magic"></i></a></li>
 									</ul>
 								</div>
 							</div><!--/.media -->
@@ -167,15 +167,15 @@
 									<h4>不同程度的服务</h4>
 									<h5>向创业者提供各类服务</h5>
 									<ul class="tag clearfix">
-										<li class="btn"><a href="#">新兴消费品</a></li>
-										<li class="btn"><a href="#">物联网</a></li>
-										<li class="btn"><a href="#">大健康</a></li>
-										<li class="btn"><a href="#">移动互联网</a></li>
+										<li class="btn"><a href="javascript:;" style="cursor:default;">新兴消费品</a></li>
+										<li class="btn"><a href="javascript:;" style="cursor:default;">物联网</a></li>
+										<li class="btn"><a href="javascript:;" style="cursor:default;">大健康</a></li>
+										<li class="btn"><a href="javascript:;" style="cursor:default;">移动互联网</a></li>
 									</ul>
 									<ul class="social_icons">
-										<li><a href="#"><i class="fa fa-chain"></i></a></li>
-										<li><a href="#"><i class="fa fa-files-o"></i></a></li> 
-										<li><a href="#"><i class="fa fa-magic"></i></a></li>
+										<li><a href="javascript:;" style="cursor:default;"><i class="fa fa-chain"></i></a></li>
+										<li><a href="javascript:;" style="cursor:default;"><i class="fa fa-files-o"></i></a></li> 
+										<li><a href="javascript:;" style="cursor:default;"><i class="fa fa-magic"></i></a></li>
 									</ul>
 								</div>
 							</div><!--/.media -->

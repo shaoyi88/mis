@@ -254,4 +254,5 @@ class MIS_Enterprise extends CI_Model
 		}
 		return $info;
 	}
+	
 }

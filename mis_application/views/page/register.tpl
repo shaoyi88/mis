@@ -35,6 +35,10 @@
                             <label>确认密码 *</label>
                             <input type="password" class="form-control" name="user_password_re" id="user_password_re" placeholder="请再次输入密码" required="required">
                         </div>
+                        <div class="form-group">
+                            <label>企业验证码 </label>
+                            <input type="text" class="form-control" name="ecode" id="ecode" placeholder="如有企业验证码请输入">
+                        </div>
                         <div class="form-group dragTxt">
                             <label>请拖动验证</label>
 				            <div class="input-control">

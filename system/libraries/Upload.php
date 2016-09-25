@@ -146,7 +146,7 @@ class CI_Upload {
 	// Is $_FILES[$field] set? If not, no reason to continue.
 		if ( ! isset($_FILES[$field]))
 		{
-			$this->set_error('upload_no_file_selected');
+			$this->set_error('没有选择任何文件');
 			return FALSE;
 		}
 
@@ -165,27 +165,27 @@ class CI_Upload {
 			switch($error)
 			{
 				case 1:	// UPLOAD_ERR_INI_SIZE
-					$this->set_error('upload_file_exceeds_limit');
+					$this->set_error('文件太大');
 					break;
 				case 2: // UPLOAD_ERR_FORM_SIZE
-					$this->set_error('upload_file_exceeds_form_limit');
+					$this->set_error('文件太大');
 					break;
 				case 3: // UPLOAD_ERR_PARTIAL
-					$this->set_error('upload_file_partial');
+					$this->set_error('文件只有部分被上传');
 					break;
 				case 4: // UPLOAD_ERR_NO_FILE
-					$this->set_error('upload_no_file_selected');
+					$this->set_error('没有文件被上传');
 					break;
 				case 6: // UPLOAD_ERR_NO_TMP_DIR
-					$this->set_error('upload_no_temp_directory');
+					$this->set_error('上传文件大小为0');
 					break;
 				case 7: // UPLOAD_ERR_CANT_WRITE
-					$this->set_error('upload_unable_to_write_file');
+					$this->set_error('上传目录不可用');
 					break;
 				case 8: // UPLOAD_ERR_EXTENSION
-					$this->set_error('upload_stopped_by_extension');
+					$this->set_error('上传被意外终止');
 					break;
-				default :   $this->set_error('upload_no_file_selected');
+				default :   $this->set_error('没有文件被上传');
 					break;
 			}
 

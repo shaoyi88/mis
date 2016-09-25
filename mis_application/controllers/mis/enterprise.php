@@ -124,6 +124,7 @@ class Enterprise extends MIS_Controller
 			$data['enterprise_enter_time'] = strtotime($data['enterprise_enter_time']);
 			$msg = '';
 			$info = $this->MIS_Enterprise->queryByName($data['enterprise_name']);
+			$data['enterprise_code'] = time().rand(11,99);
 			if(empty($info)){
 				if(($enterprise_id = $this->MIS_Enterprise->add($data)) === FALSE){
 					$msg = '&msg='.urlencode('创建失败');

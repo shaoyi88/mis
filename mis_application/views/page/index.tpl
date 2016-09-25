@@ -29,7 +29,7 @@
                                 <div class="carousel-content">
                                     <h1 class="animation animated-item-1">专业的孵化器运营管理团队</h1>
                                     <h2 class="animation animated-item-2">未来3-5年将管理10个科技孵化园，产生1000个以上可投资项目，打造“资本-产业-人才-服务-投资”的国际创新孵化器服务模式...</h2>
-                                    <a class="btn-slide animation animated-item-3" href="{formatUrl('home/zs')}">更多介绍</a>
+                                    <a class="btn-slide animation animated-item-3" href="{formatUrl('home/team')}">更多介绍</a>
                                 </div>
                             </div>
 
@@ -193,7 +193,6 @@
                             <div class="recent-work-inner">
                                 <h3>&nbsp;</h3>
                                 <p>&nbsp;</p>
-                                <i class="fa fa-eye"></i> 查看
                             </div>                            
                         </div>
                         </a>
