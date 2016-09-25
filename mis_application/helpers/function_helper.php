@@ -300,6 +300,9 @@ function remind()
  * @param unknown_type $ns
  */
 function cny($ns) { 
+	if($ns <=0){
+		return '';
+	}
 	$cnums = array("零","壹","贰","叁","肆","伍","陆","柒","捌","玖");
     $cnyunits = array("圆","角","分");
     $grees = array("拾","佰","仟","万","拾","佰","仟","亿"); 

@@ -1,4 +1,6 @@
+{if !$hideTitle}
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i>  招商管理<span class="c-gray en">&gt;</span> <a href="{formatUrl('investment/apply')}">入驻申请管理</a> <span class="c-gray en">&gt;</span> 详情</nav>
+{/if}
 <div class="pd-20">
 	{if empty($info)}
 	<p>该入驻申请不存在</p>
@@ -45,7 +47,7 @@
     		<tr>
       		     <th class="text-r">状态：</th>
       			 <td>{$apply_deal_status[$info['deal_status']]}{if $info['deal_status']>1}&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-primary radius checkapproval" href="javascript:;">查看立项表</a>{/if}</td>
-    		</tr>
+    		</tr
     		{if $info['deal_status'] >2} 
     		<tr>
       		     <th class="text-r">审核信息：</th>
@@ -62,6 +64,7 @@
 		        		</tr>
 		        		{/if}
     		{/if}
+    		{if !$hideTitle}
     		{if checkRight('activity_audit') && $info['deal_status'] == 0 && $info['follow_by'] == $userId}
     			<tr>
         			<th class="text-r" style="width:100px">立项判断<span class="c-red">*</span></th>
@@ -140,6 +143,7 @@
 		      				</td>
 		      			</tr>
 		       {/if}
+		       {/if}
 		</tbody>
 	</table>
 	</form>
@@ -207,9 +211,11 @@
   	</table>
 </div>
 {/if}
+{if !$hideTitle}
 <div class="pd-20 text-c">
 <a class="btn btn-primary radius" href="javascript:history.go(-1);" style="text-decoration:none;height:auto">返回</a>
 </div>
+{/if}
 <input type="hidden" id="uploadUrl" value="{formatUrl('file/upload')}"></input>
 <link rel="stylesheet" type="text/css" href="/public/common/js/webuploader-0.1.5/webuploader.css">
 <script type="text/javascript" src="/public/common/js/webuploader-0.1.5/webuploader.js"></script>

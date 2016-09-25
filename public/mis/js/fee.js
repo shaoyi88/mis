@@ -40,9 +40,7 @@ var fee = function(){
 		$('#enterprise_id').val('');
 		$('#enterprise_email').val('');
 		$('#rent_fee').val('');
-		$('#rent_fee_txt').html('0');
 		$('#property_fee').val('');
-		$('#property_fee_txt').html('0');
 		$('#submitFee').addClass('disabled');
 		if(key == ''){
 			return;
@@ -59,9 +57,7 @@ var fee = function(){
 						$('#enterprise_id').val($(event.currentTarget).attr('eid'));
 						$('#enterprise_email').val($(event.currentTarget).attr('email'));
 						$('#rent_fee').val($(event.currentTarget).attr('rent_fee'));
-						$('#rent_fee_txt').html($(event.currentTarget).attr('rent_fee'));
 						$('#property_fee').val($(event.currentTarget).attr('property_fee'));
-						$('#property_fee_txt').html($(event.currentTarget).attr('property_fee'));
 						$('#submitFee').removeClass('disabled');
             			$('#enterprise_key').val($(event.currentTarget).html());
             			$('.auto-complete-result').hide();

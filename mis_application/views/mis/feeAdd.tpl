@@ -25,38 +25,53 @@
         		<tr>
           		     <th class="text-r" width="180">租金<span class="c-red">*</span>：</th>
           			 <td>
-          			 	<span id="rent_fee_txt">{if isset($info)}{$info['rent_fee']}元{else}0{/if}</span>元
+          			 	<input nullmsg="请输入租金！" errormsg="请输入正确的数字格式" datatype="num" class="input-text" style="width:250px" name="rent_fee" id="rent_fee" type="text" value="{if isset($info)}{$info['rent_fee']}{/if}" placeholder="输入租金">元
           			 </td>
         		</tr>
         		<tr>
           		     <th class="text-r" width="180">物业费<span class="c-red">*</span>：</th>
           			 <td>
-          			 	<span id="property_fee_txt">{if isset($info)}{$info['property_fee']}元{else}0{/if}</span>元
+          			 	<input nullmsg="请输入物业费！" errormsg="请输入正确的数字格式" datatype="num" class="input-text" style="width:250px" name="property_fee" id="property_fee" type="text" value="{if isset($info)}{$info['property_fee']}{/if}" placeholder="输入物业费">元
           			 </td>
         		</tr>
         		<tr>
           		     <th class="text-r" width="180">水费<span class="c-red">*</span>：</th>
           			 <td>
-          			 <input nullmsg="请输入用水数量！" errormsg="请输入正确的数字格式" datatype="num" class="input-text" style="width:250px" name="water_fee_num" id="water_fee_num" type="text" value="{if isset($info)}{$info['water_fee_num']}{/if}" placeholder="输入用水数量">吨
-          			 *
-          			 <input nullmsg="请输入水费单价！" errormsg="请输入正确的数字格式" datatype="num" class="input-text" style="width:250px" name="water_fee_unit_price" id="water_fee_unit_price" type="text" value="{if isset($info)}{$info['water_fee_unit_price']}{else}{$init_fee['water_fee']}{/if}" placeholder="输入水费单价">元/吨
-          			 <span id="water_fee_amount">{if isset($info)}（水费：{$info['water_fee_num']*$info['water_fee_unit_price']}元）{/if}</span>
+          			 <div>
+          			 	<input nullmsg="请输入用水数量！" errormsg="请输入正确的数字格式" datatype="num" class="input-text" style="width:250px" name="water_fee_num" id="water_fee_num" type="text" value="{if isset($info)}{$info['water_fee_num']}{/if}" placeholder="输入用水数量">吨
+          			 	*
+          			 	<input nullmsg="请输入水费单价！" errormsg="请输入正确的数字格式" datatype="num" class="input-text" style="width:250px" name="water_fee_unit_price" id="water_fee_unit_price" type="text" value="{if isset($info)}{$info['water_fee_unit_price']}{else}{$init_fee['water_fee']}{/if}" placeholder="输入水费单价">元/吨
+          			 	<span id="water_fee_amount">{if isset($info)}（水费：{$info['water_fee_num']*$info['water_fee_unit_price']}元）{/if}</span>
+          			 </div>
+          			 <div style="margin-top:10px">
+          			 	<input nullmsg="请输入水表上期读数！" datatype="num" class="input-text" style="width:250px;" type="text" name="last_water_num" value="{if isset($info)}{$info['last_water_num']}{/if}" placeholder="输入水表上期读数">
+          			 </div>
+          			 <div style="margin-top:10px">
+          			 	<input nullmsg="请输入水表本期读数！" datatype="num" class="input-text" style="width:250px" type="text" name="cur_water_num" value="{if isset($info)}{$info['cur_water_num']}{/if}" placeholder="输入水表本期读数">
+          			 
+          			 </div>
           			 </td>
         		</tr>
         		<tr>
           		     <th class="text-r" width="180">电费<span class="c-red">*</span>：</th>
           			 <td>
-          			 <input nullmsg="请输入用电数量！" errormsg="请输入正确的数字格式" datatype="num" class="input-text" style="width:250px" name="elec_fee_num" id="elec_fee_num" type="text" value="{if isset($info)}{$info['elec_fee_num']}{/if}" placeholder="输入用电数量">度
-          			 *
-          			 <input nullmsg="请输入电费单价！" errormsg="请输入正确的数字格式" datatype="num" class="input-text" style="width:250px" name="elec_fee_unit_price" id="elec_fee_unit_price" type="text" value="{if isset($info)}{$info['elec_fee_unit_price']}{else}{$init_fee['elec_fee']}{/if}" placeholder="输入电费单价">元/度
-          			 <span id="elec_fee_amount">{if isset($info)}（电费：{$info['elec_fee_num']*$info['elec_fee_unit_price']}元）{/if}</span>
+          			 <div>
+          			 	<input nullmsg="请输入用电数量！" errormsg="请输入正确的数字格式" datatype="num" class="input-text" style="width:250px" name="elec_fee_num" id="elec_fee_num" type="text" value="{if isset($info)}{$info['elec_fee_num']}{/if}" placeholder="输入用电数量">度
+          				 *
+          			 	<input nullmsg="请输入电费单价！" errormsg="请输入正确的数字格式" datatype="num" class="input-text" style="width:250px" name="elec_fee_unit_price" id="elec_fee_unit_price" type="text" value="{if isset($info)}{$info['elec_fee_unit_price']}{else}{$init_fee['elec_fee']}{/if}" placeholder="输入电费单价">元/度
+          			 	<span id="elec_fee_amount">{if isset($info)}（电费：{$info['elec_fee_num']*$info['elec_fee_unit_price']}元）{/if}</span>
+          			 </div>
+          			 <div style="margin-top:10px">
+          			 	<input nullmsg="请输入电表上期读数！" datatype="num" class="input-text" style="width:250px;" type="text" name="last_elec_num" value="{if isset($info)}{$info['last_elec_num']}{/if}" placeholder="输入电表上期读数">
+          			 </div>
+          			 <div style="margin-top:10px">
+          			 	<input nullmsg="请输入电表本期读数！" datatype="num" class="input-text" style="width:250px" type="text" name="cur_elec_num" value="{if isset($info)}{$info['cur_elec_num']}{/if}" placeholder="输入电表本期读数">
+          			 </div>
           			 </td>
         		</tr>
         		<tr>
           			<th></th>
           			<td>     
-          				<input name="rent_fee" id="rent_fee" type="hidden" value="{if isset($info)}{$info['rent_fee']}{/if}">	
-          				<input name="property_fee" id="property_fee" type="hidden" value="{if isset($info)}{$info['property_fee']}{/if}">	    
           				<input name="enterprise_id" id="enterprise_id" type="hidden" value="{if isset($info)}{$info['enterprise_id']}{/if}">	
           				<input name="enterprise_email" id="enterprise_email" type="hidden" value="{if isset($info)}{$info['enterprise_email']}{/if}">	
           				{if isset($info)}

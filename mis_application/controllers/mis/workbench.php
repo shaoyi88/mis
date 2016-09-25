@@ -93,6 +93,14 @@ class Workbench extends MIS_Controller
 		if($this->input->get('type')){
 			$data['type'] = $this->input->get('type');
 		}
+		if(checkRight(array('repair_confirm','repair_assign'))){
+			$this->load->model('MIS_Repair');
+			$data['num1'] = $this->MIS_Repair->getConfirmCount();
+		}
+		if(checkRight(array('complain_reply','complain_assign'))){
+			$this->load->model('MIS_Complain');
+			$data['num2'] = $this->MIS_Complain->getConfirmCount();
+		}
 		if($data['type'] == 0){
 			if(checkRight(array('repair_confirm', 'repair_assign')) === FALSE){
 				$this->showView('denied', $data);
@@ -241,6 +249,18 @@ class Workbench extends MIS_Controller
 		}
 		if($this->input->get('type')){
 			$data['type'] = $this->input->get('type');
+		}
+		if(checkRight(array('project_apply_confirm','project_apply_assign'))){
+			$this->load->model('MIS_Apply');
+			$data['num1'] = $this->MIS_Apply->getConfirmApplyCount();
+		}
+		if(checkRight(array('room_booking_confirm','room_booking_assign'))){
+			$this->load->model('MIS_Room');
+			$data['num2'] = $this->MIS_Room->getConfirmBookingCount();
+		}
+		if(checkRight(array('potential_follow','potential_assign'))){
+			$this->load->model('MIS_EnterpriseHidden');
+			$data['num3'] = $this->MIS_EnterpriseHidden->getFollowCount();
 		}
 		if($data['type'] == 0){
 			if(checkRight(array('project_apply_confirm','project_apply_assign')) === FALSE){
@@ -409,6 +429,14 @@ class Workbench extends MIS_Controller
 			$data['type'] = 0;
 		}else{
 			$data['type'] = 1;
+		}
+		if(checkRight(array('enterprise_user_approve','enterprise_user_assign'))){
+			$this->load->model('MIS_User');
+			$data['num1'] = $this->MIS_User->getApproveEnterpriseUserCount();
+		}
+		if(checkRight(array('apply_assign','apply_audit'))){
+			$this->load->model('MIS_EnterprisePotential');
+			$data['num2'] = $this->MIS_EnterprisePotential->getFollowCount();
 		}
 		if($this->input->get('type')){
 			$data['type'] = $this->input->get('type');

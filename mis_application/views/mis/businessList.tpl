@@ -2,9 +2,33 @@
 <div class="pd-20">
 	<div id="tab-system" class="HuiTab">
 	 <div class="tabBar cl">
-	 	{if checkRight(array('project_apply_confirm','project_apply_assign'))}<a href="{formatUrl('workbench/business?type=0')}"><span {if $type == 0}class="current"{/if}>项目需求申请</span></a>{/if}
-	 	{if checkRight(array('room_booking_confirm','room_booking_assign'))}<a href="{formatUrl('workbench/business?type=1')}"><span {if $type == 1}class="current"{/if}>房间预订申请</span></a>{/if}
-	 	{if checkRight(array('potential_follow','potential_assign'))}<a href="{formatUrl('workbench/business?type=2')}"><span {if $type == 2}class="current"{/if}>潜在客户跟进</span></a>{/if}
+	 	{if checkRight(array('project_apply_confirm','project_apply_assign'))}
+	 		<a href="{formatUrl('workbench/business?type=0')}">
+	 			<span style="position:relative" {if $type == 0}class="current"{/if}>项目需求申请
+	 			{if isset($num1) && $num1 > 0}
+	 				<i style="z-index:999;display: block;background:#f00;border-radius:50%;width: 5px;height: 5px;top: -2px;right: -2px;position:absolute;"></i>
+	 			{/if}
+	 			</span>
+	 		</a>
+	 	{/if}
+	 	{if checkRight(array('room_booking_confirm','room_booking_assign'))}
+	 		<a href="{formatUrl('workbench/business?type=1')}">
+	 			<span style="position:relative" {if $type == 1}class="current"{/if}>房间预订申请
+	 			{if isset($num2) && $num2 > 0}
+	 				<i style="z-index:999;display: block;background:#f00;border-radius:50%;width: 5px;height: 5px;top: -2px;right: -2px;position:absolute;"></i>
+	 			{/if}
+	 			</span>
+	 		</a>
+	 	{/if}
+	 	{if checkRight(array('potential_follow','potential_assign'))}
+	 		<a href="{formatUrl('workbench/business?type=2')}">
+	 			<span style="position:relative" {if $type == 2}class="current"{/if}>潜在客户跟进
+	 			{if isset($num3) && $num3 > 0}
+	 				<i style="z-index:999;display: block;background:#f00;border-radius:50%;width: 5px;height: 5px;top: -2px;right: -2px;position:absolute;"></i>
+	 			{/if}
+	 			</span>
+	 		</a>
+	 	{/if}
 	 </div>
 	 {if $type == 0}
 	 {if empty($dataList)}

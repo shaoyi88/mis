@@ -34,6 +34,7 @@
 			<thead>
         		<tr class="text-c">
           			<th>企业</th>
+          			<th style="width:150px">房号</th>
           			<th>日期</th>
           			<th>租金</th>
           			<th>物业费</th>
@@ -49,6 +50,15 @@
       			{foreach $dataList as $item}
       				<tr class="text-c">
           				<td>{$item['enterprise_name']}</td>
+          				<th>
+          				{if isset($eBuildInfo[$item['enterprise_id']])}
+          				{foreach $eBuildInfo[$item['enterprise_id']] as $eitem}
+          					<p>{$eitem}</p>
+          				{/foreach}
+          				{else}
+          				暂无信息
+          				{/if}
+          				</th>         				
           				<td>{date('Y-m',$item['fee_date'])}</td>
           				<td>{$item['rent_fee']}元</td>
           				<td>{$item['property_fee']}元</td>
@@ -64,7 +74,8 @@
           					{if checkRight('fee_pay') && $item['pay_status'] == 0}<a class="ml-5 btn btn-primary radius" title="支付" href="{formatUrl('property/payFee?did=')}{$item['fee_id']}" style="text-decoration:none">支付</a>{/if}
           					{if checkRight('fee_edit') && $item['pay_status'] == 0}<a class="ml-5 btn btn-primary radius" title="编辑" href="{formatUrl('property/addFee?did=')}{$item['fee_id']}" style="text-decoration:none">编辑</a>{/if}
           					{if checkRight('fee_del')}<a title="删除" href="javascript:;" class="ml-5 del btn btn-primary radius" did="{$item['fee_id']}" style="text-decoration:none">删除</a>{/if}
-          					{if checkRight('fee_export') && $item['pay_status'] == 0}</br></br><a class="ml-5 btn btn-primary radius" title="导出缴费通知单（物管、水电费）" href="{formatUrl('property/export1?did=')}{$item['fee_id']}" style="text-decoration:none">导出缴费通知单（物管、水电费）</a>{/if}
+          					{if checkRight('fee_export') && $item['pay_status'] == 0}</br></br><a class="ml-5 btn btn-primary radius" title="导出缴费通知单（物管）" href="{formatUrl('property/export1?did=')}{$item['fee_id']}" style="text-decoration:none">导出缴费通知单（物管）</a>{/if}
+          					{if checkRight('fee_export') && $item['pay_status'] == 0}</br></br><a class="ml-5 btn btn-primary radius" title="导出缴费通知单（水电费）" href="{formatUrl('property/export3?did=')}{$item['fee_id']}" style="text-decoration:none">导出缴费通知单（水电费）</a>{/if}
           					{if checkRight('fee_export') && $item['pay_status'] == 0}</br></br><a class="ml-5 btn btn-primary radius" title="导出缴费通知单（租金）" href="{formatUrl('property/export2?did=')}{$item['fee_id']}" style="text-decoration:none">导出缴费通知单（租金）</a>{/if}
           				</td>
         		</tr>

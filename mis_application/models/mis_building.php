@@ -157,4 +157,15 @@ class MIS_Building extends CI_Model
 		}
 		return $info;
 	}
+	
+	public function getInfoByEid($eList)
+	{
+		$info = array();
+		$sql = "select * from $this->_eb_table as e left join $this->_table as b on e.building_id = b.building_id where e.enterprise_id in ($eList)";
+		$query = $this->db->query($sql);
+		if($query){
+			$info = $query->result_array();
+		}
+		return $info;
+	}
 }

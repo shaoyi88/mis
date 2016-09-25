@@ -81,6 +81,15 @@ class Enterprise extends MIS_Controller
 			$data['enterprise_enter_time'] = strtotime($data['enterprise_enter_time']);
 			$data['enterprise_code'] = time().rand(11,99);
 			$this->load->model('MIS_Enterprise');
+			//查询办公地址是否被占用
+			$info = $this->MIS_Enterprise->getBuildingByBlist($enterprise_building);
+			foreach($info as $item){
+				if($item['enterprise_id'] != $data['enterprise_id']){
+					$msg .= "该办公地址已被占用，请重新选择";
+					redirect(formatUrl('enterprise/index?msg='.urlencode($msg)));
+					exit;
+				}
+			}
 			$this->MIS_Enterprise->update($data);
 			// 删除企业原来所在办公地点
 			$this->MIS_Enterprise->delEnterpriseBuildingInfo($data['enterprise_id']);
@@ -101,11 +110,18 @@ class Enterprise extends MIS_Controller
 			}
 			$data = $this->input->post();
 			$enterprise_building = $data['enterprise_building'];
+			$this->load->model('MIS_Enterprise');
+			//查询办公地址是否被占用
+			$info = $this->MIS_Enterprise->getBuildingByBlist($enterprise_building);
+			if(count($info)>0){
+				$msg .= "该办公地址已被占用，请重新选择";
+				redirect(formatUrl('enterprise/index?msg='.urlencode($msg)));
+				exit;
+			}
 			unset($data['enterprise_building']);
 			unset($data['file']);
 			$data['enterprise_reg_time'] = strtotime($data['enterprise_reg_time']);
 			$data['enterprise_enter_time'] = strtotime($data['enterprise_enter_time']);
-			$this->load->model('MIS_Enterprise');
 			$msg = '';
 			$info = $this->MIS_Enterprise->queryByName($data['enterprise_name']);
 			if(empty($info)){
@@ -315,8 +331,8 @@ class Enterprise extends MIS_Controller
 					$rent_fee += $b['building_actual_area'] * $b['building_rent_fee'];
 					$property_fee += $b['building_actual_area'] * $b['building_property_fee'];
 				}
-				$info['rent_fee'] = $rent_fee;
-				$info['property_fee'] = $property_fee;
+				$info['rent_fee'] = $rent_fee > 0 ? $rent_fee : '';
+				$info['property_fee'] = $property_fee > 0 ? $property_fee : '';;
 				$enterpriseList[] = $info;
 			}
 			$this->send_json(array('status'=>1,'enterpriseList'=>$enterpriseList));

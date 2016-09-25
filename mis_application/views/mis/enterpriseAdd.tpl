@@ -59,6 +59,14 @@
           			 <td><input style="width:250px" name="enterprise_email" type="text" class="input-text" id="enterprise_email" value="{if isset($info)}{$info['enterprise_email']}{/if}" nullmsg="企业联系人邮箱不能为空！" datatype="*" placeholder="输入企业联系人邮箱"></td>
         		</tr>
         		<tr>
+          		     <th class="text-r" width="80">企业办公地点类型<span class="c-red">*</span>：</th>
+          			 <td>
+          			 	<input name="enterprise_type" type="radio" value="1" nullmsg="企业办公地点类型不能为空！" datatype="*" {if isset($info)&&$info['enterprise_type']==1}checked{/if}>租
+          			 	&nbsp;
+          			 	<input name="enterprise_type" type="radio" value="2" nullmsg="企业办公地点类型不能为空！" datatype="*" {if isset($info)&&$info['enterprise_type']==2}checked{/if}>买
+          			 </td>
+        		</tr>
+        		<tr>
           		     <th class="text-r" width="80">办公地点<span class="c-red">*</span>：</th>
           			 <td>
           			 	{foreach $buildInfo as $k=>$item}                  					
@@ -84,4 +92,4 @@
 <link rel="stylesheet" type="text/css" href="/public/common/js/webuploader-0.1.5/webuploader.css">
 <script type="text/javascript" src="/public/common/js/webuploader-0.1.5/webuploader.js"></script>
 <script type="text/javascript" src="/public/common/js/date/WdatePicker.js"></script>
-<script type="text/javascript" src="/public/mis/js/enterprise.js?v=102""></script>
+<script type="text/javascript" src="/public/mis/js/enterprise.js?v=103""></script>

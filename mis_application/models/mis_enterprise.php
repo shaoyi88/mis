@@ -243,4 +243,15 @@ class MIS_Enterprise extends CI_Model
         }
         return $result;
 	}
+	
+	public function getBuildingByBlist($enterprise_building)
+	{
+		$info = array();
+		$this->db->where_in('building_id',$enterprise_building);
+		$query = $this->db->get($this->_eb_table);
+		if($query){
+			$info = $query->result_array();
+		}
+		return $info;
+	}
 }

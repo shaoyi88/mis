@@ -1,7 +1,26 @@
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 工作台<span class="c-gray en">&gt;</span> 物业服务<a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="pd-20">
 	<div id="tab-system" class="HuiTab">
-	 <div class="tabBar cl">{if checkRight(array('repair_confirm', 'repair_assign'))}<a href="{formatUrl('workbench/property?type=0')}"><span {if $type == 0}class="current"{/if}>物业报修申请</span></a>{/if}{if checkRight(array('complain_reply','complain_assign'))}<a href="{formatUrl('workbench/property?type=1')}"><span {if $type == 1}class="current"{/if}>物业投诉</span></a>{/if}</div>
+	 <div class="tabBar cl">
+	 {if checkRight(array('repair_confirm', 'repair_assign'))}
+	 <a href="{formatUrl('workbench/property?type=0')}">
+	 	<span style="position:relative" {if $type == 0}class="current"{/if}>物业报修申请
+	 	{if isset($num1) && $num1 > 0}
+	 	<i style="z-index:999;display: block;background:#f00;border-radius:50%;width: 5px;height: 5px;top: -2px;right: -2px;position:absolute;"></i>
+	 	{/if}
+	 	</span>
+	 </a>
+	 {/if}
+	 {if checkRight(array('complain_reply','complain_assign'))}
+	 <a href="{formatUrl('workbench/property?type=1')}">
+	 	<span style="position:relative" {if $type == 1}class="current"{/if}>物业投诉
+	 	{if isset($num2) && $num2 > 0}
+	 	<i style="z-index:999;display: block;background:#f00;border-radius:50%;width: 5px;height: 5px;top: -2px;right: -2px;position:absolute;"></i>
+	 	{/if}
+	 	</span>
+	 </a>
+	 {/if}
+	 </div>
 	 {if $type == 0}
 	 {if empty($dataList)}
 	 	<div class="cl pd-5 bg-1 bk-gray"><h2 class="text-c">暂无物业报修申请</h2></div>

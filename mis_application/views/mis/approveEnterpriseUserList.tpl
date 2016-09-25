@@ -1,7 +1,26 @@
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 工作台<span class="c-gray en">&gt;</span> 企业审批<a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="pd-20">
 	<div id="tab-system" class="HuiTab">
-	 <div class="tabBar cl">{if checkRight(array('enterprise_user_approve', 'enterprise_user_assign'))}<a href="{formatUrl('workbench/enterprise?type=0')}"><span {if $type == 0}class="current"{/if}>企业用户申请</span></a>{/if}{if checkRight(array('apply_assign','apply_audit'))}<a href="{formatUrl('workbench/enterprise?type=1')}"><span {if $type == 1}class="current"{/if}>企业入驻申请</span></a>{/if}</div>
+	 <div class="tabBar cl">
+	 {if checkRight(array('enterprise_user_approve', 'enterprise_user_assign'))}
+	 	<a href="{formatUrl('workbench/enterprise?type=0')}">
+	 		<span style="position:relative" {if $type == 0}class="current"{/if}>企业用户申请
+	 			{if isset($num1) && $num1 > 0}
+	 			<i style="z-index:999;display: block;background:#f00;border-radius:50%;width: 5px;height: 5px;top: -2px;right: -2px;position:absolute;"></i>
+	 			{/if}
+	 		</span>
+	 	</a>
+	 {/if}
+	 {if checkRight(array('apply_assign','apply_audit'))}
+	 	<a href="{formatUrl('workbench/enterprise?type=1')}">
+	 		<span style="position:relative" {if $type == 1}class="current"{/if}>企业入驻申请
+	 			{if isset($num2) && $num2 > 0}
+	 			<i style="z-index:999;display: block;background:#f00;border-radius:50%;width: 5px;height: 5px;top: -2px;right: -2px;position:absolute;"></i>
+	 			{/if}
+	 		</span>
+	 	</a>
+	 {/if}
+	 </div>
 	  {if $type == 0}
 	 {if empty($dataList)}
 	 	<div class="cl pd-5 bg-1 bk-gray"><h2 class="text-c">暂无待审批的企业用户</h2></div>
@@ -53,7 +72,7 @@
       		<tbody>
 			{foreach $dataList as $item}
 				<tr class="text-c">
-        		 	<td>{$item['enterprise_name']}</td>
+        		 	<td><a class="c-primary eDetail" title="企业详情" href="javascript:;" did="{$item['enterprise_id']}"><u class="c-primar">{$item['enterprise_name']}</u></a></td>
 				    <td>{$item['enterprise_contact']}</td> 
 				    <td>{$item['enterprise_contact_mobile']}</td> 
 				    <td>{date('Y-m-d H:i:s',$item['app_time'])}</td> 
@@ -242,5 +261,6 @@
 <link rel="stylesheet" type="text/css" href="/public/common/js/webuploader-0.1.5/webuploader.css">
 <script type="text/javascript" src="/public/common/js/webuploader-0.1.5/webuploader.js"></script>
 <script type="text/javascript" src="/public/mis/js/file.js""></script>
+<input type="hidden" id="eDetailUrl" value="{formatUrl('investment/applyDetail')}" />
 <input type="hidden" id="changeUrl" value="{formatUrl('workbench/doEnterpriseApplyChange')}" />
 <script type="text/javascript" src="/public/mis/js/workbench.js""></script>

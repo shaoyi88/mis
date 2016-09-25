@@ -17,11 +17,6 @@ var enterprise = function(){
 			swf: '/public/common/js/webuploader-0.1.5/Uploader.swf',
 			server: $('#uploadUrl').val(),
    			pick: '#filePicker',
-    		accept: {
-        		title: 'Images',
-        		extensions: 'gif,jpg,jpeg,bmp,png',
-        		mimeTypes: 'image/*'
-    		},
 			fileSingleSizeLimit : 1024*1024*10
 		});
 		
@@ -50,11 +45,6 @@ var enterprise = function(){
 			swf: '/public/common/js/webuploader-0.1.5/Uploader.swf',
 			server: $('#uploadLogoUrl').val(),
    			pick: '#filePickerLogo',
-    		accept: {
-        		title: 'Images',
-        		extensions: 'gif,jpg,jpeg,bmp,png',
-        		mimeTypes: 'image/*'
-    		},
 			fileSingleSizeLimit : 1024*1024*10
 		});
 		

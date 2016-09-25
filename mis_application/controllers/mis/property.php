@@ -193,6 +193,19 @@ class Property extends MIS_Controller
 		$pageUrl = '';
 		page(formatUrl('property/feeList'), $this->MIS_Fee->getCount($keyword), PER_COUNT, $offset, $pageUrl);
 		$dataList = $this->MIS_Fee->getList($keyword, $offset, PER_COUNT);
+		$eList = $eBuildInfo = array();
+		foreach($dataList as $item){
+			$eList[] = $item['enterprise_id'];
+		}
+		if(!empty($eList)){
+			$this->load->model('MIS_Building');
+			$buildInfo = $this->MIS_Building->getInfoByEid(implode(array_unique($eList),','));
+			
+			foreach($buildInfo as $item){
+				$eBuildInfo[$item['enterprise_id']][] = $item['building_name'].$item['building_floor'].'层'.$item['building_room'];
+			}
+		}
+		$data['eBuildInfo'] = $eBuildInfo;
 		$data['pageUrl'] = $pageUrl;
 		$data['dataList'] = $dataList;
 		$data['keyword'] = $keyword;
@@ -472,7 +485,7 @@ class Property extends MIS_Controller
 	
 	/**
 	 * 
-	 * 导出缴费通知单（物管、水电费）
+	 * 导出缴费通知单（物管）
 	 */
 	public function export1()
 	{
@@ -515,14 +528,14 @@ class Property extends MIS_Controller
 		$objPHPExcel->getActiveSheet()->getStyle('A2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
 		$objPHPExcel->getActiveSheet()->getStyle('A2')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
 		$objPHPExcel->getActiveSheet()->mergeCells('E2:G2');
-		$objPHPExcel->getActiveSheet()->setCellValue('E2', '编号：物管、水电费-'.date('Y-m',$info['fee_date']));
+		$objPHPExcel->getActiveSheet()->setCellValue('E2', '编号：物管-'.date('Y-m',$info['fee_date']));
 		$objPHPExcel->getActiveSheet()->getStyle('E2:G2')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
 		$objPHPExcel->getActiveSheet()->getStyle('E2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
 		$objPHPExcel->getActiveSheet()->getStyle('E2')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
 		//第三行
 		$objPHPExcel->getActiveSheet()->getRowDimension(3)->setRowHeight(30);
 		$objPHPExcel->getActiveSheet()->mergeCells('A3:G3');
-		$objPHPExcel->getActiveSheet()->setCellValue('A3', '你好！贵单位在创投大厦     层    号房物管、水电费缴费明细如下：');
+		$objPHPExcel->getActiveSheet()->setCellValue('A3', '你好！贵单位在创投大厦     层    号房物管缴费明细如下：');
 		$objPHPExcel->getActiveSheet()->getStyle('A3')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
 		$objPHPExcel->getActiveSheet()->getStyle('A3')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
 		$objPHPExcel->getActiveSheet()->getStyle('A3:G3')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
@@ -568,85 +581,53 @@ class Property extends MIS_Controller
 		$objPHPExcel->getActiveSheet()->getStyle('A6:G6')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
 		//第七行
 		$objPHPExcel->getActiveSheet()->getRowDimension(7)->setRowHeight(30);
-		$objPHPExcel->getActiveSheet()->setCellValue('A7', '缴费类别');
-		$objPHPExcel->getActiveSheet()->setCellValue('B7', '上期读数');
-		$objPHPExcel->getActiveSheet()->setCellValue('C7', '本期读数');
-		$objPHPExcel->getActiveSheet()->setCellValue('D7', '计费数量（吨/度）');
-		$objPHPExcel->getActiveSheet()->setCellValue('E7', '单价（元）');
-		$objPHPExcel->getActiveSheet()->setCellValue('F7', '费用（元）');
+		$objPHPExcel->getActiveSheet()->setCellValue('A7', '费用合计');
+		$objPHPExcel->getActiveSheet()->mergeCells('B7:E7');
+		$total = $info['property_fee'];
+		$objPHPExcel->getActiveSheet()->setCellValue('B7', '（人民币大写）：'.cny($total));
+		$objPHPExcel->getActiveSheet()->setCellValue('F7', '￥'.$total);
 		$objPHPExcel->getActiveSheet()->getStyle('A7:G7')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 		$objPHPExcel->getActiveSheet()->getStyle('A7:G7')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
 		$objPHPExcel->getActiveSheet()->getStyle('A7:G7')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+		$objPHPExcel->getActiveSheet()->getStyle('B7')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
 		//第八行
 		$objPHPExcel->getActiveSheet()->getRowDimension(8)->setRowHeight(30);
-		$objPHPExcel->getActiveSheet()->setCellValue('A8', date('n月份电费',$info['fee_date']));
-		$objPHPExcel->getActiveSheet()->setCellValue('D8', $info['elec_fee_num']);
-		$objPHPExcel->getActiveSheet()->setCellValue('E8', $info['elec_fee_unit_price']);
-		$objPHPExcel->getActiveSheet()->setCellValue('F8', $info['elec_fee_num']*$info['elec_fee_unit_price']);
-		$objPHPExcel->getActiveSheet()->getStyle('A8:G8')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-		$objPHPExcel->getActiveSheet()->getStyle('A8:G8')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-		$objPHPExcel->getActiveSheet()->getStyle('A8:G8')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+		$objPHPExcel->getActiveSheet()->mergeCells('A8:G8');
+		$objPHPExcel->getActiveSheet()->setCellValue('A8', '请贵单位在接到该缴费通知单后5个工作日内支付该款项，谢谢！');
+		$objPHPExcel->getActiveSheet()->getStyle('A8')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
 		//第九行
 		$objPHPExcel->getActiveSheet()->getRowDimension(9)->setRowHeight(30);
-		$objPHPExcel->getActiveSheet()->setCellValue('A9', date('n月份水费',$info['fee_date']));
-		$objPHPExcel->getActiveSheet()->setCellValue('D9', $info['water_fee_num']);
-		$objPHPExcel->getActiveSheet()->setCellValue('E9', $info['water_fee_unit_price']);
-		$objPHPExcel->getActiveSheet()->setCellValue('F9', $info['water_fee_num']*$info['water_fee_unit_price']);
-		$objPHPExcel->getActiveSheet()->getStyle('A9:G9')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-		$objPHPExcel->getActiveSheet()->getStyle('A9:G9')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-		$objPHPExcel->getActiveSheet()->getStyle('A9:G9')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+		$objPHPExcel->getActiveSheet()->mergeCells('A9:G9');
+		$objPHPExcel->getActiveSheet()->setCellValue('A9', '联系人：');
+		$objPHPExcel->getActiveSheet()->getStyle('A9')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
 		//第十行
+		$objPHPExcel->getActiveSheet()->getRowDimension(10)->setRowHeight(30);
 		$objPHPExcel->getActiveSheet()->mergeCells('A10:G10');
-		$objPHPExcel->getActiveSheet()->getStyle('A10:G10')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+		$objPHPExcel->getActiveSheet()->setCellValue('A10', '联系电话：');
+		$objPHPExcel->getActiveSheet()->getStyle('A10')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
 		//第十一行
 		$objPHPExcel->getActiveSheet()->getRowDimension(11)->setRowHeight(30);
-		$objPHPExcel->getActiveSheet()->setCellValue('A11', '费用合计');
-		$objPHPExcel->getActiveSheet()->mergeCells('B11:E11');
-		$total = $info['property_fee']+$info['elec_fee_num']*$info['elec_fee_unit_price']+$info['water_fee_num']*$info['water_fee_unit_price'];
-		$objPHPExcel->getActiveSheet()->setCellValue('B11', '（人民币大写）：'.cny($total));
-		$objPHPExcel->getActiveSheet()->setCellValue('F11', '￥'.$total);
-		$objPHPExcel->getActiveSheet()->getStyle('A11:G11')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
-		$objPHPExcel->getActiveSheet()->getStyle('A11:G11')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-		$objPHPExcel->getActiveSheet()->getStyle('A11:G11')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
-		$objPHPExcel->getActiveSheet()->getStyle('B11')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+		$objPHPExcel->getActiveSheet()->setCellValue('G11', date('Y年m月d日', time()));
+		$objPHPExcel->getActiveSheet()->getStyle('G11')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
 		//第十二行
 		$objPHPExcel->getActiveSheet()->getRowDimension(12)->setRowHeight(30);
 		$objPHPExcel->getActiveSheet()->mergeCells('A12:G12');
-		$objPHPExcel->getActiveSheet()->setCellValue('A12', '请贵单位在接到该缴费通知单后5个工作日内支付该款项，谢谢！');
+		$objPHPExcel->getActiveSheet()->setCellValue('A12', '户 名：');
 		$objPHPExcel->getActiveSheet()->getStyle('A12')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
 		//第十三行
 		$objPHPExcel->getActiveSheet()->getRowDimension(13)->setRowHeight(30);
 		$objPHPExcel->getActiveSheet()->mergeCells('A13:G13');
-		$objPHPExcel->getActiveSheet()->setCellValue('A13', '联系人：');
+		$objPHPExcel->getActiveSheet()->setCellValue('A13', '账号：');
 		$objPHPExcel->getActiveSheet()->getStyle('A13')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
 		//第十四行
 		$objPHPExcel->getActiveSheet()->getRowDimension(14)->setRowHeight(30);
 		$objPHPExcel->getActiveSheet()->mergeCells('A14:G14');
-		$objPHPExcel->getActiveSheet()->setCellValue('A14', '联系电话：');
+		$objPHPExcel->getActiveSheet()->setCellValue('A14', '行址：');
 		$objPHPExcel->getActiveSheet()->getStyle('A14')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-		//第十五行
-		$objPHPExcel->getActiveSheet()->getRowDimension(15)->setRowHeight(30);
-		$objPHPExcel->getActiveSheet()->setCellValue('G15', date('Y年m月d日', time()));
-		$objPHPExcel->getActiveSheet()->getStyle('G15')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-		//第十六行
-		$objPHPExcel->getActiveSheet()->getRowDimension(16)->setRowHeight(30);
-		$objPHPExcel->getActiveSheet()->mergeCells('A16:G16');
-		$objPHPExcel->getActiveSheet()->setCellValue('A16', '户 名：');
-		$objPHPExcel->getActiveSheet()->getStyle('A16')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-		//第十七行
-		$objPHPExcel->getActiveSheet()->getRowDimension(17)->setRowHeight(30);
-		$objPHPExcel->getActiveSheet()->mergeCells('A17:G17');
-		$objPHPExcel->getActiveSheet()->setCellValue('A17', '账号：');
-		$objPHPExcel->getActiveSheet()->getStyle('A17')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
-		//第十八行
-		$objPHPExcel->getActiveSheet()->getRowDimension(18)->setRowHeight(30);
-		$objPHPExcel->getActiveSheet()->mergeCells('A18:G18');
-		$objPHPExcel->getActiveSheet()->setCellValue('A18', '行址：');
-		$objPHPExcel->getActiveSheet()->getStyle('A18')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
 		
-		$objPHPExcel->getActiveSheet()->setTitle('缴费通知单（物管、水电费）');
+		$objPHPExcel->getActiveSheet()->setTitle('缴费通知单（物管）');
 		$objWriter = IOFactory::createWriter($objPHPExcel, 'Excel2007');
-		$file_name="缴费通知单（物管、水电费）_".date("YmdHis").".xlsx";
+		$file_name="缴费通知单（物管）_".date("YmdHis").".xlsx";
 		header('Content-Type: application/vnd.ms-excel');
         header('Content-Disposition: attachment;filename="'.$file_name.'"');
         header('Cache-Control: max-age=0');
@@ -726,9 +707,11 @@ class Property extends MIS_Controller
 		$objPHPExcel->getActiveSheet()->mergeCells('B5:C5');
 		$objPHPExcel->getActiveSheet()->setCellValue('B5', date('Y年n月',$info['fee_date']));
 		$building_actual_area = $building_rent_fee = $fee = '';
-		$height = 0;
+		$height = count($buildInfo) * 30;
+		if($height == 0){
+			$height = 30;
+		}
 		foreach($buildInfo as $k=>$item){
-			$height += 30;
 			$building_actual_area .= $item['building_actual_area'];
 			$building_rent_fee .= $item['building_rent_fee'];
 			$fee .= $item['building_actual_area']*$item['building_rent_fee'];
@@ -739,9 +722,14 @@ class Property extends MIS_Controller
 			}
 		}
 		$objPHPExcel->getActiveSheet()->getRowDimension(5)->setRowHeight($height);
-		$objPHPExcel->getActiveSheet()->setCellValue('D5', $building_actual_area);
-		$objPHPExcel->getActiveSheet()->setCellValue('E5', $building_rent_fee);
-		$objPHPExcel->getActiveSheet()->setCellValue('F5', $fee);
+		if(empty($buildInfo)){
+			$objPHPExcel->getActiveSheet()->mergeCells('D5:F5');
+			$objPHPExcel->getActiveSheet()->setCellValue('D5', '该企业无楼宇信息无法生成数据');
+		}else{
+			$objPHPExcel->getActiveSheet()->setCellValue('D5', $building_actual_area);
+			$objPHPExcel->getActiveSheet()->setCellValue('E5', $building_rent_fee);
+			$objPHPExcel->getActiveSheet()->setCellValue('F5', $fee);
+		}
 		$objPHPExcel->getActiveSheet()->getStyle('D5:F5')->getAlignment()->setWrapText(true);
 		$objPHPExcel->getActiveSheet()->getStyle('A5:G5')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 		$objPHPExcel->getActiveSheet()->getStyle('A5:G5')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
@@ -795,6 +783,153 @@ class Property extends MIS_Controller
 		$objPHPExcel->getActiveSheet()->setTitle('缴费通知单（租金）');
 		$objWriter = IOFactory::createWriter($objPHPExcel, 'Excel2007');
 		$file_name="缴费通知单（租金）_".date("YmdHis").".xlsx";
+		header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="'.$file_name.'"');
+        header('Cache-Control: max-age=0');
+        $objWriter->save('php://output');
+	}
+	
+	/**
+	 * 
+	 * 导出缴费通知单（水电费）
+	 */
+	public function export3()
+	{
+		$data = array();
+		if(checkRight('fee_export') === FALSE){
+			$this->showView('denied', $data);
+			exit;
+		}
+		$id = $this->input->get('did');
+		$this->load->model('MIS_Fee');
+		$this->load->model('MIS_Enterprise');
+		$info = $this->MIS_Fee->getInfo($id);
+		$buildInfo = array();
+		$this->MIS_Enterprise->getEnterpriseBuildingInfo($info['enterprise_id'], $buildInfo);
+		 //加载PHPExcel库
+	   	require_once THIRD_PATH.'PHPExcel.php';
+	   	require_once THIRD_PATH.'PHPExcel/IOFactory.php';
+	   	$objPHPExcel = new PHPExcel();
+	   	//列宽
+		$objPHPExcel->getActiveSheet()->getColumnDimension('A')->setWidth(24);
+		$objPHPExcel->getActiveSheet()->getColumnDimension('B')->setWidth(24);
+		$objPHPExcel->getActiveSheet()->getColumnDimension('C')->setWidth(24);
+		$objPHPExcel->getActiveSheet()->getColumnDimension('D')->setWidth(24);
+		$objPHPExcel->getActiveSheet()->getColumnDimension('E')->setWidth(24);
+		$objPHPExcel->getActiveSheet()->getColumnDimension('F')->setWidth(24);
+		$objPHPExcel->getActiveSheet()->getColumnDimension('G')->setWidth(36);
+		//第一行
+		$objPHPExcel->getActiveSheet()->getRowDimension(1)->setRowHeight(30);
+		$objPHPExcel->getActiveSheet()->mergeCells('A1:G1');
+		$objPHPExcel->getActiveSheet()->setCellValue('A1', '缴费通知单');
+		$objPHPExcel->getActiveSheet()->getStyle('A1')->getFont()->setSize(20);
+		$objPHPExcel->getActiveSheet()->getStyle('A1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+		$objPHPExcel->getActiveSheet()->getStyle('A1')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+		$objPHPExcel->getActiveSheet()->getStyle('A1:G1')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+		//第二行
+		$objPHPExcel->getActiveSheet()->getRowDimension(2)->setRowHeight(30);
+		$objPHPExcel->getActiveSheet()->mergeCells('A2:D2');
+		$objPHPExcel->getActiveSheet()->setCellValue('A2', '公司名称：'.$info['enterprise_name']);
+		$objPHPExcel->getActiveSheet()->getStyle('A2:D2')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+		$objPHPExcel->getActiveSheet()->getStyle('A2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+		$objPHPExcel->getActiveSheet()->getStyle('A2')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+		$objPHPExcel->getActiveSheet()->mergeCells('E2:G2');
+		$objPHPExcel->getActiveSheet()->setCellValue('E2', '编号：水电费-'.date('Y-m',$info['fee_date']));
+		$objPHPExcel->getActiveSheet()->getStyle('E2:G2')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+		$objPHPExcel->getActiveSheet()->getStyle('E2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
+		$objPHPExcel->getActiveSheet()->getStyle('E2')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+		//第三行
+		$objPHPExcel->getActiveSheet()->getRowDimension(3)->setRowHeight(30);
+		$objPHPExcel->getActiveSheet()->mergeCells('A3:G3');
+		$objPHPExcel->getActiveSheet()->setCellValue('A3', '你好！贵单位在创投大厦     层    号房水电费缴费明细如下：');
+		$objPHPExcel->getActiveSheet()->getStyle('A3')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+		$objPHPExcel->getActiveSheet()->getStyle('A3')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+		$objPHPExcel->getActiveSheet()->getStyle('A3:G3')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+		//第四行
+		$objPHPExcel->getActiveSheet()->getRowDimension(4)->setRowHeight(30);
+		$objPHPExcel->getActiveSheet()->setCellValue('A4', '缴费类别');
+		$objPHPExcel->getActiveSheet()->setCellValue('B4', '上期读数');
+		$objPHPExcel->getActiveSheet()->setCellValue('C4', '本期读数');
+		$objPHPExcel->getActiveSheet()->setCellValue('D4', '计费数量（吨/度）');
+		$objPHPExcel->getActiveSheet()->setCellValue('E4', '单价（元）');
+		$objPHPExcel->getActiveSheet()->setCellValue('F4', '费用（元）');
+		$objPHPExcel->getActiveSheet()->getStyle('A4:G4')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+		$objPHPExcel->getActiveSheet()->getStyle('A4:G4')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+		$objPHPExcel->getActiveSheet()->getStyle('A4:G4')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+		//第五行
+		$objPHPExcel->getActiveSheet()->getRowDimension(5)->setRowHeight(30);
+		$objPHPExcel->getActiveSheet()->setCellValue('A5', date('n月份电费',$info['fee_date']));
+		$objPHPExcel->getActiveSheet()->setCellValue('B5', $info['last_elec_num']);
+		$objPHPExcel->getActiveSheet()->setCellValue('C5', $info['cur_elec_num']);
+		$objPHPExcel->getActiveSheet()->setCellValue('D5', $info['elec_fee_num']);
+		$objPHPExcel->getActiveSheet()->setCellValue('E5', $info['elec_fee_unit_price']);
+		$objPHPExcel->getActiveSheet()->setCellValue('F5', $info['elec_fee_num']*$info['elec_fee_unit_price']);
+		$objPHPExcel->getActiveSheet()->getStyle('A5:G5')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+		$objPHPExcel->getActiveSheet()->getStyle('A5:G5')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+		$objPHPExcel->getActiveSheet()->getStyle('A5:G5')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+		//第六行
+		$objPHPExcel->getActiveSheet()->getRowDimension(6)->setRowHeight(30);
+		$objPHPExcel->getActiveSheet()->setCellValue('A6', date('n月份水费',$info['fee_date']));
+		$objPHPExcel->getActiveSheet()->setCellValue('B6', $info['last_water_num']);
+		$objPHPExcel->getActiveSheet()->setCellValue('C6', $info['cur_water_num']);
+		$objPHPExcel->getActiveSheet()->setCellValue('D6', $info['water_fee_num']);
+		$objPHPExcel->getActiveSheet()->setCellValue('E6', $info['water_fee_unit_price']);
+		$objPHPExcel->getActiveSheet()->setCellValue('F6', $info['water_fee_num']*$info['water_fee_unit_price']);
+		$objPHPExcel->getActiveSheet()->getStyle('A6:G6')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+		$objPHPExcel->getActiveSheet()->getStyle('A6:G6')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+		$objPHPExcel->getActiveSheet()->getStyle('A6:G6')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+		//第七行
+		$objPHPExcel->getActiveSheet()->mergeCells('A7:G7');
+		$objPHPExcel->getActiveSheet()->getStyle('A7:G7')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+		//第八行
+		$objPHPExcel->getActiveSheet()->getRowDimension(8)->setRowHeight(30);
+		$objPHPExcel->getActiveSheet()->setCellValue('A8', '费用合计');
+		$objPHPExcel->getActiveSheet()->mergeCells('B8:E8');
+		$total = $info['elec_fee_num']*$info['elec_fee_unit_price']+$info['water_fee_num']*$info['water_fee_unit_price'];
+		$objPHPExcel->getActiveSheet()->setCellValue('B8', '（人民币大写）：'.cny($total));
+		$objPHPExcel->getActiveSheet()->setCellValue('F8', '￥'.$total);
+		$objPHPExcel->getActiveSheet()->getStyle('A8:G8')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+		$objPHPExcel->getActiveSheet()->getStyle('A8:G8')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+		$objPHPExcel->getActiveSheet()->getStyle('A8:G8')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+		$objPHPExcel->getActiveSheet()->getStyle('B8')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
+		//第九行
+		$objPHPExcel->getActiveSheet()->getRowDimension(9)->setRowHeight(30);
+		$objPHPExcel->getActiveSheet()->mergeCells('A9:G9');
+		$objPHPExcel->getActiveSheet()->setCellValue('A9', '请贵单位在接到该缴费通知单后5个工作日内支付该款项，谢谢！');
+		$objPHPExcel->getActiveSheet()->getStyle('A9')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+		//第十行
+		$objPHPExcel->getActiveSheet()->getRowDimension(10)->setRowHeight(30);
+		$objPHPExcel->getActiveSheet()->mergeCells('A10:G10');
+		$objPHPExcel->getActiveSheet()->setCellValue('A10', '联系人：');
+		$objPHPExcel->getActiveSheet()->getStyle('A10')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+		//第十一行
+		$objPHPExcel->getActiveSheet()->getRowDimension(11)->setRowHeight(30);
+		$objPHPExcel->getActiveSheet()->mergeCells('A11:G11');
+		$objPHPExcel->getActiveSheet()->setCellValue('A11', '联系电话：');
+		$objPHPExcel->getActiveSheet()->getStyle('A11')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+		//第十二行
+		$objPHPExcel->getActiveSheet()->getRowDimension(12)->setRowHeight(30);
+		$objPHPExcel->getActiveSheet()->setCellValue('G12', date('Y年m月d日', time()));
+		$objPHPExcel->getActiveSheet()->getStyle('G12')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+		//第十三行
+		$objPHPExcel->getActiveSheet()->getRowDimension(13)->setRowHeight(30);
+		$objPHPExcel->getActiveSheet()->mergeCells('A13:G13');
+		$objPHPExcel->getActiveSheet()->setCellValue('A13', '户 名：');
+		$objPHPExcel->getActiveSheet()->getStyle('A13')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+		//第十四行
+		$objPHPExcel->getActiveSheet()->getRowDimension(14)->setRowHeight(30);
+		$objPHPExcel->getActiveSheet()->mergeCells('A14:G14');
+		$objPHPExcel->getActiveSheet()->setCellValue('A14', '账号：');
+		$objPHPExcel->getActiveSheet()->getStyle('A14')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+		//第十五行
+		$objPHPExcel->getActiveSheet()->getRowDimension(15)->setRowHeight(30);
+		$objPHPExcel->getActiveSheet()->mergeCells('A15:G15');
+		$objPHPExcel->getActiveSheet()->setCellValue('A15', '行址：');
+		$objPHPExcel->getActiveSheet()->getStyle('A15')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+		
+		$objPHPExcel->getActiveSheet()->setTitle('缴费通知单（水电费）');
+		$objWriter = IOFactory::createWriter($objPHPExcel, 'Excel2007');
+		$file_name="缴费通知单（水电费）_".date("YmdHis").".xlsx";
 		header('Content-Type: application/vnd.ms-excel');
         header('Content-Disposition: attachment;filename="'.$file_name.'"');
         header('Cache-Control: max-age=0');

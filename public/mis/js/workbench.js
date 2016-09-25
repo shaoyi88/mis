@@ -29,6 +29,21 @@ var workbench = function(){
 		$('.enterpriseApplyFollow').click(enterpriseApplyFollow);
 		$('.enterpriseApplyAudit').click(enterpriseApplyAudit);
 		$('.enterpriseApplyMake').click(enterpriseApplyMake);
+		$('.eDetail').click(eDetail);
+	};
+	
+	var eDetail = function(event){
+		var id = $(event.currentTarget).attr('did');
+		layer.open({
+		    type: 2,
+			area: ['1000px', ($(window).height() - 50) +'px'],
+			title: [
+		        '企业详情',
+		        'border:none; background:#61BA7A; color:#fff;' 
+		    ],
+		   	bgcolor: '#eee', //设置层背景色
+		    content: $('#eDetailUrl').val()+'?hideTitle=1&id='+id
+		});
 	};
 	
 	var enterpriseApplyFollow = function(event){

@@ -66,6 +66,10 @@ class Investment extends MIS_Controller
 			exit;
 		}
 		$this->load->model('MIS_EnterprisePotential');
+		$data['hideTitle'] = FALSE;
+		if($this->input->get('hideTitle')){
+			$data['hideTitle'] = $this->input->get('hideTitle');
+		}
 		if(is_numeric($this->input->get('id'))){
 			$data['id'] = $this->input->get('id');			
 			$data['info'] = $this->MIS_EnterprisePotential->getInfo($data['id']);

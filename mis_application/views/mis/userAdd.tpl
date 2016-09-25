@@ -65,7 +65,7 @@
         		</tr>
         		<tr>
           		     <th class="text-r" width="180">手机：</th>
-          			 <td><input name="user_mobile" type="text" class="input-text" id="user_mobile" value="{if isset($info)}{$info['user_mobile']}{/if}"></td>
+          			 <td><input name="user_mobile" type="text" class="input-text" id="user_mobile" value="{if isset($info)}{$info['user_mobile']}{/if}" errormsg="请输入正确的手机号码！" datatype="m"></td>
         		</tr>
         		<tr>
           		     <th class="text-r" width="180">{if !isset($info)}<span class="c-red">*</span>{/if}密码{if isset($info)}(留空则不修改){/if}：</th>

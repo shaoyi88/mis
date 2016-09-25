@@ -47,6 +47,10 @@
           			 <td>{$info['enterprise_account']}元</td>
         		</tr>
         		<tr>
+          		     <th class="text-r" width="180">企业办公地点类型：</th>
+          			 <td>{if $info['enterprise_type']==1}租{elseif $info['enterprise_type']==2}买{/if}</td>
+        		</tr>
+        		<tr>
           		     <th class="text-r" width="180">企业办公地点：</th>
           			 <td>
           			 	{foreach $info['building'] as $item}
