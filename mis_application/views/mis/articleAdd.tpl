@@ -44,5 +44,5 @@
 <link href="/public/common/js/umeditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
 <script type="text/javascript" charset="utf-8" src="/public/common/js/umeditor/umeditor.config.js"></script>
 <script type="text/javascript" charset="utf-8" src="/public/common/js/umeditor/umeditor.min.js"></script>
-<script type="text/javascript" src="/public/common/js/umeditor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript" src="/public/common/js/umeditor/lang/zh-cn/zh-cn.js?v=103"></script>
 <script type="text/javascript" src="/public/mis/js/article.js""></script>

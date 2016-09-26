@@ -71,10 +71,10 @@ UM.I18N['zh-cn'] = {
         'static':{
             'lang_tab_local':"本地上传",
             'lang_tab_imgSearch':"网络图片",
-            'lang_input_dragTip':"支持图片拖拽上传",
+            'lang_input_dragTip':"可点击上面图标添加，也可拖拽上传",
             'lang_btn_add':"添加"
         },
-        'uploadError': '上传出错'
+        'uploadError': '上传的图片无法识别，可能是文件名过长'
     },
     'emotion':{
         'static':{

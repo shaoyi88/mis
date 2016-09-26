@@ -22,10 +22,12 @@ class home extends MIS_Controller
 		$this->load->model('MIS_Article');
 		$type = '';
 		$offset = 0;
-		$pageUrl = '';
 		$articleList = $this->MIS_Article->getList($type, $offset, 5);
 		$data['articleList'] = $articleList;
 		$data['pattern'] = "/<img.*?src=[\'|\"](.*?(?:[\.gif|\.jpg]))[\'|\"].*?[\/]?>/";
+		$this->load->model('MIS_Activity');
+		$activityList = $this->MIS_Activity->getList(array(), $offset, 4);
+		$data['activityList'] = $activityList;
 		$this->showView('index', $data);
 	}
 	

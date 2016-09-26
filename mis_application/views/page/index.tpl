@@ -255,6 +255,35 @@
                     <div class="accordion">
                         <h2>最新活动</h2>
                         <div class="panel-group" id="accordion1">
+                        {if !empty($activityList)&&count($activityList)>3}
+                        {foreach $activityList as $k=>$v}
+                        <div class="panel panel-default">
+                            <div class="panel-heading {if $k==0}active{/if}">
+                              <h3 class="panel-title">
+                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapseOne{$k+1}">
+                                  {$v['activity_title']}
+                                  <i class="fa fa-angle-right pull-right"></i>
+                                </a>
+                              </h3>
+                            </div>
+
+                            <div id="collapseOne{$k+1}" class="panel-collapse collapse {if $k==0}in{/if}" style="cursor:pointer;" onclick="location.href='{formatUrl('activity/info?id=')}{$v['activity_id']}'">
+                              <div class="panel-body">
+                                  <div class="media accordion-inner">
+                                        <div class="pull-left">
+                                            <input type="hidden" value="{preg_match_all($pattern,$v['activity_content'],$match)}">
+                                            <img class="img-responsive" src="{if isset($match[1])&&!empty($match[1])}{$match[1][0]}{else}/public/new/images/news.jpg{/if}" width="160">
+                                        </div>
+                                        <div class="media-body">
+                                             <h4>{date('Y-m-d',$v['activity_start_time'])}</h4>
+                                             <p>地点：{$v['activity_location']}<br/>嘉宾：{$v['activity_guest']}{if strtotime(date('Y-m-d'))>$v['activity_end_time']}<br/>已结束{/if}</p>
+                                        </div>
+                                  </div>
+                              </div>
+                            </div>
+                          </div>
+                        {/foreach}
+                        {else}
                           <div class="panel panel-default">
                             <div class="panel-heading active">
                               <h3 class="panel-title">
@@ -351,6 +380,7 @@
                               </div>
                             </div>
                           </div>
+                          {/if}
                         </div>
                     </div>
                 </div>

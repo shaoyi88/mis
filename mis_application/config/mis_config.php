@@ -42,8 +42,7 @@ $config['menus'] = array(
 	array(
 		'module' => '企业服务',
 		'menu' => array(
-			array('多功能厅管理', formatUrl('room/roomList?t=0'), 'room_list'),
-			array('VIP室管理', formatUrl('room/roomList?t=1'), 'room_list'),
+			array('多功能厅VIP室管理', formatUrl('room/roomList?t=0'), 'room_list'),
 			array('企业需求管理', formatUrl('project/index'), 'project_list'),
 			array('投资申请管理', formatUrl('investment/index'), 'project_list')
 		),

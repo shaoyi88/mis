@@ -23,6 +23,18 @@
           			 </td>
         		</tr>
         		<tr>
+          		     <th class="text-r" width="90"><span class="c-red">*</span>活动地点：</th>
+          			 <td>
+          			 	 <input name="activity_location" type="text" class="input-text" id="activity_location" value="{if isset($info)}{$info['activity_location']}{/if}" nullmsg="活动地点不能为空！" datatype="*">
+          			 </td>
+        		</tr>
+        		<tr>
+          		     <th class="text-r" width="90"><span class="c-red">*</span>活动出席嘉宾：</th>
+          			 <td>
+          			 	 <input name="activity_guest" type="text" class="input-text" id="activity_guest" value="{if isset($info)}{$info['activity_guest']}{/if}" nullmsg="活动出席嘉宾不能为空！" datatype="*">
+          			 </td>
+        		</tr>
+        		<tr>
           		     <th class="text-r" width="90"><span class="c-red">*</span>活动时间：</th>
           			 <td>
           			 	<input value="{if isset($info)}{date('Y-m-d',$info['activity_start_time'])}~{date('Y-m-d',$info['activity_end_time'])}{/if}" type="text" class="input-text" style="width:250px" id="dateRange" nullmsg="活动时间不能为空！" datatype="*">
