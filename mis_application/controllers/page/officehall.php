@@ -375,4 +375,21 @@ class officehall extends MIS_Controller
 		$this->send_json($result);
 	}
 	
+	/**
+	 *
+	 * 入驻流程
+	 */
+	public function process()
+	{
+		$data = array();
+		$this->load->model('MIS_User');
+		$data['userinfo'] = $this->MIS_User->getInfo($this->userId);
+		$data['layoutName'] = 'lwLayout';
+		$data['nav'] = 3;
+		$this->load->model('MIS_Flow');
+		$did = $this->input->get('did');
+		$data['stepInfo'] = $this->MIS_Flow->getStepInfo($did);
+		$this->showView('officeHall/process', $data);
+	}
+	
 }

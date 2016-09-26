@@ -8,7 +8,7 @@
         		</tr>
         		<tr>
           		     <th class="text-r" width="180">企业注册时间：</th>
-          			 <td>{date('Y-m-d',$info['enterprise_reg_time'])}</td>
+          			 <td>{if $info['enterprise_reg_time']}{date('Y-m-d',$info['enterprise_reg_time'])}{/if}</td>
         		</tr>
         		<tr>
           		     <th class="text-r" width="180">企业注册资金：</th>
@@ -24,7 +24,7 @@
         		</tr>
         		<tr>
           		     <th class="text-r" width="180">企业入驻时间：</th>
-          			 <td>{date('Y-m-d',$info['enterprise_enter_time'])}</td>
+          			 <td>{if $info['enterprise_enter_time']}{date('Y-m-d',$info['enterprise_enter_time'])}{/if}</td>
         		</tr>
         		<tr>
           		     <th class="text-r" width="180">企业法人：</th>

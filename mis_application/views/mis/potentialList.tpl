@@ -52,6 +52,9 @@
           					{elseif $item['status'] == 0 && $item['follow_by'] == $uid}
           						<a class="btn btn-primary radius hiddenFollow ml-5" title="跟进" href="javascript:;" did="{$item['enterprise_id']}" style="text-decoration:none">跟进</a>
           					{/if}
+          					{if $item['status'] == 1 && $item['follow_by'] == $uid}
+          					    <a class="btn btn-primary radius" title="转为入驻企业" href="{formatUrl('investment/addEnterprise?id=')}{$item['enterprise_id']}" style="text-decoration:none">转为入驻企业</a>
+          					{/if}
           				</td>
         		</tr>
       			{/foreach}
@@ -73,7 +76,7 @@
           			<td>
           		     	<input type="radio" name="need_help" value="1" nullmsg="请选择是否需要领导协助！" datatype="*">是
           		     	&nbsp;&nbsp;
-          		     	<input type="radio" name="need_help" value="0" nullmsg="请选择是否需要领导协助！" datatype="*">否
+          		     	<input type="radio" name="need_help" value="0" nullmsg="请选择是否需要领导协助！" checked datatype="*">否
           		     </td>
         		</tr>
 				<tr>

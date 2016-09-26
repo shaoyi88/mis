@@ -30,7 +30,7 @@
 				<tr class="text-c">
         			<td>{$item['enterprise_name']}</td>
         			<td>{$item['enterprise_artificial']}</td>
-        			<td>{date('Y-m-d', $item['enterprise_enter_time'])}</td>
+        			<td>{if $item['enterprise_enter_time']}{date('Y-m-d', $item['enterprise_enter_time'])}{/if}</td>
         			<td>{$item['enterprise_code']}</td>
           			<td>
           				<a class="btn btn-primary radius" title="详情" href="{formatUrl('enterprise/detail?id=')}{$item['enterprise_id']}" style="text-decoration:none">查看</a>

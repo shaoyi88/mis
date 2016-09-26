@@ -12,13 +12,14 @@
         <div class="container">
             <div class="center" style="padding-top:20px;padding-bottom:10px;">        
                 <h2>入驻申请</h2>
-                <p class="lead">请填写以下信息</p>
+                <p><a href="{formatUrl('officehall/process?did=1')}" target=_blank>入驻流程</a></p>
+                <p class="lead">请填写以下信息</p>               
             </div> 
             <div class="row contact-wrap"> 
                 <div class="status alert alert-success" style="display: none"></div>
                 <form name="form1" action="{formatUrl('officehall/do_application')}" method="post" data-role="validator"  enctype="multipart/form-data" onsubmit="return checkform();">
                     <div class="col-xs-12 col-sm-2"></div>
-                    <div class="col-xs-12 col-sm-8">
+                    <div class="col-xs-12 col-sm-8">                      
                         <div class="form-group">
                             <label>企业/团队名称 *</label>
                             <input type="text" class="form-control" name="enterprise_name" id="enterprise_name" placeholder="请输入企业/团队名称" required="required">
@@ -41,7 +42,7 @@
                         </div>  
                         <div class="form-group">
                             <label>是否高新企业 *</label>
-                            &nbsp;<input type="radio" name="is_high_tech" value="1">&nbsp;是&nbsp;&nbsp;<input type="radio"  name="is_high_tech" value="0">&nbsp;否
+                            &nbsp;<input type="radio" name="is_high_tech" value="1">&nbsp;是&nbsp;&nbsp;<input type="radio"  name="is_high_tech" value="0" checked>&nbsp;否
                         </div>
                         <div class="form-group">
                             <label>上传营业执照（如为团队申请或企业未拿到执照请留空） </label>
@@ -89,11 +90,11 @@ $(document).ready(function(){
 });	
 function checkform(){
     var tel = $("#enterprise_contact_mobile").val();
-	var reg = /^0?1[3|4|5|8][0-9]\d{8}$/;
-	if(!reg.test(tel)) {
-	   alert("请输入正确的手机号"); 
-	   $("#enterprise_contact_mobile").focus();
-	   return false;
+	var reg = {literal}/^1[3|5|7|8][0-9]\d{8}$/{/literal};
+	if(!(reg.test(tel))) {
+	    alert("请输入正确的手机号码");
+	    $("#enterprise_contact_mobile").focus();
+	    return false;		
 	}
     $(".block-shadow-success").attr('disabled',true);
     document.form1.submit();

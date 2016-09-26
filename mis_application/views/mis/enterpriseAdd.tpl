@@ -12,7 +12,7 @@
         		</tr>
         		<tr>
           		     <th class="text-r" width="180">企业注册时间<span class="c-red">*</span>：</th>
-          			 <td><input nullmsg="请输入企业注册时间！" datatype="*" class="input-text" style="width:250px" name="enterprise_reg_time" id="enterprise_reg_time" type="text" value="{if isset($info)}{date('Y-m-d',$info['enterprise_reg_time'])}{/if}" placeholder="输入企业注册时间"></td>
+          			 <td><input nullmsg="请输入企业注册时间！" datatype="*" class="input-text" style="width:250px" name="enterprise_reg_time" id="enterprise_reg_time" type="text" value="{if isset($info)&&$info['enterprise_reg_time']}{date('Y-m-d',$info['enterprise_reg_time'])}{/if}" placeholder="输入企业注册时间"></td>
         		</tr>
         		<tr>
           		     <th class="text-r" width="180">注册资金<span class="c-red">*</span>：</th>
@@ -40,7 +40,7 @@
         		</tr>
         		<tr>
           		     <th class="text-r" width="180">企业入驻时间<span class="c-red">*</span>：</th>
-          			 <td><input nullmsg="请输入企业入驻时间！" datatype="*" class="input-text" style="width:250px" name="enterprise_enter_time" id="enterprise_enter_time" type="text" value="{if isset($info)}{date('Y-m-d',$info['enterprise_enter_time'])}{/if}" placeholder="输入企业入驻时间"></td>
+          			 <td><input nullmsg="请输入企业入驻时间！" datatype="*" class="input-text" style="width:250px" name="enterprise_enter_time" id="enterprise_enter_time" type="text" value="{if isset($info)&&$info['enterprise_enter_time']}{date('Y-m-d',$info['enterprise_enter_time'])}{/if}" placeholder="输入企业入驻时间"></td>
         		</tr>
         		<tr>
           		     <th class="text-r" width="180">企业法人<span class="c-red">*</span>：</th>

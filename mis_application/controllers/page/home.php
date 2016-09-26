@@ -169,9 +169,10 @@ class home extends MIS_Controller
 			$data['user_password'] = md5($data['user_password']);
 			$data['reg_time'] = time();
 			$data['user_type'] = 0;
-			if(!empty($data['ecode'])){
+			if(!empty($this->input->post('ecode'))){
+				$ecode = $this->input->post('ecode');
 				$this->load->model('MIS_Enterprise');
-				$ep = $this->MIS_Enterprise->checkCode($data['ecode']);
+				$ep = $this->MIS_Enterprise->checkCode($ecode);
 				if(!empty($ep)){
 					$data['user_second_type'] = 2;
 					$data['enterprise_id'] = $ep['enterprise_id'];
@@ -382,7 +383,7 @@ class home extends MIS_Controller
 	
 		$this->email->initialize($config);
 	
-		$this->email->from('system@ry168.cn', '中美融易系统邮件');
+		$this->email->from('system@ry168.cn', iconv('UTF-8','GB2312','中美融易系统邮件'));
 		$this->email->to($touser);
 	    
 		$this->email->subject($title);

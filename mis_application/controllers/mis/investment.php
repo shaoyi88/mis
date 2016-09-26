@@ -395,6 +395,31 @@ class Investment extends MIS_Controller
 		$this->showView('potentialAdd', $data);
 	}
 	
+	public function addEnterprise(){
+		$data = array();
+		if($this->input->get('id')){
+			$id = $this->input->get('id');
+			$this->load->model('MIS_EnterpriseHidden');
+			$info = $this->MIS_EnterpriseHidden->getInfo($id);
+			if($this->userId==$info['follow_by']){
+				$data['enterprise_name'] = $info['enterprise_name'];
+				$data['enterprise_contact'] = $info['enterprise_contact'];
+				$data['enterprise_mobile'] = $info['enterprise_contact_mobile'];
+				$data['enterprise_code'] = time().rand(11,99);
+				$data['enterprise_enter_time'] = strtotime(date('Y-m-d'));
+				$this->load->model('MIS_Enterprise');
+				//转化为入驻企业
+				$this->MIS_Enterprise->add($data);
+				//删除潜在用户
+				$this->MIS_EnterpriseHidden->del($id);
+				//删除潜在客户意向楼层
+				$this->MIS_EnterpriseHidden->delEnterpriseBuildingInfo($id);
+				
+			}
+		}
+		redirect(formatUrl('investment/potential'));
+	}
+	
 	/**
 	 * 
 	 * 删除
