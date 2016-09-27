@@ -205,10 +205,16 @@ class Netdisk extends MIS_Controller
 		    @mkdir($uploadDir);
 		}
 		// Get a file name
-		$fileName = uniqid("file_");
-		$fileName = iconv("UTF-8", "GBK", $fileName); 
-		$filePath = $targetDir . DIRECTORY_SEPARATOR . $fileName;
-		$uploadPath = $uploadDir . DIRECTORY_SEPARATOR . $fileName;
+		if (isset($_REQUEST["name"])) {
+		    $fileName = $_REQUEST["name"];
+		} elseif (!empty($_FILES)) {
+		    $fileName = $_FILES["file"]["name"];
+		} else {
+		    $fileName = uniqid("file_");
+		}
+		$saveName = uniqid("file_");
+		$filePath = $targetDir . DIRECTORY_SEPARATOR . $saveName;
+		$uploadPath = $uploadDir . DIRECTORY_SEPARATOR . $saveName;
 
 		// Chunking might be enabled
 		$chunk = isset($_REQUEST["chunk"]) ? intval($_REQUEST["chunk"]) : 0;
@@ -286,12 +292,28 @@ class Netdisk extends MIS_Controller
 		$data['dir_id'] = $this->input->post('dirId');
 		$data['file_name'] = $fileName;
 		$data['file_size'] = $this->input->post('size');
-		$data['file_path'] = '/'.$uploadDir.'/'.$data['file_name'];
+		$data['file_path'] = '/'.$uploadDir.'/'.$saveName;
 		$data['add_time'] = time();
 		$data['admin_id'] = $this->userId;
 		$this->MIS_Netdisk->addFile($data);
 		
 		// Return Success JSON-RPC response
 		die('{"jsonrpc" : "2.0", "result" : null, "id" : "id"}');
+	}
+	
+	public function fileDownload()
+	{
+		$fileId = $this->input->get('id');
+		$this->load->model('MIS_Netdisk');
+		$fileInfo = $this->MIS_Netdisk->getFileInfo($fileId);
+		header('Content-Description: File Transfer');
+		header('Content-Type: application/octet-stream');
+		header('Content-Disposition: attachment; filename='.$fileInfo['file_name']);
+		header('Content-Transfer-Encoding: binary');
+		header('Expires: 0');
+		header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+		header('Pragma: public');
+		header('Content-Length: ' . $fileInfo['file_size']);
+		readfile('.'.$fileInfo['file_path']);
 	}
 }

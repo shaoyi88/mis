@@ -18,7 +18,7 @@
         <ul>
           {foreach $item['menu'] as $sItem}
           {if checkRight($sItem[2])}
-          <li><a {if $sItem[2] == ''}style="color:#afb5bf"{/if} _href="{$sItem[1]}" data-title="{$sItem[0]}" href="javascript:void(0)">{$sItem[0]}</a></li>
+          <li><a _href="{$sItem[1]}" data-title="{$sItem[0]}" href="javascript:void(0)">{$sItem[0]}</a></li>
           {/if}
           {/foreach}
         </ul>

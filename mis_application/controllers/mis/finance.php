@@ -57,7 +57,11 @@ class Finance extends MIS_Controller
         $dataList = array();
         foreach($list as $item){
             $item['curPay'] = $item['rent_fee']+$item['property_fee']+$item['water_fee_unit_price']*$item['water_fee_num']+$item['elec_fee_unit_price']*$item['elec_fee_num'];
-            $item['fee'] = $feeInfo[$item['enterprise_id']]['fee'];
+			if(isset($feeInfo[$item['enterprise_id']])){
+				$item['fee'] = $feeInfo[$item['enterprise_id']]['fee'];
+			}else{
+				$item['fee'] = 0;
+			}
             if($item['pay_status'] == 0){
                 $item['otherPay'] = $item['fee']-$item['curPay'];
                 $item['totalPay'] = $item['curPay']+$item['otherPay'];

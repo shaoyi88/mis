@@ -148,4 +148,20 @@ class MIS_Netdisk extends CI_Model
 		$id = $this->db->insert_id();		
 		return $id;
 	}
+	
+	/**
+	 * 获取信息
+	 * Enter description here ...
+	 * @param unknown_type $id
+	 */
+	public function getFileInfo($id)
+	{
+		$query = $this->db->get_where($this->_fileTable, array('file_id' => $id));
+		$info = array();
+		if($query){
+			$info = $query->row_array();
+		}
+		return $info;
+	}
+	
 }

@@ -332,7 +332,11 @@ function _cny_map_unit($list,$units) {
         if ($x!="0" || !($l%4)) {
         	$n=($x=='0'?'':$x).(isset($units[($l-1)%$ul])?$units[($l-1)%$ul]:''); 
         }else {
-        	$n=is_numeric($xs[0][0])?$x:''; 
+        	if(isset($xs[0][0])){
+        		$n=is_numeric($xs[0][0])?$x:''; 
+        	}else{
+        		$n = '';
+        	}
         }
         array_unshift($xs,$n); 
     } 

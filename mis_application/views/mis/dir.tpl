@@ -27,7 +27,7 @@
         			<td>{format_size_str($item['file_size'])}</td>
         			<td>{date('Y-m-d',$item['add_time'])}</td>
           			<td>
-          				<a class="btn btn-primary radius ml-5" title="下载" href="{$item['file_path']}" style="text-decoration:none">下载</a>
+          				<a class="btn btn-primary radius ml-5" title="下载" href="{formatUrl('netdisk/fileDownload?id=')}{$item['file_id']}" style="text-decoration:none">下载</a>
           				<a class="btn btn-primary radius ml-5 del" did="{$item['file_id']}" title="删除" href="javascript:;" style="text-decoration:none">删除</a>
           			</td>
           		</tr>
