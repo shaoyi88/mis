@@ -22,10 +22,10 @@
 			        <th width="250">备注</th>
 			        <th>提交时间</th>
 			        <th>状态</th>
-			        <th>跟进情况</th>
+			        <th width="250">跟进情况</th>
 			        <th width="60">是否需要领导协助</th>
 					<th>附件</th>
-			        <th width="250">操作</th>
+			        <th width="100">操作</th>
         		</tr>
       		</thead>
       		<tbody>
@@ -46,18 +46,18 @@
           				</td>
           				<td>
           					{if $item['status'] == 0 }
-          						<a class="btn btn-primary radius" title="编辑" href="{formatUrl('investment/addPotential?id=')}{$item['enterprise_id']}" style="text-decoration:none">编辑</a>
+          						<p><a class="btn btn-primary radius" title="编辑" href="{formatUrl('investment/addPotential?id=')}{$item['enterprise_id']}" style="text-decoration:none">编辑</a></p>
           					{/if}
           					{if $item['status'] == 0 }
-          						<a class="btn btn-primary radius ml-5 del" did="{$item['enterprise_id']}" title="删除" href="javascript:;" style="text-decoration:none">删除</a>
+          						<p><a class="btn btn-primary radius ml-5 del" did="{$item['enterprise_id']}" title="删除" href="javascript:;" style="text-decoration:none">删除</a></p>
           					{/if}
           					{if $item['follow_by'] == 0 && $item['status'] == 0 }
-          						<a class="btn btn-primary radius hiddenAssign ml-5" title="指派跟进人" href="javascript:;" did="{$item['enterprise_id']}" style="text-decoration:none">指派跟进人</a>
+          						<p><a class="btn btn-primary radius hiddenAssign ml-5" title="指派跟进人" href="javascript:;" did="{$item['enterprise_id']}" style="text-decoration:none">指派跟进人</a></p>
           					{elseif $item['status'] == 0 && $item['follow_by'] == $uid}
-          						<a class="btn btn-primary radius hiddenFollow ml-5" title="跟进" href="javascript:;" did="{$item['enterprise_id']}" style="text-decoration:none">跟进</a>
+          						<p><a class="btn btn-primary radius hiddenFollow ml-5" title="跟进" href="javascript:;" did="{$item['enterprise_id']}" style="text-decoration:none">跟进</a></p>
           					{/if}
           					{if $item['status'] == 1 && $item['follow_by'] == $uid}
-          					    <a class="btn btn-primary radius" title="转为入驻企业" href="{formatUrl('investment/addEnterprise?id=')}{$item['enterprise_id']}" style="text-decoration:none">转为入驻企业</a>
+          					    <p><a class="btn btn-primary radius" title="转为入驻企业" href="{formatUrl('investment/addEnterprise?id=')}{$item['enterprise_id']}" style="text-decoration:none">转为入驻企业</a></p>
           					{/if}
           				</td>
         		</tr>
