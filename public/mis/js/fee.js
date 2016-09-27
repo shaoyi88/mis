@@ -28,8 +28,10 @@ var fee = function(){
 		$('.del').click(del);
 		$('#enterprise_key').keyup(searchEnterprise);
 		$('#water_fee_unit_price').blur(water_fee_amount);
-		$('#water_fee_num').blur(water_fee_amount);
+		$('#water_fee_num').focus(water_num);
+		$('#water_fee_num').blur(water_fee_amount);	
 		$('#elec_fee_unit_price').blur(elec_fee_amount);
+		$('#elec_fee_num').focus(elec_num);
 		$('#elec_fee_num').blur(elec_fee_amount);
 	};
 	
@@ -67,7 +69,22 @@ var fee = function(){
         });
 	};
 	
+	var water_num = function(){
+		if($("#cur_water_num").val()!=''&&$("#last_water_num").val()!=''){
+			if(parseInt($('#cur_water_num').val(),10)<parseInt($('#last_water_num').val(),10)){
+				alert("本期读数不能小于上期读数");
+				$('#cur_water_num').val('');
+				$('#last_water_num').val('');
+				$('#last_water_num').focus();
+				return false;
+			}
+			var total = parseInt($('#cur_water_num').val(),10)- parseInt($('#last_water_num').val(),10);
+			$('#water_fee_num').val(total);
+		}
+	}
+	
 	var water_fee_amount = function(){
+		water_num();
 		if($('#water_fee_unit_price').val() != '' && $('#water_fee_num').val() != ''){
 			var fee_unit_price = parseFloat($('#water_fee_unit_price').val());
 			var amount = parseFloat($('#water_fee_num').val());
@@ -77,7 +94,22 @@ var fee = function(){
 		}
 	};
 	
+	var elec_num = function(){
+		if($("#cur_elec_num").val()!=''&&$("#last_elec_num").val()!=''){
+			if(parseInt($('#cur_elec_num').val(),10)<parseInt($('#last_elec_num').val(),10)){
+				alert("本期读数不能小于上期读数");
+				$('#cur_elec_num').val('');
+				$('#last_elec_num').val('');
+				$('#last_elec_num').focus();
+				return false;
+			}
+			var total = parseInt($('#cur_elec_num').val(),10)- parseInt($('#last_elec_num').val(),10);
+			$('#elec_fee_num').val(total);
+		}
+	}
+	
 	var elec_fee_amount = function(){
+		elec_num();
 		if($('#elec_fee_unit_price').val() != '' && $('#elec_fee_num').val() != ''){
 			var fee_unit_price = parseFloat($('#elec_fee_unit_price').val());
 			var amount = parseFloat($('#elec_fee_num').val());

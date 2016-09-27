@@ -5,6 +5,7 @@ var netdisk = function(){
 			tipSweep : true
 		});
 		$('.del').click(del);
+		$('#allrole').click(allrole);
 
 		var uploader = WebUploader.create({
     		swf: '/public/common/js/webuploader-0.1.5/Uploader.swf',
@@ -78,6 +79,15 @@ var netdisk = function(){
 			}
 		});
 	};
+	
+	var allrole = function(event){
+		var val = $(event.currentTarget).prop('checked');
+		if(val==true){
+			$('.serole').prop('checked',true);
+		}else{
+			$('.serole').prop('checked',false);
+		}
+	}
 	
 	init();
 }();

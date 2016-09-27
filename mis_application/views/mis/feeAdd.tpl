@@ -38,35 +38,34 @@
           		     <th class="text-r" width="180">水费<span class="c-red">*</span>：</th>
           			 <td>
           			 <div>
+          			 	<input nullmsg="请输入水表上期读数！" datatype="num" class="input-text" style="width:250px;" type="text" name="last_water_num" id="last_water_num" value="{if isset($info)}{$info['last_water_num']}{/if}" placeholder="输入水表上期读数">
+          			 </div>
+          			 <div style="margin-top:10px">
+          			 	<input nullmsg="请输入水表本期读数！" datatype="num" class="input-text" style="width:250px" type="text" name="cur_water_num" id="cur_water_num" value="{if isset($info)}{$info['cur_water_num']}{/if}" placeholder="输入水表本期读数">     			 
+          			 </div>
+          			 <div style="margin-top:10px">
           			 	<input nullmsg="请输入用水数量！" errormsg="请输入正确的数字格式" datatype="num" class="input-text" style="width:250px" name="water_fee_num" id="water_fee_num" type="text" value="{if isset($info)}{$info['water_fee_num']}{/if}" placeholder="输入用水数量">吨
           			 	*
           			 	<input nullmsg="请输入水费单价！" errormsg="请输入正确的数字格式" datatype="num" class="input-text" style="width:250px" name="water_fee_unit_price" id="water_fee_unit_price" type="text" value="{if isset($info)}{$info['water_fee_unit_price']}{else}{$init_fee['water_fee']}{/if}" placeholder="输入水费单价">元/吨
           			 	<span id="water_fee_amount">{if isset($info)}（水费：{$info['water_fee_num']*$info['water_fee_unit_price']}元）{/if}</span>
-          			 </div>
-          			 <div style="margin-top:10px">
-          			 	<input nullmsg="请输入水表上期读数！" datatype="num" class="input-text" style="width:250px;" type="text" name="last_water_num" value="{if isset($info)}{$info['last_water_num']}{/if}" placeholder="输入水表上期读数">
-          			 </div>
-          			 <div style="margin-top:10px">
-          			 	<input nullmsg="请输入水表本期读数！" datatype="num" class="input-text" style="width:250px" type="text" name="cur_water_num" value="{if isset($info)}{$info['cur_water_num']}{/if}" placeholder="输入水表本期读数">
-          			 
-          			 </div>
+          			 </div>          			 
           			 </td>
         		</tr>
         		<tr>
           		     <th class="text-r" width="180">电费<span class="c-red">*</span>：</th>
           			 <td>
           			 <div>
+          			 	<input nullmsg="请输入电表上期读数！" datatype="num" class="input-text" style="width:250px;" type="text" name="last_elec_num" id="last_elec_num" value="{if isset($info)}{$info['last_elec_num']}{/if}" placeholder="输入电表上期读数">
+          			 </div>
+          			 <div style="margin-top:10px">
+          			 	<input nullmsg="请输入电表本期读数！" datatype="num" class="input-text" style="width:250px" type="text" name="cur_elec_num" id="cur_elec_num" value="{if isset($info)}{$info['cur_elec_num']}{/if}" placeholder="输入电表本期读数">
+          			 </div>
+          			 <div style="margin-top:10px">
           			 	<input nullmsg="请输入用电数量！" errormsg="请输入正确的数字格式" datatype="num" class="input-text" style="width:250px" name="elec_fee_num" id="elec_fee_num" type="text" value="{if isset($info)}{$info['elec_fee_num']}{/if}" placeholder="输入用电数量">度
           				 *
           			 	<input nullmsg="请输入电费单价！" errormsg="请输入正确的数字格式" datatype="num" class="input-text" style="width:250px" name="elec_fee_unit_price" id="elec_fee_unit_price" type="text" value="{if isset($info)}{$info['elec_fee_unit_price']}{else}{$init_fee['elec_fee']}{/if}" placeholder="输入电费单价">元/度
           			 	<span id="elec_fee_amount">{if isset($info)}（电费：{$info['elec_fee_num']*$info['elec_fee_unit_price']}元）{/if}</span>
-          			 </div>
-          			 <div style="margin-top:10px">
-          			 	<input nullmsg="请输入电表上期读数！" datatype="num" class="input-text" style="width:250px;" type="text" name="last_elec_num" value="{if isset($info)}{$info['last_elec_num']}{/if}" placeholder="输入电表上期读数">
-          			 </div>
-          			 <div style="margin-top:10px">
-          			 	<input nullmsg="请输入电表本期读数！" datatype="num" class="input-text" style="width:250px" type="text" name="cur_elec_num" value="{if isset($info)}{$info['cur_elec_num']}{/if}" placeholder="输入电表本期读数">
-          			 </div>
+          			 </div>        			 
           			 </td>
         		</tr>
         		<tr>
@@ -95,4 +94,4 @@
 <script type="text/javascript" src="/public/common/js/hogan-2.0.0.min.js"></script>
 <script type="text/javascript" src="/public/common/js/date/WdatePicker.js"></script>
 <input type="hidden" id="getEnterpriseUrl" value="{formatUrl('enterprise/getEnterprise')}"></input>
-<script type="text/javascript" src="/public/mis/js/fee.js""></script>
+<script type="text/javascript" src="/public/mis/js/fee.js?v=102"></script>

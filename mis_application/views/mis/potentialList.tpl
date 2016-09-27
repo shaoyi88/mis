@@ -19,11 +19,13 @@
         			<th>公司名</th>
 			        <th>联系人</th>
 			        <th>联系电话</th>
+			        <th width="250">备注</th>
 			        <th>提交时间</th>
 			        <th>状态</th>
-			        <th>是否需要领导协助</th>
+			        <th>跟进情况</th>
+			        <th width="60">是否需要领导协助</th>
 					<th>附件</th>
-			        <th>操作</th>
+			        <th width="250">操作</th>
         		</tr>
       		</thead>
       		<tbody>
@@ -31,23 +33,25 @@
       				<tr class="text-c">
       					<td>{$item['enterprise_name']}</td> 
 				        <td>{$item['enterprise_contact']}</td> 
-				        <td>{$item['enterprise_contact_mobile']}</td> 
+				        <td>{$item['enterprise_contact_mobile']}</td>
+				        <td>{$item['remark']}</td>  
 				        <td>{date('Y-m-d H:i:s',$item['add_time'])}</td> 
 				        <td>{if $item['status'] == 0}待跟进{else}已跟进{/if}</td>
+				        <td>{if $item['status'] != 0}{$item['msg']}{else}待跟进{/if}</td>
 				        <td>{if $item['status'] != 0 && $item['need_help'] == 0}否{else if $item['status'] != 0 && $item['need_help'] == 1}是{/if}</td>
           				<td>
           				{if $item['attachment']}
-          				<a class="c-primary" href="{$item['attachment']}" target="_blank"><u class="c-primar">附件下载</u></a>
+          				<a class="c-primary" href="{$item['attachment']}" target="_blank"><u class="c-primar">下载</u></a>
           				{/if}
           				</td>
           				<td>
-          					{if $item['status'] == 0 && checkRight('potential_add')}
+          					{if $item['status'] == 0 }
           						<a class="btn btn-primary radius" title="编辑" href="{formatUrl('investment/addPotential?id=')}{$item['enterprise_id']}" style="text-decoration:none">编辑</a>
           					{/if}
-          					{if $item['status'] == 0 && checkRight('potential_del')}
+          					{if $item['status'] == 0 }
           						<a class="btn btn-primary radius ml-5 del" did="{$item['enterprise_id']}" title="删除" href="javascript:;" style="text-decoration:none">删除</a>
           					{/if}
-          					{if $item['follow_by'] == 0 && $item['status'] == 0 && checkRight('potential_assign')}
+          					{if $item['follow_by'] == 0 && $item['status'] == 0 }
           						<a class="btn btn-primary radius hiddenAssign ml-5" title="指派跟进人" href="javascript:;" did="{$item['enterprise_id']}" style="text-decoration:none">指派跟进人</a>
           					{elseif $item['status'] == 0 && $item['follow_by'] == $uid}
           						<a class="btn btn-primary radius hiddenFollow ml-5" title="跟进" href="javascript:;" did="{$item['enterprise_id']}" style="text-decoration:none">跟进</a>

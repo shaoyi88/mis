@@ -500,6 +500,17 @@ class Property extends MIS_Controller
 		$info = $this->MIS_Fee->getInfo($id);
 		$buildInfo = array();
 		$this->MIS_Enterprise->getEnterpriseBuildingInfo($info['enterprise_id'], $buildInfo);
+		$building_actual_area = $building_property_fee = $fee = 0;
+		$buildingList = '';
+		foreach($buildInfo as $k=>$item){
+			$buildingList .= $item['building_floor'].'层'.$item['building_room'];
+			$building_actual_area += $item['building_actual_area']*100;
+			$building_property_fee = $item['building_property_fee']*100;
+			$fee += $item['building_actual_area']*$item['building_property_fee']*100;
+			if($k < count($buildInfo)-1){
+				$buildingList .= '；';
+			}
+		}
 		 //加载PHPExcel库
 	   	require_once THIRD_PATH.'PHPExcel.php';
 	   	require_once THIRD_PATH.'PHPExcel/IOFactory.php';
@@ -535,7 +546,7 @@ class Property extends MIS_Controller
 		//第三行
 		$objPHPExcel->getActiveSheet()->getRowDimension(3)->setRowHeight(30);
 		$objPHPExcel->getActiveSheet()->mergeCells('A3:G3');
-		$objPHPExcel->getActiveSheet()->setCellValue('A3', '你好！贵单位在创投大厦     层    号房物管缴费明细如下：');
+		$objPHPExcel->getActiveSheet()->setCellValue('A3', '你好！贵单位在创投大厦'.$buildingList.'物管缴费明细如下：');
 		$objPHPExcel->getActiveSheet()->getStyle('A3')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
 		$objPHPExcel->getActiveSheet()->getStyle('A3')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
 		$objPHPExcel->getActiveSheet()->getStyle('A3:G3')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
@@ -552,26 +563,13 @@ class Property extends MIS_Controller
 		$objPHPExcel->getActiveSheet()->getStyle('A4:G4')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
 		$objPHPExcel->getActiveSheet()->getStyle('A4:G4')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
 		//第五行
-		$building_actual_area = $building_property_fee = $fee = '';
-		$height = 0;
-		foreach($buildInfo as $k=>$item){
-			$height += 30;
-			$building_actual_area .= $item['building_actual_area'];
-			$building_property_fee .= $item['building_property_fee'];
-			$fee .= $item['building_actual_area']*$item['building_property_fee'];
-			if($k < count($buildInfo)-1){
-				$building_actual_area .= "\n";
-				$building_property_fee .= "\n";
-				$fee .= "\n";
-			}
-		}
-		$objPHPExcel->getActiveSheet()->getRowDimension(5)->setRowHeight($height);
+		$objPHPExcel->getActiveSheet()->getRowDimension(5)->setRowHeight(30);
 		$objPHPExcel->getActiveSheet()->setCellValue('A5', '物管费');
 		$objPHPExcel->getActiveSheet()->mergeCells('B5:C5');
 		$objPHPExcel->getActiveSheet()->setCellValue('B5', date('Y年n月',$info['fee_date']));
-		$objPHPExcel->getActiveSheet()->setCellValue('D5', $building_actual_area);
-		$objPHPExcel->getActiveSheet()->setCellValue('E5', $building_property_fee);
-		$objPHPExcel->getActiveSheet()->setCellValue('F5', $fee);
+		$objPHPExcel->getActiveSheet()->setCellValue('D5', round($building_actual_area/100,2));
+		$objPHPExcel->getActiveSheet()->setCellValue('E5', round($building_property_fee/100,2));
+		$objPHPExcel->getActiveSheet()->setCellValue('F5', round($fee/100,2));
 		$objPHPExcel->getActiveSheet()->getStyle('D5:F5')->getAlignment()->setWrapText(true);
 		$objPHPExcel->getActiveSheet()->getStyle('A5:G5')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 		$objPHPExcel->getActiveSheet()->getStyle('A5:G5')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
@@ -651,6 +649,17 @@ class Property extends MIS_Controller
 		$info = $this->MIS_Fee->getInfo($id);
 		$buildInfo = array();
 		$this->MIS_Enterprise->getEnterpriseBuildingInfo($info['enterprise_id'], $buildInfo);
+		$building_actual_area = $building_rent_fee = $fee = 0;
+		$buildingList = '';
+		foreach($buildInfo as $k=>$item){
+			$buildingList .= $item['building_floor'].'层'.$item['building_room'];
+			$building_actual_area += $item['building_actual_area']*100;
+			$building_rent_fee = $item['building_rent_fee']*100;
+			$fee += $item['building_actual_area']*$item['building_rent_fee']*100;
+			if($k < count($buildInfo)-1){
+				$buildingList .= '；';
+			}
+		}
 		//加载PHPExcel库
 	   	require_once THIRD_PATH.'PHPExcel.php';
 	   	require_once THIRD_PATH.'PHPExcel/IOFactory.php';
@@ -686,7 +695,7 @@ class Property extends MIS_Controller
 		//第三行
 		$objPHPExcel->getActiveSheet()->getRowDimension(3)->setRowHeight(30);
 		$objPHPExcel->getActiveSheet()->mergeCells('A3:G3');
-		$objPHPExcel->getActiveSheet()->setCellValue('A3', '你好！贵单位在创投大厦     层    号房租金费用缴费明细如下：');
+		$objPHPExcel->getActiveSheet()->setCellValue('A3', '你好！贵单位在创投大厦'.$buildingList.'租金费用缴费明细如下：');
 		$objPHPExcel->getActiveSheet()->getStyle('A3')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_LEFT);
 		$objPHPExcel->getActiveSheet()->getStyle('A3')->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
 		$objPHPExcel->getActiveSheet()->getStyle('A3:G3')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
@@ -706,29 +715,15 @@ class Property extends MIS_Controller
 		$objPHPExcel->getActiveSheet()->setCellValue('A5', '租金');
 		$objPHPExcel->getActiveSheet()->mergeCells('B5:C5');
 		$objPHPExcel->getActiveSheet()->setCellValue('B5', date('Y年n月',$info['fee_date']));
-		$building_actual_area = $building_rent_fee = $fee = '';
-		$height = count($buildInfo) * 30;
-		if($height == 0){
-			$height = 30;
-		}
-		foreach($buildInfo as $k=>$item){
-			$building_actual_area .= $item['building_actual_area'];
-			$building_rent_fee .= $item['building_rent_fee'];
-			$fee .= $item['building_actual_area']*$item['building_rent_fee'];
-			if($k < count($buildInfo)-1){
-				$building_actual_area .= "\n";
-				$building_rent_fee .= "\n";
-				$fee .= "\n";
-			}
-		}
-		$objPHPExcel->getActiveSheet()->getRowDimension(5)->setRowHeight($height);
+		
+		$objPHPExcel->getActiveSheet()->getRowDimension(5)->setRowHeight(30);
 		if(empty($buildInfo)){
 			$objPHPExcel->getActiveSheet()->mergeCells('D5:F5');
 			$objPHPExcel->getActiveSheet()->setCellValue('D5', '该企业无楼宇信息无法生成数据');
 		}else{
-			$objPHPExcel->getActiveSheet()->setCellValue('D5', $building_actual_area);
-			$objPHPExcel->getActiveSheet()->setCellValue('E5', $building_rent_fee);
-			$objPHPExcel->getActiveSheet()->setCellValue('F5', $fee);
+			$objPHPExcel->getActiveSheet()->setCellValue('D5', round($building_actual_area/100,2));
+			$objPHPExcel->getActiveSheet()->setCellValue('E5', round($building_rent_fee/100,2));
+			$objPHPExcel->getActiveSheet()->setCellValue('F5', round($fee/100,2));
 		}
 		$objPHPExcel->getActiveSheet()->getStyle('D5:F5')->getAlignment()->setWrapText(true);
 		$objPHPExcel->getActiveSheet()->getStyle('A5:G5')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);

@@ -22,10 +22,14 @@
           		     <th class="text-r" width="120">目录操作权限角色<span class="c-red">*</span></th>
           			 <td>
           			 	{foreach $roleList as $item}            					
-                    		<label class="item"><input datatype="*" nullmsg="请至少选择一个目录操作权限角色！" name="dir_role[]" type="checkbox" value="{$item['id']}" {if isset($info) && in_array($item['id'], $roles)}checked{/if}>{$item['role_name']}</label>
+                    		<label class="item"><input class="serole" datatype="*" nullmsg="请至少选择一个目录操作权限角色！" name="dir_role[]" type="checkbox" value="{$item['id']}" {if isset($info) && in_array($item['id'], $roles)}checked{/if}>{$item['role_name']}</label>&nbsp;
           			 	{/foreach}
           			 </td>
         		</tr>
+        		<tr>
+          		     <th class="text-r" width="120">&nbsp;</th>
+          		     <td><input type="checkbox" id="allrole">&nbsp;全选</td>
+          		</tr>
         		<tr>
           			<th></th>
           			<td>
@@ -36,4 +40,5 @@
         </table>
 	</form>
 </div>
-<script type="text/javascript" src="/public/mis/js/netdisk.js""></script>
+<script type="text/javascript" src="/public/common/js/webuploader-0.1.5/webuploader.js"></script>
+<script type="text/javascript" src="/public/mis/js/netdisk.js?v=102"></script>

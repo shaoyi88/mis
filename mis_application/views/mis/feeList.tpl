@@ -53,7 +53,7 @@
           				<th>
           				{if isset($eBuildInfo[$item['enterprise_id']])}
           				{foreach $eBuildInfo[$item['enterprise_id']] as $eitem}
-          					<p>{$eitem}</p>
+          				<p>{$eitem}</p>
           				{/foreach}
           				{else}
           				暂无信息

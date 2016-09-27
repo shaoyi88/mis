@@ -53,12 +53,20 @@
         		<tr>
           		     <th class="text-r" width="180">企业办公地点：</th>
           			 <td>
+          			    {$areaTotal=0}
           			 	{foreach $info['building'] as $item}
+          			 	    {$areaTotal=$areaTotal+$item['building_actual_area']*100}
           			 		<p>{$item['building_name']}-{$item['building_floor']}层-{$item['building_room']}</p>
           			 	{/foreach}
           			 	{if count($info['building'])==0}
           			 	暂无信息
           			 	{/if}
+          			 </td>
+        		</tr>
+        		<tr>
+          		     <th class="text-r" width="180">总面积：</th>
+          			 <td>
+          			 	{round($areaTotal/100,2)}
           			 </td>
         		</tr>
         	</tbody>
